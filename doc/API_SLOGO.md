@@ -29,4 +29,4 @@ Commands know their action type - they always know this, but the parameters are 
 
 #### How is the GUI updated after a command has completed execution?
 
-The gui is updated by looking at the grid, turtle, prevcommands, and availablevars classes.
+The gui is updated by looking at the grid, turtle, prevCommands, and availableVars classes.

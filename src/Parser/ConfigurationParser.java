@@ -2,12 +2,13 @@ package Parser;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+//Is this going to be used as a way to read in user defined commands
 
 public class ConfigurationParser {
 
@@ -18,7 +19,7 @@ public class ConfigurationParser {
     private ArrayList<Double> stateProportions = new ArrayList<>();
     private String basedOnStates;
 
-    public XMLParser(String filepath){
+    public ConfigurationParser(String filepath){
         File file = new File(filepath);
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();

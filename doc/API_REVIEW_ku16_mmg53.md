@@ -1,5 +1,5 @@
 1. What about your API/design is intended to be flexible?
-    * The commands possible are intended to be flexible. Also
+    * The commands possible are intended to be flexible.
 2. How is your API/design encapsulating your implementation decisions?
     * We encapsulate our implementations decisions by only having the grid, pen, and turtle classes accessible to the frontend. The frontend can only access the backend by inputting string commands into the ParseCommand class.
 3. What exceptions (error cases) might occur in your part and how will you handle them (or not, by throwing)? 

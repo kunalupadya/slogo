@@ -8,6 +8,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * @author: Louis Lee
+ */
+
 //Is this going to be used as a way to read in user defined commands
 
 public class TextfileParser {

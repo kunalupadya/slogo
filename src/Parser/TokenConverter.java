@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
-public class ChangtoToken {
+public class TokenConverter {
 
     private final static String COMMENT_REGEX = "Comment";
     private final static String CONSTANT_REGEX = "Constant";
@@ -19,7 +19,7 @@ public class ChangtoToken {
     private final static String NEWLINE_REGEX = "Newline";
     private Map<String, Pattern> symbols;
 
-    public ChangtoToken(){
+    public TokenConverter(){
         makeMap();
     }
 
@@ -33,18 +33,6 @@ public class ChangtoToken {
         }
     }
 
-    private enum Token {
-        CONSTANT,
-        VARIABLE,
-        COMMAND,
-        LIST_START,
-        LIST_END,
-        COMMENT,
-        GROUP_START,
-        GROUP_END,
-        WHITESPACE,
-        NEWLINE
-    }
 
     public Token checkTypeOfInput(String input) {
         switch (checkRegex(input)) {

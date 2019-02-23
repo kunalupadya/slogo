@@ -9,10 +9,11 @@ import java.util.ResourceBundle;
 public class LanguageSetting {
 
     private String myLanguage = "English"; //default value
-    public ResourceBundle myResources = ResourceBundle.getBundle(myLanguage);
+    public ResourceBundle myResources;
 
     public LanguageSetting(String languageSetting){
         myLanguage = languageSetting;
+        myResources= ResourceBundle.getBundle(myLanguage);
     }
 
     public void changeLanguage(String language){

@@ -9,9 +9,11 @@ public class ParseCommand {
     private String refinedInput;
     private ParsingTree parsingTree;
 
+
     public ParseCommand(String consoleInput){
-        RemoveCurrent removeCurrent = new RemoveCurrent(consoleInput);
-        refinedInput = removeCurrent.getOutput();
+        RemoveComment removeComment = new RemoveComment(consoleInput);
+        refinedInput = removeComment.getOutput();
         parsingTree = new ParsingTree();
+
     }
 }

@@ -1,4 +1,14 @@
 package GUI.Controls;
 
-public class SetBackgroundColor {
+import javafx.scene.image.Image;
+
+public class SetBackgroundColor extends Control {
+    protected SetBackgroundColor(Image image) {
+        super(image);
+    }
+
+    @Override
+    protected void action() {
+
+    }
 }

@@ -1,4 +1,14 @@
 package GUI.Controls;
 
-public class Redo {
+import javafx.scene.image.Image;
+
+public class Redo extends Control {
+    protected Redo(Image image) {
+        super(image);
+    }
+
+    @Override
+    protected void action() {
+
+    }
 }

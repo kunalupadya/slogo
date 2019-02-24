@@ -25,15 +25,14 @@ public class Turtle {
     }
 
     public void move(double dist){
-        double newXPos = xPos + dist*Math.cos(Math.toRadians(myAngle))*speed;
-        double newYPos = yPos + dist*Math.sin(Math.toRadians(myAngle))*speed;
-        Line movement = new Line(xPos, yPos, newXPos, newYPos);
-        movement.setStroke(myPen.getPenColor());
-        movement.setStrokeWidth(myPen.getPenWidth());
-        myGrid.add(movement);
+
+//        Line movement = new Line(xPos, yPos, newXPos, newYPos);
+//        movement.setStroke(myPen.getPenColor());
+//        movement.setStrokeWidth(myPen.getPenWidth());
+        myGrid.addMovement(xPos, yPos, myAngle, speed*dist, myPen);
         //TODO make turtle draw line on the grid
-        xPos = newXPos;
-        yPos = newYPos;
+//        xPos = newXPos;
+//        yPos = newYPos;
     }
 
     public void turn(double angle){

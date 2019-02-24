@@ -1,15 +1,18 @@
 package GUI.Modules;
 
-public class GraphicsArea extends Module {
-    //private Grid grid;
+import java.io.Console;
 
-    public GraphicsArea(int width, int height) {
+public class Terminal extends Module {
+    private Console console;
+
+    public Terminal(int width, int height) {
         super(width, height);
         setContent();
     }
 
     @Override
     protected void setLayout() {
+
     }
 
     @Override

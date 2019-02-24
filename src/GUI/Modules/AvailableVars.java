@@ -4,13 +4,19 @@ public class AvailableVars extends Module{
 
     public AvailableVars(int width, int height) {
         super(width, height);
+        setContent();
     }
 
     @Override
-    public void setLayout() {
+    protected void setLayout() {
     }
 
     @Override
-    public void setStyle(){
+    protected void setStyle(){
+    }
+
+    @Override
+    protected void setContent() {
+
     }
 }

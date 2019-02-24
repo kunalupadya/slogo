@@ -6,7 +6,7 @@ Part 1
 
 ##### What about your API/design is intended to be flexible?
 
-The API/design is intended to be flexible in that we have a "Window" abstract class and a "Controls" (i.e. Button) abstract class. Each of these is flexible in that a new Window can be extended and implemented with the parameters and variables necessary to disply what is wanted. A new button can be developed with a particular onClick function. Each of these can take whatever parameter is necessary, whether that be a Turtle object, a Pen object, etc. 
+The API/design is intended to be flexible in that we have a "Window" abstract class and a "Controls" (i.e. Button) abstract class. Each of these is flexible in that a new Window can be extended and implemented with the parameters and variables necessary to disply what is wanted. A new button can be developed with a particular onClick function. Each of these can take whatever parameter is necessary, whether that be a GraphicsBackend.Turtle object, a GraphicsBackend.Pen object, etc. 
 
 ##### How is your API/design encapsulating your implementation decisions?
 
@@ -80,14 +80,14 @@ I am most worried to work on the TurtleViewer, and displaying movement and lines
 
 * What about your API/design is intended to be flexible?
 
-My API is flexible because it contains a Turtle object with public methods to handle all 
+My API is flexible because it contains a GraphicsBackend.Turtle object with public methods to handle all 
 behavior from the commands. A new subclass or public method can be added to handle new commands 
-that cause different types of behavior. The public methods map the numerous commands down to a few types of behavior, eliminating the need for the frontend to be aware which commands were called. The frontend API only cares about the changes to the state of the Turtle.
+that cause different types of behavior. The public methods map the numerous commands down to a few types of behavior, eliminating the need for the frontend to be aware which commands were called. The frontend API only cares about the changes to the state of the GraphicsBackend.Turtle.
 
 * How is your API/design encapsulating your implementation decisions?
 
 My API is encapsulating our team's implementation decisions by creating public methods for the 
-backend to get the required information about the current state of the Turtle (position, pen) to determine the result of a parsed command. Then, the backend will call the public method that expresses the change in the state of the Turtle. These methods will take a Turtle. All changes to the display will be handled internally by the frontend. This allows the frontend to only care about commands that will cause the display to change.
+backend to get the required information about the current state of the GraphicsBackend.Turtle (position, pen) to determine the result of a parsed command. Then, the backend will call the public method that expresses the change in the state of the GraphicsBackend.Turtle. These methods will take a GraphicsBackend.Turtle. All changes to the display will be handled internally by the frontend. This allows the frontend to only care about commands that will cause the display to change.
 
 * What exceptions (error cases) might occur in your part and how will you handle them (or not, by throwing)?
 
@@ -95,7 +95,7 @@ One exception will be when the user enters the invalid command. First, the front
 
 * Why do you think your API/design is good (also define what your measure of good is)?
 
-My API is good because it allows for extensions in the behavior of the Turtle. Also, it allows the frontend to only have to know about changes to the state of the Turtle or things that will lead to changes in the display.
+My API is good because it allows for extensions in the behavior of the GraphicsBackend.Turtle. Also, it allows the frontend to only have to know about changes to the state of the GraphicsBackend.Turtle or things that will lead to changes in the display.
 
 * How do you think Design Patterns are currently represented in the design or could be used to help improve the design?
 
@@ -103,7 +103,7 @@ The Model, View, Controller design pattern is currently represented in my design
 
 * What feature/design problem are you most excited to work on?
 
-I am most excited to work the animtion of the Turtle. I also want to model Terminal for viewing past commands.
+I am most excited to work the animtion of the GraphicsBackend.Turtle. I also want to model Terminal for viewing past commands.
 
 * What feature/design problem are you most worried about working on?
 
@@ -118,8 +118,8 @@ I am most worried about handling complex commands that require conditionals and 
     - Parser identifies "fd" command as valid, searches for single parameter as defined by the syntax of fd.
     - Finds valid parameter 50, creates ActionCommand object for verified input.
     - Execute fd ActionCommand in Parser.
-    - Execute method for fd command will tell GUI to move Turtle by an amount. 
-    - GUI will call Turtle.getPosition and Turtle.setPosition to move Turtle by desired amount.
+    - Execute method for fd command will tell GUI to move GraphicsBackend.Turtle by an amount. 
+    - GUI will call GraphicsBackend.Turtle.getPosition and GraphicsBackend.Turtle.setPosition to move GraphicsBackend.Turtle by desired amount.
 
 - The user enters "LEFT SUM 60 32"
     - Call to parse("LEFT SUM 60 32")
@@ -129,7 +129,7 @@ I am most worried about handling complex commands that require conditionals and 
     - Parser creates SUM EvalCommand and executes.
     - Parser uses return value of sum command as parameter in new LEFT ActionCommand.
     - Parser executes LEFT command, sends call to UI API for the turtle to rotate 92 degrees.
-    - Turtle updates its heading and the visualization is refreshed to reflect change.
+    - GraphicsBackend.Turtle updates its heading and the visualization is refreshed to reflect change.
 
 - The user inputs "cs"
     - Call to parse("cs")

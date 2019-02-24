@@ -9,14 +9,11 @@ import javafx.scene.control.ScrollPane;
  */
 public class Window extends ScrollPane {
 
-    public Window() {
-
-    }
+    public Window() { }
 
     public void setLayout() {
     }
 
     public void setStyle(){
     }
-
 }

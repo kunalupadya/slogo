@@ -1,5 +1,8 @@
 package Main;
 
+import GUI.WindowLayout;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -7,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * TODO: rename this class to Controller???
@@ -30,7 +34,6 @@ public class Controller extends Application {
     private static final String WINDOW_TITLE = "Simple Logo";
     public static Font Aller_Bd, Aller_Lt, Aller_LtIt;
     private Scene myScene;
-    private Stage myStage;
 
     /**
      * TODO: add JavaDoc
@@ -55,9 +58,26 @@ public class Controller extends Application {
      */
     public void start (Stage stage) {
         var root = new Group();
-        myScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT, BACKGROUND);
+        myScene = initSetup(root, WINDOW_WIDTH, WINDOW_HEIGHT);
         stage.setScene(myScene);
         stage.setTitle(WINDOW_TITLE);
         stage.show();
+//
+//        TODO: add step() to GUI.Windows.GraphicsArea?
+//
+//        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+//        var animation = new Timeline();
+//        animation.setCycleCount(Timeline.INDEFINITE);
+//        animation.getKeyFrames().add(frame);
+//        animation.play();
+//
+    }
+
+    private Scene initSetup(Group root, int width, int height) {
+        var scene = new Scene(root, width, height, Color.ANTIQUEWHITE);
+        WindowLayout windowLayout = new WindowLayout(scene, this);
+        ((Group) scene.getRoot()).getChildren().add(windowLayout.getContainer());
+
+        return scene;
     }
 }

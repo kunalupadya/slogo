@@ -18,23 +18,22 @@ public class WindowLayout {
      * TODO: add buttons
      * TODO: add JavaDoc
      *
-     * @param myScene
+     * @param root
      * @param context
      */
-    public WindowLayout(Scene myScene, Controller context) {
+    public WindowLayout(BorderPane root, Controller context) {
         this.context = context;
 
-        var borderPane = new BorderPane();
         var rightBorderPane = new BorderPane();
 
         rightBorderPane.setTop(new GUI.Windows.AvailableVars());
         rightBorderPane.setBottom(new GUI.Windows.Editor());
 
-        borderPane.setLeft(new GUI.Windows.GraphicsArea());
-        borderPane.setRight(rightBorderPane);
-        borderPane.setBottom(new GUI.Windows.Console());
+        root.setLeft(new GUI.Windows.GraphicsArea());
+        root.setRight(rightBorderPane);
+        root.setBottom(new GUI.Windows.Console());
 
-        myContainer = borderPane;
+        myContainer = root;
     }
 
     public BorderPane getContainer() {

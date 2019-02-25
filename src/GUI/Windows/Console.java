@@ -13,4 +13,8 @@ public class Console extends Window {
     @Override
     public void setStyle(){
     }
+
+    public void print(String str) {
+        // TODO: Print message to console
+    }
 }

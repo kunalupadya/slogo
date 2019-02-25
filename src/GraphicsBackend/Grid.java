@@ -26,7 +26,7 @@ public class Grid {
         }
         double newYPos = yPos + dist*Math.sin(Math.toRadians(angle));
         Line movement = new Line(xPos, yPos, newXPos, newYPos);
-        if (newXPos>)
+//        if (newXPos>)
         movement.setStroke(pen.getPenColor());
         movement.setStrokeWidth(pen.getPenWidth());
         myObjects.add(movement);

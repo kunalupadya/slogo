@@ -1,5 +1,7 @@
 package GUI.Modules;
 
+import javafx.scene.layout.BorderPane;
+
 public class AvailableVars extends Module{
 
     public AvailableVars(int width, int height) {

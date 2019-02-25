@@ -26,12 +26,12 @@ public class WindowLayout {
 
         var rightBorderPane = new BorderPane();
 
-        rightBorderPane.setTop(new GUI.Windows.AvailableVars());
-        rightBorderPane.setBottom(new GUI.Windows.Editor());
+        rightBorderPane.setTop(new GUI.Modules.AvailableVars(200, 200).getContent());
+        rightBorderPane.setBottom(new GUI.Modules.Editor(200, 200).getContent());
 
-        root.setLeft(new GUI.Windows.GraphicsArea());
+        root.setCenter(new GUI.Modules.GraphicsArea(400, 400).getContent());
         root.setRight(rightBorderPane);
-        root.setBottom(new GUI.Windows.Console());
+        root.setBottom(new GUI.Modules.Console(600, 100).getContent());
 
         myContainer = root;
     }

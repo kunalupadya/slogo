@@ -1,5 +1,7 @@
 package GUI.Modules;
 
+import javafx.scene.layout.BorderPane;
+
 public class GraphicsArea extends Module {
     //private GraphicsBackend.Grid grid;
 

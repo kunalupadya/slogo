@@ -1,5 +1,7 @@
 package GUI.Modules;
 
+import javafx.scene.layout.BorderPane;
+
 import java.io.Console;
 
 public class Terminal extends Module {

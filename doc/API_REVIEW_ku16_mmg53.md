@@ -11,7 +11,7 @@ Part 2
 1. How do you think Design Patterns are currently represented in the design or could be used to help improve the design?
     * The design patterns currently represented are inheritance, in the case of the commands, and encapsulation, in the case of the grid, pen, and turtle classes.
 2. What feature/design problem are you most excited to work on?
-    * I am most excited to work on the BackEnd.Turtle and BackEnd.Pen classes, I think that they will be interesting and challenging to work on.
+    * I am most excited to work on the GraphicsBackend.Turtle and GraphicsBackend.Pen classes, I think that they will be interesting and challenging to work on.
 3. What feature/design problem are you most worried about working on?
     * I am most worried about working on the commands class - it is going to be very challenging as the interitance will pose interesting challenges.
 4. Come up with at least five use cases for your part (it is absolutely fine if they are useful for both teams).

@@ -18,6 +18,6 @@ public class LanguageSetting {
 
     public void changeLanguage(String language){
         //add all this after UI is completed
-        //example: myturtle.setChangeString(myResources.getString("Turtle");
+        //example: myturtle.setChangeString(myResources.getString("GraphicsBackend.Turtle");
     }
 }

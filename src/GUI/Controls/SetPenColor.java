@@ -1,14 +1,21 @@
 package GUI.Controls;
 
-import javafx.scene.image.Image;
+import javafx.scene.control.ColorPicker;
 
-public class SetPenColor extends Control {
-    protected SetPenColor(Image image) {
-        super(image);
+/**
+ * TODO: Remove action() once BackEnd.Pen is complete
+ */
+public class SetPenColor{
+    final ColorPicker colorPicker;
+
+    protected SetPenColor() {
+        colorPicker = new ColorPicker();
+        colorPicker.getStyleClass().add("button");
+//        colorPicker.setValue(BackEnd.Pen.getColor());
+        colorPicker.setOnAction(event -> action());
     }
 
-    @Override
     protected void action() {
-
+//        Parser.ExecuteCommand().setPenColor();
     }
 }

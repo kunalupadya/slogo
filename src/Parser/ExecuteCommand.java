@@ -9,12 +9,16 @@ import java.util.ArrayList;
 
 public class ExecuteCommand {
 
-    public ExecuteCommand(){
+    private ArrayList<Command> myCommandsList;
+    private ArrayList<Token> myTokensList;
+
+    public ExecuteCommand(ArrayList<Command> commandsList, ArrayList<Token> TokensList){
+        myCommandsList = commandsList;
+        myTokensList = TokensList;
+
     }
 
-    public void runCommands(ArrayList<Command> commandsList){
-        for(int a=0; a<commandsList.size(); a++){
-            commandsList.get(a).execute();
-        }
+    public void runCommands(){
+
     }
 }

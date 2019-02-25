@@ -1,8 +1,6 @@
 package Parser;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -15,12 +13,11 @@ public class ParseCommand {
     private String emptySpace = " ";
     private String noInput = "";
     private TokenConverter tokenConverter;
-    private ArrayList<Command> commandArrayList;
+    private ArrayList<Command> commandsList;
     private Set<String> listOfCommands;
     private HandleError handleError;
-    private ArrayList<Token> listOfTokens;
-    private ExecuteCommand executeCommand;
-    private String[] newListOfWords;
+    private ArrayList<Token> tokensList;
+    private String[] translatedListOfWords;
 
 
     public ParseCommand(String consoleInput, String language){
@@ -37,30 +34,28 @@ public class ParseCommand {
 
         //translate the input into default language
         LanguageSetting languageSetting = new LanguageSetting(language);
-        String[] translatedListOfWords = languageSetting.translateCommand(listOfWords);
+        translatedListOfWords = languageSetting.translateCommand(listOfWords);
 
         //convert word into tokens and check validity
-        addToTokenList(translatedListOfWords);
+        tokensList = addToTokenList(translatedListOfWords);
+        commandsList = stackCommand(listOfWords);
 
-        //make list of commands
-        if(newListOfWords == null){stackCommand(translatedListOfWords);}
-        executeCommand.runCommands(commandArrayList);
+        //Execute Command
+        ExecuteCommand executeCommand = new ExecuteCommand(commandsList, tokensList);
+        executeCommand.runCommands();
     }
 
-    private void addToTokenList(String[] translatedListOfWords){
+    private ArrayList<Token> addToTokenList(String[] translatedListOfWords){
+        ArrayList<Token> list = new ArrayList<Token>();
         for(int a=0; a<translatedListOfWords.length; a++){
-            listOfTokens.add(tokenConverter.checkTypeOfInput(translatedListOfWords[a]));
-            if(listOfTokens.get(a) == Token.ERROR){
-                newListOfWords = Arrays.copyOfRange(translatedListOfWords, 0, a);
-                stackCommand(newListOfWords);
-                handleError.syntaxError(translatedListOfWords[a]);
-                //need a line here to end the process
-                return;
+            list.add(tokenConverter.checkTypeOfInput(translatedListOfWords[a]));
             }
+        return list;
         }
-    }
 
-    public void stackCommand(String[] listOfWords){
+
+    public ArrayList<Command> stackCommand(String[] listOfWords){
+        ArrayList<Command> list = new ArrayList<Command>();
         for(int a=0 ; a<listOfWords.length ; a++){
             //see if such command exists
             try {
@@ -70,7 +65,8 @@ public class ParseCommand {
                 handleError.undefinedCommandErrors(listOfWords[a]);
             }
             //add command to the list
-            commandArrayList.add((Command) listOfWords[a]);
+            list.add((Command) listOfWords[a]);
             }
+        return list;
         }
 }

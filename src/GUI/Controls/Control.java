@@ -13,7 +13,7 @@ import javafx.scene.layout.Background;
 public abstract class Control {
     private Button button;
 
-    protected Control(Image image) {
+    public Control(Image image) {
         this.button = new Button();
         this.button.setGraphic(new ImageView(image));
         this.button.setBackground(Background.EMPTY);

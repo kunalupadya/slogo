@@ -21,4 +21,6 @@ public class Editor extends Module {
     protected void setContent() {
 
     }
+
+    public void run() {}
 }

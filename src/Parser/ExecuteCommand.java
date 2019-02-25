@@ -14,7 +14,7 @@ public class ExecuteCommand {
 
     public void runCommands(ArrayList<Command> commandsList){
         for(int a=0; a<commandsList.size(); a++){
-            commandsList[a].execute();
+            commandsList.get(a).execute();
         }
     }
 }

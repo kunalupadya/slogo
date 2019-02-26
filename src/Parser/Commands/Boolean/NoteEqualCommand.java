@@ -1,4 +1,4 @@
 package Parser.Commands.Boolean;
 
-public class OR {
+public class NoteEqualCommand {
 }

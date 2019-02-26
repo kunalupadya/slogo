@@ -1,4 +1,4 @@
 package Parser.Commands;
 
-public class EQUAL {
+public class LessCommand {
 }

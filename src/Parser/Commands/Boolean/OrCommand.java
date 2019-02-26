@@ -1,4 +1,4 @@
 package Parser.Commands.Boolean;
 
-public class NOT {
+public class OrCommand {
 }

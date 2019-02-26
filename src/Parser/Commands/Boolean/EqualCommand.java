@@ -1,4 +1,4 @@
 package Parser.Commands;
 
-public class GREATER {
+public class EqualCommand {
 }

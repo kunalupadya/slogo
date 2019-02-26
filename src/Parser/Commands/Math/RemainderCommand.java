@@ -1,12 +1,13 @@
 package Parser.Commands.Math;
 
-public class RemainderCommand extends MathCommand{
+import Parser.Commands.Command;
+
+public class RemainderCommand implements Command {
 
     protected double execute(double a, double b){
         return a%b;
     }
 
-    @Override
     protected int numParameters(){
         return 2;
     }

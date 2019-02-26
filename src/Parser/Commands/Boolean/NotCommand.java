@@ -6,7 +6,6 @@ public class NotCommand extends BooleanCommand{
         return returnValue(a == 0);
     }
 
-    @Override
     protected int numParameters(){
         return 1;
     }

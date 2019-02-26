@@ -1,12 +1,13 @@
 package Parser.Commands.Math;
 
-public class MinusCommand extends MathCommand {
+import Parser.Commands.Command;
+
+public class MinusCommand implements Command {
 
     protected double execute(double a, double b){
         return a -b;
     }
 
-    @Override
     protected int numParameters(){
         return 1;
     }

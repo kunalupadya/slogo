@@ -1,4 +1,6 @@
 package Parser.Commands.Queries;
 
-public class XcorCommand {
+import Parser.Commands.Command;
+
+public class XcorCommand implements Command {
 }

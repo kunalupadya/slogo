@@ -1,4 +1,6 @@
 package Parser.Commands.Queries;
 
-public class PendownCommand {
+import Parser.Commands.Command;
+
+public class PendownCommand implements Command {
 }

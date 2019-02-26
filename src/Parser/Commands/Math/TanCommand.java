@@ -1,13 +1,14 @@
 package Parser.Commands.Math;
 
-public class TanCommand extends MathCommand {
+import Parser.Commands.Command;
+
+public class TanCommand implements Command {
 
 
     protected double execute(double a){
         return Math.tan(a);
     }
-
-    @Override
+    
     protected int numParameters(){
         return 1;
     }

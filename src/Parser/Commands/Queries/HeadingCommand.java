@@ -1,4 +1,6 @@
 package Parser.Commands.Queries;
 
-public class HeadingCommand {
+import Parser.Commands.Command;
+
+public class HeadingCommand implements Command {
 }

@@ -1,4 +1,6 @@
 package Parser.Commands.Turtle_Command;
 
-public class BackCommand {
+import Parser.Commands.Command;
+
+public class BackCommand implements Command {
 }

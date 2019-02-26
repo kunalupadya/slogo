@@ -1,6 +1,8 @@
 package Parser.Commands.Boolean;
 
-public abstract class BooleanCommand extends Command {
+import Parser.Commands.Command;
+
+public abstract class BooleanCommand implements Command {
 
     protected int returnValue(boolean input){
         if(input){
@@ -10,6 +12,4 @@ public abstract class BooleanCommand extends Command {
         }
     }
 
-    @Override
-    protected int numParameters();
 }

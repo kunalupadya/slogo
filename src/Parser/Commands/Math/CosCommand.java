@@ -1,12 +1,13 @@
 package Parser.Commands.Math;
 
-public class CosCommand extends MathCommand{
+import Parser.Commands.Command;
+
+public class CosCommand implements Command {
 
     protected double execute(double a){
         return Math.cos(a);
     }
 
-    @Override
     protected int numParameters(){
         return 1;
     }

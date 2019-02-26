@@ -1,4 +1,6 @@
 package Parser.Commands.Queries;
 
-public class ShowingCommand {
+import Parser.Commands.Command;
+
+public class ShowingCommand implements Command {
 }

@@ -1,6 +1,8 @@
 package Parser;
 
 
+import Parser.Commands.Command;
+
 import java.util.ArrayList;
 
 /**

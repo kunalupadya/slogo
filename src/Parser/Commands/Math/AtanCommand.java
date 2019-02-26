@@ -1,12 +1,13 @@
 package Parser.Commands.Math;
 
-public class AtanCommand extends MathCommand {
+import Parser.Commands.Command;
+
+public class AtanCommand implements Command {
 
     protected double execute(double a){
         return Math.atan(a);
     }
 
-    @Override
     protected int numParameters(){
         return 1;
     }

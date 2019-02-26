@@ -1,12 +1,13 @@
 package Parser.Commands.Math;
 
-public class PowCommand extends MathCommand{
+import Parser.Commands.Command;
+
+public class PowCommand implements Command {
 
     protected double execute(double a, double b){
         return Math.pow(a,b);
     }
 
-    @Override
     protected int numParameters(){
         return 2;
     }

@@ -1,6 +1,7 @@
 package Parser;
 
 import GUI.Controls.SwitchLanguages;
+import Parser.Commands.Command;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -60,17 +61,11 @@ public class ParseCommand {
 
     public ArrayList<Command> stackCommand(String[] listOfWords){
         ArrayList<Command> list = new ArrayList<Command>();
+        CommandFactory commandFactory = new CommandFactory();
         for(int a=0 ; a<listOfWords.length ; a++){
-            //see if such command exists
-            try {
-                Class.forName("Command/" + listOfWords[a]);
-            }
-            catch (ClassNotFoundException e){
-                handleError.undefinedCommandErrors(listOfWords[a]);
-            }
-            //add command to the list
-            list.add((Command) listOfWords[a]);
-            }
+            Command newCommand = commandFactory.getCommand(listOfWords[a]);
+            list.add(newCommand);
+        }
         return list;
         }
 }

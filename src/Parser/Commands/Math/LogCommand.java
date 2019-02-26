@@ -1,12 +1,13 @@
 package Parser.Commands.Math;
 
-public class LogCommand extends MathCommand{
+import Parser.Commands.Command;
+
+public class LogCommand implements Command {
 
     protected double execute(double a){
         return Math.log(a);
     }
 
-    @Override
     protected int numParameters(){
         return 1;
     }

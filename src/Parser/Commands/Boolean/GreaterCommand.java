@@ -6,7 +6,6 @@ public class GreaterCommand extends BooleanCommand {
         return returnValue(a > b);
     }
 
-    @Override
     protected int numParameters(){
         return 2;
     }

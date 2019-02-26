@@ -18,8 +18,6 @@ public class AvailableVars extends Module{
     private List<String> availableVars;
     private ListView<String> availableVarsDisplay;
     private ObservableList<String> availableVarsCollection;
-    private int listviewWidth = 120;
-    private int listviewHeight = 100;
 
     public AvailableVars(int width, int height) {
         super(width, height);
@@ -46,8 +44,9 @@ public class AvailableVars extends Module{
             availableVarsCollection = FXCollections.<String>observableArrayList(availableVars);
             availableVarsDisplay = new ListView<>(availableVarsCollection);
             availableVarsDisplay.setOrientation(Orientation.VERTICAL);
-            availableVarsDisplay.setPrefSize(listviewWidth, listviewHeight);
+            availableVarsDisplay.setPrefSize(moduleWidth, moduleHeight);
         }
+        container.getChildren().add(availableVarsDisplay);
     }
 
     private void updateAvailableVars() {

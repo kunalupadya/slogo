@@ -3,12 +3,16 @@ package GUI.Modules;
 import GraphicsBackend.Grid;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
+import java.util.List;
+
 /**
  * TODO: Decide whether to have a global step based on a Timeline, or a local one only for the GraphicsArea
+ * TODO: How to initialize the grid and get the initial state, and be able to update it as a step
  */
 
 public class GraphicsArea extends Module {
@@ -18,6 +22,7 @@ public class GraphicsArea extends Module {
     private double MILLISECOND_IN_A_SECOND = 1000;
     private double MILLISECOND_DELAY = MILLISECOND_IN_A_SECOND / FRAMES_PER_SECOND;
     private Timeline animation;
+    private List<Node> gridObjects;
 
     public GraphicsArea(int width, int height) {
         super(width, height);
@@ -37,9 +42,9 @@ public class GraphicsArea extends Module {
     protected void setContent() {
         container = new VBox();
         content.setContent(container);
-        grid = new Grid(moduleWidth, moduleWidth);
-        //grid.getAllObjects();
-        //How to initialize the grid here and get the initial state
+        //grid = new Grid(moduleWidth, moduleWidth);
+        //gridObjects = grid.getAllObjects();
+        //container.getChildren().addAll(gridObjects);
     }
 
     private void startAnimation(double delay) {

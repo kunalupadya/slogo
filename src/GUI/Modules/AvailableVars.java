@@ -40,6 +40,7 @@ public class AvailableVars extends Module{
 
     @Override
     protected void setContent() {
+        container = new VBox();
         content.setContent(container);
         if (availableVars != null) {
             availableVarsCollection = FXCollections.<String>observableArrayList(availableVars);

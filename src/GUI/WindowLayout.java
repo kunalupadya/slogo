@@ -20,7 +20,7 @@ import java.awt.image.ColorConvertOp;
  */
 public class WindowLayout {
     private BorderPane myContainer;
-    private Control openHelp, redo, run, switchLanguages;
+    private Control openHelp, redo, run, switchLanguages, undo, stopExecution;
     private ColorPicker setBackgroundColor, setPenColor;
     private Controller context; // TODO: Will we need context?
 
@@ -58,13 +58,24 @@ public class WindowLayout {
 //        openHelp.getButton().setTooltip(new Tooltip("Open Help"));
 
         switchLanguages = new SwitchLanguages(this);
+        switchLanguages.getButton().setTooltip(new Tooltip("Switch Languages"));
+
+        undo = new Undo(this);
+        undo.getButton().setTooltip(new Tooltip("Undo"));
+
+        stopExecution = new StopExecution(this);
+        stopExecution.getButton().setTooltip(new Tooltip("Stop Execution"));
+
 
         setPenColor = new SetPenColor().getColorPicker();
+        setPenColor.setTooltip(new Tooltip("Set Pen Color"));
 
         setBackgroundColor = new SetBackgroundColor().getColorPicker();
+        setBackgroundColor.setTooltip(new Tooltip("Set Background Color"));
 
 
-        buttonHandler.getChildren().addAll(switchLanguages.getButton(), setPenColor, setBackgroundColor);
+        buttonHandler.getChildren().addAll(switchLanguages.getButton(), stopExecution.getButton(), undo.getButton(),
+                setPenColor, setBackgroundColor);
         return buttonHandler;
     }
 

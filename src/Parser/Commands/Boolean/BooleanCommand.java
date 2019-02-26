@@ -8,6 +8,8 @@ public abstract class BooleanCommand extends Command {
         }else{
             return 0;
         }
-
     }
+
+    @Override
+    protected int numParameters();
 }

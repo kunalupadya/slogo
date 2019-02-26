@@ -1,4 +1,4 @@
 package Parser.Commands.Queries;
 
-public class SHOWING {
+public class ShowingCommand {
 }

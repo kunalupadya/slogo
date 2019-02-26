@@ -1,4 +1,4 @@
 package Parser.Commands.Turtle_Command;
 
-public class CLEARSCREEN {
+public class BackCommand {
 }

@@ -8,6 +8,6 @@ public class AndCommand extends BooleanCommand{
 
     @Override
     protected int numParameters(){
-        return 1;
+        return 2;
     }
 }

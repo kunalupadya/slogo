@@ -1,6 +1,6 @@
 package Parser;
 
-public class HandleError{
+public class HandleError extends Exception{
 
     private final static String undefinedCommandErrorMessage = "This is an undefined syntax";
     private final static String noInputErrorMessage = "No input";
@@ -29,3 +29,4 @@ public class HandleError{
     }
 
 }
+ Pattern.

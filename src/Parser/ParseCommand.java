@@ -1,5 +1,7 @@
 package Parser;
 
+import GUI.Controls.SwitchLanguages;
+
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -9,18 +11,19 @@ import java.util.Set;
 
 public class ParseCommand {
 
-    private String defaultLanguage = "English";
     private String emptySpace = " ";
     private String noInput = "";
-    private TokenConverter tokenConverter;
+    private String myLanguage;
     private ArrayList<Command> commandsList;
-    private Set<String> listOfCommands;
     private HandleError handleError;
     private ArrayList<Token> tokensList;
     private String[] translatedListOfWords;
 
 
-    public ParseCommand(String consoleInput, String language){
+    public ParseCommand(String consoleInput){
+
+        //set Language;
+        myLanguage = SwitchLanguages.getLanguage();
 
         //user typed empty string or didn't type anything
         if(consoleInput.equals(noInput) || consoleInput == null){
@@ -33,7 +36,7 @@ public class ParseCommand {
         String[] listOfWords = refinedInput.split(emptySpace);
 
         //translate the input into default language
-        LanguageSetting languageSetting = new LanguageSetting(language);
+        LanguageSetting languageSetting = new LanguageSetting(myLanguage);
         translatedListOfWords = languageSetting.translateCommand(listOfWords);
 
         //convert word into tokens and check validity
@@ -46,6 +49,7 @@ public class ParseCommand {
     }
 
     private ArrayList<Token> addToTokenList(String[] translatedListOfWords){
+        TokenConverter tokenConverter = new TokenConverter();
         ArrayList<Token> list = new ArrayList<Token>();
         for(int a=0; a<translatedListOfWords.length; a++){
             list.add(tokenConverter.checkTypeOfInput(translatedListOfWords[a]));

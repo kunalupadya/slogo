@@ -22,5 +22,7 @@ public class Editor extends Module {
 
     }
 
-    public void run() {}
+    public void run() {
+
+    }
 }

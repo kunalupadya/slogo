@@ -27,6 +27,9 @@ public class Editor extends Module {
         content.setContent(container);
         editor = new TextArea();
         editor.setWrapText(true);
+        editor.setPrefWidth(moduleWidth);
+        editor.setPrefHeight(moduleHeight);
+        container.getChildren().add(editor);
     }
 
     public void run() {

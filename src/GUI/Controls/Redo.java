@@ -3,7 +3,7 @@ package GUI.Controls;
 import javafx.scene.image.Image;
 
 public class Redo extends Control {
-    protected Redo(Image image) {
+    public Redo(Image image) {
         super(image);
     }
 

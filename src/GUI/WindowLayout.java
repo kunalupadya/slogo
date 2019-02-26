@@ -2,10 +2,10 @@ package GUI;
 
 import GUI.Controls.*;
 import javafx.geometry.Insets;
+import javafx.scene.shape.*;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 import javafx.scene.layout.BorderPane;
 
 import Main.Controller;
@@ -52,6 +52,8 @@ public class WindowLayout {
 
         buttonHandler.setStyle("-fx-background-color: #808080");
         buttonHandler.setPadding(new Insets(5, 5, 5, 5));
+        buttonHandler.setSpacing(5);
+
 //        openHelp = new OpenHelp(this);
 //        openHelp.getButton().setLayoutX(300);
 //        openHelp.getButton().setLayoutY(0);
@@ -72,7 +74,6 @@ public class WindowLayout {
 
         setBackgroundColor = new SetBackgroundColor().getColorPicker();
         setBackgroundColor.setTooltip(new Tooltip("Set Background Color"));
-
 
         buttonHandler.getChildren().addAll(switchLanguages.getButton(), stopExecution.getButton(), undo.getButton(),
                 setPenColor, setBackgroundColor);

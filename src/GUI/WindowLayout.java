@@ -36,8 +36,8 @@ public class WindowLayout {
 
         var rightBorderPane = new BorderPane();
 
-        rightBorderPane.setCenter(new GUI.Modules.AvailableVars(200, 200).getContent());
-        rightBorderPane.setBottom(new GUI.Modules.Editor(200, 200).getContent());
+        rightBorderPane.setTop(new GUI.Modules.AvailableVars(200, 200).getContent());
+        rightBorderPane.setCenter(new GUI.Modules.Editor(200, 200).getContent());
 
         root.setTop(returnButtons());
         root.setCenter(new GUI.Modules.GraphicsArea(400, 400).getContent());
@@ -53,6 +53,8 @@ public class WindowLayout {
         buttonHandler.setStyle("-fx-background-color: #808080");
         buttonHandler.setPadding(new Insets(5, 5, 5, 5));
         buttonHandler.setSpacing(5);
+        buttonHandler.setMinWidth(600);
+        buttonHandler.setMinHeight(30);
 
 //        openHelp = new OpenHelp(this);
 //        openHelp.getButton().setLayoutX(300);

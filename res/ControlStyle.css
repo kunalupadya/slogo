@@ -34,12 +34,3 @@
     -fx-font-family: Courier;
     -fx-font-size: 12.0;
 }
-
-.list-cell:even { /* <=== changed to even */
-    -fx-background-color: white;
-}
-
-.list-cell:filled:hover {
-    -fx-background-color: #0093ff;
-    -fx-text-fill: white;
-}

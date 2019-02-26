@@ -1,0 +1,31 @@
+#penColor {
+    -fx-background-image: url(images/penColor.png);
+    -fx-background-size: 20px 20px;
+    -fx-cell-size: 25px 25px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-color-label-visible: false;
+    -fx-pref-width: 30px;
+    -fx-pref-height: 30px;
+}
+
+#penColor > .color-picker-label > .picker-color > .picker-color-rect {
+    -fx-stroke: null;
+    -fx-fill: null;
+}
+
+#backgroundColor {
+    -fx-background-image: url(images/backgroundColor.png);
+    -fx-background-size: 20px 20px;
+    -fx-cell-size: 25px 25px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-color-label-visible: false;
+    -fx-pref-width: 30px;
+    -fx-pref-height: 30px;
+}
+
+#backgroundColor > .color-picker-label > .picker-color > .picker-color-rect {
+    -fx-stroke: null;
+    -fx-fill: null;
+}

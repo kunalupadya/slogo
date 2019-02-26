@@ -1,5 +1,7 @@
 package GUI.Modules;
 
+import javafx.scene.layout.BorderPane;
+
 public class Editor extends Module {
 
     public Editor(int width, int height) {
@@ -19,4 +21,6 @@ public class Editor extends Module {
     protected void setContent() {
 
     }
+
+    public void run() {}
 }

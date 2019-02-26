@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 
 public class TokenConverter {
 
-    private final static String COMMENT_REGEX = "Comment";
     private final static String CONSTANT_REGEX = "Constant";
     private final static String VARIABLE_REGEX = "Variable";
     private final static String COMMAND_REGEX = "Command";
@@ -55,9 +54,10 @@ public class TokenConverter {
             case NEWLINE_REGEX:
                 return Token.NEWLINE;
             default:
-                return Token.COMMENT;
+                return Token.ERROR;
         }
     }
+
 
     private String checkRegex(String input) {
         for(Map.Entry<String, Pattern> entry : symbols.entrySet()){

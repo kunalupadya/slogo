@@ -1,10 +1,8 @@
 package GUI;
 
-import GUI.Controls.Control;
-import GUI.Controls.OpenHelp;
-import GUI.Controls.Run;
-import GUI.Controls.SwitchLanguages;
+import GUI.Controls.*;
 import javafx.geometry.Insets;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -13,6 +11,8 @@ import javafx.scene.layout.BorderPane;
 import Main.Controller;
 import Main.TextMaker;
 
+import java.awt.image.ColorConvertOp;
+
 /**
  * Class will contain the initial layout for the Window
  *
@@ -20,7 +20,8 @@ import Main.TextMaker;
  */
 public class WindowLayout {
     private BorderPane myContainer;
-    private Control openHelp, redo, run, setBackgroundColor, switchLanguages;
+    private Control openHelp, redo, run, switchLanguages;
+    private ColorPicker setBackgroundColor, setPenColor;
     private Controller context; // TODO: Will we need context?
 
     /**
@@ -58,8 +59,12 @@ public class WindowLayout {
 
         switchLanguages = new SwitchLanguages(this);
 
+        setPenColor = new SetPenColor().getColorPicker();
 
-        buttonHandler.getChildren().addAll(switchLanguages.getButton());
+        setBackgroundColor = new SetBackgroundColor().getColorPicker();
+
+
+        buttonHandler.getChildren().addAll(switchLanguages.getButton(), setPenColor, setBackgroundColor);
         return buttonHandler;
     }
 

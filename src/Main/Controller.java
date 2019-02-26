@@ -1,18 +1,13 @@
 package Main;
 
 import GUI.WindowLayout;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 /**
  * TODO: rename this class to Controller???
@@ -67,6 +62,8 @@ public class Controller extends Application {
         stage.setScene(myScene);
         stage.setTitle(WINDOW_TITLE);
         stage.show();
+
+        myScene.getStylesheets().add("ControlStyle.css");
 //
 //        TODO: add step() to GUI.Windows.GraphicsArea?
 //

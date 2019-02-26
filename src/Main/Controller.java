@@ -60,7 +60,6 @@ public class Controller extends Application {
      */
     public void start (Stage stage) {
         var root = new BorderPane();
-        root.setPadding(new Insets(5, 5, 5, 5));
 
         WindowLayout windowLayout = new WindowLayout(root, this);
 

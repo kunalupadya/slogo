@@ -15,7 +15,12 @@ public abstract class Control {
 
     public Control(Image image) {
         this.button = new Button();
-        this.button.setGraphic(new ImageView(image));
+
+        ImageView img = new ImageView(image);
+        img.setFitHeight(20.0);
+        img.setFitWidth(20.0);
+        this.button.setGraphic(img);
+
         this.button.setBackground(Background.EMPTY);
         this.button.setOnMouseClicked(mouseEvent -> action());
     }

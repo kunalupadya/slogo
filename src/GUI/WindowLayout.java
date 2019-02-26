@@ -3,8 +3,10 @@ package GUI;
 import GUI.Controls.Control;
 import GUI.Controls.OpenHelp;
 import GUI.Controls.Run;
-import javafx.scene.Group;
+import GUI.Controls.SwitchLanguages;
+import javafx.geometry.Insets;
 import javafx.scene.control.Tooltip;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.scene.layout.BorderPane;
 
@@ -18,7 +20,7 @@ import Main.TextMaker;
  */
 public class WindowLayout {
     private BorderPane myContainer;
-    private Control openHelp, redo, run, setBackgroundColor;
+    private Control openHelp, redo, run, setBackgroundColor, switchLanguages;
     private Controller context; // TODO: Will we need context?
 
     /**
@@ -44,15 +46,20 @@ public class WindowLayout {
         myContainer = root;
     }
 
-    private Group returnButtons() {
-        var buttonHandler = new Group();
+    private HBox returnButtons() {
+        var buttonHandler = new HBox();
 
-        openHelp = new OpenHelp(this);
-        openHelp.getButton().setLayoutX(300);
-        openHelp.getButton().setLayoutY(0);
-        openHelp.getButton().setTooltip(new Tooltip("Open Help"));
+        buttonHandler.setStyle("-fx-background-color: #808080");
+        buttonHandler.setPadding(new Insets(5, 5, 5, 5));
+//        openHelp = new OpenHelp(this);
+//        openHelp.getButton().setLayoutX(300);
+//        openHelp.getButton().setLayoutY(0);
+//        openHelp.getButton().setTooltip(new Tooltip("Open Help"));
 
-        buttonHandler.getChildren().addAll(openHelp.getButton());
+        switchLanguages = new SwitchLanguages(this);
+
+
+        buttonHandler.getChildren().addAll(switchLanguages.getButton());
         return buttonHandler;
     }
 

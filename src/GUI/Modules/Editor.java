@@ -3,6 +3,7 @@ package GUI.Modules;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 public class Editor extends Module {
     private VBox container;
@@ -27,6 +28,7 @@ public class Editor extends Module {
         content.setContent(container);
         editor = new TextArea();
         editor.setWrapText(true);
+        editor.setFont(new Font("Courier", 12));
         editor.setPrefWidth(moduleWidth);
         editor.setPrefHeight(moduleHeight);
         container.getChildren().add(editor);

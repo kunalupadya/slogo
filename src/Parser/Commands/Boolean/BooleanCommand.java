@@ -2,7 +2,11 @@ package Parser.Commands.Boolean;
 
 import Parser.Commands.Command;
 
-public abstract class BooleanCommand implements Command {
+import java.util.ArrayList;
+
+public abstract class BooleanCommand implements Command{
+
+    protected ArrayList<Command> childrenList = new ArrayList<>();
 
     protected int returnValue(boolean input){
         if(input){

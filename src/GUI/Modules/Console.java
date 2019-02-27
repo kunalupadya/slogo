@@ -45,6 +45,7 @@ public class Console extends Module  {
         if (code == KeyCode.ENTER) {
             String parameterValue = consoleInput.getText();
             commandHistory.add(0, parameterValue);
+            commandPosition = -1;
             //send consoleinput to the backend
             consoleInfo.appendText("\n" + parameterValue);
             consoleInput.clear();

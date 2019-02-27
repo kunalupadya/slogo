@@ -17,10 +17,12 @@ public class ExecuteCommand {
     public ExecuteCommand(ArrayList<Command> commandsList, ArrayList<Token> TokensList){
         myCommandsList = commandsList;
         myTokensList = TokensList;
-
+        ParsingTree parsingTree = new ParsingTree(myCommandsList, myTokensList);
+        Command headNode = parsingTree.getRoot();
     }
 
     public void runCommands(){
+        //post traversal starting from headNode
 
     }
 }

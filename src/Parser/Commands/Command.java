@@ -6,6 +6,8 @@ public interface Command{
 
     int numParameters();
 
-    ArrayList<Command> addChildren();
+    ArrayList<Command> addChildrenList();
+
+    Command addChildren();
 
 }

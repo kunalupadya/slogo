@@ -8,4 +8,12 @@ public class Point {
         myX = x;
         myY = y;
     }
+
+    public double getMyX() {
+        return myX;
+    }
+
+    public double getMyY() {
+        return myY;
+    }
 }

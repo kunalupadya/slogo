@@ -8,7 +8,7 @@ public class LogCommand implements Command {
         return Math.log(a);
     }
 
-    protected int numParameters(){
+    public int numParameters(){
         return 1;
     }
 }

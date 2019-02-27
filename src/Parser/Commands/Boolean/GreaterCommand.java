@@ -6,7 +6,7 @@ public class GreaterCommand extends BooleanCommand {
         return returnValue(a > b);
     }
 
-    protected int numParameters(){
+    public int numParameters(){
         return 2;
     }
 }

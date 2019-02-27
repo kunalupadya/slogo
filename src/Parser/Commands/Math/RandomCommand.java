@@ -10,7 +10,7 @@ public class RandomCommand implements Command {
         return new Random().nextInt((int) a);
     }
 
-    protected int numParameters(){
+    public int numParameters(){
         return 1;
     }
 }

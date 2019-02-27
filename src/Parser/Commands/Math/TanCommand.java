@@ -9,7 +9,7 @@ public class TanCommand implements Command {
         return Math.tan(a);
     }
     
-    protected int numParameters(){
+    public int numParameters(){
         return 1;
     }
 }

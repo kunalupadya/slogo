@@ -8,7 +8,7 @@ public class AtanCommand implements Command {
         return Math.atan(a);
     }
 
-    protected int numParameters(){
+    public int numParameters(){
         return 1;
     }
 }

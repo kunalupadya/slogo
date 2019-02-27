@@ -6,7 +6,7 @@ public class LessCommand extends BooleanCommand {
         return returnValue(a < b );
     }
 
-    protected int numParameters(){
+    public int numParameters(){
         return 2;
     }
 }

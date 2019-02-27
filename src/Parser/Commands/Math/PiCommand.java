@@ -8,7 +8,7 @@ public class PiCommand implements Command {
         return Math.PI;
     }
 
-    protected int numParameters(){
+    public int numParameters(){
         return 0;
     }
 }

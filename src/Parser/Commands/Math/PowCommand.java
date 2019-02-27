@@ -8,7 +8,7 @@ public class PowCommand implements Command {
         return Math.pow(a,b);
     }
 
-    protected int numParameters(){
+    public int numParameters(){
         return 2;
     }
 

@@ -8,7 +8,7 @@ public class DifferenceCommand implements Command {
         return Math.abs(a - b);
     }
 
-    protected int numParameters(){
+    public int numParameters(){
         return 2;
     }
 }

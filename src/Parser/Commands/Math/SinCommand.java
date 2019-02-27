@@ -8,7 +8,7 @@ public class SinCommand implements Command {
         return Math.cos(a);
     }
 
-    protected int numParameters(){
+    public int numParameters(){
         return 1;
     }
 }

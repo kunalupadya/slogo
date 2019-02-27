@@ -3,11 +3,11 @@ package Parser.Commands.Boolean;
 
 public class EqualCommand extends BooleanCommand{
 
-    protected double execute(double a, double b){
+    public double execute(double a, double b){
         return returnValue(a == b);
     }
 
-    protected int numParameters(){
+    public int numParameters(){
         return 2;
     }
 }

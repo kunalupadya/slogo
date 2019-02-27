@@ -8,7 +8,7 @@ public class MinusCommand implements Command {
         return a -b;
     }
 
-    protected int numParameters(){
+    public int numParameters(){
         return 1;
     }
 }

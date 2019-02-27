@@ -6,7 +6,7 @@ public class NotEqualCommand extends BooleanCommand{
         return returnValue(a!=0);
     }
 
-    protected int numParameters(){
+    public int numParameters(){
         return 1;
     }
 }

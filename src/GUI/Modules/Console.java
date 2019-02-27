@@ -7,16 +7,19 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 import java.security.Key;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * TODO: work on testing how a console works
+ * TODO: send consoleinput to the backend
  */
 
 public class Console extends Module  {
     private VBox container;
     private TextArea consoleInfo;
     private TextField consoleInput;
-    //private
+    private List<String> commandHistory;
+    private int commandPosition;
 
     public Console(int width, int height) {
         super(width, height);
@@ -29,6 +32,8 @@ public class Console extends Module  {
         container.setPrefWidth(moduleWidth);
         container.setPrefHeight(moduleHeight);
         content.setContent(container);
+        commandHistory = new ArrayList<>();
+        commandPosition = -1;
         consoleInfo = new TextArea();
         consoleInfo.setEditable(false);
         consoleInput = new TextField();
@@ -39,17 +44,27 @@ public class Console extends Module  {
     private void handleKeyInput(KeyCode code) {
         if (code == KeyCode.ENTER) {
             String parameterValue = consoleInput.getText();
+            commandHistory.add(0, parameterValue);
             //send consoleinput to the backend
-            //String placeholderText = consoleInfo.getText();
-            //placeholderText = placeholderText + "\n" + parameterValue;
             consoleInfo.appendText("\n" + parameterValue);
             consoleInput.clear();
         }
         if (code == KeyCode.UP) {
-            
+            if (!commandHistory.isEmpty() && !(commandPosition >= commandHistory.size() - 1)) {
+                consoleInput.clear();
+                commandPosition = commandPosition + 1;
+                consoleInput.appendText(commandHistory.get(commandPosition));
+            }
         }
         if (code == KeyCode.DOWN) {
-
+            if (!(commandPosition <= 0)) {
+                consoleInput.clear();
+                commandPosition = commandPosition - 1;
+                consoleInput.appendText(commandHistory.get(commandPosition));
+            }
+            else if (commandPosition == 0) {
+                consoleInput.clear();
+            }
         }
     }
 }

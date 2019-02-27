@@ -8,8 +8,9 @@ import java.util.*;
 
 public class LanguageSetting {
 
-    private String myLanguage = "English"; //default value
-    public ResourceBundle myResources;
+    private String defaultLang = "resources.languages/English.properties";
+    private String myLanguage;
+    private ResourceBundle myResources;
     private Map<String, String> translationMap;
     private Map<String, String> newMap;
     private HandleError handleError;
@@ -38,16 +39,25 @@ public class LanguageSetting {
         return map;
     }
 
-    public String[] translateCommand(String[] listOfWords){
-        String[] translatedListOfWords = new String[listOfWords.length];
-        for(int a=0; a<listOfWords.length; a++){
-            if(!newMap.containsKey(listOfWords[a])){
-                handleError.interpretationError(listOfWords[a]);
-                break;
+    //TODO: What do we do if there's an error. We just return semi-translated list? This method should probably throw an error
+    //TODO: must deal with user defined commands also
+    List<String[]> translateCommand(List<String[]> linesOfWords){
+        var tokenConverter = new TokenConverter();
+        boolean error = false;
+        for(String [] line: linesOfWords){
+            for (int i = 0; i < line.length; i++) {
+                if (tokenConverter.checkTypeOfInput(line[i]) == Token.COMMAND){
+                    if (!newMap.containsKey(line[i])) {
+                        handleError.interpretationError(line[i]);
+                        error = true;
+                        break;
+                    }
+                    line[i] = newMap.get(line[i]);
+                }
             }
-            translatedListOfWords[a] = newMap.get(listOfWords[a]);
+            if (error) break;
         }
-        return translatedListOfWords;
+        return linesOfWords;
     }
 
     private Map<String, String> reverseKeyFromValue(Map<String, String> translationMap){

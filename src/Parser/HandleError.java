@@ -2,11 +2,11 @@ package Parser;
 
 public class HandleError extends Exception{
 
-    private final static String undefinedCommandErrorMessage = "This is an undefined syntax";
-    private final static String noInputErrorMessage = "No input";
-    private final static String syntaxErrorMessage = "No such syntax";
-    private final static String interpretationErrorMessage = "Cannot be interpreted";
-    private final static String space = " ";
+    private static final String undefinedCommandErrorMessage = "This is an undefined syntax";
+    private static final String noInputErrorMessage = "No input";
+    private static final String syntaxErrorMessage = "No such syntax";
+    private static final String interpretationErrorMessage = "Cannot be interpreted";
+    private static final String space = " ";
     private Console console;
 
     public HandleError(){

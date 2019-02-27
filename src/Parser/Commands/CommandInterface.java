@@ -2,8 +2,7 @@ package Parser.Commands;
 
 import java.util.ArrayList;
 
-public abstract class Command{
-
+public interface CommandInterface {
 
     int getNumParameters();
 
@@ -12,5 +11,4 @@ public abstract class Command{
     ArrayList<Command> getChildren();
 
     void addChildren();
-
 }

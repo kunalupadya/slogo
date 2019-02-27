@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
-public class TokenConverter {
+class TokenConverter {
 
     private final static String CONSTANT_REGEX = "Constant";
     private final static String VARIABLE_REGEX = "Variable";
@@ -19,7 +19,7 @@ public class TokenConverter {
     private final static String NEWLINE_REGEX = "Newline";
     private Map<String, Pattern> myRegexMap;
 
-    public TokenConverter(){
+    TokenConverter(){
         myRegexMap = makeMap();
     }
 
@@ -45,7 +45,7 @@ public class TokenConverter {
         return "";
     }
 
-    public Token checkTypeOfInput(String input) {
+    Token checkTypeOfInput(String input) {
         switch (checkRegex(input)) {
             case CONSTANT_REGEX:
                 return Token.CONSTANT;

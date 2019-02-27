@@ -4,7 +4,8 @@ import GUI.Controls.SwitchLanguages;
 import Parser.Commands.Command;
 
 import java.util.ArrayList;
-import java.util.Set;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Louis Lee
@@ -12,13 +13,13 @@ import java.util.Set;
 
 public class ParseCommand {
 
-    private String emptySpace = " ";
-    private String noInput = "";
+    private final String newLine = "\\n+";
+    private final String whiteSpace = "\\s+";
+    private final String noInput = "";
     private String myLanguage;
     private ArrayList<Command> commandsList;
     private HandleError handleError;
-    private ArrayList<Token> tokensList;
-    private String[] translatedListOfWords;
+    private List<List<Token>> tokensList;
 
 
     public ParseCommand(String consoleInput){
@@ -30,42 +31,58 @@ public class ParseCommand {
         if(consoleInput.equals(noInput) || consoleInput == null){
             handleError.noInputError();
         }
-
-        //remove comments
-        RemoveComment removeComment = new RemoveComment(consoleInput);
-        String refinedInput = removeComment.getOutput();
-        String[] listOfWords = refinedInput.split(emptySpace);
-
+        List<String[]> refinedLinesOfWords = cleanUpInput(consoleInput);
         //translate the input into default language
         LanguageSetting languageSetting = new LanguageSetting(myLanguage);
-        translatedListOfWords = languageSetting.translateCommand(listOfWords);
+        //TODO: try catch block if command is not valid
+        List<String[]> translatedLinesOfWords = languageSetting.translateCommand(refinedLinesOfWords);
 
         //convert word into tokens and check validity
-        tokensList = addToTokenList(translatedListOfWords);
-        commandsList = stackCommand(listOfWords);
+        tokensList = addToTokenList(translatedLinesOfWords);
+        commandsList = stackCommand(translatedLinesOfWords);
 
         //Execute Command
         ExecuteCommand executeCommand = new ExecuteCommand(commandsList, tokensList);
         executeCommand.runCommands();
     }
 
-    private ArrayList<Token> addToTokenList(String[] translatedListOfWords){
-        TokenConverter tokenConverter = new TokenConverter();
-        ArrayList<Token> list = new ArrayList<Token>();
-        for(int a=0; a<translatedListOfWords.length; a++){
-            list.add(tokenConverter.checkTypeOfInput(translatedListOfWords[a]));
+    private List<String[]> cleanUpInput(String consoleInput) {
+        //remove comments
+        RemoveComment removeComment = new RemoveComment(consoleInput);
+        String refinedInput = removeComment.getOutput();
+        List<String> lineSplit = new ArrayList<>(Arrays.asList(refinedInput.split(newLine)));
+        List<String[]> refinedLines = new ArrayList<>();
+        for (String str: lineSplit){
+            if (str.trim().length() > 0){
+                refinedLines.add(str.trim().split(whiteSpace));
             }
-        return list;
         }
+        return refinedLines;
+    }
 
+    private List<List<Token>> addToTokenList(List<String[]> translatedListOfWords){
+        TokenConverter tokenConverter = new TokenConverter();
+        List<List<Token>> list = new ArrayList<>();
+        for(String [] line : translatedListOfWords){
+            List<Token> tokenLine = new ArrayList<>();
+            for (String str: line) {
+                tokenLine.add(tokenConverter.checkTypeOfInput(str));
+            }
+            list.add(tokenLine);
+        }
+        return list;
+    }
 
-    public ArrayList<Command> stackCommand(String[] listOfWords){
-        ArrayList<Command> list = new ArrayList<Command>();
+    //TODO: this method should create complete list of Commands that Execute Command merely runs using Command tree
+    //implementation is wrong currently
+    private ArrayList<Command> stackCommand(List<String[]> linesOfWords){
+        ArrayList<Command> list = new ArrayList<>();
         CommandFactory commandFactory = new CommandFactory();
-        for(int a=0 ; a<listOfWords.length ; a++){
-            Command newCommand = commandFactory.getCommand(listOfWords[a]);
+        for(String [] line: linesOfWords){
+            //TODO: error to be fixed after command implementation
+            Command newCommand = commandFactory.getCommand(str);
             list.add(newCommand);
         }
         return list;
-        }
+    }
 }

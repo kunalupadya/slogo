@@ -39,7 +39,9 @@ public class Console extends Module  {
         commandPosition = -1;
         consoleInfo = new TextArea();
         consoleInfo.setEditable(false);
+        consoleInfo.setFont(courier);
         consoleInput = new TextField();
+        consoleInput.setFont(courier);
         consoleInput.setOnKeyReleased(event -> handleKeyInput(event.getCode()));
         container.getChildren().addAll(consoleInfo, consoleInput);
     }

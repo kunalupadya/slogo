@@ -1,7 +1,6 @@
 package GUI.Modules;
 
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.BorderPane;
 
 /**
  * Superclass to serve as template for the separate modules (Abstract?)
@@ -9,10 +8,10 @@ import javafx.scene.layout.BorderPane;
  * @author Januario Carreiro & David Liu
  */
 public abstract class Module {
-    private final ScrollPane content;
+    public final ScrollPane content;
 
-    private int moduleWidth;
-    private int moduleHeight;
+    public final int moduleWidth;
+    public final int moduleHeight;
 
     public Module(int width, int height) {
         moduleWidth = width;

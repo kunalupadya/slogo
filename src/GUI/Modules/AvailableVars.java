@@ -46,6 +46,7 @@ public class AvailableVars extends Module{
             availableVarsDisplay.setOrientation(Orientation.VERTICAL);
             availableVarsDisplay.setPrefSize(moduleWidth, moduleHeight);
         }
+//        availableVarsDisplay.setEditable(false);
         container.getChildren().add(availableVarsDisplay);
     }
 

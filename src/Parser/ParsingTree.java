@@ -1,14 +1,12 @@
-/*
 package Parser;
 import Parser.Nodes.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-*/
 /**
  * @author: Louis Lee
- *//*
+ */
 
 
 public class ParsingTree {
@@ -61,4 +59,3 @@ public class ParsingTree {
     }
 
 }
-*/

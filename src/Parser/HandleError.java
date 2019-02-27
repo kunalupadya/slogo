@@ -1,4 +1,3 @@
-/*
 package Parser;
 
 import GUI.console;
@@ -15,4 +14,3 @@ public class HandleError {
 
 
 }
-*/

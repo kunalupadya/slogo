@@ -41,23 +41,18 @@ public class LanguageSetting {
 
     //TODO: What do we do if there's an error. We just return semi-translated list? This method should probably throw an error
     //TODO: must deal with user defined commands also
-    List<String[]> translateCommand(List<String[]> linesOfWords){
+    String[] translateCommand(String[] listOfWords){
         var tokenConverter = new TokenConverter();
-        boolean error = false;
-        for(String [] line: linesOfWords){
-            for (int i = 0; i < line.length; i++) {
-                if (tokenConverter.checkTypeOfInput(line[i]) == Token.COMMAND){
-                    if (!newMap.containsKey(line[i])) {
-                        handleError.interpretationError(line[i]);
-                        error = true;
-                        break;
-                    }
-                    line[i] = newMap.get(line[i]);
+        for (int i = 0; i < listOfWords.length; i++) {
+            if (tokenConverter.checkTypeOfInput(listOfWords[i]) == Token.COMMAND){
+                if (!newMap.containsKey(listOfWords[i])) {
+                    handleError.interpretationError(listOfWords[i]);
+                    break;
                 }
+                listOfWords[i] = newMap.get(listOfWords[i]);
             }
-            if (error) break;
         }
-        return linesOfWords;
+        return listOfWords;
     }
 
     private Map<String, String> reverseKeyFromValue(Map<String, String> translationMap){

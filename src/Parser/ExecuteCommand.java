@@ -5,6 +5,7 @@ import Parser.Commands.Command;
 import javafx.scene.control.Alert;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Kunal Upadya
@@ -15,11 +16,11 @@ public class ExecuteCommand {
 
     public static final String PARAMETERS_MISSING = "Parameters missing";
     public static final String WRONG_NUMBER_OF_PARAMETERS = "Wrong number of parameters";
-    private ArrayList<Command> myCommandsList;
-    private ArrayList<Token> myTokensList;
+    private List<Command> myCommandsList;
+    private List<Token> myTokensList;
     Command headNode;
 
-    public ExecuteCommand(ArrayList<Command> commandsList, ArrayList<Token> TokensList){
+    public ExecuteCommand(List<Command> commandsList, List<Token> TokensList){
         myCommandsList = commandsList;
         myTokensList = TokensList;
         ParsingTree parsingTree = new ParsingTree(myCommandsList, myTokensList);

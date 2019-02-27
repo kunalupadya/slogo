@@ -1,13 +1,16 @@
 package GraphicsBackend;
 
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class Grid {
+    public static final double GRID_OFFSET = 0.25;
     private ArrayList<Node> myObjects = new ArrayList<>();
     private ArrayList<Line> bounds = new ArrayList<>();
     private double height;
@@ -23,7 +26,7 @@ public class Grid {
         getBounds(0,height,width,height);
         getBounds(0,0,width,0);
         getBounds(0,0,0,height);
-        getBounds(width,0,width,height;
+        getBounds(width,0,width,height);
     }
 
     private void getBounds(double startX, double startY, double endX, double endY){
@@ -43,36 +46,48 @@ public class Grid {
         boolean offScreenLeft = newXPos<0;
         boolean offScreenTop = newYPos<0;
         boolean offScreenBottom = newYPos>width;
+        boolean offScreen = offScreenBottom|offScreenLeft|offScreenRight|offScreenTop;
 
-        while(offScreenBottom|offScreenLeft|offScreenRight|offScreenTop){
-            Point intersection = calculateIntersectionWithBounds(movementStart, movementEnd);
+        while(offScreen){
+            Optional<Point> optionalIntersection = calculateIntersectionWithBounds(movementStart, movementEnd);
+            Point intersection;
+            if (optionalIntersection.isPresent()) {
+                intersection = optionalIntersection.get();
+            }
+            else {
+                new Alert(Alert.AlertType.ERROR, "Internal miscalculation - turtle is offscreen").showAndWait();
+                break;
+            }
             createLine(pen, xPos, yPos, intersection.getMyX(), intersection.getMyY());
             double distanceTravelled = Math.sqrt(Math.pow(xPos-intersection.getMyX(),2)+Math.pow(yPos-intersection.getMyY(),2));
             dist -= distanceTravelled;
             if (intersection.getMyX() == 0){
                 //offscreenleft
-                xPos = intersection.getMyX();
+                xPos = width-GRID_OFFSET;
                 yPos = intersection.getMyY();
             }
             if (intersection.getMyY() == 0){
                 //offscreentop
                 xPos = intersection.getMyX();
-                yPos = intersection.getMyY();
+                yPos = height-GRID_OFFSET;
             }
             if (intersection.getMyX() == width){
                 //offscreenright
-                xPos = 0;
+                xPos = 0+GRID_OFFSET;
                 yPos = intersection.getMyY();
             }
             if (intersection.getMyY() == 0){
                 //offscreenbottom
                 xPos = intersection.getMyX();
-                yPos = 0;
+                yPos = 0+GRID_OFFSET;
             }
+            newXPos = xPos + dist*Math.cos(Math.toRadians(angle));
+            newYPos = yPos + dist*Math.sin(Math.toRadians(angle));
             offScreenRight = newXPos>width;
             offScreenLeft = newXPos<0;
             offScreenTop = newYPos<0;
             offScreenBottom = newYPos>width;
+            offScreen = offScreenBottom|offScreenLeft|offScreenRight|offScreenTop;
         }
 
 //        if ()
@@ -87,15 +102,15 @@ public class Grid {
         myObjects.add(movement);
     }
 
-    private Point calculateIntersectionWithBounds(Point movementStart, Point movementEnd) {
-        Point intersection = null;
+    private Optional<Point> calculateIntersectionWithBounds(Point movementStart, Point movementEnd) {
+        Optional<Point> intersectOptional = Optional.empty();
         for (Line bound: bounds){
-            intersection = calculateIntersection(movementStart, movementEnd, bound);
+            intersectOptional = calculateIntersection(movementStart, movementEnd, bound);
         }
-        return intersection;
+        return intersectOptional;
     }
 
-    private Point calculateIntersection(Point movementStart, Point movementEnd, Line bound){
+    private Optional<Point> calculateIntersection(Point movementStart, Point movementEnd, Line bound){
         // Line AB represented as a1x + b1y = c1
         Point C = new Point(bound.getStartX(), bound.getStartY());
         Point D = new Point(bound.getEndX(), bound.getEndY());
@@ -109,12 +124,12 @@ public class Grid {
         double c2 = a2*(C.getMyX())+ b2*(C.getMyY());
 
         double determinant = a1*b2 - a2*b1;
-
+        Optional<Point> returnedPoint = Optional.empty();
         if (determinant == 0)
         {
             // The lines are parallel. This is simplified
             // by returning a pair of FLT_MAX
-            return null;
+            return returnedPoint;
         }
         else
         {
@@ -125,10 +140,11 @@ public class Grid {
             boolean c = (y>=movementStart.getMyY())&(y<=movementEnd.getMyY());
             boolean d = (y<=movementStart.getMyY())&(y>=movementEnd.getMyY());
             if ((a|b)&(c|d)){
-                return new Point(x, y);
+                returnedPoint = Optional.of(new Point(x, y));
+                return returnedPoint;
             }
             else{
-                return null;
+                return returnedPoint;
             }
         }
     }

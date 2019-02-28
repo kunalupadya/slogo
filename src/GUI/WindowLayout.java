@@ -27,6 +27,7 @@ public class WindowLayout {
     private OpenHelp openHelp;
     private Control redo, run, switchLanguages, undo, stopExecution, setTurtleImage;;
     private ColorPicker setBackgroundColor, setPenColor;
+    private final double sizeOfPadding = 5.0;
 
     /**
      * TODO: add JavaDoc
@@ -87,12 +88,12 @@ public class WindowLayout {
 
         var leftButtons = new HBox(openHelp.getHyperlink(), switchLanguages.getButton(),
                 setBackgroundColor, setPenColor, setTurtleImage.getButton());
-        leftButtons.setPadding(new Insets(5, 5, 5, 5));
+        leftButtons.setPadding(new Insets(sizeOfPadding, sizeOfPadding, sizeOfPadding, sizeOfPadding));
         leftButtons.setSpacing(5);
         leftButtons.setAlignment(Pos.CENTER_LEFT);
 
         var rightButtons = new HBox(undo.getButton(), redo.getButton(), stopExecution.getButton(), run.getButton());
-        rightButtons.setPadding(new Insets(5, 5, 5, 5));
+        rightButtons.setPadding(new Insets(sizeOfPadding, sizeOfPadding, sizeOfPadding, sizeOfPadding));
         rightButtons.setSpacing(5);
         rightButtons.setAlignment(Pos.CENTER_RIGHT);
 

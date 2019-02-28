@@ -7,10 +7,19 @@ public abstract class Command{
     protected List<Command> myChildrenList;
     protected boolean isConstant;
     protected double returnValue;
+    protected int numParameters;
 
-    public abstract boolean getIsConstant();
+    public boolean getIsConstant(){
+        return isConstant;
+    }
 
-    public abstract int getNumParameters();
+    public  int getNumParameters(){
+        return numParameters;
+    }
+
+    public double getReturnValue() {
+        return returnValue;
+    }
 
     public abstract double execute();
 

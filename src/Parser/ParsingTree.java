@@ -25,6 +25,9 @@ public class ParsingTree {
 
     }
 
+
+    public
+
     //we should make a new ExitCommand
     public Command makeTree(List<Command> commandsList, List<Token> TokensList, Command parent){
         Command pointer;

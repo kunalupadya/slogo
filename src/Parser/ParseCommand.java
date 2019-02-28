@@ -1,6 +1,7 @@
 package Parser;
 
 import GUI.Controls.SwitchLanguages;
+import GraphicsBackend.Turtle;
 import Parser.Commands.Command;
 
 import java.util.ArrayList;
@@ -17,18 +18,18 @@ public class ParseCommand {
     private final String noInput = "";
     private String myLanguage;
     private ArrayList<Command> commandsList;
-    private HandleError handleError;
+//    private HandleError handleError;
     private List<Token> tokensList;
 
 
-    public ParseCommand(String consoleInput){
-
+    public ParseCommand(String consoleInput, List<Turtle> turtles){
         //set Language;
-        myLanguage = SwitchLanguages.getLanguage();
+//        myLanguage = SwitchLanguages.getLanguage();
+        myLanguage = "English";
 
         //user typed empty string or didn't type anything
         if(consoleInput.equals(noInput) || consoleInput == null){
-            handleError.noInputError();
+//            handleError.noInputError();
         }
 
         RemoveComment removeComment = new RemoveComment(consoleInput);

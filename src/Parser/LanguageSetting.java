@@ -8,17 +8,18 @@ import java.util.*;
 
 public class LanguageSetting {
 
-    private String defaultLang = "resources.languages/English.properties";
+    private String defaultLang = "English";
     private String myLanguage;
     private ResourceBundle myResources;
     private Map<String, String> translationMap;
     private Map<String, String> newMap;
-    private HandleError handleError;
+//    private HandleError handleError;
 
 
     public LanguageSetting(String language){
         myLanguage = language;
-        myResources= ResourceBundle.getBundle(myLanguage);
+        System.out.println(myLanguage);
+        myResources = ResourceBundle.getBundle(myLanguage);
         translationMap = convertResourceBundleToMap(myResources);
         newMap = reverseKeyFromValue(translationMap);
     }
@@ -46,7 +47,7 @@ public class LanguageSetting {
         for (int i = 0; i < listOfWords.length; i++) {
             if (tokenConverter.checkTypeOfInput(listOfWords[i]) == Token.COMMAND){
                 if (!newMap.containsKey(listOfWords[i])) {
-                    handleError.interpretationError(listOfWords[i]);
+//                    handleError.interpretationError(listOfWords[i]);
                     break;
                 }
                 listOfWords[i] = newMap.get(listOfWords[i]);

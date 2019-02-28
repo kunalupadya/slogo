@@ -1,8 +1,9 @@
 package GraphicsBackend;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Line;
 
-import java.awt.*;
 
 public class Turtle {
     public static final String DEFAULT_IMAGE = "initialTurtle.png";
@@ -13,6 +14,7 @@ public class Turtle {
     private double speed;
     private Pen myPen = new Pen();
     private Image turtleImage;
+    private ImageView turtleImageView;
     private Grid myGrid;
     private boolean isTurtleVisible;
 
@@ -23,7 +25,17 @@ public class Turtle {
         myGrid = grid;
         speed = 1;
         isTurtleVisible = true;
-        var turtleImage = new javafx.scene.image.Image(this.getClass().getClassLoader().getResourceAsStream(DEFAULT_IMAGE));
+        turtleImage = new javafx.scene.image.Image(this.getClass().getClassLoader().getResourceAsStream(DEFAULT_IMAGE));
+        turtleImageView = new ImageView();
+        updateTurtleImageview();
+    }
+
+    private void updateTurtleImageview() {
+        turtleImageView.setImage(turtleImage);
+        turtleImageView.setX(xPos);
+        turtleImageView.setY(yPos);
+        turtleImageView.setFitHeight(50);
+        turtleImageView.setFitWidth(50);
     }
 
     public void move(double dist){
@@ -34,6 +46,7 @@ public class Turtle {
         Point currentPosition = myGrid.addMovement(xPos, yPos, myAngle, dist, myPen);
         xPos = currentPosition.getMyX();
         yPos = currentPosition.getMyY();
+        updateTurtleImageview();
 //        xPos = newXPos;
 //        yPos = newYPos;
     }
@@ -77,6 +90,10 @@ public class Turtle {
 
     public void setTurtleImage(Image turtleImage) {
         this.turtleImage = turtleImage;
+    }
+
+    public ImageView getTurtleImageView() {
+        return turtleImageView;
     }
 
     public Pen getMyPen() {

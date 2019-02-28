@@ -2,6 +2,8 @@ package GUI;
 
 import GUI.Controls.*;
 import GUI.Modules.*;
+import GraphicsBackend.Turtle;
+import Main.BackendController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
@@ -14,6 +16,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Class will contain the initial layout for the Window
@@ -24,9 +27,12 @@ public class WindowLayout {
     private Stage myStage;
     private BorderPane myContainer;
     private Editor editor;
+    private GraphicsArea graphicsArea;
     private OpenHelp openHelp;
     private Control redo, run, switchLanguages, undo, stopExecution, setTurtleImage;;
     private ColorPicker setBackgroundColor, setPenColor;
+    private Console console;
+    private BackendController backendController;
 
     /**
      * TODO: add JavaDoc
@@ -36,6 +42,8 @@ public class WindowLayout {
     public WindowLayout(BorderPane root, Stage stage) {
         myStage = stage;
         editor = new Editor(200, 200);
+        graphicsArea = new GraphicsArea(400, 400);
+        console = new Console(600, 100);
 
         var rightBorderPane = new BorderPane();
 
@@ -44,12 +52,27 @@ public class WindowLayout {
         rightBorderPane.setBottom(editor.getContent());
 
         root.setTop(returnButtons());
-        root.setBottom(new GUI.Modules.Console(600, 100).getContent());
-        root.setCenter(new GUI.Modules.GraphicsArea(400, 400).getContent());
+        root.setBottom(console.getContent());
+        root.setCenter(graphicsArea.getContent());
         root.setRight(rightBorderPane);
 
         myContainer = root;
     }
+
+    public void setBackendController(BackendController backendController) {
+        this.backendController = backendController;
+        console.setBackendController(backendController);
+        updateGraphicsArea(backendController.getMyTurtles());
+    }
+
+    public void updateGraphicsArea(List<Turtle> turtles){
+        for (Turtle turtle:turtles){
+            myContainer.getChildren().add(turtle.getTurtleImageView());
+        }
+    }
+
+
+
 
     private HBox returnButtons() {
         var buttonHandler = new HBox();

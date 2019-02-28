@@ -13,50 +13,75 @@ public class ParsingTree {
     public static final int FIRST = 0;
     private List<Command> children;
     private String value;
-    private HandleError handleError;
+//    private HandleError handleError;
     Command headNode;
     Command currCommand;
     Token currToken;
+    List<Command> commands;
+    List<Token> tokens;
 
 
-    public ParsingTree(List<Command> commandsList, List<Token> TokensList){
+    public ParsingTree(List<Command> commandsList, List<Token> tokensList){
         headNode = new RootCommand();
-        headNode = makeTree(commandsList, TokensList, headNode);
+        commands = commandsList;
+        tokens = tokensList;
+        headNode = makeTree(commandsList, tokensList, headNode);
     }
 
     public Command getRoot(){
         return headNode;
-
     }
 
 
     public Command makeTree(List<Command> commandsList, List<Token> tokensList, Command parent){
-        while (currToken!= null) {
+//        if (currCommand != null) {
+//            currCommand = commandsList.remove(FIRST);
+//            currToken = tokensList.remove(FIRST);
+//        }
+//        boolean enteredWhileLoop = false;
 //            LinkedList<Command> commandLinkedList = new LinkedList<>(commandsList);
 //            LinkedList<Token> tokensLinkedList = new LinkedList<>(tokensList);
-            if (currToken == Token.LIST_END){
-                return parent;
-            }
+//            if (currToken == Token.LIST_END){
+//                return parent;
+//            }
+        while (!commandsList.isEmpty()) {
+            System.out.println();
             currCommand = commandsList.remove(FIRST);
             currToken = tokensList.remove(FIRST);
             Command savedCurrentCommand = currCommand;
             Token savedCurrentToken = currToken;
+
+            System.out.println(commandsList);
+            System.out.println(tokensList);
             if (currToken == Token.CONSTANT) {
+                System.out.println("AAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+                System.out.println(savedCurrentCommand);
+                System.out.println(parent);
+                System.out.println(parent.getChildren());
                 parent.addChildren(savedCurrentCommand);
             }
-            if (currToken == Token.LIST_END){
+            else if (currToken == Token.LIST_END){
                 return savedCurrentCommand;
             }
-            if (currToken == Token.LIST_START){
+            else if (currToken == Token.LIST_START){
                 while (currToken!=Token.LIST_END){
                     savedCurrentCommand.addChildren(makeTree(commandsList,tokensList, savedCurrentCommand));
                 }
                 parent.addChildren(savedCurrentCommand);
             }
             else{
+                System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+                System.out.println(savedCurrentCommand);
+                System.out.println(parent);
+                System.out.println(parent.getChildren());
                 parent.addChildren(makeTree(commandsList,tokensList, savedCurrentCommand));
             }
             if (parent.getNumParameters() == parent.getCurrentNumParameters()) {
+                System.out.println("CSDFHBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+                System.out.println(savedCurrentCommand);
+                System.out.println(parent);
+                System.out.println(parent.getChildren());
+
                 return parent;
             }
         }

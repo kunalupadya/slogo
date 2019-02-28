@@ -9,7 +9,7 @@ import Parser.Commands.Boolean.*;
 
 public class CommandFactory {
 
-    HandleError handleError;
+//    HandleError handleError;
 
     public Command getCommand(String word) {
 
@@ -100,6 +100,6 @@ public class CommandFactory {
             return new NotCommand();
         }
         //Not in this, then constant command
-        return new ConstantCommand();
+        return new ConstantCommand(Double.parseDouble(word));
     }
 }

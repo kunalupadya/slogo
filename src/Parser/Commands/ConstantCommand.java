@@ -2,13 +2,13 @@ package Parser.Commands;
 
 public class ConstantCommand extends Command {
 
-    public ConstantCommand(){
+    public ConstantCommand(Double input){
+        returnValue = input;
         isConstant = true;
         numParameters = 1;
     }
 
     public void execute(){
-        returnValue =  (int) myChildrenList.get(0).getReturnValue();
     }
 
 }

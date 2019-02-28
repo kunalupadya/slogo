@@ -11,6 +11,6 @@ public class ShowingCommand extends TurtleCommand {
     }
 
     public void execute(){
-        getTurtle().
+        getTurtle().setTurtleVisibility(true);
     }
 }

@@ -11,7 +11,7 @@ public class SetXYCommand extends TurtleCommand{
 
     public void execute() {
         returnValue =  Math.sqrt(Math.pow((getTurtle().getxPos()- getChildren().get(0).getReturnValue()), 2) + Math.pow((getTurtle().getyPos() - getChildren().get(1).getReturnValue()),2));
-        getTurtle().setX(getChildren().get(0).getReturnValue());
-        getTurtle().setY(getChildren().get(0).getReturnValue());
+        getTurtle().setxPos((getChildren().get(0).getReturnValue()));
+        getTurtle().setyPos(getChildren().get(0).getReturnValue());
     }
 }

@@ -39,6 +39,8 @@ public class ExecuteCommand {
     }
 
     public void traverse(Command node){
+        System.out.println(node);
+        System.out.println(node.getChildren());
         if (node.getChildren().isEmpty()){
             if (node.getIsConstant()){
                 return;

@@ -1,38 +1,52 @@
 package Main;
 
 
+import GUI.WindowLayout;
+import GraphicsBackend.Grid;
+import GraphicsBackend.Turtle;
 import Parser.ParseCommand;
 
-public class InternalController {
+import java.util.ArrayList;
+import java.util.List;
+
+public class BackendController {
 
     private ParseCommand parser;
     String codeLanguage;
+    Grid myGrid;
+    List<Turtle> myTurtles = new ArrayList<>();
+    WindowLayout windowLayout;
 
-    public InternalController(){
-        setLanguage("English");
+    public BackendController(){
+//        setLanguage("English");
+        myGrid = new Grid(400,400);
+        myTurtles.add(new Turtle(myGrid));
     }
 
-    private void setLanguage(String language) {
-        if (!codeLanguage.equals(language)){
-            codeLanguage = language;
-            parser = new ParseCommand(language);
-        }
+    public Grid getMyGrid() {
+        return myGrid;
+    }
+
+    public List<Turtle> getMyTurtles() {
+        return myTurtles;
+    }
+
+    public void setWindowLayout(WindowLayout windowLayout) {
+        this.windowLayout = windowLayout;
     }
 
     public void parseAndRun(String userInput){
-        rootExpr = parser.parseInput(userInput);
-        executeCommandTree(rootExpr);
+        parser = new ParseCommand(userInput, myTurtles);
     }
 
-    private void executeCommandTree(Expression rootExpr) {
-    }
-
-    public String getCodeLanguage(){
-        return codeLanguage;
-    }
-
-    public ParseCommand getParser(){
-        return parser;
-    }
-
+//    private void executeCommandTree(Expression rootExpr) {
+//    }
+//
+//    public String getCodeLanguage(){
+//        return codeLanguage;
+//    }
+//
+//    public ParseCommand getParser(){
+//        return parser;
+//    }
 }

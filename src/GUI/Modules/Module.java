@@ -23,7 +23,7 @@ public abstract class Module {
     protected void setLayout() {
         content.setPrefViewportWidth(moduleWidth);
         content.setPrefViewportHeight(moduleHeight);
-        content.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        content.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         content.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
     }
 

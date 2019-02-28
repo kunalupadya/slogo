@@ -7,7 +7,7 @@ public class OpenHelp extends Control {
     private WindowLayout context;
 
     public OpenHelp(WindowLayout context) {
-        super(new Image(WindowLayout.class.getResourceAsStream("/images/stepleft.png")));
+        super(new Image(WindowLayout.class.getResourceAsStream("/images/help.png")));
         this.context = context;
     }
 

@@ -1,7 +1,9 @@
 package GUI.Modules;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.geometry.Bounds;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
@@ -12,6 +14,16 @@ public class Editor extends Module {
     public Editor(int width, int height) {
         super(width, height);
         setContent();
+        editor.layoutBoundsProperty().addListener(new ChangeListener<Bounds>() {
+            @Override
+            public void changed(ObservableValue<? extends Bounds> observable, Bounds oldValue, Bounds newValue) {
+                if (moduleHeight != newValue.getHeight()) {
+                    moduleHeight = (int) newValue.getHeight();
+                    editor.setPrefHeight(editor.getLayoutBounds().getHeight() + 20);
+                    System.out.println(editor.getLayoutBounds().getHeight());
+                }
+            }
+        });
     }
 
     @Override
@@ -30,7 +42,7 @@ public class Editor extends Module {
         editor.setWrapText(true);
         editor.setFont(new Font("Courier", 12));
         editor.setPrefWidth(moduleWidth);
-        editor.setPrefHeight(moduleHeight);
+//        editor.setPrefHeight(moduleHeight);
         container.getChildren().add(editor);
     }
 

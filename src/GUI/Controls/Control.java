@@ -21,7 +21,6 @@ public abstract class Control {
         img.setFitWidth(20.0);
         this.button.setGraphic(img);
 
-        this.button.setBackground(Background.EMPTY);
         this.button.setOnMouseClicked(mouseEvent -> action());
     }
 

@@ -11,7 +11,7 @@ public abstract class Module {
     public final ScrollPane content;
 
     public final int moduleWidth;
-    public final int moduleHeight;
+    public int moduleHeight;
 
     public Module(int width, int height) {
         moduleWidth = width;

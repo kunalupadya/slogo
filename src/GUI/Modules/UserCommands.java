@@ -3,11 +3,17 @@ package GUI.Modules;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * TODO: need to get list of user commands from somewhere along the backend
+ * TODO: get user commands text from a resource file, not hardcoded
+ */
 
 public class UserCommands extends Module {
     private VBox container;
@@ -18,8 +24,8 @@ public class UserCommands extends Module {
     public UserCommands(int width, int height) {
         super(width, height);
         userCommands = new ArrayList<>();
-        userCommands.add("What's up");
-        userCommands.add("Nothing much");
+        //serCommands.add("What's up");
+        //userCommands.add("Nothing much");
         setContent();
         //updateUserCommands();
     }
@@ -36,6 +42,7 @@ public class UserCommands extends Module {
             userCommandsDisplay.setPrefSize(moduleWidth, moduleHeight);
             userCommandsDisplay.prefHeightProperty().bind(container.heightProperty());
             userCommandsDisplay.setPrefWidth(moduleWidth);
+            userCommandsDisplay.setPlaceholder(new Label("User Commands"));
         }
         container.getChildren().add(userCommandsDisplay);
     }

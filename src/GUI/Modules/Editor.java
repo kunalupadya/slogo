@@ -7,6 +7,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+/**
+ * TODO: Have text read through a resource file, not hard coded
+ */
+
 public class Editor extends Module {
     private VBox container;
     private TextArea editor;
@@ -44,6 +48,7 @@ public class Editor extends Module {
         editor.setFont(new Font("Courier", 12));
         editor.prefHeightProperty().bind(container.heightProperty());
         editor.setPrefWidth(moduleWidth);
+        editor.setPromptText("Editor");
         container.getChildren().add(editor);
     }
 

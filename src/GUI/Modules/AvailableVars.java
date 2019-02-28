@@ -3,6 +3,7 @@ package GUI.Modules;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
@@ -12,6 +13,7 @@ import java.util.List;
 
 /**
  * TODO: need to get list of available variables from somewhere along the backend
+ * TODO: get available variables text from a resource file, not hardcoded
  */
 
 public class AvailableVars extends Module{
@@ -23,8 +25,8 @@ public class AvailableVars extends Module{
     public AvailableVars(int width, int height) {
         super(width, height);
         availableVars = new ArrayList<>();
-        availableVars.add("Hi");
-        availableVars.add("Bye");
+        //availableVars.add("Available Variables");
+        //availableVars.add("Bye");
         //updateAvailableVars();
         setContent();
     }
@@ -52,6 +54,7 @@ public class AvailableVars extends Module{
             availableVarsDisplay.setOrientation(Orientation.VERTICAL);
             availableVarsDisplay.prefHeightProperty().bind(container.heightProperty());
             availableVarsDisplay.setPrefWidth(moduleWidth);
+            availableVarsDisplay.setPlaceholder(new Label("Available Variables"));
         }
 //        availableVarsDisplay.setEditable(false);
         container.getChildren().add(availableVarsDisplay);

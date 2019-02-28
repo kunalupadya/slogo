@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * TODO: send consoleinput to the backend
+ * TODO: get prompt text from a resource file, not hardcoded
  */
 
 public class Console extends Module  {
@@ -43,8 +44,10 @@ public class Console extends Module  {
         consoleInfo.setEditable(false);
         consoleInfo.prefWidthProperty().bind(container.widthProperty());
         consoleInfo.setFont(courier);
+        consoleInfo.setPromptText("Previous commands");
         consoleInput = new TextField();
         consoleInput.setFont(courier);
+        consoleInput.setPromptText("Enter command: ");
         consoleInput.prefWidthProperty().bind(container.widthProperty());
         consoleInput.setOnKeyReleased(event -> handleKeyInput(event.getCode()));
 //        container.setVgrow(consoleInput, Priority.ALWAYS);
@@ -54,10 +57,15 @@ public class Console extends Module  {
     private void handleKeyInput(KeyCode code) {
         if (code == KeyCode.ENTER) {
             String parameterValue = consoleInput.getText();
+            if (commandHistory.isEmpty()) {
+                consoleInfo.appendText(parameterValue);
+            }
+            else {
+                consoleInfo.appendText("\n" + parameterValue);
+            }
             commandHistory.add(0, parameterValue);
             commandPosition = -1;
             //send consoleinput to the backend
-            consoleInfo.appendText("\n" + parameterValue);
             consoleInput.clear();
         }
         if (code == KeyCode.UP) {

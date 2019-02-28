@@ -2,9 +2,9 @@ package Backend.Commands.Math;
 
 import Backend.Commands.Command;
 
-public class PiCommand implements Command {
+public class PiCommand extends Command {
 
-    protected double execute(){
+    public double execute(){
         return Math.PI;
     }
 

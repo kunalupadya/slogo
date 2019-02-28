@@ -1,16 +1,28 @@
 package Backend.Commands;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Command{
 
+    protected List<Command> myChildrenList;
 
-    int getNumParameters();
+    public int getNumParameters(){
+        return 0;
+    }
 
-    double execute();
+    public double execute(){
+        return 0;
+    }
 
-    ArrayList<Command> getChildren();
+    public void addChildren(Command command) {
+        myChildrenList.add(command);
+    }
 
-    void addChildren();
+    public List<Command> getChildren(){
+        return myChildrenList;
+    }
 
+    public void addChildrenList(List<Command> childrenList){
+        myChildrenList = childrenList;
+    }
 }

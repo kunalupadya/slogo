@@ -4,13 +4,13 @@ import Backend.Commands.Command;
 
 import java.util.Random;
 
-public class RandomCommand implements Command {
+public class RandomCommand extends Command {
 
     protected double execute(double a){
         return new Random().nextInt((int) a);
     }
 
-    public int numParameters(){
+    public int getNumParameters(){
         return 1;
     }
 }

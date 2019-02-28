@@ -1,10 +1,15 @@
 package Backend;
 
 
+<<<<<<< HEAD:src/Backend/ExecuteCommand.java
 import Backend.Commands.Command;
 import Backend.Parser.ParsingTree;
 import Backend.Parser.SyntaxError;
 import Backend.Parser.Token;
+=======
+import Parser.Commands.Command;
+import Parser.Commands.RootCommand;
+>>>>>>> 75d29976848d91b951c5ed2c23b7952b782894c5:src/Parser/ExecuteCommand.java
 import javafx.scene.control.Alert;
 
 import java.util.List;
@@ -20,7 +25,7 @@ public class ExecuteCommand {
     public static final String WRONG_NUMBER_OF_PARAMETERS = "Wrong number of parameters";
     private List<Command> myCommandsList;
     private List<Token> myTokensList;
-    Command headNode;
+    RootCommand headNode;
 
     public ExecuteCommand(List<Command> commandsList, List<Token> TokensList){
         myCommandsList = commandsList;
@@ -41,7 +46,7 @@ public class ExecuteCommand {
 
     public void traverse(Command node){
         if (node.getChildren().isEmpty()){
-            if (node.numParameters() == 0){
+            if (node.getNumParameters() == 0){
                 node.execute();
             }
             else{
@@ -53,7 +58,7 @@ public class ExecuteCommand {
             traverse(child);
         }
 
-        if (node.numParameters() == node.getChildren().size()){
+        if (node.getNumParameters() == node.getChildren().size()){
             node.execute();
         }
         else{

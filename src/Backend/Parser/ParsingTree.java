@@ -1,6 +1,11 @@
 package Backend.Parser;
 
+<<<<<<< HEAD:src/Backend/Parser/ParsingTree.java
 import Backend.Commands.Command;
+=======
+import Parser.Commands.Command;
+import Parser.Commands.RootCommand;
+>>>>>>> 75d29976848d91b951c5ed2c23b7952b782894c5:src/Parser/ParsingTree.java
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,20 +15,20 @@ public class ParsingTree {
     private List<Command> children;
     private String value;
     private HandleError handleError;
-    Command myRoot;
+    RootCommand myRoot;
 
-    public ParsingTree(ArrayList<Command> commandsList, ArrayList<Token> TokensList){
+    public ParsingTree(List<Command> commandsList, List<Token> TokensList){
         myRoot = makeTree(commandsList, TokensList);
     }
 
-    public Command getRoot(){
+    public RootCommand getRoot(){
         return myRoot;
 
     }
 
     //we should make a new ExitCommand
-    public Command makeTree(ArrayList<Command> commandsList, ArrayList<Token> TokensList){
-        Command headNode = new ExitCommand();
+    public RootCommand makeTree(List<Command> commandsList, List<Token> TokensList){
+        RootCommand headNode = new RootCommand();
         Command head = headNode;
         Command pointer;
         int numOfParameters;
@@ -31,24 +36,24 @@ public class ParsingTree {
             for (int a = 0; a < commandsList.size(); a++) {
                 pointer = commandsList.get(a);
                 head.addChildren(pointer);
-                numOfParameters = pointer.numParameters();
+                numOfParameters = pointer.getNumParameters();
                 Token token = TokensList.get(a);
                 if (token == Token.COMMAND) {
                     pointer.addChildrenList(commandsList.subList(a + 1, a + numOfParameters));
-                    return makeTree(commandsList.subList(a + 1, commandsList.size()), TokensList.subList(a + 1, commandsList.size()));
+                    return makeTree((ArrayList<Command>)commandsList.subList(a + 1, commandsList.size()), (ArrayList<Token>)TokensList.subList(a + 1, commandsList.size()));
                 }
                 if (token == Token.GROUP_START) {
                     for (int b = a; b < commandsList.size(); b++)
                         if (TokensList.get(b) == Token.GROUP_END) {
                             pointer.addChildrenList(commandsList.subList(a + 1, b));
-                            return makeTree(commandsList.subList(a + 1, b), TokensList.subList(a + 1, b));
+                            return makeTree((ArrayList<Command>)commandsList.subList(a + 1, b), (ArrayList<Token>)TokensList.subList(a + 1, b));
                         }
                 }
                 if (token == Token.LIST_START) {
                     for (int b = a; b < commandsList.size(); b++)
                         if (TokensList.get(b) == Token.LIST_END) {
                             pointer.addChildrenList(commandsList.subList(a + 1, b));
-                            return makeTree(commandsList.subList(a + 1, b), TokensList.subList(a + 1, b));
+                            return makeTree((ArrayList<Command>)commandsList.subList(a + 1, b), (ArrayList<Token>)TokensList.subList(a + 1, b));
                         }
                 }
                 if (token == Token.CONSTANT) {
@@ -62,7 +67,7 @@ public class ParsingTree {
         }catch (Exception e){
 
         }
-    return head;
+    return headNode;
     }
 
 }

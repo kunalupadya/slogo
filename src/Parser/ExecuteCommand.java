@@ -19,7 +19,7 @@ public class ExecuteCommand {
     public static final String WRONG_NUMBER_OF_PARAMETERS = "Wrong number of parameters";
     private List<Command> myCommandsList;
     private List<Token> myTokensList;
-    RootCommand headNode;
+    Command headNode;
 
     public ExecuteCommand(List<Command> commandsList, List<Token> TokensList){
         myCommandsList = commandsList;

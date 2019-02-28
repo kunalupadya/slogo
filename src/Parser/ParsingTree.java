@@ -34,6 +34,9 @@ public class ParsingTree {
         while (currToken!= null) {
 //            LinkedList<Command> commandLinkedList = new LinkedList<>(commandsList);
 //            LinkedList<Token> tokensLinkedList = new LinkedList<>(tokensList);
+            if (currToken == Token.LIST_END){
+                return parent;
+            }
             currCommand = commandsList.remove(FIRST);
             currToken = tokensList.remove(FIRST);
             Command savedCurrentCommand = currCommand;

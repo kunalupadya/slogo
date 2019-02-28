@@ -47,7 +47,6 @@ public class UserCommands extends Module {
         container.getChildren().add(userCommandsDisplay);
     }
 
-    //show method in console class so that console can show error messages on the screen
     private void updateUserCommands() {
         //UserCommandList = ___.getList
     }

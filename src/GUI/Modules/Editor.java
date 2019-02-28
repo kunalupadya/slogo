@@ -15,11 +15,12 @@ import javafx.scene.text.Font;
 public class Editor extends Module {
     private VBox container;
     private TextArea editor;
+    private String editorText;
 
     public Editor(int width, int height) {
         super(width, height);
         setContent();
-        content.setMaxSize(width*2, height*2);
+        content.setMaxSize(width, height);
 //        editor.layoutBoundsProperty().addListener(new ChangeListener<Bounds>() {
 //            @Override
 //            public void changed(ObservableValue<? extends Bounds> observable, Bounds oldValue, Bounds newValue) {
@@ -54,7 +55,12 @@ public class Editor extends Module {
         container.getChildren().add(editor);
     }
 
+
     public void run() {
-        //send to the parser
+        editorText = editor.getText();
+        if (editorText != "") {
+            editorText = editorText.replace("\n", " ");
+        }
+        //send editorText to the parsecommand
     }
 }

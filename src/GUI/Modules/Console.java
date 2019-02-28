@@ -65,7 +65,7 @@ public class Console extends Module  {
             }
             commandHistory.add(0, parameterValue);
             commandPosition = -1;
-            //send consoleinput to the backend
+            //send consoleinput to parsecommand
             consoleInput.clear();
         }
         if (code == KeyCode.UP) {
@@ -87,7 +87,8 @@ public class Console extends Module  {
         }
     }
 
+    //show method in console class so that console can show error messages on the screen
     private void showError() {
-
+        //receive error message from handleerror class?
     }
 }

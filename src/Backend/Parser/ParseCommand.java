@@ -1,10 +1,12 @@
 package Backend.Parser;
 
-import Backend.CommandFactory;
-import Backend.ExecuteCommand;
-import GUI.Controls.SwitchLanguages;
+import Backend.InputController;
+import Backend.InternalController;
+import Backend.SLogoExpressions.Expression;
+import Backend.SLogoExpressions.ListExpr;
 import Backend.Commands.Command;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,41 +20,30 @@ public class ParseCommand {
     private final String whiteSpace = "\\s+";
     private final String noInput = "";
     private LanguageSetting langSetting;
-    private String myLanguage;
     private ArrayList<Command> commandsList;
-    private HandleError handleError;
-    private List<Token> tokensList;
+    private HandleError handleError = new HandleError();
+    private List<Token> tokenList;
+    private InternalController controller;
 
 
-    public ParseCommand (String language){
-        myLanguage = language;
-        langSetting = new LanguageSetting(language);
+    public ParseCommand (InternalController controller){
+        this.controller = controller;
+        langSetting = new LanguageSetting(controller.getCodeLanguage());
     }
 
-    public Expression void parseInput(){
-
-    }
-
-    public ParseCommand(String consoleInput){
-
-        //set Language;
-
+    private String[] cleanInput(String consoleInput) {
         //user typed empty string or didn't type anything
-        if(consoleInput.equals(noInput) || consoleInput == null){
+        if(consoleInput.equals(noInput)){
             handleError.noInputError();
         }
-
         RemoveComment removeComment = new RemoveComment(consoleInput);
         String refinedInput = removeComment.getOutput();
         String [] listOfWords = refinedInput.split(whiteSpace);
-        
-        //translate the input into default language
-        LanguageSetting languageSetting = new LanguageSetting(myLanguage);
-        //TODO: try catch block if command is not valid
-        String[] translatedListOfWords = languageSetting.translateCommand(listOfWords);
 
-        //convert word into tokens and check validity
-        tokensList = addToTokenList(translatedListOfWords);
+        //translate the input into default language
+        //TODO: try catch block if command is not valid
+        return langSetting.translateCommand(listOfWords);
+
     }
 
     private List<Token> addToTokenList(String[] translatedListOfWords){
@@ -64,22 +55,62 @@ public class ParseCommand {
         return list;
     }
 
-    public Expression parseInput(String userInput) {
+    public Expression parseInput(String consoleInput){
+        String [] inputWords = cleanInput(consoleInput);
+        //convert word into tokens and check validity
+        tokenList = addToTokenList(inputWords);
+        var inputController = new InputController(inputWords, tokenList);
+        Expression root = new ListExpr(controller);
+        while(!inputController.hasReachedEnd()){
+            inputController = parseRecursive(inputController);
+            Expression cur = inputController.getCurExpression();
+            if (cur != null){
+                root.addChild(cur);
+                cur.setParent(root);
+                inputController.incrementIndex();
+            }
+        }
+        return root;
     }
 
-    /**
-    //TODO: this method should create complete list of Commands that Execute Command merely runs using Command tree
-    //implementation is wrong currently
-    private ArrayList<Command> stackCommand(String[] listOfWords){
-        ArrayList<Command> list = new ArrayList<Command>();
-        CommandFactory commandFactory = new CommandFactory();
-        for(String word: listOfWords){
-            //TODO: error to be fixed after command implementation
-            Command newCommand = commandFactory.getCommand(word);
-            list.add(newCommand);
+    //TODO: handle exceptions
+    private InputController parseRecursive(InputController inputController) {
+        Expression expr = constructExpression(inputController);
+        int count = 0;
+        while (count < expr.getNumArgs() && !inputController.hasReachedEnd()){
+            inputController.incrementIndex();
+            InputController subExpr = parseRecursive(inputController);
+            subExpr.getCurExpression().setParent(expr);
+            expr.addChild(subExpr.getCurExpression());
+            count++;
         }
-        return list;
+        inputController.setCurExpression(expr);
+        return inputController;
     }
-     **/
+
+    private Expression constructExpression(InputController inputController) throws Exception{
+        Token curToken = inputController.getCurToken();
+        Expression expr;
+        if (curToken == Token.COMMAND){
+            expr = createCommand(inputController);
+        }
+        else{
+            expr = (Expression) createObject(inputController.getCurInput(), "backend.SLogoExpressions" + curToken.toString() + "Expr");
+        }
+        return expr;
+    }
+
+    private Expression createCommand(InputController inputController) throws Exception{
+        Command com = (Command) createObject(inputController.getCurInput(), "Backend.Commands." + inputController.getCurInput() + "Command");
+        //TODO: exception handling and check for user defined commands
+        return com;
+    }
+
+    private Object createObject(String name, String classPath) throws Exception{
+        Class<?> cl = Class.forName(classPath);
+        Constructor<?> constr = cl.getDeclaredConstructor(name.getClass(), controller.getClass());
+        return constr.newInstance(name, controller);
+    }
+
 
 }

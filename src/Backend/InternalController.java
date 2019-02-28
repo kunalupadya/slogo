@@ -1,8 +1,8 @@
 package Backend;
 
 import Backend.Parser.ParseCommand;
+import Backend.SLogoExpressions.Expression;
 
-import java.beans.Expression;
 
 public class InternalController {
 

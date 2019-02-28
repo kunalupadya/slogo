@@ -1,5 +1,6 @@
 package Backend.SLogoExpressions;
 
+import Backend.InternalController;
 import Backend.Variable;
 
 import java.util.ArrayList;
@@ -7,13 +8,21 @@ import java.util.List;
 
 public abstract class Expression {
 
+    private InternalController controller;
+    private int numArgs;
     private List<Expression> children;
     private Expression parent;
     private String exprInfo;
 
-    Expression(String input){
+    public Expression(String input, InternalController controller, int numArgs){
+        this(input, controller);
+        this.numArgs = numArgs;
+
+    }
+
+    public Expression(String input, InternalController controller) {
         exprInfo = input;
-        children = new ArrayList<Expression>();
+        this.controller = controller;
 
     }
 
@@ -39,6 +48,14 @@ public abstract class Expression {
 
     public Expression getParent() {
         return parent;
+    }
+
+    public void setParent(Expression expr){
+        parent = expr;
+    }
+
+    public int getNumArgs(){
+        return numArgs;
     }
 
     public abstract Variable evaluate();

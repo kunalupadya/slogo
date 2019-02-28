@@ -12,3 +12,5 @@ public enum Token {
     NEWLINE,
     ERROR
 }
+
+//TODO: implement some sort of toString()

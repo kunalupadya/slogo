@@ -1,11 +1,12 @@
 package Backend.SLogoExpressions;
 
+import Backend.InternalController;
 import Backend.Variable;
 
 public class VariableExpr extends Expression {
 
-    public VariableExpr(String input){
-        super(input);
+    public VariableExpr(String input, InternalController controller){
+        super(input, controller);
     }
 
     @Override

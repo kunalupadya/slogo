@@ -1,12 +1,14 @@
 package Backend.SLogoExpressions;
 
+import Backend.InternalController;
+
 public abstract class SeriesInputExpr extends Expression{
 
     private String expressionType;
     private String seriesInput;
 
-    public SeriesInputExpr(String input, String type){
-        super(input);
+    public SeriesInputExpr(String input, String type, InternalController controller){
+        super(input, controller);
         expressionType = type;
         //TODO: add logic to determine what is the series of input in the list or group
     }

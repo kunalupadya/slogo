@@ -10,6 +10,11 @@ public abstract class Command{
     protected boolean isConstant;
     protected double returnValue;
     protected int numParameters;
+    protected int currentNumParameters;
+
+    public int getCurrentNumParameters() {
+        return currentNumParameters;
+    }
 
     public boolean getIsConstant(){
         return isConstant;
@@ -27,6 +32,7 @@ public abstract class Command{
 
     public void addChildren(Command command) {
         myChildrenList.add(command);
+        currentNumParameters += 1;
     }
 
     public List<Command> getChildren(){

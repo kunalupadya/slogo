@@ -1,4 +1,6 @@
 .button {
+    -fx-pref-width: 30px;
+    -fx-pref-height: 30px;
     -fx-background-color:
             linear-gradient(#E6E8FA, #DADAD1),
             radial-gradient(center 50% -40%, radius 200%, #DBE4D3 45%, #D0D0CA 50%);
@@ -52,21 +54,7 @@
     -fx-font-size: 12.0;
 }
 
-.hyperlink{
-    -fx-pref-width: 30px;
-    -fx-pref-height: 30px;
-    -fx-background-color:
-            linear-gradient(#E6E8FA, #DADAD1),
-            radial-gradient(center 50% -40%, radius 200%, #DBE4D3 45%, #D0D0CA 50%);
-    -fx-background-radius: 6, 5;
-    -fx-background-insets: 0, 1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
-}
-
-.hyperlink:hover {
-    -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%, #CDD0D0 0%, #838B8B 100%),
-            #4E78A0,
-            #9FABB7,
-            radial-gradient(center 50% 50%, radius 100%, #C8CFD6, #D4DEE9);
+.list-view .placeholder{
+    -fx-font-family: Courier;
+    -fx-font-size: 12.0;
 }

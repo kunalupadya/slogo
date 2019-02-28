@@ -44,8 +44,8 @@ public class WindowLayout {
         var rightBorderPane = new BorderPane();
 
         rightBorderPane.setTop(new GUI.Modules.AvailableVars(200, 100).getContent());
-        rightBorderPane.setCenter(new GUI.Modules.UserCommands(200, 100).getContent());
-        rightBorderPane.setBottom(editor.getContent());
+        rightBorderPane.setCenter(editor.getContent());
+        rightBorderPane.setBottom(new GUI.Modules.UserCommands(200, 100).getContent());
 
         root.setTop(returnButtons());
         root.setBottom(new GUI.Modules.Console(600, 100).getContent());
@@ -120,6 +120,10 @@ public class WindowLayout {
                 alert.showAndWait();
             }
         }
+    }
+
+    public void changeLanguage(String language) {
+        // Send new language to back end
     }
 
 //    public void handleSetLanguage() {

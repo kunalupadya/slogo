@@ -1,12 +1,13 @@
 package GUI.Controls;
 
 import GUI.WindowLayout;
+import javafx.event.EventHandler;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.awt.event.ActionEvent;
+import javafx.event.ActionEvent;
 
 public class SwitchLanguages {
     private WindowLayout context;
@@ -29,15 +30,34 @@ public class SwitchLanguages {
         this.button.setGraphic(img);
         this.button.getStyleClass().add("button");
 
+        EventHandler<ActionEvent> action = changeLanguage();
+
         chinese = new MenuItem("Chinese");
+        chinese.setOnAction(action);
+
         english = new MenuItem("English");
+        english.setOnAction(action);
+
         french = new MenuItem("French");
+        french.setOnAction(action);
+
         german = new MenuItem("German");
+        german.setOnAction(action);
+
         italian = new MenuItem("Italian");
+        italian.setOnAction(action);
+
         portuguese = new MenuItem("Portuguese");
+        portuguese.setOnAction(action);
+
         russian = new MenuItem("Russian");
+        russian.setOnAction(action);
+
         spanish =  new MenuItem("Spanish");
+        spanish.setOnAction(action);
+
         urdu = new MenuItem("Urdu");
+        urdu.setOnAction(action);
 
         button.getItems().addAll(chinese, english, french, german, italian, portuguese, russian, spanish, urdu);
 
@@ -50,5 +70,14 @@ public class SwitchLanguages {
     }
 
     private void action() {
+    }
+
+    private EventHandler<ActionEvent> changeLanguage() {
+        return event -> {
+            MenuItem mItem = (MenuItem) event.getSource();
+            String language = mItem.getText();
+            context.changeLanguage(language);
+            System.out.println(language); // TODO: Remove once this is working
+        };
     }
 }

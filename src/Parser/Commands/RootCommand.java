@@ -3,7 +3,7 @@ package Parser.Commands;
 public class RootCommand extends Command{
 
     protected double execute(double a){
-        return Math.atan(a);
+        return 0;
     }
 
     public int getNumParameters(){

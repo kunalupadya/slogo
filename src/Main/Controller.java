@@ -55,7 +55,6 @@ public class Controller extends Application {
      */
     public void start (Stage stage) {
         var root = new BorderPane();
-
         WindowLayout windowLayout = new WindowLayout(root, this);
 
         myScene = new Scene(root);

@@ -17,6 +17,7 @@ public abstract class Module {
         moduleWidth = width;
         moduleHeight = height;
         this.content = new ScrollPane();
+        content.setMinSize(width, height);
         setLayout();
     }
 

@@ -40,18 +40,15 @@ public class WindowLayout {
         editor = new Editor(200, 200);
 
         var rightBorderPane = new BorderPane();
-        var varsAndCommands = new VBox();
 
-        varsAndCommands.getChildren().addAll(new GUI.Modules.AvailableVars(200, 200).getContent(),
-                new GUI.Modules.UserCommands(200, 200).getContent());
-
-        rightBorderPane.setTop(new GUI.Modules.UserCommands(200, 200).getContent());
-        rightBorderPane.setCenter(editor.getContent());
+        rightBorderPane.setTop(new GUI.Modules.AvailableVars(200, 100).getContent());
+        rightBorderPane.setCenter(new GUI.Modules.UserCommands(200, 100).getContent());
+        rightBorderPane.setBottom(editor.getContent());
 
         root.setTop(returnButtons());
         root.setCenter(new GUI.Modules.GraphicsArea(400, 400).getContent());
         root.setRight(rightBorderPane);
-        root.setBottom(new GUI.Modules.Console(600, 50).getContent());
+        root.setBottom(new GUI.Modules.Console(600, 100).getContent());
 
         myContainer = root;
     }

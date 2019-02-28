@@ -1,9 +1,16 @@
 package Parser.Commands.Queries;
 
-import Parser.Commands.Command;
+import Parser.Commands.TurtleCommand;
 
-public class HeadingCommand implements Command {
+public class HeadingCommand extends TurtleCommand {
 
-    public int numParameters(){
+    public HeadingCommand(){
+        isConstant = false;
+        numParameters = 0;
+    }
 
+    public void execute(){
+        returnValue = myTurtle.getMyAngle();
+
+    }
 }

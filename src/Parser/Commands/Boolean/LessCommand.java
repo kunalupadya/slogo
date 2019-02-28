@@ -2,11 +2,13 @@ package Parser.Commands.Boolean;
 
 public class LessCommand extends BooleanCommand {
 
-    protected double execute(double a, double b){
-        return returnValue(a < b );
+    public LessCommand(){
+        isConstant = false;
+        numParameters = 2;
     }
 
-    public int getNumParameters(){
-        return 2;
+    public void execute(){
+        returnValue =  returnValue(myChildrenList.get(0).getReturnValue() < myChildrenList.get(1).getReturnValue());
     }
+
 }

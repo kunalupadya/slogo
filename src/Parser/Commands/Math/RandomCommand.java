@@ -6,11 +6,14 @@ import java.util.Random;
 
 public class RandomCommand extends Command {
 
-    protected double execute(double a){
-        return new Random().nextInt((int) a);
+    public RandomCommand(){
+        isConstant = false;
+        numParameters = 1;
     }
 
-    public int getNumParameters(){
-        return 1;
+    public void execute(){
+        returnValue =  new Random().nextInt((int)myChildrenList.get(0).getReturnValue());
     }
+
+
 }

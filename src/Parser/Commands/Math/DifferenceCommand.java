@@ -4,11 +4,14 @@ import Parser.Commands.Command;
 
 public class DifferenceCommand extends Command {
 
-    protected double execute(double a, double b){
-        return Math.abs(a - b);
+    public DifferenceCommand(){
+        isConstant = false;
+        numParameters = 2;
     }
 
-    public int getNumParameters(){
-        return 2;
+    public void execute(){
+        returnValue =  Math.abs(myChildrenList.get(0).getReturnValue() - myChildrenList.get(1).getReturnValue());
     }
+
+
 }

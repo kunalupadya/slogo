@@ -23,7 +23,7 @@ public abstract class Command{
         return returnValue;
     }
 
-    public abstract double execute();
+    public abstract void execute();
 
     public void addChildren(Command command) {
         myChildrenList.add(command);

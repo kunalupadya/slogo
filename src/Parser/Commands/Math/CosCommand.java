@@ -4,11 +4,13 @@ import Parser.Commands.Command;
 
 public class CosCommand extends Command {
 
-    protected double execute(double a){
-        return Math.cos(a);
+    public CosCommand(){
+        isConstant = false;
+        numParameters = 1;
     }
 
-    public int getNumParameters(){
-        return 1;
+    public void execute(){
+        returnValue =  Math.cos(myChildrenList.get(0).getReturnValue());
     }
+
 }

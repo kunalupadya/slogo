@@ -29,13 +29,25 @@ public class Turtle {
 //        Line movement = new Line(xPos, yPos, newXPos, newYPos);
 //        movement.setStroke(myPen.getPenColor());
 //        movement.setStrokeWidth(myPen.getPenWidth());
-        myGrid.addMovement(xPos, yPos, myAngle, dist, myPen);
+          myGrid.addMovement(xPos, yPos, myAngle, dist, myPen);
 //        xPos = newXPos;
 //        yPos = newYPos;
     }
 
+    public void moveTo(Point point){
+
+    }
+
     public void turn(double angle){
         myAngle += angle;
+    }
+
+    public void makeTurtleVisible(){
+
+    }
+
+    public void makeTurtleInvisible(){
+
     }
 
     public double getyPos() {

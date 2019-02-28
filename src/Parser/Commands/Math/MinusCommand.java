@@ -4,11 +4,13 @@ import Parser.Commands.Command;
 
 public class MinusCommand extends Command {
 
-    protected double execute(double a, double b){
-        return a -b;
+    public MinusCommand(){
+        isConstant = false;
+        numParameters = 2;
     }
 
-    public int getNumParameters(){
-        return 1;
+    public void execute(){
+        returnValue = myChildrenList.get(0).getReturnValue() - myChildrenList.get(1).getReturnValue();
     }
+
 }

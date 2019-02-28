@@ -2,11 +2,13 @@ package Parser.Commands.Boolean;
 
 public class NotEqualCommand extends BooleanCommand{
 
-    protected double execute(double a){
-        return returnValue(a!=0);
+    public NotEqualCommand(){
+        isConstant = false;
+        numParameters = 1;
     }
 
-    public int getNumParameters(){
-        return 1;
+    public void execute(){
+        returnValue =  returnValue(myChildrenList.get(0).getReturnValue() !=0);
     }
+
 }

@@ -2,11 +2,12 @@ package Parser.Commands.Boolean;
 
 public class OrCommand extends BooleanCommand {
 
-    protected double execute(double a, double b){
-        return returnValue(a != 0 || b !=0);
+    public OrCommand() {
+        isConstant = false;
+        numParameters = 2;
     }
 
-    public int getNumParameters(){
-        return 2;
+    public void execute() {
+        returnValue = returnValue(myChildrenList.get(0).getReturnValue() != 0 || myChildrenList.get(1).getReturnValue() != 0);
     }
 }

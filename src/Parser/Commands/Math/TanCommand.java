@@ -4,12 +4,13 @@ import Parser.Commands.Command;
 
 public class TanCommand extends Command {
 
+    public TanCommand(){
+        isConstant = false;
+        numParameters = 1;
+    }
 
-    protected double execute(double a){
-        return Math.tan(a);
+    public void execute(){
+        returnValue =  Math.tan(myChildrenList.get(0).getReturnValue());
     }
-    
-    public int getNumParameters(){
-        return 1;
-    }
+
 }

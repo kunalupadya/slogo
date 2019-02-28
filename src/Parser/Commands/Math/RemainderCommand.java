@@ -4,11 +4,13 @@ import Parser.Commands.Command;
 
 public class RemainderCommand extends Command {
 
-    protected double execute(double a, double b){
-        return a%b;
+    public RemainderCommand(){
+        isConstant = false;
+        numParameters = 2;
     }
 
-    public int getNumParameters(){
-        return 2;
+    public void execute(){
+        returnValue = myChildrenList.get(0).getReturnValue() % myChildrenList.get(1).getReturnValue();
     }
+
 }

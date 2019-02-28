@@ -1,6 +1,16 @@
 package Parser.Commands.Turtle_Command;
 
-import Parser.Commands.Command;
+import Parser.Commands.TurtleCommand;
 
-public class RightCommand implements Command {
+public class RightCommand extends TurtleCommand {
+
+    public RightCommand(){
+        isConstant = false;
+        numParameters = 1;
+    }
+
+    public void execute(){
+        getTurtle().turn(getChildren().get(0).getReturnValue());
+        returnValue = getChildren().get(0).getReturnValue();
+    }
 }

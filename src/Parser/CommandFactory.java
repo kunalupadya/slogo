@@ -1,6 +1,7 @@
 package Parser;
 
 import Parser.Commands.Command;
+import Parser.Commands.ConstantCommand;
 import Parser.Commands.Queries.*;
 import Parser.Commands.Turtle_Command.*;
 import Parser.Commands.Math.*;
@@ -98,8 +99,7 @@ public class CommandFactory {
         } else if (word.equalsIgnoreCase("not")) {
             return new NotCommand();
         }
-        //Not in this, then command does not exist
-        handleError.undefinedCommandErrors(word);
-        return new NotCommand();
+        //Not in this, then constant command
+        return new ConstantCommand();
     }
 }

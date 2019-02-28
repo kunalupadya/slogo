@@ -4,12 +4,13 @@ import Parser.Commands.Command;
 
 public class PowCommand extends Command {
 
-    protected double execute(double a, double b){
-        return Math.pow(a,b);
+    public PowCommand(){
+        isConstant = false;
+        numParameters = 2;
     }
 
-    public int getNumParameters(){
-        return 2;
+    public void execute(){
+        returnValue =  Math.pow(myChildrenList.get(0).getReturnValue(),myChildrenList.get(1).getReturnValue());
     }
 
 }

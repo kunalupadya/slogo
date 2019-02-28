@@ -4,11 +4,13 @@ import Parser.Commands.Command;
 
 public class LogCommand extends Command {
 
-    protected double execute(double a){
-        return Math.log(a);
+    public LogCommand(){
+        isConstant = false;
+        numParameters = 1;
     }
 
-    public int getNumParameters(){
-        return 1;
+    public void execute(){
+        returnValue =  Math.log(myChildrenList.get(0).getReturnValue());
     }
+
 }

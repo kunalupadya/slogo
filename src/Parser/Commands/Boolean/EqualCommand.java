@@ -3,11 +3,13 @@ package Parser.Commands.Boolean;
 
 public class EqualCommand extends BooleanCommand{
 
-    public double execute(double a, double b){
-        return returnValue(a == b);
+    public EqualCommand(){
+        isConstant = false;
+        numParameters = 2;
     }
 
-    public int getNumParameters(){
-        return 2;
+    public void execute(){
+        returnValue =  returnValue(myChildrenList.get(0).getReturnValue() ==  myChildrenList.get(1).getReturnValue());
     }
+
 }

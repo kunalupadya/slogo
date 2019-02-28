@@ -4,11 +4,14 @@ import Parser.Commands.Command;
 
 public class PiCommand extends Command {
 
-    public double execute(){
-        return Math.PI;
+    public PiCommand(){
+        isConstant = false;
+        numParameters = 0;
     }
 
-    public int numParameters(){
-        return 0;
+    public void execute(){
+        returnValue = Math.PI;
     }
+
+
 }

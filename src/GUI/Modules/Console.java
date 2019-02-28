@@ -4,6 +4,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
@@ -45,6 +46,7 @@ public class Console extends Module  {
         consoleInput.setFont(courier);
         consoleInput.prefWidthProperty().bind(container.widthProperty());
         consoleInput.setOnKeyReleased(event -> handleKeyInput(event.getCode()));
+//        container.setVgrow(consoleInput, Priority.ALWAYS);
         container.getChildren().addAll(consoleInfo, consoleInput);
     }
 

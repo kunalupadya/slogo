@@ -5,6 +5,7 @@ import GUI.Modules.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.*;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Tooltip;
@@ -39,8 +40,12 @@ public class WindowLayout {
         editor = new Editor(200, 200);
 
         var rightBorderPane = new BorderPane();
+        var varsAndCommands = new VBox();
 
-        rightBorderPane.setTop(new GUI.Modules.AvailableVars(200, 200).getContent());
+        varsAndCommands.getChildren().addAll(new GUI.Modules.AvailableVars(200, 200).getContent(),
+                new GUI.Modules.UserCommands(200, 200).getContent());
+
+        rightBorderPane.setTop(new GUI.Modules.UserCommands(200, 200).getContent());
         rightBorderPane.setCenter(editor.getContent());
 
         root.setTop(returnButtons());

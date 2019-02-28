@@ -5,10 +5,10 @@ import java.util.List;
 public abstract class Command{
 
     protected List<Command> myChildrenList;
-
+    protected boolean isConstant;
     protected double returnValue;
 
-    protected abstract boolean isConstant();
+    public abstract boolean getIsConstant();
 
     public abstract int getNumParameters();
 
@@ -20,9 +20,5 @@ public abstract class Command{
 
     public List<Command> getChildren(){
         return myChildrenList;
-    }
-
-    public void addChildrenList(List<Command> childrenList){
-        myChildrenList = childrenList;
     }
 }

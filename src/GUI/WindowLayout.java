@@ -4,6 +4,7 @@ import GUI.Controls.*;
 import GUI.Modules.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.*;
@@ -11,8 +12,10 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 
-import Main.Controller;
+import static Main.Controller.*;
 
 import java.awt.image.ColorConvertOp;
 
@@ -24,19 +27,20 @@ import java.awt.image.ColorConvertOp;
 public class WindowLayout {
     private BorderPane myContainer;
     private Editor editor;
-    private Control openHelp, redo, run, switchLanguages, undo, stopExecution;
+    private OpenHelp openHelp;
+    private Control redo, run, switchLanguages, undo, stopExecution;
     private ColorPicker setBackgroundColor, setPenColor;
-    private Controller context; // TODO: Will we need context?
+    private final String url = "https://www2.cs.duke.edu/courses/compsci308/current/assign/03_slogo/commands.php";
+    final WebView browser = new WebView();
+    final WebEngine webEngine = browser.getEngine();
 
     /**
      * TODO: add buttons
      * TODO: add JavaDoc
      *
      * @param root
-     * @param context
      */
-    public WindowLayout(BorderPane root, Controller context) {
-        this.context = context;
+    public WindowLayout(BorderPane root) {
         editor = new Editor(200, 200);
 
         var rightBorderPane = new BorderPane();
@@ -46,9 +50,9 @@ public class WindowLayout {
         rightBorderPane.setBottom(editor.getContent());
 
         root.setTop(returnButtons());
+        root.setBottom(new GUI.Modules.Console(600, 100).getContent());
         root.setCenter(new GUI.Modules.GraphicsArea(400, 400).getContent());
         root.setRight(rightBorderPane);
-        root.setBottom(new GUI.Modules.Console(600, 100).getContent());
 
         myContainer = root;
     }
@@ -61,7 +65,6 @@ public class WindowLayout {
         buttonHandler.setMinHeight(30);
 
         openHelp = new OpenHelp(this);
-        openHelp.getButton().setTooltip(new Tooltip("Open Help"));
 
         switchLanguages = new SwitchLanguages(this);
         switchLanguages.getButton().setTooltip(new Tooltip("Switch Languages"));
@@ -85,7 +88,7 @@ public class WindowLayout {
         run = new Run(editor);
         run.getButton().setTooltip(new Tooltip("Run"));
 
-        var leftButtons = new HBox(openHelp.getButton(), switchLanguages.getButton(),
+        var leftButtons = new HBox(openHelp.getHyperlink(), switchLanguages.getButton(),
                 setBackgroundColor, setPenColor);
         leftButtons.setPadding(new Insets(5, 5, 5, 5));
         leftButtons.setSpacing(5);
@@ -106,4 +109,8 @@ public class WindowLayout {
     }
 
     public void redo() {}
+
+    public void openHelpWeb() {
+         webEngine.load(url);
+    }
 }

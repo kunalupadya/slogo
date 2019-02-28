@@ -2,9 +2,9 @@ package Backend.SLogoExpressions;
 
 import Backend.Variable;
 
-public class Constant extends Expression{
+public class ConstantExpr extends Expression {
 
-    public Constant(String input){
+    public ConstantExpr(String input){
         super(input);
 
     }

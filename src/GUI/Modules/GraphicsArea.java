@@ -31,10 +31,6 @@ public class GraphicsArea extends Module {
     }
 
     @Override
-    protected void setLayout() {
-    }
-
-    @Override
     protected void setStyle(){
     }
 

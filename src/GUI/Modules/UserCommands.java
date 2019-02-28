@@ -39,7 +39,6 @@ public class UserCommands extends Module {
             userCommandsCollection = FXCollections.<String>observableArrayList(userCommands);
             userCommandsDisplay = new ListView<>(userCommandsCollection);
             userCommandsDisplay.setOrientation(Orientation.VERTICAL);
-            userCommandsDisplay.setPrefSize(moduleWidth, moduleHeight);
             userCommandsDisplay.prefHeightProperty().bind(container.heightProperty());
             userCommandsDisplay.setPrefWidth(moduleWidth);
             userCommandsDisplay.setPlaceholder(new Label("User Commands"));

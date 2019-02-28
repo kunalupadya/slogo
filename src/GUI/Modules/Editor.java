@@ -20,7 +20,6 @@ public class Editor extends Module {
     public Editor(int width, int height) {
         super(width, height);
         setContent();
-        content.setMaxSize(width, height);
 //        editor.layoutBoundsProperty().addListener(new ChangeListener<Bounds>() {
 //            @Override
 //            public void changed(ObservableValue<? extends Bounds> observable, Bounds oldValue, Bounds newValue) {
@@ -31,10 +30,6 @@ public class Editor extends Module {
 //                }
 //            }
 //        });
-    }
-
-    @Override
-    protected void setLayout() {
     }
 
     @Override
@@ -54,7 +49,6 @@ public class Editor extends Module {
         editor.setPromptText("Editor");
         container.getChildren().add(editor);
     }
-
 
     public void run() {
         editorText = editor.getText();

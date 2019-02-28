@@ -32,14 +32,6 @@ public class AvailableVars extends Module{
     }
 
     @Override
-    protected void setLayout() {
-        content.setPrefViewportWidth(moduleWidth);
-        content.setPrefViewportHeight(moduleHeight);
-        content.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        content.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-    }
-
-    @Override
     protected void setStyle(){
     }
 

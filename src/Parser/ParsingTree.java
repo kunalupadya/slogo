@@ -78,9 +78,9 @@ public class ParsingTree {
             }
             if (parent.getNumParameters() == parent.getCurrentNumParameters()) {
                 System.out.println("CSDFHBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-                System.out.println(savedCurrentCommand);
-                System.out.println(parent);
-                System.out.println(parent.getChildren());
+//                System.out.println(savedCurrentCommand);
+//                System.out.println(parent);
+//                System.out.println(parent.getChildren());
 
                 return parent;
             }

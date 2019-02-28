@@ -5,7 +5,7 @@ public class ConstantCommand extends Command {
     public ConstantCommand(Double input){
         returnValue = input;
         isConstant = true;
-        numParameters = 1;
+        numParameters = 0;
     }
 
     public void execute(){

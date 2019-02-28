@@ -2,9 +2,9 @@ package Parser.Commands.Math;
 
 import Parser.Commands.Command;
 
-public class PiCommand implements Command {
+public class PiCommand extends Command {
 
-    protected double execute(){
+    public double execute(){
         return Math.PI;
     }
 

@@ -2,6 +2,7 @@ package Parser;
 
 
 import Parser.Commands.Command;
+import Parser.Commands.RootCommand;
 import javafx.scene.control.Alert;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class ExecuteCommand {
     public static final String WRONG_NUMBER_OF_PARAMETERS = "Wrong number of parameters";
     private List<Command> myCommandsList;
     private List<Token> myTokensList;
-    Command headNode;
+    RootCommand headNode;
 
     public ExecuteCommand(List<Command> commandsList, List<Token> TokensList){
         myCommandsList = commandsList;
@@ -39,7 +40,7 @@ public class ExecuteCommand {
 
     public void traverse(Command node){
         if (node.getChildren().isEmpty()){
-            if (node.numParameters() == 0){
+            if (node.getNumParameters() == 0){
                 node.execute();
             }
             else{
@@ -51,7 +52,7 @@ public class ExecuteCommand {
             traverse(child);
         }
 
-        if (node.numParameters() == node.getChildren().size()){
+        if (node.getNumParameters() == node.getChildren().size()){
             node.execute();
         }
         else{

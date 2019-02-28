@@ -6,7 +6,7 @@ public class OrCommand extends BooleanCommand {
         return returnValue(a != 0 || b !=0);
     }
 
-    public int numParameters(){
+    public int getNumParameters(){
         return 2;
     }
 }

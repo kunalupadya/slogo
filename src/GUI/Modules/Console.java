@@ -34,6 +34,7 @@ public class Console extends Module  {
     protected void setContent() {
         container = new VBox();
         container.setPrefHeight(moduleHeight);
+        System.out.println(container.getHeight());
         container.prefWidthProperty().bind(content.widthProperty());
         content.setContent(container);
         commandHistory = new ArrayList<>();

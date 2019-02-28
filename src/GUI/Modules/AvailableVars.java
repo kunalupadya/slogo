@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
@@ -30,6 +31,10 @@ public class AvailableVars extends Module{
 
     @Override
     protected void setLayout() {
+        content.setPrefViewportWidth(moduleWidth);
+        content.setPrefViewportHeight(moduleHeight);
+        content.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        content.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
     }
 
     @Override
@@ -40,11 +45,13 @@ public class AvailableVars extends Module{
     protected void setContent() {
         container = new VBox();
         content.setContent(container);
+        container.prefHeightProperty().bind(content.heightProperty());
         if (availableVars != null) {
             availableVarsCollection = FXCollections.<String>observableArrayList(availableVars);
             availableVarsDisplay = new ListView<>(availableVarsCollection);
             availableVarsDisplay.setOrientation(Orientation.VERTICAL);
-            availableVarsDisplay.setPrefSize(moduleWidth, moduleHeight);
+            availableVarsDisplay.prefHeightProperty().bind(container.heightProperty());
+            availableVarsDisplay.setPrefWidth(moduleWidth);
         }
 //        availableVarsDisplay.setEditable(false);
         container.getChildren().add(availableVarsDisplay);

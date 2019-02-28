@@ -28,11 +28,14 @@ public class UserCommands extends Module {
     protected void setContent() {
         container = new VBox();
         content.setContent(container);
+        container.prefHeightProperty().bind(content.heightProperty());
         if (userCommands != null) {
             userCommandsCollection = FXCollections.<String>observableArrayList(userCommands);
             userCommandsDisplay = new ListView<>(userCommandsCollection);
             userCommandsDisplay.setOrientation(Orientation.VERTICAL);
             userCommandsDisplay.setPrefSize(moduleWidth, moduleHeight);
+            userCommandsDisplay.prefHeightProperty().bind(container.heightProperty());
+            userCommandsDisplay.setPrefWidth(moduleWidth);
         }
         container.getChildren().add(userCommandsDisplay);
     }

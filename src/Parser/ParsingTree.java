@@ -32,18 +32,7 @@ public class ParsingTree {
         return headNode;
     }
 
-
     public Command makeTree(List<Command> commandsList, List<Token> tokensList, Command parent){
-//        if (currCommand != null) {
-//            currCommand = commandsList.remove(FIRST);
-//            currToken = tokensList.remove(FIRST);
-//        }
-//        boolean enteredWhileLoop = false;
-//            LinkedList<Command> commandLinkedList = new LinkedList<>(commandsList);
-//            LinkedList<Token> tokensLinkedList = new LinkedList<>(tokensList);
-//            if (currToken == Token.LIST_END){
-//                return parent;
-//            }
         while (!commandsList.isEmpty()) {
             System.out.println();
             currCommand = commandsList.remove(FIRST);
@@ -54,10 +43,6 @@ public class ParsingTree {
             System.out.println(commandsList);
             System.out.println(tokensList);
             if (currToken == Token.CONSTANT) {
-                System.out.println("AAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-                System.out.println(savedCurrentCommand);
-                System.out.println(parent);
-                System.out.println(parent.getChildren());
                 parent.addChildren(savedCurrentCommand);
             }
             else if (currToken == Token.LIST_END){
@@ -70,18 +55,10 @@ public class ParsingTree {
                 parent.addChildren(savedCurrentCommand);
             }
             else{
-                System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-                System.out.println(savedCurrentCommand);
-                System.out.println(parent);
-                System.out.println(parent.getChildren());
+
                 parent.addChildren(makeTree(commandsList,tokensList, savedCurrentCommand));
             }
             if (parent.getNumParameters() == parent.getCurrentNumParameters()) {
-                System.out.println("CSDFHBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-//                System.out.println(savedCurrentCommand);
-//                System.out.println(parent);
-//                System.out.println(parent.getChildren());
-
                 return parent;
             }
         }

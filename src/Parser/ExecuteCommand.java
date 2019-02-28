@@ -63,13 +63,10 @@ public class ExecuteCommand {
         if (node.getNumParameters() == node.getChildren().size()){
             node.execute();
         }
-        if (node.getClass() == RootCommand.class){
+        else if (node.getClass() == RootCommand.class){
             return;
         }
         else{
-            System.out.println("AAAA");
-            System.out.println(node);
-            System.out.println("AABB");
             throw new SyntaxError(WRONG_NUMBER_OF_PARAMETERS);
         }
     }

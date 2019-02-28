@@ -14,16 +14,16 @@ public class Editor extends Module {
     public Editor(int width, int height) {
         super(width, height);
         setContent();
-        editor.layoutBoundsProperty().addListener(new ChangeListener<Bounds>() {
-            @Override
-            public void changed(ObservableValue<? extends Bounds> observable, Bounds oldValue, Bounds newValue) {
-                if (moduleHeight != newValue.getHeight()) {
-                    moduleHeight = (int) newValue.getHeight();
-                    editor.setPrefHeight(editor.getLayoutBounds().getHeight() + 20);
-                    System.out.println(editor.getLayoutBounds().getHeight());
-                }
-            }
-        });
+//        editor.layoutBoundsProperty().addListener(new ChangeListener<Bounds>() {
+//            @Override
+//            public void changed(ObservableValue<? extends Bounds> observable, Bounds oldValue, Bounds newValue) {
+//                if (moduleHeight != newValue.getHeight()) {
+//                    moduleHeight = (int) newValue.getHeight();
+//                    editor.setPrefHeight(editor.getLayoutBounds().getHeight() + 20);
+//                    System.out.println(editor.getLayoutBounds().getHeight());
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -38,11 +38,12 @@ public class Editor extends Module {
     protected void setContent() {
         container = new VBox();
         content.setContent(container);
+        container.prefHeightProperty().bind(content.heightProperty());
         editor = new TextArea();
         editor.setWrapText(true);
         editor.setFont(new Font("Courier", 12));
+        editor.prefHeightProperty().bind(container.heightProperty());
         editor.setPrefWidth(moduleWidth);
-//        editor.setPrefHeight(moduleHeight);
         container.getChildren().add(editor);
     }
 

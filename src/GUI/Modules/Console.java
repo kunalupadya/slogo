@@ -32,16 +32,18 @@ public class Console extends Module  {
     @Override
     protected void setContent() {
         container = new VBox();
-        container.setPrefWidth(moduleWidth);
         container.setPrefHeight(moduleHeight);
+        container.prefWidthProperty().bind(content.widthProperty());
         content.setContent(container);
         commandHistory = new ArrayList<>();
         commandPosition = -1;
         consoleInfo = new TextArea();
         consoleInfo.setEditable(false);
+        consoleInfo.prefWidthProperty().bind(container.widthProperty());
         consoleInfo.setFont(courier);
         consoleInput = new TextField();
         consoleInput.setFont(courier);
+        consoleInput.prefWidthProperty().bind(container.widthProperty());
         consoleInput.setOnKeyReleased(event -> handleKeyInput(event.getCode()));
         container.getChildren().addAll(consoleInfo, consoleInput);
     }
@@ -72,5 +74,9 @@ public class Console extends Module  {
                 consoleInput.clear();
             }
         }
+    }
+
+    private void showError() {
+
     }
 }

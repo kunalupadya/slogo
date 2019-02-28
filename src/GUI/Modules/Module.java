@@ -7,25 +7,34 @@ import javafx.scene.control.ScrollPane;
  *
  * @author Januario Carreiro & David Liu
  */
-public abstract class Module extends ScrollPane {
-    private int moduleWidth;
-    private int moduleHeight;
+public abstract class Module {
+    public final ScrollPane content;
+
+    public int moduleWidth;
+    public int moduleHeight;
 
     public Module(int width, int height) {
         moduleWidth = width;
         moduleHeight = height;
+        this.content = new ScrollPane();
+        content.setMinSize(width, height);
         setLayout();
     }
 
     protected void setLayout() {
-        setWidth(moduleWidth);
-        setHeight(moduleHeight);
-        setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
-        setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+        content.setPrefViewportWidth(moduleWidth);
+        content.setPrefViewportHeight(moduleHeight);
+        content.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        content.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
     }
 
     protected abstract void setContent();
 
     protected void setStyle(){
+
+    }
+
+    public ScrollPane getContent() {
+        return content;
     }
 }

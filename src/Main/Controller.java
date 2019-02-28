@@ -1,18 +1,13 @@
 package Main;
 
 import GUI.WindowLayout;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 /**
  * TODO: rename this class to Controller???
@@ -43,9 +38,9 @@ public class Controller extends Application {
      */
     public static void main (String[] args) {
         try {
-            Aller_Bd = Font.loadFont(Controller.class.getResource("/fonts/Aller_Bd.ttf").openStream(), 30);
-            Aller_Lt = Font.loadFont(Controller.class.getResource("/fonts/Aller_Lt.ttf").openStream(), 20);
-            Aller_LtIt = Font.loadFont(Controller.class.getResource("/fonts/Aller_LtIt.ttf").openStream(), 20);
+            Aller_Bd = Font.loadFont(Controller.class.getResource("/fonts/Aller_Bd.ttf").openStream(), 15);
+            Aller_Lt = Font.loadFont(Controller.class.getResource("/fonts/Aller_Lt.ttf").openStream(), 12);
+            Aller_LtIt = Font.loadFont(Controller.class.getResource("/fonts/Aller_LtIt.ttf").openStream(), 12);
         }
         catch (Exception e) {
             // TODO: change from printStackTrace() to something more useful
@@ -60,14 +55,14 @@ public class Controller extends Application {
      */
     public void start (Stage stage) {
         var root = new BorderPane();
-        root.setPadding(new Insets(5, 5, 5, 5));
-
-        WindowLayout windowLayout = new WindowLayout(root, this);
+        WindowLayout windowLayout = new WindowLayout(root, stage);
 
         myScene = new Scene(root);
         stage.setScene(myScene);
         stage.setTitle(WINDOW_TITLE);
         stage.show();
+
+        myScene.getStylesheets().add("ControlStyle.css");
 //
 //        TODO: add step() to GUI.Windows.GraphicsArea?
 //

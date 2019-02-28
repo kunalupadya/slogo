@@ -1,10 +1,14 @@
 package GUI.Controls;
 
+import GUI.WindowLayout;
 import javafx.scene.image.Image;
 
 public class Redo extends Control {
-    protected Redo(Image image) {
-        super(image);
+    private WindowLayout context;
+
+    public Redo(WindowLayout context) {
+        super(new Image(WindowLayout.class.getResourceAsStream("/images/redo.png")));
+        this.context = context;
     }
 
     @Override

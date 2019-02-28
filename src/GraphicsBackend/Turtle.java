@@ -29,7 +29,9 @@ public class Turtle {
 //        Line movement = new Line(xPos, yPos, newXPos, newYPos);
 //        movement.setStroke(myPen.getPenColor());
 //        movement.setStrokeWidth(myPen.getPenWidth());
-          myGrid.addMovement(xPos, yPos, myAngle, dist, myPen);
+        Point currentPosition = myGrid.addMovement(xPos, yPos, myAngle, dist, myPen);
+        xPos = currentPosition.getMyX();
+        yPos = currentPosition.getMyY();
 //        xPos = newXPos;
 //        yPos = newYPos;
     }

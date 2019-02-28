@@ -9,6 +9,7 @@ import javafx.scene.text.Font;
 
 /**
  * TODO: Have text read through a resource file, not hard coded
+ * TODO: Don't have magic number for setmaxsize, adjust accordingly
  */
 
 public class Editor extends Module {
@@ -18,6 +19,7 @@ public class Editor extends Module {
     public Editor(int width, int height) {
         super(width, height);
         setContent();
+        content.setMaxSize(width*2, height*2);
 //        editor.layoutBoundsProperty().addListener(new ChangeListener<Bounds>() {
 //            @Override
 //            public void changed(ObservableValue<? extends Bounds> observable, Bounds oldValue, Bounds newValue) {

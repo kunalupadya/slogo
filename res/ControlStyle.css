@@ -53,6 +53,8 @@
 }
 
 .hyperlink{
+    -fx-pref-width: 30px;
+    -fx-pref-height: 30px;
     -fx-background-color:
             linear-gradient(#E6E8FA, #DADAD1),
             radial-gradient(center 50% -40%, radius 200%, #DBE4D3 45%, #D0D0CA 50%);

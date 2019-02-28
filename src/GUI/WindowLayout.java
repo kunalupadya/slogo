@@ -4,6 +4,7 @@ import GUI.Controls.*;
 import GUI.Modules.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ColorPicker;
@@ -23,9 +24,11 @@ import java.io.File;
 public class WindowLayout {
     private Stage myStage;
     private BorderPane myContainer;
+    private Group setLanguageBox;
     private Editor editor;
     private OpenHelp openHelp;
-    private Control redo, run, switchLanguages, undo, stopExecution, setTurtleImage;;
+    private SwitchLanguages switchLanguages;
+    private Control redo, run, undo, stopExecution, setTurtleImage;;
     private ColorPicker setBackgroundColor, setPenColor;
     private final double sizeOfPadding = 5.0;
 
@@ -118,4 +121,22 @@ public class WindowLayout {
             }
         }
     }
+
+//    public void handleSetLanguage() {
+//        setLanguageBox = new Group();
+//        Rectangle dialogBox = new Rectangle(0, 0, 350, 240);
+//        dialogBox.setEffect(new DropShadow(25, 0, 0, Color.web("#333333")));
+//        dialogBox.setArcWidth(20);
+//        dialogBox.setArcHeight(20);
+//        dialogBox.setFill(Color.WHITE);
+//
+//        double originY = myStage.getScene().getHeight()/2 - dialogBox.getLayoutBounds().getHeight()/2 - 15;
+//        double originX = myStage.getScene().getWidth()/2 - dialogBox.getLayoutBounds().getWidth()/2;
+//
+//        setLanguageBox.getChildren().addAll(dialogBox);
+//        setLanguageBox.setLayoutY(originY);
+//        setLanguageBox.setLayoutX(originX);
+//
+//        myContainer.getChildren().add(setLanguageBox);
+//    }
 }

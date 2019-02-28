@@ -1,7 +1,10 @@
 package GUI;
 
 import GUI.Controls.*;
+import GUI.Modules.*;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.layout.Priority;
 import javafx.scene.shape.*;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Tooltip;
@@ -9,7 +12,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 
 import Main.Controller;
-import Main.TextMaker;
 
 import java.awt.image.ColorConvertOp;
 
@@ -20,6 +22,7 @@ import java.awt.image.ColorConvertOp;
  */
 public class WindowLayout {
     private BorderPane myContainer;
+    private Editor editor;
     private Control openHelp, redo, run, switchLanguages, undo, stopExecution;
     private ColorPicker setBackgroundColor, setPenColor;
     private Controller context; // TODO: Will we need context?
@@ -33,11 +36,12 @@ public class WindowLayout {
      */
     public WindowLayout(BorderPane root, Controller context) {
         this.context = context;
+        editor = new Editor(200, 200);
 
         var rightBorderPane = new BorderPane();
 
         rightBorderPane.setTop(new GUI.Modules.AvailableVars(200, 200).getContent());
-        rightBorderPane.setCenter(new GUI.Modules.Editor(200, 200).getContent());
+        rightBorderPane.setCenter(editor.getContent());
 
         root.setTop(returnButtons());
         root.setCenter(new GUI.Modules.GraphicsArea(400, 400).getContent());
@@ -51,25 +55,14 @@ public class WindowLayout {
         var buttonHandler = new HBox();
 
         buttonHandler.setStyle("-fx-background-color: #808080");
-        buttonHandler.setPadding(new Insets(5, 5, 5, 5));
-        buttonHandler.setSpacing(5);
         buttonHandler.setMinWidth(600);
         buttonHandler.setMinHeight(30);
 
-//        openHelp = new OpenHelp(this);
-//        openHelp.getButton().setLayoutX(300);
-//        openHelp.getButton().setLayoutY(0);
-//        openHelp.getButton().setTooltip(new Tooltip("Open Help"));
+        openHelp = new OpenHelp(this);
+        openHelp.getButton().setTooltip(new Tooltip("Open Help"));
 
         switchLanguages = new SwitchLanguages(this);
         switchLanguages.getButton().setTooltip(new Tooltip("Switch Languages"));
-
-        undo = new Undo(this);
-        undo.getButton().setTooltip(new Tooltip("Undo"));
-
-        stopExecution = new StopExecution(this);
-        stopExecution.getButton().setTooltip(new Tooltip("Stop Execution"));
-
 
         setPenColor = new SetPenColor().getColorPicker();
         setPenColor.setTooltip(new Tooltip("Set Pen Color"));
@@ -77,8 +70,32 @@ public class WindowLayout {
         setBackgroundColor = new SetBackgroundColor().getColorPicker();
         setBackgroundColor.setTooltip(new Tooltip("Set Background Color"));
 
-        buttonHandler.getChildren().addAll(switchLanguages.getButton(), stopExecution.getButton(), undo.getButton(),
-                setPenColor, setBackgroundColor);
+        undo = new Undo(this);
+        undo.getButton().setLayoutX(200);
+        undo.getButton().setTooltip(new Tooltip("Undo"));
+
+        redo = new Redo(this);
+        redo.getButton().setTooltip(new Tooltip("Redo"));
+
+        stopExecution = new StopExecution(this);
+        stopExecution.getButton().setTooltip(new Tooltip("Stop Execution"));
+
+        run = new Run(editor);
+        run.getButton().setTooltip(new Tooltip("Run"));
+
+        var leftButtons = new HBox(openHelp.getButton(), switchLanguages.getButton(),
+                setBackgroundColor, setPenColor);
+        leftButtons.setPadding(new Insets(5, 5, 5, 5));
+        leftButtons.setSpacing(5);
+        leftButtons.setAlignment(Pos.CENTER_LEFT);
+
+        var rightButtons = new HBox(undo.getButton(), redo.getButton(), stopExecution.getButton(), run.getButton());
+        rightButtons.setPadding(new Insets(5, 5, 5, 5));
+        rightButtons.setSpacing(5);
+        rightButtons.setAlignment(Pos.CENTER_RIGHT);
+
+        buttonHandler.getChildren().addAll(leftButtons, rightButtons);
+        buttonHandler.setHgrow(rightButtons, Priority.ALWAYS);
         return buttonHandler;
     }
 

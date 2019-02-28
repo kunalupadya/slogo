@@ -20,7 +20,7 @@ public abstract class Control {
         img.setFitHeight(20.0);
         img.setFitWidth(20.0);
         this.button.setGraphic(img);
-        
+
         this.button.setOnMouseClicked(mouseEvent -> action());
     }
 

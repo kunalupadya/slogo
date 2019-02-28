@@ -6,13 +6,15 @@
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
 }
+
 .button:hover {
     -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%, #BFEAA3 0%, #8DFD53 100%),
-            #D1F0C2,
-            #D5DBD3,
-            radial-gradient(center 50% 50%, radius 100%, #55AE3A, #D3EACE);
+            linear-gradient(from 0% 93% to 0% 100%, #CDD0D0 0%, #838B8B 100%),
+            #4E78A0,
+            #9FABB7,
+            radial-gradient(center 50% 50%, radius 100%, #C8CFD6, #D4DEE9);
 }
+
 #penColor {
     -fx-background-image: url(images/penColor.png);
     -fx-background-size: 20px 20px;

@@ -1,11 +1,12 @@
 package Parser;
 
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
-public class TokenConverter {
+class TokenConverter {
 
     private final static String CONSTANT_REGEX = "Constant";
     private final static String VARIABLE_REGEX = "Variable";
@@ -16,24 +17,35 @@ public class TokenConverter {
     private final static String GROUP_END_REGEX = "GroupEnd";
     private final static String WHITE_SPACE_REGEX = "Whitespace";
     private final static String NEWLINE_REGEX = "Newline";
-    private Map<String, Pattern> symbols;
+    private Map<String, Pattern> myRegexMap;
 
-    public TokenConverter(){
-        makeMap();
+    TokenConverter(){
+        myRegexMap = makeMap();
     }
 
-    private void makeMap() {
+    private HashMap<String, Pattern> makeMap() {
+        HashMap<String, Pattern> regexMap = new HashMap<>();
         ResourceBundle resources = ResourceBundle.getBundle("resources.languages/Syntax.properties");
         Enumeration<String> iter = resources.getKeys();
         while (iter.hasMoreElements()) {
             String key = iter.nextElement();
             String regex = resources.getString(key);
-            symbols.put(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE));
+            regexMap.put(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE));
         }
+        return regexMap;
     }
 
+    private String checkRegex(String input) {
+        for(Map.Entry<String, Pattern> entry : myRegexMap.entrySet()){
+            Pattern value = entry.getValue();
+            if(value.matcher(input).matches()){
+                return entry.getKey();
+            }
+        }
+        return "";
+    }
 
-    public Token checkTypeOfInput(String input) {
+    Token checkTypeOfInput(String input) {
         switch (checkRegex(input)) {
             case CONSTANT_REGEX:
                 return Token.CONSTANT;
@@ -58,14 +70,4 @@ public class TokenConverter {
         }
     }
 
-
-    private String checkRegex(String input) {
-        for(Map.Entry<String, Pattern> entry : symbols.entrySet()){
-            Pattern value = entry.getValue();
-            if(value.matcher(input).matches()){
-                return entry.getKey();
-            }
-        }
-        return "";
-    }
 }

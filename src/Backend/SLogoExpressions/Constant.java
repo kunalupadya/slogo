@@ -4,8 +4,13 @@ import Backend.Variable;
 
 public class Constant extends Expression{
 
+    public Constant(String input){
+        super(input);
+
+    }
+
     @Override
     public Variable evaluate() {
-        return null;
+        return new Variable(Double.parseDouble(getInfo()));
     }
 }

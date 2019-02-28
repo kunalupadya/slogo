@@ -11,7 +11,7 @@ public abstract class Expression {
     private Expression parent;
     private String exprInfo;
 
-    public Expression(String input){
+    Expression(String input){
         exprInfo = input;
         children = new ArrayList<Expression>();
 

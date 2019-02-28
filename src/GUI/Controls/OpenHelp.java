@@ -1,18 +1,42 @@
 package GUI.Controls;
 
 import GUI.WindowLayout;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-public class OpenHelp extends Control {
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+
+public class OpenHelp {
     private WindowLayout context;
+    private Hyperlink myHyperlink;
 
     public OpenHelp(WindowLayout context) {
-        super(new Image(WindowLayout.class.getResourceAsStream("/images/stepleft.png")));
+        myHyperlink = new Hyperlink();
+        Image hyperlinkGraphic = new Image(WindowLayout.class.getResourceAsStream("/images/help.png"), 20, 20, true, true);
+        myHyperlink.setGraphic(new ImageView(hyperlinkGraphic));
+        myHyperlink.setOnAction(e -> action());
         this.context = context;
     }
 
-    @Override
-    protected void action() {
-        context.redo();
+    private void action() {
+        if(Desktop.isDesktopSupported())
+        {
+            try {
+                Desktop.getDesktop().browse(new URI("https://www2.cs.duke.edu/courses/compsci308/current/assign/03_slogo/commands.php"));
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } catch (URISyntaxException e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+
+    public Hyperlink getHyperlink() {
+        return myHyperlink;
     }
 }

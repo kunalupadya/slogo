@@ -4,6 +4,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
@@ -13,6 +14,7 @@ import java.util.List;
 
 /**
  * TODO: send consoleinput to the backend
+ * TODO: get prompt text from a resource file, not hardcoded
  */
 
 public class Console extends Module  {
@@ -32,27 +34,38 @@ public class Console extends Module  {
     @Override
     protected void setContent() {
         container = new VBox();
-        container.setPrefWidth(moduleWidth);
         container.setPrefHeight(moduleHeight);
+        System.out.println(container.getHeight());
+        container.prefWidthProperty().bind(content.widthProperty());
         content.setContent(container);
         commandHistory = new ArrayList<>();
         commandPosition = -1;
         consoleInfo = new TextArea();
         consoleInfo.setEditable(false);
+        consoleInfo.prefWidthProperty().bind(container.widthProperty());
         consoleInfo.setFont(courier);
+        consoleInfo.setPromptText("Previous commands");
         consoleInput = new TextField();
         consoleInput.setFont(courier);
+        consoleInput.setPromptText("Enter command: ");
+        consoleInput.prefWidthProperty().bind(container.widthProperty());
         consoleInput.setOnKeyReleased(event -> handleKeyInput(event.getCode()));
+//        container.setVgrow(consoleInput, Priority.ALWAYS);
         container.getChildren().addAll(consoleInfo, consoleInput);
     }
 
     private void handleKeyInput(KeyCode code) {
         if (code == KeyCode.ENTER) {
             String parameterValue = consoleInput.getText();
+            if (commandHistory.isEmpty()) {
+                consoleInfo.appendText(parameterValue);
+            }
+            else {
+                consoleInfo.appendText("\n" + parameterValue);
+            }
             commandHistory.add(0, parameterValue);
             commandPosition = -1;
-            //send consoleinput to the backend
-            consoleInfo.appendText("\n" + parameterValue);
+            //send consoleinput to parsecommand
             consoleInput.clear();
         }
         if (code == KeyCode.UP) {
@@ -72,5 +85,10 @@ public class Console extends Module  {
                 consoleInput.clear();
             }
         }
+    }
+
+    //show method in console class so that console can show error messages on the screen
+    private void showError() {
+        //receive error message from handleerror class?
     }
 }

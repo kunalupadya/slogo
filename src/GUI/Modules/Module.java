@@ -10,20 +10,21 @@ import javafx.scene.control.ScrollPane;
 public abstract class Module {
     public final ScrollPane content;
 
-    public final int moduleWidth;
-    public final int moduleHeight;
+    public int moduleWidth;
+    public int moduleHeight;
 
     public Module(int width, int height) {
         moduleWidth = width;
         moduleHeight = height;
         this.content = new ScrollPane();
+        content.setMinSize(width, height);
         setLayout();
     }
 
     protected void setLayout() {
         content.setPrefViewportWidth(moduleWidth);
         content.setPrefViewportHeight(moduleHeight);
-        content.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        content.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         content.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
     }
 

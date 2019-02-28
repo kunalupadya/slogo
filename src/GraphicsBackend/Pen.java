@@ -27,7 +27,7 @@ public class Pen {
         return penWidth;
     }
 
-    public boolean getPenUp(boolean penUp) {
+    public boolean getPenUp() {
         return penUp;
     }
 

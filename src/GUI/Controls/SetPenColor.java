@@ -16,6 +16,6 @@ public class SetPenColor{
     }
 
     protected void action() {
-//        Parser.ExecuteCommand().setPenColor();
+//        Backend.ExecuteCommand().setPenColor();
     }
 }

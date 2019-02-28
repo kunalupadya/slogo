@@ -115,20 +115,20 @@ I am most worried about handling complex commands that require conditionals and 
     - User enters "fd 50" into the text prompt and presses "run"
     - Private ActionEvent methods in GUI process button input and retrieve text input from prompt.
     - Call to parse("fd 50")
-    - Parser identifies "fd" command as valid, searches for single parameter as defined by the syntax of fd.
+    - Backend.Parser identifies "fd" command as valid, searches for single parameter as defined by the syntax of fd.
     - Finds valid parameter 50, creates ActionCommand object for verified input.
-    - Execute fd ActionCommand in Parser.
+    - Execute fd ActionCommand in Backend.Parser.
     - Execute method for fd command will tell GUI to move GraphicsBackend.Turtle by an amount. 
     - GUI will call GraphicsBackend.Turtle.getPosition and GraphicsBackend.Turtle.setPosition to move GraphicsBackend.Turtle by desired amount.
 
 - The user enters "LEFT SUM 60 32"
     - Call to parse("LEFT SUM 60 32")
-    - Parser identifies "LEFT" as valid command with one parameter.
-    - Parser looks for parameter and finds SUM, a command with 2 parameters.
-    - Parser looks for two parameters for SUM, finds 60, 32.
-    - Parser creates SUM EvalCommand and executes.
-    - Parser uses return value of sum command as parameter in new LEFT ActionCommand.
-    - Parser executes LEFT command, sends call to UI API for the turtle to rotate 92 degrees.
+    - Backend.Parser identifies "LEFT" as valid command with one parameter.
+    - Backend.Parser looks for parameter and finds SUM, a command with 2 parameters.
+    - Backend.Parser looks for two parameters for SUM, finds 60, 32.
+    - Backend.Parser creates SUM EvalCommand and executes.
+    - Backend.Parser uses return value of sum command as parameter in new LEFT ActionCommand.
+    - Backend.Parser executes LEFT command, sends call to UI API for the turtle to rotate 92 degrees.
     - GraphicsBackend.Turtle updates its heading and the visualization is refreshed to reflect change.
 
 - The user inputs "cs"

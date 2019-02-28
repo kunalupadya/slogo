@@ -4,20 +4,16 @@ import GUI.Controls.*;
 import GUI.Modules.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
-import javafx.scene.shape.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
-import static Main.Controller.*;
-
-import java.awt.image.ColorConvertOp;
+import java.io.File;
 
 /**
  * Class will contain the initial layout for the Window
@@ -25,22 +21,20 @@ import java.awt.image.ColorConvertOp;
  * @author Januario Carreiro
  */
 public class WindowLayout {
+    private Stage myStage;
     private BorderPane myContainer;
     private Editor editor;
     private OpenHelp openHelp;
-    private Control redo, run, switchLanguages, undo, stopExecution;
+    private Control redo, run, switchLanguages, undo, stopExecution, setTurtleImage;;
     private ColorPicker setBackgroundColor, setPenColor;
-    private final String url = "https://www2.cs.duke.edu/courses/compsci308/current/assign/03_slogo/commands.php";
-    final WebView browser = new WebView();
-    final WebEngine webEngine = browser.getEngine();
 
     /**
-     * TODO: add buttons
      * TODO: add JavaDoc
      *
      * @param root
      */
-    public WindowLayout(BorderPane root) {
+    public WindowLayout(BorderPane root, Stage stage) {
+        myStage = stage;
         editor = new Editor(200, 200);
 
         var rightBorderPane = new BorderPane();
@@ -65,6 +59,10 @@ public class WindowLayout {
         buttonHandler.setMinHeight(30);
 
         openHelp = new OpenHelp(this);
+        openHelp.getHyperlink().setTooltip(new Tooltip("Help"));
+
+        setTurtleImage = new SetTurtleImage(this);
+        setTurtleImage.getButton().setTooltip(new Tooltip("Set Turtle Image"));
 
         switchLanguages = new SwitchLanguages(this);
         switchLanguages.getButton().setTooltip(new Tooltip("Switch Languages"));
@@ -76,7 +74,6 @@ public class WindowLayout {
         setBackgroundColor.setTooltip(new Tooltip("Set Background Color"));
 
         undo = new Undo(this);
-        undo.getButton().setLayoutX(200);
         undo.getButton().setTooltip(new Tooltip("Undo"));
 
         redo = new Redo(this);
@@ -89,7 +86,7 @@ public class WindowLayout {
         run.getButton().setTooltip(new Tooltip("Run"));
 
         var leftButtons = new HBox(openHelp.getHyperlink(), switchLanguages.getButton(),
-                setBackgroundColor, setPenColor);
+                setBackgroundColor, setPenColor, setTurtleImage.getButton());
         leftButtons.setPadding(new Insets(5, 5, 5, 5));
         leftButtons.setSpacing(5);
         leftButtons.setAlignment(Pos.CENTER_LEFT);
@@ -100,7 +97,6 @@ public class WindowLayout {
         rightButtons.setAlignment(Pos.CENTER_RIGHT);
 
         buttonHandler.getChildren().addAll(leftButtons, rightButtons);
-        buttonHandler.setHgrow(rightButtons, Priority.ALWAYS);
         return buttonHandler;
     }
 
@@ -108,9 +104,17 @@ public class WindowLayout {
         return myContainer;
     }
 
-    public void redo() {}
-
-    public void openHelpWeb() {
-         webEngine.load(url);
+    public void handleSetTurtleImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("data/turtles"));
+        File chosenFile = fileChooser.showOpenDialog(myStage);
+        if (chosenFile != null) {
+            try {
+                setTurtleImage.setImage(chosenFile);
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Error 404", ButtonType.OK);
+                alert.showAndWait();
+            }
+        }
     }
 }

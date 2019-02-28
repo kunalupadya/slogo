@@ -1,9 +1,17 @@
 package GUI.Controls;
 
+import GUI.WindowLayout;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 /**
  * Abstract superclass to serve as template for all buttons/controls
@@ -12,11 +20,12 @@ import javafx.scene.layout.Background;
  */
 public abstract class Control {
     private Button button;
+    public ImageView img;
 
     public Control(Image image) {
         this.button = new Button();
 
-        ImageView img = new ImageView(image);
+        img = new ImageView(image);
         img.setFitHeight(20.0);
         img.setFitWidth(20.0);
         this.button.setGraphic(img);
@@ -32,6 +41,18 @@ public abstract class Control {
      */
     public Button getButton() {
         return button;
+    }
+
+    public void setImage(File file) {
+        try {
+            img = new ImageView(new Image(new FileInputStream(file.getPath())));
+            img.setFitHeight(20.0);
+            img.setFitWidth(20.0);
+            this.button.setGraphic(img);
+        } catch (FileNotFoundException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "File not found.", ButtonType.OK);
+            alert.showAndWait();
+        }
     }
 }
 

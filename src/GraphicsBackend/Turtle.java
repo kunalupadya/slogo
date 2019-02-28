@@ -5,7 +5,7 @@ import javafx.scene.shape.Line;
 import java.awt.*;
 
 public class Turtle {
-    public static final String DEFAULT_IMAGE = "turtle.png";
+    public static final String DEFAULT_IMAGE = "initialTurtle.png";
 
     private double xPos;
     private double yPos;

@@ -1,5 +1,6 @@
 package GUI.Modules;
 
+import Main.BackendController;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -24,11 +25,16 @@ public class Console extends Module  {
     private List<String> commandHistory;
     private int commandPosition;
     private Font courier;
+    private BackendController backendController;
 
     public Console(int width, int height) {
         super(width, height);
         courier = new Font("Courier", 12);
         setContent();
+    }
+
+    public void setBackendController(BackendController backendController) {
+        this.backendController = backendController;
     }
 
     @Override
@@ -65,7 +71,9 @@ public class Console extends Module  {
             }
             commandHistory.add(0, parameterValue);
             commandPosition = -1;
-            //send consoleinput to parsecommand
+            //send parametervalue to parsecommand
+            System.out.println(backendController);
+            backendController.parseAndRun(parameterValue);
             consoleInput.clear();
         }
         if (code == KeyCode.UP) {

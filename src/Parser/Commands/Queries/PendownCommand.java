@@ -10,10 +10,10 @@ public class PendownCommand extends TurtleCommand {
     }
 
     public void execute(){
-        if (getTurtle().getMyPen().){
-            returnValue =1;
+        if (getTurtle().getMyPen().getPenUp()){
+            returnValue = 1;
         }
-        else returnValue =0;
+        else returnValue = 0;
     }
 
 }

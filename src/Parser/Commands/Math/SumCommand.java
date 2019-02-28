@@ -11,6 +11,7 @@ public class SumCommand extends Command {
 
     public void execute(){
         returnValue =  myChildrenList.get(0).getReturnValue() + myChildrenList.get(1).getReturnValue();
+        isConstant = true;
     }
 
 }

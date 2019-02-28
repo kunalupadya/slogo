@@ -11,7 +11,7 @@ public abstract class TurtleCommand extends Command{
     protected Turtle myTurtle;
 
     protected Turtle getTurtle(){
-        myTurtle = turtleList.get();
+        return turtleList.get(0);
     }
 
     protected Point endLocation(double parameters, Turtle turtle) {

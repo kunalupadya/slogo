@@ -42,9 +42,9 @@ public class GraphicsArea extends Module {
     protected void setContent() {
         container = new VBox();
         content.setContent(container);
-        //grid = new Grid(moduleWidth, moduleWidth);
-        //gridObjects = grid.getAllObjects();
-        //container.getChildren().addAll(gridObjects);
+        grid = new Grid(moduleWidth, moduleWidth);
+        gridObjects = grid.getAllObjects();
+        container.getChildren().addAll(gridObjects);
     }
 
     private void startAnimation(double delay) {

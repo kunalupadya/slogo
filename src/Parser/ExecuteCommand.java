@@ -39,6 +39,11 @@ public class ExecuteCommand {
     }
 
     public void traverse(Command node){
+        System.out.println(node);
+        System.out.println(node.getChildren());
+        System.out.println(node.getNumParameters());
+        System.out.println(node.getChildren());
+        System.out.println(node.getClass());
         if (node.getChildren().isEmpty()){
             if (node.getIsConstant()){
                 return;
@@ -57,6 +62,9 @@ public class ExecuteCommand {
 
         if (node.getNumParameters() == node.getChildren().size()){
             node.execute();
+        }
+        else if (node.getClass() == RootCommand.class){
+            return;
         }
         else{
             throw new SyntaxError(WRONG_NUMBER_OF_PARAMETERS);

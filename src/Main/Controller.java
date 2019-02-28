@@ -56,6 +56,9 @@ public class Controller extends Application {
     public void start (Stage stage) {
         var root = new BorderPane();
         WindowLayout windowLayout = new WindowLayout(root, stage);
+        BackendController backendController = new BackendController();
+        windowLayout.setBackendController(backendController);
+        backendController.setWindowLayout(windowLayout);
 
         myScene = new Scene(root);
         stage.setScene(myScene);

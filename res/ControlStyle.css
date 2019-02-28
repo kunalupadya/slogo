@@ -1,3 +1,18 @@
+.button {
+    -fx-background-color:
+            linear-gradient(#E6E8FA, #DADAD1),
+            radial-gradient(center 50% -40%, radius 200%, #DBE4D3 45%, #D0D0CA 50%);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+}
+.button:hover {
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%, #BFEAA3 0%, #8DFD53 100%),
+            #D1F0C2,
+            #D5DBD3,
+            radial-gradient(center 50% 50%, radius 100%, #55AE3A, #D3EACE);
+}
 #penColor {
     -fx-background-image: url(images/penColor.png);
     -fx-background-size: 20px 20px;

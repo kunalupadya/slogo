@@ -6,6 +6,7 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserCommands extends Module {
@@ -16,6 +17,7 @@ public class UserCommands extends Module {
 
     public UserCommands(int width, int height) {
         super(width, height);
+        userCommands = new ArrayList<>();
         userCommands.add("What's up");
         userCommands.add("Nothing much");
         setContent();

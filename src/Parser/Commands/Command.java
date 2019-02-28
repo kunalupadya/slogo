@@ -6,13 +6,13 @@ public abstract class Command{
 
     protected List<Command> myChildrenList;
 
-    public int getNumParameters(){
-        return 0;
-    }
+    protected double returnValue;
 
-    public double execute(){
-        return 0;
-    }
+    protected abstract boolean isConstant();
+
+    public abstract int getNumParameters();
+
+    public abstract double execute();
 
     public void addChildren(Command command) {
         myChildrenList.add(command);

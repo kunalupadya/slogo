@@ -40,7 +40,10 @@ public class ExecuteCommand {
 
     public void traverse(Command node){
         if (node.getChildren().isEmpty()){
-            if (node.getNumParameters() == 0){
+            if (node.isConstant()){
+                return;
+            }
+            else if (node.getNumParameters() == 0){
                 node.execute();
             }
             else{

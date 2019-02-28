@@ -10,7 +10,7 @@ import javafx.scene.control.ScrollPane;
 public abstract class Module {
     public final ScrollPane content;
 
-    public final int moduleWidth;
+    public int moduleWidth;
     public int moduleHeight;
 
     public Module(int width, int height) {

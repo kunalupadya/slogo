@@ -7,7 +7,7 @@ public class LessCommand extends BooleanCommand {
         numParameters = 2;
     }
 
-    public void execute(){
+    public void performAction(){
         returnValue =  returnValue(myChildrenList.get(0).getReturnValue() < myChildrenList.get(1).getReturnValue());
     }
 

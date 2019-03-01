@@ -10,7 +10,7 @@ public class LeftCommand extends TurtleCommand {
         numParameters = 1;
     }
 
-    public void execute(){
+    public void performAction(){
         getTurtle().turn(-getChildren().get(0).getReturnValue());
         returnValue = getChildren().get(0).getReturnValue();
     }

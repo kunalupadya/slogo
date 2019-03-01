@@ -11,7 +11,7 @@ public class HomeCommand extends TurtleCommand {
         numParameters = 0;
     }
 
-    public void execute() {
+    public void performAction() {
         returnValue = Math.sqrt(Math.pow(getTurtle().getxPos(), 2) + Math.pow(getTurtle().getyPos(),2));
         getTurtle().moveTo(new Point(0,0));
 

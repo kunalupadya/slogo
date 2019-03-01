@@ -7,7 +7,7 @@ public class NotCommand extends BooleanCommand{
         numParameters = 1;
     }
 
-    public void execute(){
+    public void performAction(){
         returnValue =  returnValue(myChildrenList.get(0).getReturnValue() ==0);
     }
 

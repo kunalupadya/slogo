@@ -10,7 +10,7 @@ public class ShowingCommand extends TurtleCommand {
         numParameters = 0;
     }
 
-    public void execute(){
+    public void performAction(){
         getTurtle().setTurtleVisibility(true);
     }
 }

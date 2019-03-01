@@ -2,11 +2,13 @@ package GraphicsBackend;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.shape.Line;
 
 
 public class Turtle {
     public static final String DEFAULT_IMAGE = "initialTurtle.png";
+    public static final int TURTLE_SIZE = 50;
+    public static final int HALF_TURTLE_SIZE = 25;
+    public static final double HALF = 2.0;
 
     private double xPos;
     private double yPos;
@@ -19,23 +21,27 @@ public class Turtle {
     private boolean isTurtleVisible;
 
     public Turtle(Grid grid){
-        xPos = 0;
-        yPos = 0;
-        myAngle = 0;
         myGrid = grid;
+        xPos = myGrid.getWidth()/ HALF;
+        yPos = myGrid.getHeight()/ HALF;
+        myAngle = 0;
         speed = 1;
         isTurtleVisible = true;
         turtleImage = new javafx.scene.image.Image(this.getClass().getClassLoader().getResourceAsStream(DEFAULT_IMAGE));
-        turtleImageView = new ImageView();
-        updateTurtleImageview();
+//        turtleImageView = new ImageView();
+//        updateThisTurtleImageview();
     }
 
-    private void updateTurtleImageview() {
-        turtleImageView.setImage(turtleImage);
-        turtleImageView.setX(xPos);
-        turtleImageView.setY(yPos);
-        turtleImageView.setFitHeight(50);
-        turtleImageView.setFitWidth(50);
+//    private void updateThisTurtleImageview() {
+//        updateATurtleImageView(turtleImageView);
+//    }
+
+    public void updateATurtleImageView(ImageView turtle){
+        turtle.setImage(turtleImage);
+        turtle.setX(xPos-HALF_TURTLE_SIZE);
+        turtle.setY(yPos-HALF_TURTLE_SIZE);
+        turtle.setFitHeight(TURTLE_SIZE);
+        turtle.setFitWidth(TURTLE_SIZE);
     }
 
     public void move(double dist){
@@ -46,7 +52,7 @@ public class Turtle {
         Point currentPosition = myGrid.addMovement(xPos, yPos, myAngle, dist, myPen);
         xPos = currentPosition.getMyX();
         yPos = currentPosition.getMyY();
-        updateTurtleImageview();
+//        updateThisTurtleImageview();
 //        xPos = newXPos;
 //        yPos = newYPos;
     }
@@ -92,8 +98,12 @@ public class Turtle {
         this.turtleImage = turtleImage;
     }
 
-    public ImageView getTurtleImageView() {
-        return turtleImageView;
+    public ImageView getAdjustedTurtleImageView(double xLeftCorner, double yLeftCorner) {
+        ImageView returnedTurtle = new ImageView();
+        updateATurtleImageView(returnedTurtle);
+        returnedTurtle.setX(returnedTurtle.getX()+xLeftCorner);
+        returnedTurtle.setX(returnedTurtle.getX()+yLeftCorner);
+        return returnedTurtle;
     }
 
     public Pen getMyPen() {

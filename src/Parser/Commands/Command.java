@@ -29,7 +29,12 @@ public abstract class Command{
         return returnValue;
     }
 
-    public abstract void execute();
+    public void execute() {
+        performAction();
+        isConstant = true;
+    }
+
+    public abstract void performAction();
 
     public void addChildren(Command command) {
         myChildrenList.add(command);

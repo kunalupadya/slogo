@@ -9,7 +9,7 @@ public class LogCommand extends Command {
         numParameters = 1;
     }
 
-    public void execute(){
+    public void performAction(){
         returnValue =  Math.log(myChildrenList.get(0).getReturnValue());
     }
 

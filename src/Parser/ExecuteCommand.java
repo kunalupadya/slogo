@@ -5,7 +5,6 @@ import Parser.Commands.Command;
 import Parser.Commands.RootCommand;
 import javafx.scene.control.Alert;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,17 +38,12 @@ public class ExecuteCommand {
     }
 
     public void traverse(Command node){
-        System.out.println(node);
-        System.out.println(node.getChildren());
-        System.out.println(node.getNumParameters());
-        System.out.println(node.getChildren());
-        System.out.println(node.getClass());
         if (node.getChildren().isEmpty()){
             if (node.getIsConstant()){
                 return;
             }
             else if (node.getNumParameters() == 0){
-                node.execute();
+                node.performAction();
             }
             else{
                 throw new SyntaxError(PARAMETERS_MISSING);
@@ -62,6 +56,7 @@ public class ExecuteCommand {
 
         if (node.getNumParameters() == node.getChildren().size()){
             node.execute();
+            System.out.println(node.getReturnValue());
         }
         else if (node.getClass() == RootCommand.class){
             return;

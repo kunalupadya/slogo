@@ -7,7 +7,7 @@ public class RootCommand extends Command{
         numParameters = (int) Double.POSITIVE_INFINITY;
     }
 
-    public void execute(){
+    public void performAction(){
     }
 
 }

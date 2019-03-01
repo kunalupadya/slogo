@@ -2,6 +2,7 @@ package GUI;
 
 import GUI.Controls.*;
 import GUI.Modules.*;
+import GraphicsBackend.Point;
 import GraphicsBackend.Turtle;
 import Main.BackendController;
 import javafx.geometry.Insets;
@@ -62,15 +63,15 @@ public class WindowLayout {
     public void setBackendController(BackendController backendController) {
         this.backendController = backendController;
         console.setBackendController(backendController);
+        graphicsArea.setBackendController(backendController);
         updateGraphicsArea(backendController.getMyTurtles());
     }
 
     public void updateGraphicsArea(List<Turtle> turtles){
         for (Turtle turtle:turtles){
-            myContainer.getChildren().add(turtle.getTurtleImageView());
+//            myContainer.getChildren().add(turtle.getAdjustedTurtleImageView(0,0));
         }
     }
-
 
 
 

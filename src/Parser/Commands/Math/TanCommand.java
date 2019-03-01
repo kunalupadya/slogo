@@ -9,7 +9,7 @@ public class TanCommand extends Command {
         numParameters = 1;
     }
 
-    public void execute(){
+    public void performAction(){
         returnValue =  Math.tan(myChildrenList.get(0).getReturnValue());
     }
 

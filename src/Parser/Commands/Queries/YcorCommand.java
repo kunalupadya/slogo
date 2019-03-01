@@ -9,7 +9,7 @@ public class YcorCommand extends TurtleCommand {
         numParameters = 0;
     }
 
-    public void execute(){
+    public void performAction(){
         getTurtle().getyPos();
     }
 

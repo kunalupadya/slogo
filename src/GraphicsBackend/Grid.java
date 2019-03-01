@@ -34,6 +34,14 @@ public class Grid {
         bounds.add(line);
     }
 
+    public double getHeight() {
+        return height;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
     public Point addMovement(double xPos, double yPos, double angle, double dist, Pen pen){
         double newXPos = xPos + dist*Math.cos(Math.toRadians(angle));
         double newYPos = yPos + dist*Math.sin(Math.toRadians(angle));
@@ -149,7 +157,7 @@ public class Grid {
         }
     }
 
-    public List getAllObjects(){
+    public List<Node> getAllObjects(){
         List<Node> returnArray = new ArrayList<>();
         Collections.copy(returnArray, myObjects);
         return returnArray;

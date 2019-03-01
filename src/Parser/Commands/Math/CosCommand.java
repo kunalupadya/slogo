@@ -9,7 +9,7 @@ public class CosCommand extends Command {
         numParameters = 1;
     }
 
-    public void execute(){
+    public void performAction(){
         returnValue =  Math.cos(myChildrenList.get(0).getReturnValue());
     }
 

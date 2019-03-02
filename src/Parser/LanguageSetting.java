@@ -30,13 +30,16 @@ public class LanguageSetting {
         while (keys.hasMoreElements()) {
             String key = keys.nextElement();
             if(resource.getString(key).contains("|")){
-                map.put(key, resource.getString(key).split("|")[0]);
-                map.put(key, resource.getString(key).split("|")[1]);
+                System.out.println(resource.getString(key));
+                String[] splitString = resource.getString(key).split("\\|");
+                map.put(key, splitString[0]);
+                map.put(key, splitString[1]);
             }
             else{
                 map.put(key, resource.getString(key));
             }
         }
+        System.out.println(map);
         return map;
     }
 
@@ -44,6 +47,7 @@ public class LanguageSetting {
     //TODO: must deal with user defined commands also
     String[] translateCommand(String[] listOfWords){
         var tokenConverter = new TokenConverter();
+        System.out.println(newMap);
         for (int i = 0; i < listOfWords.length; i++) {
             if (tokenConverter.checkTypeOfInput(listOfWords[i]) == Token.COMMAND){
                 if (!newMap.containsKey(listOfWords[i])) {

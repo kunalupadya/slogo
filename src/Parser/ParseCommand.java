@@ -62,10 +62,15 @@ public class ParseCommand {
     //TODO: this method should create complete list of Commands that Execute Command merely runs using Command tree
     //implementation is wrong currently
     private ArrayList<Command> stackCommand(String[] listOfWords){
-        ArrayList<Command> list = new ArrayList<Command>();
+        ArrayList<Command> list = new ArrayList<>();
         CommandFactory commandFactory = new CommandFactory();
         for(String word: listOfWords){
             //TODO: error to be fixed after command implementation
+            System.out.println(word);
+//            if (word.equalsIgnoreCase("[")){
+//
+//            }
+//            if ()
             Command newCommand = commandFactory.getCommand(word);
             list.add(newCommand);
         }

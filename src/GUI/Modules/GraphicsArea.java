@@ -12,6 +12,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.util.List;
@@ -28,7 +30,6 @@ public class GraphicsArea extends Module {
     private double MILLISECOND_IN_A_SECOND = 1000;
     private double MILLISECOND_DELAY = MILLISECOND_IN_A_SECOND / FRAMES_PER_SECOND;
     private Timeline animation;
-    private List<Node> gridObjects;
 
     public GraphicsArea(int width, int height, WindowLayout myWindowLayout) {
         super(width, height, myWindowLayout);
@@ -54,8 +55,10 @@ public class GraphicsArea extends Module {
         animation.play();
     }
 
-    public void setVariables(Grid grid, List<ImageView> turtleImages) {
-        this.grid = grid;
+    public void setVariables(List<Line> lines, List<ImageView> turtleImages) {
+        for (Line n:lines){
+            container.getChildren().add(n);
+        }
         for (ImageView image : turtleImages) {
             container.getChildren().add(image);
         }

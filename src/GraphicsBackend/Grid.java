@@ -11,10 +11,12 @@ import java.util.Optional;
 
 public class Grid {
     public static final double GRID_OFFSET = 0.25;
-    private ArrayList<Node> myObjects = new ArrayList<>();
+    private ArrayList<Line> myObjects = new ArrayList<>();
     private ArrayList<Line> bounds = new ArrayList<>();
     private double height;
     private double width;
+    //TODO make method so that screen color can be changed by the command
+    private int ScreenColor;
 
     public Grid(double gridHeight, double gridWidth){
         width = gridWidth;
@@ -43,8 +45,8 @@ public class Grid {
     }
 
     public Point addMovement(double xPos, double yPos, double angle, double dist, Pen pen){
-        double newXPos = xPos + dist*Math.cos(Math.toRadians(angle));
-        double newYPos = yPos + dist*Math.sin(Math.toRadians(angle));
+        double newXPos = xPos - dist*Math.cos(Math.toRadians(angle));
+        double newYPos = yPos - dist*Math.sin(Math.toRadians(angle));
 
         Line movement = new Line(xPos, yPos, newXPos, newYPos);
         Point movementStart = new Point(xPos,yPos);
@@ -89,8 +91,8 @@ public class Grid {
                 xPos = intersection.getMyX();
                 yPos = 0+GRID_OFFSET;
             }
-            newXPos = xPos + dist*Math.cos(Math.toRadians(angle));
-            newYPos = yPos + dist*Math.sin(Math.toRadians(angle));
+            newXPos = xPos - dist*Math.cos(Math.toRadians(angle));
+            newYPos = yPos - dist*Math.sin(Math.toRadians(angle));
             offScreenRight = newXPos>width;
             offScreenLeft = newXPos<0;
             offScreenTop = newYPos<0;
@@ -105,9 +107,12 @@ public class Grid {
 
     private void createLine(Pen pen, double xPos, double yPos, double newXPos, double newYPos) {
         Line movement = new Line(xPos, yPos, newXPos, newYPos);
-        movement.setStroke(pen.getPenColor());
-        movement.setStrokeWidth(pen.getPenWidth());
-        myObjects.add(movement);
+        if (pen.getPenColor().isPresent()) {
+            movement.setStroke(pen.getPenColor().get());
+            movement.setStrokeWidth(pen.getPenWidth());
+            myObjects.add(movement);
+        }
+
     }
 
     private Optional<Point> calculateIntersectionWithBounds(Point movementStart, Point movementEnd) {
@@ -157,9 +162,9 @@ public class Grid {
         }
     }
 
-    public List<Node> getAllObjects(){
-        List<Node> returnArray = new ArrayList<>();
-        Collections.copy(returnArray, myObjects);
-        return returnArray;
+    public List<Line> getAllObjects(){
+//        List<Node> returnArray = new ArrayList<>();
+//        Collections.copy(returnArray, myObjects);
+        return myObjects;
     }
 }

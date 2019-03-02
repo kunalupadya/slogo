@@ -14,17 +14,21 @@ public class Turtle {
     private double yPos;
     private double myAngle;
     private double speed;
-    private Pen myPen = new Pen();
+    private Pen myPen;
     private Image turtleImage;
     private ImageView turtleImageView;
     private Grid myGrid;
     private boolean isTurtleVisible;
+    private boolean isTurtleActive;
+    //TODO implement turtle shape using int index
+    private int myShape;
 
     public Turtle(Grid grid){
         myGrid = grid;
         xPos = myGrid.getWidth()/ HALF;
         yPos = myGrid.getHeight()/ HALF;
-        myAngle = 0;
+        myPen = new Pen();
+        myAngle = 90;
         speed = 1;
         isTurtleVisible = true;
         turtleImage = new javafx.scene.image.Image(this.getClass().getClassLoader().getResourceAsStream(DEFAULT_IMAGE));
@@ -42,6 +46,15 @@ public class Turtle {
         turtle.setY(yPos-HALF_TURTLE_SIZE);
         turtle.setFitHeight(TURTLE_SIZE);
         turtle.setFitWidth(TURTLE_SIZE);
+        turtle.setRotate(myAngle-90);
+    }
+
+    public boolean getIsTurtleActive(){
+        return isTurtleActive;
+    }
+
+    public void setTurtleActive(boolean turtleActive) {
+        isTurtleActive = turtleActive;
     }
 
     public void move(double dist){
@@ -82,6 +95,8 @@ public class Turtle {
         return xPos;
     }
 
+    public int getMyShape(){ return myShape;}
+
     public void setxPos(double xPos) {
         this.xPos = xPos;
     }
@@ -93,6 +108,8 @@ public class Turtle {
     public double getMyAngle() {
         return myAngle;
     }
+
+    public void setMyShape(int shapeIndex){this.myShape = shapeIndex;}
 
     public void setTurtleImage(Image turtleImage) {
         this.turtleImage = turtleImage;

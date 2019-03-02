@@ -16,13 +16,19 @@ public class BackendController {
     Grid myGrid;
     List<Turtle> myTurtles = new ArrayList<>();
     WindowLayout windowLayout;
-    double xLeftCorner = 0;
-    double yLeftCorner = 0;
+//    double xLeftCorner = 0;
+//    double yLeftCorner = 0;
 
     public BackendController(){
 //        setLanguage("English");
         myGrid = new Grid(400,400);
         myTurtles.add(new Turtle(myGrid));
+        Turtle turtle2 = new Turtle(myGrid);
+        turtle2.turn(20);
+        turtle2.move(50);
+        turtle2.turn(300);
+        turtle2.move(100);
+        myTurtles.add(turtle2);
     }
 
     public Grid getMyGrid() {

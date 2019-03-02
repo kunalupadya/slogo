@@ -26,7 +26,6 @@ import java.util.List;
 public class WindowLayout {
     private Stage myStage;
     private BorderPane myContainer;
-    private Group setLanguageBox;
     private Editor editor;
     private AvailableVars availableVars;
     private UserCommands userCommands;
@@ -75,17 +74,17 @@ public class WindowLayout {
         openHelp = new OpenHelp(this);
         openHelp.getHyperlink().setTooltip(new Tooltip("Help"));
 
+        setPenColor = new SetPenColor().getColorPicker();
+        setPenColor.setTooltip(new Tooltip("Set Pen Color"));
+
+        setBackgroundColor = new SetBackgroundColor(this).getColorPicker();
+        setBackgroundColor.setTooltip(new Tooltip("Set Background Color"));
+
         setTurtleImage = new SetTurtleImage(this);
         setTurtleImage.getButton().setTooltip(new Tooltip("Set Turtle Image"));
 
         switchLanguages = new SwitchLanguages(this);
         switchLanguages.getButton().setTooltip(new Tooltip("Switch Languages"));
-
-        setPenColor = new SetPenColor().getColorPicker();
-        setPenColor.setTooltip(new Tooltip("Set Pen Color"));
-
-        setBackgroundColor = new SetBackgroundColor().getColorPicker();
-        setBackgroundColor.setTooltip(new Tooltip("Set Background Color"));
 
         undo = new Undo(this);
         undo.getButton().setTooltip(new Tooltip("Undo"));
@@ -110,8 +109,8 @@ public class WindowLayout {
         rightButtons.setPadding(new Insets(sizeOfPadding, sizeOfPadding, sizeOfPadding, sizeOfPadding));
         rightButtons.setSpacing(5);
 
-        buttonHandler.getChildren().addAll(leftButtons, padding, rightButtons);
         buttonHandler.setHgrow(padding, Priority.ALWAYS);
+        buttonHandler.getChildren().addAll(leftButtons, padding, rightButtons);
         return buttonHandler;
     }
 
@@ -136,6 +135,8 @@ public class WindowLayout {
         }
     }
 
+    public void setBackgroundColor() {}
+
     public void sendCommandString(String commandString) {
         //send commandString to backend
     }
@@ -158,22 +159,4 @@ public class WindowLayout {
     public void changeLanguage(String language) {
         // Send new language to back end
     }
-
-//    public void handleSetLanguage() {
-//        setLanguageBox = new Group();
-//        Rectangle dialogBox = new Rectangle(0, 0, 350, 240);
-//        dialogBox.setEffect(new DropShadow(25, 0, 0, Color.web("#333333")));
-//        dialogBox.setArcWidth(20);
-//        dialogBox.setArcHeight(20);
-//        dialogBox.setFill(Color.WHITE);
-//
-//        double originY = myStage.getScene().getHeight()/2 - dialogBox.getLayoutBounds().getHeight()/2 - 15;
-//        double originX = myStage.getScene().getWidth()/2 - dialogBox.getLayoutBounds().getWidth()/2;
-//
-//        setLanguageBox.getChildren().addAll(dialogBox);
-//        setLanguageBox.setLayoutY(originY);
-//        setLanguageBox.setLayoutX(originX);
-//
-//        myContainer.getChildren().add(setLanguageBox);
-//    }
 }

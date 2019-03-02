@@ -26,15 +26,15 @@ public class SwitchLanguages {
      * @param context
      */
     public SwitchLanguages(WindowLayout context) {
-        myLanguageResources = ResourceBundle.getBundle("/LanguageSettings");
+        this.myLanguageResources = ResourceBundle.getBundle("/LanguageSettings");
         this.context = context;
         this.button = new MenuButton();
 
         ImageView img = new ImageView(new Image(WindowLayout.class.getResourceAsStream("/images/language.png")));
         img.setFitHeight(20.0);
         img.setFitWidth(20.0);
-        this.button.setGraphic(img);
-        this.button.getStyleClass().add("button");
+        button.setGraphic(img);
+        button.getStyleClass().add("button");
 
         List<MenuItem> itemList = makeMenuItems();
 

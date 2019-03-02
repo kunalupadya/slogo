@@ -2,6 +2,7 @@ package GUI;
 
 import GUI.Controls.*;
 import GUI.Modules.*;
+import GraphicsBackend.Turtle;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.control.Alert;
@@ -140,6 +141,12 @@ public class WindowLayout {
 //        this.backendController = backendController;
 //        updateGraphicsArea(backendController.getMyTurtles());
 //    }
+
+    public void updateGraphicsArea(List<Turtle> turtles){
+        for (Turtle turtle:turtles){
+//            myContainer.getChildren().add(turtle.getAdjustedTurtleImageView(0,0));
+        }
+    }
 
     public void setBackgroundColor() {}
 

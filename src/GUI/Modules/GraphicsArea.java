@@ -39,6 +39,7 @@ public class GraphicsArea extends Module {
     protected void setContent() {
         container = new VBox();
         content.setContent(container);
+        //windowLayout.
         //grid = new Grid(moduleWidth, moduleWidth);
         //gridObjects = grid.getAllObjects();
         //container.getChildren().addAll(gridObjects);

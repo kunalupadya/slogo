@@ -14,6 +14,10 @@ public abstract class TurtleCommand extends Command{
         return turtleList.get(0);
     }
 
+    protected List<Turtle> getTurtleList(){
+        return turtleList;
+    }
+
     protected Point endLocation(double parameters, Turtle turtle) {
         double rad = Math.toRadians(turtle.getMyAngle());
         double x = (Math.cos(rad) * parameters);

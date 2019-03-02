@@ -20,6 +20,8 @@ public class Turtle {
     private Grid myGrid;
     private boolean isTurtleVisible;
     private boolean isTurtleActive;
+    //TODO implement turtle shape using int index
+    private int myShape;
 
     public Turtle(Grid grid){
         myGrid = grid;
@@ -91,6 +93,8 @@ public class Turtle {
         return xPos;
     }
 
+    public int getMyShape(){ return myShape;}
+
     public void setxPos(double xPos) {
         this.xPos = xPos;
     }
@@ -102,6 +106,8 @@ public class Turtle {
     public double getMyAngle() {
         return myAngle;
     }
+
+    public void setMyShape(int shapeIndex){this.myShape = shapeIndex;}
 
     public void setTurtleImage(Image turtleImage) {
         this.turtleImage = turtleImage;

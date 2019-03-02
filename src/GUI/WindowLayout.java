@@ -48,8 +48,8 @@ public class WindowLayout {
 
         var rightBorderPane = new BorderPane();
 
-        rightBorderPane.setTop(new GUI.Modules.AvailableVars(200, 100).getContent());
-        rightBorderPane.setCenter(new GUI.Modules.UserCommands(200, 100).getContent());
+        rightBorderPane.setTop(new AvailableVars(200, 100).getContent());
+        rightBorderPane.setCenter(new UserCommands(200, 100).getContent());
         rightBorderPane.setBottom(editor.getContent());
 
         root.setTop(returnButtons());

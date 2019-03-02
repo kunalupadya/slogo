@@ -2,13 +2,15 @@ package GraphicsBackend;
 
 import javafx.scene.paint.Color;
 
+import java.util.Optional;
+
 public class Pen {
 
     //TODO Need to change pencolor to int
-    Color penColor;
-    boolean penUp = false;
-    double penWidth = 1;
-    int penSize = 10;
+    private Color penColor;
+    private boolean penUp = false;
+    private double penWidth = 1;
+    private int penSize = 10;
 
     public Pen(){
         this(Color.BLACK);
@@ -18,11 +20,12 @@ public class Pen {
         penColor = color;
     }
 
-    public Color getPenColor() {
-        if (penUp) {
-            return penColor;
+    public Optional<Color> getPenColor() {
+        Optional<Color> returnedColor = Optional.empty();
+        if (!penUp) {
+            returnedColor = Optional.of(penColor);
         }
-        return null;
+        return returnedColor;
     }
 
     public double getPenWidth() {

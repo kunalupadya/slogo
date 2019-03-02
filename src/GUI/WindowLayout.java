@@ -2,37 +2,44 @@ package GUI;
 
 import GUI.Controls.*;
 import GUI.Modules.*;
-import GraphicsBackend.Point;
+import GraphicsBackend.Grid;
 import GraphicsBackend.Turtle;
 import Main.BackendController;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Class will contain the initial layout for the Window
  *
- * @author Januario Carreiro
+ * @author Januario Carreiro & David Liu
  */
 public class WindowLayout {
     private Stage myStage;
     private BorderPane myContainer;
     private Editor editor;
+    private AvailableVars availableVars;
+    private UserCommands userCommands;
     private GraphicsArea graphicsArea;
-    private OpenHelp openHelp;
-    private Control redo, run, switchLanguages, undo, stopExecution, setTurtleImage;;
-    private ColorPicker setBackgroundColor, setPenColor;
     private Console console;
+    private OpenHelp openHelp;
+    private SwitchLanguages switchLanguages;
+    private Control redo, run, undo, stopExecution, setTurtleImage;;
+    private ColorPicker setBackgroundColor, setPenColor;
+    private final double sizeOfPadding = 5.0;
     private BackendController backendController;
 
     /**
@@ -42,15 +49,17 @@ public class WindowLayout {
      */
     public WindowLayout(BorderPane root, Stage stage) {
         myStage = stage;
-        editor = new Editor(200, 200);
-        graphicsArea = new GraphicsArea(400, 400);
-        console = new Console(600, 100);
+        editor = new Editor(200, 200, this);
+        availableVars = new AvailableVars(200, 100, this);
+        userCommands = new UserCommands(200, 100, this);
+        console = new Console(600, 100, this);
+        graphicsArea = new GraphicsArea(400, 400, this);
 
         var rightBorderPane = new BorderPane();
 
-        rightBorderPane.setTop(new AvailableVars(200, 100).getContent());
-        rightBorderPane.setCenter(new UserCommands(200, 100).getContent());
-        rightBorderPane.setBottom(editor.getContent());
+        rightBorderPane.setTop(availableVars.getContent());
+        rightBorderPane.setCenter(editor.getContent());
+        rightBorderPane.setBottom(userCommands.getContent());
 
         root.setTop(returnButtons());
         root.setBottom(console.getContent());
@@ -59,21 +68,6 @@ public class WindowLayout {
 
         myContainer = root;
     }
-
-    public void setBackendController(BackendController backendController) {
-        this.backendController = backendController;
-        console.setBackendController(backendController);
-        graphicsArea.setBackendController(backendController);
-        updateGraphicsArea(backendController.getMyTurtles());
-    }
-
-    public void updateGraphicsArea(List<Turtle> turtles){
-        for (Turtle turtle:turtles){
-//            myContainer.getChildren().add(turtle.getAdjustedTurtleImageView(0,0));
-        }
-    }
-
-
 
     private HBox returnButtons() {
         var buttonHandler = new HBox();
@@ -85,17 +79,17 @@ public class WindowLayout {
         openHelp = new OpenHelp(this);
         openHelp.getHyperlink().setTooltip(new Tooltip("Help"));
 
+        setPenColor = new SetPenColor().getColorPicker();
+        setPenColor.setTooltip(new Tooltip("Set Pen Color"));
+
+        setBackgroundColor = new SetBackgroundColor(this).getColorPicker();
+        setBackgroundColor.setTooltip(new Tooltip("Set Background Color"));
+
         setTurtleImage = new SetTurtleImage(this);
         setTurtleImage.getButton().setTooltip(new Tooltip("Set Turtle Image"));
 
         switchLanguages = new SwitchLanguages(this);
         switchLanguages.getButton().setTooltip(new Tooltip("Switch Languages"));
-
-        setPenColor = new SetPenColor().getColorPicker();
-        setPenColor.setTooltip(new Tooltip("Set Pen Color"));
-
-        setBackgroundColor = new SetBackgroundColor().getColorPicker();
-        setBackgroundColor.setTooltip(new Tooltip("Set Background Color"));
 
         undo = new Undo(this);
         undo.getButton().setTooltip(new Tooltip("Undo"));
@@ -111,16 +105,17 @@ public class WindowLayout {
 
         var leftButtons = new HBox(openHelp.getHyperlink(), switchLanguages.getButton(),
                 setBackgroundColor, setPenColor, setTurtleImage.getButton());
-        leftButtons.setPadding(new Insets(5, 5, 5, 5));
+        leftButtons.setPadding(new Insets(sizeOfPadding, sizeOfPadding, sizeOfPadding, sizeOfPadding));
         leftButtons.setSpacing(5);
-        leftButtons.setAlignment(Pos.CENTER_LEFT);
+
+        var padding = new Region();
 
         var rightButtons = new HBox(undo.getButton(), redo.getButton(), stopExecution.getButton(), run.getButton());
-        rightButtons.setPadding(new Insets(5, 5, 5, 5));
+        rightButtons.setPadding(new Insets(sizeOfPadding, sizeOfPadding, sizeOfPadding, sizeOfPadding));
         rightButtons.setSpacing(5);
-        rightButtons.setAlignment(Pos.CENTER_RIGHT);
 
-        buttonHandler.getChildren().addAll(leftButtons, rightButtons);
+        buttonHandler.setHgrow(padding, Priority.ALWAYS);
+        buttonHandler.getChildren().addAll(leftButtons, padding, rightButtons);
         return buttonHandler;
     }
 
@@ -128,6 +123,9 @@ public class WindowLayout {
         return myContainer;
     }
 
+    /**
+     * TODO: make it possible to set image of any button through reflection
+     */
     public void handleSetTurtleImage() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("data/turtles"));
@@ -140,5 +138,47 @@ public class WindowLayout {
                 alert.showAndWait();
             }
         }
+    }
+
+    public void setBackendController(BackendController backendController) {
+        this.backendController = backendController;
+        setGraphicsArea();
+    }
+
+    public void setGraphicsArea(){
+        Grid grid = backendController.getMyGrid();
+        List<Turtle> turtles = backendController.getMyTurtles();
+        List<ImageView> turtleImages = new ArrayList<>();
+        for (Turtle turtle:turtles){
+            System.out.println(turtle.getxPos());
+            System.out.println(turtle.getyPos());
+            turtleImages.add(turtle.getAdjustedTurtleImageView(0,0));
+        }
+        graphicsArea.setVariables(grid, turtleImages);
+    }
+
+    public void setBackgroundColor() {}
+
+    public void sendCommandString(String commandString) {
+        //send commandString to backend
+    }
+
+    public void consoleShowError(String errorString) {
+        //errorString is truly coming from BackEnd though
+        console.showError(errorString);
+    }
+
+    public void getAvailableVars(List<String> availableVarsList) {
+        //availableVarsList also truly coming from BackEnd though
+        availableVars.setAvailableVars(availableVarsList);
+    }
+
+    public void getUserCommands(List<String> userCommandsList) {
+        //userCommandsList also truly coming from BackEnd though
+        userCommands.setUserCommands(userCommandsList);
+    }
+
+    public void changeLanguage(String language) {
+        // Send new language to back end
     }
 }

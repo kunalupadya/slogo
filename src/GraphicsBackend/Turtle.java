@@ -19,6 +19,7 @@ public class Turtle {
     private ImageView turtleImageView;
     private Grid myGrid;
     private boolean isTurtleVisible;
+    private boolean isTurtleActive;
     //TODO implement turtle shape using int index
     private int myShape;
 
@@ -26,7 +27,7 @@ public class Turtle {
         myGrid = grid;
         xPos = myGrid.getWidth()/ HALF;
         yPos = myGrid.getHeight()/ HALF;
-        myAngle = 0;
+        myAngle = 90;
         speed = 1;
         isTurtleVisible = true;
         turtleImage = new javafx.scene.image.Image(this.getClass().getClassLoader().getResourceAsStream(DEFAULT_IMAGE));
@@ -44,6 +45,14 @@ public class Turtle {
         turtle.setY(yPos-HALF_TURTLE_SIZE);
         turtle.setFitHeight(TURTLE_SIZE);
         turtle.setFitWidth(TURTLE_SIZE);
+    }
+
+    public boolean getIsTurtleActive(){
+        return isTurtleActive;
+    }
+
+    public void setTurtleActive(boolean turtleActive) {
+        isTurtleActive = turtleActive;
     }
 
     public void move(double dist){
@@ -108,7 +117,7 @@ public class Turtle {
         ImageView returnedTurtle = new ImageView();
         updateATurtleImageView(returnedTurtle);
         returnedTurtle.setX(returnedTurtle.getX()+xLeftCorner);
-        returnedTurtle.setX(returnedTurtle.getX()+yLeftCorner);
+        returnedTurtle.setY(returnedTurtle.getY()+yLeftCorner);
         return returnedTurtle;
     }
 

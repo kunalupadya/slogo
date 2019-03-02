@@ -2,6 +2,7 @@ package Parser;
 
 import GraphicsBackend.Turtle;
 import Parser.Commands.Command;
+import Parser.Commands.ConstantCommand;
 import Parser.Commands.RootCommand;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class ParsingTree {
 
             System.out.println(commandsList);
             System.out.println(tokensList);
-            if (currToken == Token.CONSTANT) {
+            if (savedCurrentCommand.getClass() == ConstantCommand.class){
                 parent.addChildren(savedCurrentCommand);
             }
             else if (currToken == Token.LIST_END){
@@ -52,11 +53,14 @@ public class ParsingTree {
             else if (currToken == Token.LIST_START){
                 while (currToken!=Token.LIST_END){
                     savedCurrentCommand.addChildren(makeTree(commandsList,tokensList, savedCurrentCommand));
+                    parent.addChildren(savedCurrentCommand);
+                    currCommand = commandsList.remove(FIRST);
+                    currToken = tokensList.remove(FIRST);
+                    savedCurrentCommand = currCommand;
+                    savedCurrentToken = currToken;
                 }
-                parent.addChildren(savedCurrentCommand);
             }
             else{
-
                 parent.addChildren(makeTree(commandsList,tokensList, savedCurrentCommand));
             }
             if (parent.getNumParameters() == parent.getCurrentNumParameters()) {

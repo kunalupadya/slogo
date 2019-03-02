@@ -1,6 +1,6 @@
 package GUI.Modules;
 
-import Main.BackendController;
+import GUI.WindowLayout;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -25,16 +25,11 @@ public class Console extends Module  {
     private List<String> commandHistory;
     private int commandPosition;
     private Font courier;
-    private BackendController backendController;
 
-    public Console(int width, int height) {
-        super(width, height);
+    public Console(int width, int height, WindowLayout myWindowLayout) {
+        super(width, height, myWindowLayout);
         courier = new Font("Courier", 12);
         setContent();
-    }
-
-    public void setBackendController(BackendController backendController) {
-        this.backendController = backendController;
     }
 
     @Override
@@ -71,9 +66,7 @@ public class Console extends Module  {
             }
             commandHistory.add(0, parameterValue);
             commandPosition = -1;
-            //send parametervalue to parsecommand
-            System.out.println(backendController);
-            backendController.parseAndRun(parameterValue);
+            windowLayout.sendCommandString(parameterValue);
             consoleInput.clear();
         }
         if (code == KeyCode.UP) {
@@ -95,8 +88,12 @@ public class Console extends Module  {
         }
     }
 
-    //show method in console class so that console can show error messages on the screen
-    private void showError() {
-        //receive error message from handleerror class?
+    public void showError(String errorString) {
+        if (consoleInfo.getText() != "") {
+            consoleInfo.appendText("\n" + errorString);
+        }
+        else {
+            consoleInfo.appendText(errorString);
+        }
     }
 }

@@ -1,11 +1,14 @@
 package GUI.Modules;
 
+import GUI.WindowLayout;
 import GraphicsBackend.Grid;
 import GraphicsBackend.Turtle;
 import Main.BackendController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -18,27 +21,18 @@ import java.util.List;
  */
 
 public class GraphicsArea extends Module {
-    private VBox container;
+    private Group container;
     private Grid grid;
     private double FRAMES_PER_SECOND = 0.5;
     private double MILLISECOND_IN_A_SECOND = 1000;
     private double MILLISECOND_DELAY = MILLISECOND_IN_A_SECOND / FRAMES_PER_SECOND;
     private Timeline animation;
     private List<Node> gridObjects;
-    private BackendController backendController;
 
-    public GraphicsArea(int width, int height) {
-        super(width, height);
+    public GraphicsArea(int width, int height, WindowLayout myWindowLayout) {
+        super(width, height, myWindowLayout);
         startAnimation(MILLISECOND_DELAY);
         setContent();
-    }
-
-    public void setBackendController(BackendController backendController) {
-        this.backendController = backendController;
-    }
-
-    @Override
-    protected void setLayout() {
     }
 
     @Override
@@ -47,11 +41,8 @@ public class GraphicsArea extends Module {
 
     @Override
     protected void setContent() {
-        container = new VBox();
+        container = new Group();
         content.setContent(container);
-        grid = new Grid(moduleHeight, moduleWidth);
-        gridObjects = grid.getAllObjects();
-        container.getChildren().addAll(gridObjects);
     }
 
     private void startAnimation(double delay) {
@@ -62,9 +53,10 @@ public class GraphicsArea extends Module {
         animation.play();
     }
 
-    public void updateGraphicsArea(List<Turtle> turtles){
-        for (Turtle turtle:turtles){
-            container.getChildren().add(turtle.getAdjustedTurtleImageView(10,10));
+    public void setVariables(Grid grid, List<ImageView> turtleImages) {
+        this.grid = grid;
+        for (ImageView image : turtleImages) {
+            container.getChildren().add(image);
         }
     }
 

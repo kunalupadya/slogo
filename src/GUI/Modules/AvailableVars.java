@@ -1,5 +1,6 @@
 package GUI.Modules;
 
+import GUI.WindowLayout;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
@@ -22,21 +23,12 @@ public class AvailableVars extends Module{
     private ListView<String> availableVarsDisplay;
     private ObservableList<String> availableVarsCollection;
 
-    public AvailableVars(int width, int height) {
-        super(width, height);
+    public AvailableVars(int width, int height, WindowLayout myWindowLayout) {
+        super(width, height, myWindowLayout);
         availableVars = new ArrayList<>();
         //availableVars.add("Available Variables");
         //availableVars.add("Bye");
-        //updateAvailableVars();
         setContent();
-    }
-
-    @Override
-    protected void setLayout() {
-        content.setPrefViewportWidth(moduleWidth);
-        content.setPrefViewportHeight(moduleHeight);
-        content.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        content.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
     }
 
     @Override
@@ -60,7 +52,7 @@ public class AvailableVars extends Module{
         container.getChildren().add(availableVarsDisplay);
     }
 
-    private void updateAvailableVars() {
-        //availableVars = ___.getList
+    public void setAvailableVars(List<String> myAvailableVars) {
+        availableVars = myAvailableVars;
     }
 }

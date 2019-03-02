@@ -68,6 +68,7 @@ public class ParseCommand {
 
     //TODO: this method should create complete list of Commands that Execute Command merely runs using Command tree
     //implementation is wrong currently
+
     private ArrayList<Command> stackCommand(String[] listOfWords, List<Turtle> turtleList, Map<String[], String> commandMap){
         ArrayList<Command> list = new ArrayList<Command>();
         ArrayList<String>
@@ -78,7 +79,7 @@ public class ParseCommand {
         for(String word: listOfWords){
             for(String[] list1: commandMap.keySet()){
                 if(list1.contains(word)){
-                    Command newCommand = Command(commandMap.get(list1))
+                    Command newCommand = Command(commdandMap.get(list1))
                 }
             }
 

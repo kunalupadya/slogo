@@ -19,6 +19,7 @@ public class OpenHelp {
         myHyperlink = new Hyperlink();
         Image hyperlinkGraphic = new Image(WindowLayout.class.getResourceAsStream("/images/help.png"), 20, 20, true, true);
         myHyperlink.setGraphic(new ImageView(hyperlinkGraphic));
+        myHyperlink.getStyleClass().add("button");
         myHyperlink.setOnAction(e -> action());
         this.context = context;
     }

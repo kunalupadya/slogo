@@ -1,5 +1,6 @@
 package GUI.Modules;
 
+import GUI.WindowLayout;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Bounds;
@@ -17,10 +18,9 @@ public class Editor extends Module {
     private TextArea editor;
     private String editorText;
 
-    public Editor(int width, int height) {
-        super(width, height);
+    public Editor(int width, int height, WindowLayout myWindowLayout) {
+        super(width, height, myWindowLayout);
         setContent();
-        content.setMaxSize(width, height);
 //        editor.layoutBoundsProperty().addListener(new ChangeListener<Bounds>() {
 //            @Override
 //            public void changed(ObservableValue<? extends Bounds> observable, Bounds oldValue, Bounds newValue) {
@@ -31,10 +31,6 @@ public class Editor extends Module {
 //                }
 //            }
 //        });
-    }
-
-    @Override
-    protected void setLayout() {
     }
 
     @Override
@@ -55,12 +51,12 @@ public class Editor extends Module {
         container.getChildren().add(editor);
     }
 
-
     public void run() {
+        //do a better job of "debugging" the editor text
         editorText = editor.getText();
         if (editorText != "") {
             editorText = editorText.replace("\n", " ");
         }
-        //send editorText to the parsecommand
+        windowLayout.sendCommandString(editorText);
     }
 }

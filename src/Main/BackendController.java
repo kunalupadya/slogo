@@ -23,6 +23,10 @@ public class BackendController {
 //        setLanguage("English");
         myGrid = new Grid(400,400);
         myTurtles.add(new Turtle(myGrid));
+        Turtle turtle2 = new Turtle(myGrid);
+        turtle2.move(50);
+        myTurtles.add(turtle2);
+
     }
 
     public Grid getMyGrid() {

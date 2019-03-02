@@ -102,7 +102,7 @@ public class Turtle {
         ImageView returnedTurtle = new ImageView();
         updateATurtleImageView(returnedTurtle);
         returnedTurtle.setX(returnedTurtle.getX()+xLeftCorner);
-        returnedTurtle.setX(returnedTurtle.getX()+yLeftCorner);
+        returnedTurtle.setY(returnedTurtle.getY()+yLeftCorner);
         return returnedTurtle;
     }
 

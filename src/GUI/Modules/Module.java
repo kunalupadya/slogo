@@ -1,5 +1,6 @@
 package GUI.Modules;
 
+import GUI.WindowLayout;
 import javafx.scene.control.ScrollPane;
 
 /**
@@ -12,12 +13,14 @@ public abstract class Module {
 
     public int moduleWidth;
     public int moduleHeight;
+    public WindowLayout windowLayout;
 
-    public Module(int width, int height) {
+    public Module(int width, int height, WindowLayout myWindowLayout) {
         moduleWidth = width;
         moduleHeight = height;
         this.content = new ScrollPane();
         content.setMinSize(width, height);
+        windowLayout = myWindowLayout;
         setLayout();
     }
 

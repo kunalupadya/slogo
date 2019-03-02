@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 
 /**
  * Abstract superclass to serve as template for all buttons/controls
+ * TODO: finish JavaDoc
  *
  * @author Januario Carreiro
  */
@@ -19,6 +20,10 @@ public abstract class Control {
     private Button button;
     private ImageView img;
 
+    /**
+     * TODO: finish JavaDoc
+     * @param image
+     */
     public Control(Image image) {
         this.button = new Button();
 
@@ -34,12 +39,19 @@ public abstract class Control {
 
     /**
      * Getter method for the button associated with this class
+     *
      * @return Button contained by this class
      */
     public Button getButton() {
         return button;
     }
 
+    /**
+     * Setter method to change the image displayed on the button. In order for image to be compatible with the style
+     * of the preset images, it should be a .png with a transparent background.
+     *
+     * @param file image file to replace button image
+     */
     public void setImage(File file) {
         try {
             img = new ImageView(new Image(new FileInputStream(file.getPath())));

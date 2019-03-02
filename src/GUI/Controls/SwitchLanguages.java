@@ -22,6 +22,7 @@ public class SwitchLanguages {
      * @param context
      */
     public SwitchLanguages(WindowLayout context) {
+        this.context = context;
         this.button = new MenuButton();
 
         img = new ImageView(new Image(WindowLayout.class.getResourceAsStream("/images/language.png")));
@@ -61,7 +62,6 @@ public class SwitchLanguages {
 
         button.getItems().addAll(chinese, english, french, german, italian, portuguese, russian, spanish, urdu);
 
-        this.context = context;
         this.button.setOnMouseClicked(mouseEvent -> action());
     }
 
@@ -69,7 +69,11 @@ public class SwitchLanguages {
         return button;
     }
 
+    /**
+     * TODO: Either make MenuButton extend Control or remove action()
+     */
     private void action() {
+
     }
 
     private EventHandler<ActionEvent> changeLanguage() {

@@ -9,7 +9,7 @@ public class HeadingCommand extends TurtleCommand {
         numParameters = 0;
     }
 
-    public void execute(){
+    public void performAction(){
         returnValue = myTurtle.getMyAngle();
 
     }

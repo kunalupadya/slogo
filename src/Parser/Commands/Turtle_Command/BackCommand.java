@@ -9,7 +9,7 @@ public class BackCommand extends TurtleCommand {
         numParameters = 1;
     }
 
-    public void execute(){
+    public void performAction(){
         getTurtle().move(-getChildren().get(0).getReturnValue());
         returnValue = getChildren().get(0).getReturnValue();
     }

@@ -9,7 +9,7 @@ public class PowCommand extends Command {
         numParameters = 2;
     }
 
-    public void execute(){
+    public void performAction(){
         returnValue =  Math.pow(myChildrenList.get(0).getReturnValue(),myChildrenList.get(1).getReturnValue());
     }
 

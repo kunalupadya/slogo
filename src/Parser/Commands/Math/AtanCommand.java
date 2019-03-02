@@ -10,7 +10,7 @@ public class AtanCommand extends Command {
         numParameters = 1;
     }
 
-    public void execute(){
+    public void performAction(){
         returnValue =  Math.atan(myChildrenList.get(0).getReturnValue());
     }
 

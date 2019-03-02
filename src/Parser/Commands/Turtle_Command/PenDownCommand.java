@@ -9,7 +9,7 @@ public class PenDownCommand extends TurtleCommand {
         numParameters = 0;
     }
 
-    public void execute() {
+    public void performAction() {
         getTurtle().getMyPen().setPenUp(false);
         returnValue = 1;
 

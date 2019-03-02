@@ -9,7 +9,7 @@ public class PiCommand extends Command {
         numParameters = 0;
     }
 
-    public void execute(){
+    public void performAction(){
         returnValue = Math.PI;
     }
 

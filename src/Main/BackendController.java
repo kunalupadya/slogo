@@ -16,6 +16,8 @@ public class BackendController {
     Grid myGrid;
     List<Turtle> myTurtles = new ArrayList<>();
     WindowLayout windowLayout;
+    double xLeftCorner = 0;
+    double yLeftCorner = 0;
 
     public BackendController(){
 //        setLanguage("English");

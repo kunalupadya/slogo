@@ -11,7 +11,7 @@ public class RandomCommand extends Command {
         numParameters = 1;
     }
 
-    public void execute(){
+    public void performAction(){
         returnValue =  new Random().nextInt((int)myChildrenList.get(0).getReturnValue());
     }
 

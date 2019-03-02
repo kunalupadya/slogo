@@ -1,6 +1,8 @@
 package GUI.Modules;
 
 import GraphicsBackend.Grid;
+import GraphicsBackend.Turtle;
+import Main.BackendController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Node;
@@ -23,11 +25,16 @@ public class GraphicsArea extends Module {
     private double MILLISECOND_DELAY = MILLISECOND_IN_A_SECOND / FRAMES_PER_SECOND;
     private Timeline animation;
     private List<Node> gridObjects;
+    private BackendController backendController;
 
     public GraphicsArea(int width, int height) {
         super(width, height);
         startAnimation(MILLISECOND_DELAY);
         setContent();
+    }
+
+    public void setBackendController(BackendController backendController) {
+        this.backendController = backendController;
     }
 
     @Override
@@ -42,7 +49,7 @@ public class GraphicsArea extends Module {
     protected void setContent() {
         container = new VBox();
         content.setContent(container);
-        grid = new Grid(moduleWidth, moduleWidth);
+        grid = new Grid(moduleHeight, moduleWidth);
         gridObjects = grid.getAllObjects();
         container.getChildren().addAll(gridObjects);
     }
@@ -53,6 +60,12 @@ public class GraphicsArea extends Module {
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
         animation.play();
+    }
+
+    public void updateGraphicsArea(List<Turtle> turtles){
+        for (Turtle turtle:turtles){
+            container.getChildren().add(turtle.getAdjustedTurtleImageView(10,10));
+        }
     }
 
     private void step() {

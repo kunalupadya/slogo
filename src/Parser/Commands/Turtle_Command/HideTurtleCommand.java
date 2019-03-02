@@ -9,7 +9,7 @@ public class HideTurtleCommand extends TurtleCommand {
         numParameters = 0;
     }
 
-    public void execute() {
+    public void performAction() {
         getTurtle().setTurtleVisibility(false);
         returnValue = 0;
 

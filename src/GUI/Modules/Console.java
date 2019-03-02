@@ -1,5 +1,6 @@
 package GUI.Modules;
 
+import GUI.WindowLayout;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -25,8 +26,8 @@ public class Console extends Module  {
     private int commandPosition;
     private Font courier;
 
-    public Console(int width, int height) {
-        super(width, height);
+    public Console(int width, int height, WindowLayout myWindowLayout) {
+        super(width, height, myWindowLayout);
         courier = new Font("Courier", 12);
         setContent();
     }
@@ -65,7 +66,7 @@ public class Console extends Module  {
             }
             commandHistory.add(0, parameterValue);
             commandPosition = -1;
-            //send consoleinput to parsecommand
+            windowLayout.sendCommandString(parameterValue);
             consoleInput.clear();
         }
         if (code == KeyCode.UP) {
@@ -87,8 +88,12 @@ public class Console extends Module  {
         }
     }
 
-    //show method in console class so that console can show error messages on the screen
-    private void showError() {
-        //receive error message from handleerror class?
+    public void showError(String errorString) {
+        if (consoleInfo.getText() != "") {
+            consoleInfo.appendText("\n" + errorString);
+        }
+        else {
+            consoleInfo.appendText(errorString);
+        }
     }
 }

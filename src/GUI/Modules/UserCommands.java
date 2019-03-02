@@ -1,5 +1,6 @@
 package GUI.Modules;
 
+import GUI.WindowLayout;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
@@ -7,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,13 +23,12 @@ public class UserCommands extends Module {
     private ListView<String> userCommandsDisplay;
     private ObservableList<String> userCommandsCollection;
 
-    public UserCommands(int width, int height) {
-        super(width, height);
+    public UserCommands(int width, int height, WindowLayout myWindowLayout) {
+        super(width, height, myWindowLayout);
         userCommands = new ArrayList<>();
-        //serCommands.add("What's up");
+        //userCommands.add("What's up");
         //userCommands.add("Nothing much");
         setContent();
-        //updateUserCommands();
     }
 
     @Override
@@ -46,8 +47,8 @@ public class UserCommands extends Module {
         container.getChildren().add(userCommandsDisplay);
     }
 
-    private void updateUserCommands() {
-        //UserCommandList = ___.getList
+    public void setUserCommands(List<String> myUserCommands) {
+        userCommands = myUserCommands;
     }
 
 }

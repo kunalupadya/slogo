@@ -1,19 +1,23 @@
 package GUI.Controls;
 
-import GUI.WindowLayout;
 import javafx.event.EventHandler;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import javafx.event.ActionEvent;
+
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.ResourceBundle;
+
+import GUI.WindowLayout;
 
 public class SwitchLanguages {
     private WindowLayout context;
+    private ResourceBundle myLanguageResources;
     private MenuButton button;
-    private ImageView img;
-    private MenuItem chinese, english, french, german, italian, portuguese, russian, spanish, urdu;
 
     /**
      * TODO: Refactor so that all the buttons can extend control
@@ -22,66 +26,45 @@ public class SwitchLanguages {
      * @param context
      */
     public SwitchLanguages(WindowLayout context) {
+        myLanguageResources = ResourceBundle.getBundle("/LanguageSettings");
         this.context = context;
         this.button = new MenuButton();
 
-        img = new ImageView(new Image(WindowLayout.class.getResourceAsStream("/images/language.png")));
+        ImageView img = new ImageView(new Image(WindowLayout.class.getResourceAsStream("/images/language.png")));
         img.setFitHeight(20.0);
         img.setFitWidth(20.0);
         this.button.setGraphic(img);
         this.button.getStyleClass().add("button");
 
-        EventHandler<ActionEvent> action = changeLanguage();
+        List<MenuItem> itemList = makeMenuItems();
 
-        chinese = new MenuItem("Chinese");
-        chinese.setOnAction(action);
-
-        english = new MenuItem("English");
-        english.setOnAction(action);
-
-        french = new MenuItem("French");
-        french.setOnAction(action);
-
-        german = new MenuItem("German");
-        german.setOnAction(action);
-
-        italian = new MenuItem("Italian");
-        italian.setOnAction(action);
-
-        portuguese = new MenuItem("Portuguese");
-        portuguese.setOnAction(action);
-
-        russian = new MenuItem("Russian");
-        russian.setOnAction(action);
-
-        spanish =  new MenuItem("Spanish");
-        spanish.setOnAction(action);
-
-        urdu = new MenuItem("Urdu");
-        urdu.setOnAction(action);
-
-        button.getItems().addAll(chinese, english, french, german, italian, portuguese, russian, spanish, urdu);
-
-        this.button.setOnMouseClicked(mouseEvent -> action());
+        button.getItems().addAll(itemList);
     }
 
     public MenuButton getButton() {
         return button;
     }
 
-    /**
-     * TODO: Either make MenuButton extend Control or remove action()
-     */
-    private void action() {
+    private List<MenuItem> makeMenuItems() {
+        EventHandler<ActionEvent> action = changeLanguage();
+        Enumeration<String> itemEnum = myLanguageResources.getKeys();
+        var itemList = new ArrayList<MenuItem>();
 
+        while(itemEnum.hasMoreElements()) {
+            String menuItemLabel = itemEnum.nextElement();
+            MenuItem menuItem = new MenuItem(menuItemLabel);
+            menuItem.setOnAction(action);
+            itemList.add(menuItem);
+        }
+
+        return itemList;
     }
 
     private EventHandler<ActionEvent> changeLanguage() {
         return event -> {
             MenuItem mItem = (MenuItem) event.getSource();
-            String language = mItem.getText();
-            context.changeLanguage(language);
-            System.out.println(language); // TODO: Remove once this is working
+            String associatedProperty = myLanguageResources.getString(mItem.getText());
+            context.changeLanguage(associatedProperty);
         };
     }
 }

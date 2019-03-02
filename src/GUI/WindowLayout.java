@@ -3,7 +3,6 @@ package GUI;
 import GUI.Controls.*;
 import GUI.Modules.*;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -11,6 +10,8 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -102,14 +103,15 @@ public class WindowLayout {
                 setBackgroundColor, setPenColor, setTurtleImage.getButton());
         leftButtons.setPadding(new Insets(sizeOfPadding, sizeOfPadding, sizeOfPadding, sizeOfPadding));
         leftButtons.setSpacing(5);
-        leftButtons.setAlignment(Pos.CENTER_LEFT);
+
+        var padding = new Region();
 
         var rightButtons = new HBox(undo.getButton(), redo.getButton(), stopExecution.getButton(), run.getButton());
         rightButtons.setPadding(new Insets(sizeOfPadding, sizeOfPadding, sizeOfPadding, sizeOfPadding));
         rightButtons.setSpacing(5);
-        rightButtons.setAlignment(Pos.CENTER_RIGHT);
 
-        buttonHandler.getChildren().addAll(leftButtons, rightButtons);
+        buttonHandler.getChildren().addAll(leftButtons, padding, rightButtons);
+        buttonHandler.setHgrow(padding, Priority.ALWAYS);
         return buttonHandler;
     }
 
@@ -117,6 +119,9 @@ public class WindowLayout {
         return myContainer;
     }
 
+    /**
+     * TODO: make it possible to set image of any button through reflection
+     */
     public void handleSetTurtleImage() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("data/turtles"));

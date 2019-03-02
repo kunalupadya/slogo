@@ -36,6 +36,7 @@ public class WindowLayout {
     private Control redo, run, undo, stopExecution, setTurtleImage;;
     private ColorPicker setBackgroundColor, setPenColor;
     private final double sizeOfPadding = 5.0;
+    //private BackendController backendController;
 
     /**
      * TODO: add JavaDoc
@@ -134,6 +135,11 @@ public class WindowLayout {
             }
         }
     }
+
+//    public void setBackendController(BackendController backendController) {
+//        this.backendController = backendController;
+//        updateGraphicsArea(backendController.getMyTurtles());
+//    }
 
     public void setBackgroundColor() {}
 

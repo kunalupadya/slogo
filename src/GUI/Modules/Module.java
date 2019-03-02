@@ -13,14 +13,14 @@ public abstract class Module {
 
     public int moduleWidth;
     public int moduleHeight;
-    public WindowLayout windowLayout;
+    public WindowLayout context;
 
-    public Module(int width, int height, WindowLayout myWindowLayout) {
+    public Module(int width, int height, WindowLayout context) {
         moduleWidth = width;
         moduleHeight = height;
         this.content = new ScrollPane();
         content.setMinSize(width, height);
-        windowLayout = myWindowLayout;
+        this.context = context;
         setLayout();
     }
 

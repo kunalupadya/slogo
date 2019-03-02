@@ -4,12 +4,9 @@ import GUI.WindowLayout;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +63,7 @@ public class Console extends Module  {
             }
             commandHistory.add(0, parameterValue);
             commandPosition = -1;
-            windowLayout.sendCommandString(parameterValue);
+            context.sendCommandString(parameterValue);
             consoleInput.clear();
         }
         if (code == KeyCode.UP) {
@@ -89,7 +86,7 @@ public class Console extends Module  {
     }
 
     public void showError(String errorString) {
-        if (consoleInfo.getText() != "") {
+        if (! consoleInfo.getText().equals("")) {
             consoleInfo.appendText("\n" + errorString);
         }
         else {

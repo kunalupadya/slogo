@@ -142,6 +142,7 @@ public class WindowLayout {
 //    }
 
     public void updateGraphicsArea(){
+        //Grid grid = backendController.getMyGrid();
         //List<Turtle> turtles = backendController.getMyTurtles();
 
 //        for (Turtle turtle:turtles){

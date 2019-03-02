@@ -1,61 +1,67 @@
-//package Parser;
-//import Parser.Nodes.*;
-//
-//import java.util.ArrayList;
-//import java.util.Arrays;
-//
-///**
-// * @author: Louis Lee
-// */
-//
-//
-//public class ParsingTree {
-//
-//    private String language = "English";
-//    private String emptyspace = " ";
-//    private CommandHistory commandHistory;
-//    private LanguageSetting languageSetting;
-//
-//
-//    public ParsingTree(String input){
-//        commandHistory.addToHistory(input);
-//        Node root = makeTree(input);
-//    }
-//
-//    public void setLanguage(String inputLanguage) {
-//        language = inputLanguage;
-//        languageSetting.changeLanguage(language);
-//    }
-//
-//    public String getLanguage() {
-//        return language;
-//    }
-//
-//    public String getPreviousCommands(){
-//        return commandHistory.getPreviousCommand();
-//    }
-//
-//
-//    public Node makeTree(String input){
-//        ArrayList<String> words;
-//        words = new ArrayList<>(Arrays.asList(input.split(emptyspace)));
-//        Node headNode = new HeadNode(input);
-//        Node pointer = headNode;
-//        for(int a=0; a<words.size() ; a++) {
-//            String word = words.get(a);
-//            Token token = new TokenConverter().checkTypeOfInput(word);
-//            Node newNode = null;
-//            if (token == Token.CONSTANT) {
-//                newNode = new ConstantNode(word);
-//            } else if (token == Token.VARIABLE) {
-//                newNode = new VariableNode(word.replaceAll(":", ""));
-//            } else if (token == Token.COMMAND) {
-//                newNode = new CommandNode(word);
-//            }
-//            pointer.addChild(newNode);
-//            pointer = newNode;
-//        }
-//
-//    }
-//
-//}
+package Parser;
+
+import Parser.Commands.Command;
+import Parser.Commands.RootCommand;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
+
+public class ParsingTree {
+
+    public static final int FIRST = 0;
+    private List<Command> children;
+    private String value;
+//    private HandleError handleError;
+    Command headNode;
+    Command currCommand;
+    Token currToken;
+    List<Command> commands;
+    List<Token> tokens;
+
+
+    public ParsingTree(List<Command> commandsList, List<Token> tokensList){
+        headNode = new RootCommand();
+        commands = commandsList;
+        tokens = tokensList;
+        headNode = makeTree(commandsList, tokensList, headNode);
+    }
+
+    public Command getRoot(){
+        return headNode;
+    }
+
+    public Command makeTree(List<Command> commandsList, List<Token> tokensList, Command parent){
+        while (!commandsList.isEmpty()) {
+            System.out.println();
+            currCommand = commandsList.remove(FIRST);
+            currToken = tokensList.remove(FIRST);
+            Command savedCurrentCommand = currCommand;
+            Token savedCurrentToken = currToken;
+
+            System.out.println(commandsList);
+            System.out.println(tokensList);
+            if (currToken == Token.CONSTANT) {
+                parent.addChildren(savedCurrentCommand);
+            }
+            else if (currToken == Token.LIST_END){
+                return savedCurrentCommand;
+            }
+            else if (currToken == Token.LIST_START){
+                while (currToken!=Token.LIST_END){
+                    savedCurrentCommand.addChildren(makeTree(commandsList,tokensList, savedCurrentCommand));
+                }
+                parent.addChildren(savedCurrentCommand);
+            }
+            else{
+
+                parent.addChildren(makeTree(commandsList,tokensList, savedCurrentCommand));
+            }
+            if (parent.getNumParameters() == parent.getCurrentNumParameters()) {
+                return parent;
+            }
+        }
+        return parent;
+    }
+}

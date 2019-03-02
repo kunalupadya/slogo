@@ -2,13 +2,15 @@ package GUI;
 
 import GUI.Controls.*;
 import GUI.Modules.*;
+import GraphicsBackend.Grid;
 import GraphicsBackend.Turtle;
+import Main.BackendController;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
@@ -17,6 +19,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,7 +40,7 @@ public class WindowLayout {
     private Control redo, run, undo, stopExecution, setTurtleImage;;
     private ColorPicker setBackgroundColor, setPenColor;
     private final double sizeOfPadding = 5.0;
-    //private BackendController backendController;
+    private BackendController backendController;
 
     /**
      * TODO: add JavaDoc
@@ -137,18 +140,21 @@ public class WindowLayout {
         }
     }
 
-//    public void setBackendController(BackendController backendController) {
-//        this.backendController = backendController;
-//    }
+    public void setBackendController(BackendController backendController) {
+        this.backendController = backendController;
+        setGraphicsArea();
+    }
 
     public void setGraphicsArea(){
-        //Grid grid = backendController.getMyGrid();
-        //List<Turtle> turtles = backendController.getMyTurtles();
-        //List<ImageView> turtleImages;
-//        for (Turtle turtle:turtles){
-            //turtleImages.add(turtle.getAdjustedTurtleImageView(0,0));
-//        }
-        //graphicsArea.setVariables(grid, turtleImages);
+        Grid grid = backendController.getMyGrid();
+        List<Turtle> turtles = backendController.getMyTurtles();
+        List<ImageView> turtleImages = new ArrayList<>();
+        for (Turtle turtle:turtles){
+            System.out.println(turtle.getxPos());
+            System.out.println(turtle.getyPos());
+            turtleImages.add(turtle.getAdjustedTurtleImageView(0,0));
+        }
+        graphicsArea.setVariables(grid, turtleImages);
     }
 
     public void setBackgroundColor() {}

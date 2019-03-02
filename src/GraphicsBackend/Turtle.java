@@ -14,7 +14,7 @@ public class Turtle {
     private double yPos;
     private double myAngle;
     private double speed;
-    private Pen myPen = new Pen();
+    private Pen myPen;
     private Image turtleImage;
     private ImageView turtleImageView;
     private Grid myGrid;
@@ -27,6 +27,7 @@ public class Turtle {
         myGrid = grid;
         xPos = myGrid.getWidth()/ HALF;
         yPos = myGrid.getHeight()/ HALF;
+        myPen = new Pen();
         myAngle = 90;
         speed = 1;
         isTurtleVisible = true;
@@ -45,6 +46,7 @@ public class Turtle {
         turtle.setY(yPos-HALF_TURTLE_SIZE);
         turtle.setFitHeight(TURTLE_SIZE);
         turtle.setFitWidth(TURTLE_SIZE);
+        turtle.setRotate(myAngle-90);
     }
 
     public boolean getIsTurtleActive(){

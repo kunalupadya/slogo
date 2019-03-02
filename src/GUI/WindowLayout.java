@@ -149,10 +149,9 @@ public class WindowLayout {
         Grid grid = backendController.getMyGrid();
         List<Turtle> turtles = backendController.getMyTurtles();
         List<ImageView> turtleImages = new ArrayList<>();
-        for (Turtle turtle:turtles){
-            System.out.println(turtle.getxPos());
-            System.out.println(turtle.getyPos());
-            turtleImages.add(turtle.getAdjustedTurtleImageView(0,0));
+        for (Turtle turtle:turtles) {
+            ImageView turtleImage = turtle.getAdjustedTurtleImageView(0,0);
+            turtleImages.add(turtleImage);
         }
         graphicsArea.setVariables(grid, turtleImages);
     }
@@ -160,7 +159,7 @@ public class WindowLayout {
     public void setBackgroundColor() {}
 
     public void sendCommandString(String commandString) {
-        //send commandString to backend
+        backendController.parseAndRun(commandString);
     }
 
     public void consoleShowError(String errorString) {

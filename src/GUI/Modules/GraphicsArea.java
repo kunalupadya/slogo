@@ -10,6 +10,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -21,7 +22,7 @@ import java.util.List;
  */
 
 public class GraphicsArea extends Module {
-    private Group container;
+    private Pane container;
     private Grid grid;
     private double FRAMES_PER_SECOND = 0.5;
     private double MILLISECOND_IN_A_SECOND = 1000;
@@ -41,7 +42,7 @@ public class GraphicsArea extends Module {
 
     @Override
     protected void setContent() {
-        container = new Group();
+        container = new Pane();
         content.setContent(container);
     }
 

@@ -139,13 +139,14 @@ public class WindowLayout {
 
 //    public void setBackendController(BackendController backendController) {
 //        this.backendController = backendController;
-//        updateGraphicsArea(backendController.getMyTurtles());
 //    }
 
-    public void updateGraphicsArea(List<Turtle> turtles){
-        for (Turtle turtle:turtles){
+    public void updateGraphicsArea(){
+        //List<Turtle> turtles = backendController.getMyTurtles();
+
+//        for (Turtle turtle:turtles){
 //            myContainer.getChildren().add(turtle.getAdjustedTurtleImageView(0,0));
-        }
+//        }
     }
 
     public void setBackgroundColor() {}

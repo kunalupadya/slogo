@@ -1,5 +1,6 @@
 package GUI.Modules;
 
+import GUI.WindowLayout;
 import GraphicsBackend.Grid;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -24,8 +25,8 @@ public class GraphicsArea extends Module {
     private Timeline animation;
     private List<Node> gridObjects;
 
-    public GraphicsArea(int width, int height) {
-        super(width, height);
+    public GraphicsArea(int width, int height, WindowLayout myWindowLayout) {
+        super(width, height, myWindowLayout);
         startAnimation(MILLISECOND_DELAY);
         setContent();
     }

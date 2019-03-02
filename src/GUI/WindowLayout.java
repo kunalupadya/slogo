@@ -15,17 +15,22 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Class will contain the initial layout for the Window
  *
- * @author Januario Carreiro
+ * @author Januario Carreiro & David Liu
  */
 public class WindowLayout {
     private Stage myStage;
     private BorderPane myContainer;
     private Group setLanguageBox;
     private Editor editor;
+    private AvailableVars availableVars;
+    private UserCommands userCommands;
+    private GraphicsArea graphicsArea;
+    private Console console;
     private OpenHelp openHelp;
     private SwitchLanguages switchLanguages;
     private Control redo, run, undo, stopExecution, setTurtleImage;;
@@ -39,17 +44,21 @@ public class WindowLayout {
      */
     public WindowLayout(BorderPane root, Stage stage) {
         myStage = stage;
-        editor = new Editor(200, 200);
+        editor = new Editor(200, 200, this);
+        availableVars = new AvailableVars(200, 100, this);
+        userCommands = new UserCommands(200, 100, this);
+        console = new Console(600, 100, this);
+        graphicsArea = new GraphicsArea(400, 400, this);
 
         var rightBorderPane = new BorderPane();
 
-        rightBorderPane.setTop(new GUI.Modules.AvailableVars(200, 100).getContent());
+        rightBorderPane.setTop(availableVars.getContent());
         rightBorderPane.setCenter(editor.getContent());
-        rightBorderPane.setBottom(new GUI.Modules.UserCommands(200, 100).getContent());
+        rightBorderPane.setBottom(userCommands.getContent());
 
         root.setTop(returnButtons());
-        root.setBottom(new GUI.Modules.Console(600, 100).getContent());
-        root.setCenter(new GUI.Modules.GraphicsArea(400, 400).getContent());
+        root.setBottom(console.getContent());
+        root.setCenter(graphicsArea.getContent());
         root.setRight(rightBorderPane);
 
         myContainer = root;
@@ -120,6 +129,25 @@ public class WindowLayout {
                 alert.showAndWait();
             }
         }
+    }
+
+    public void sendCommandString(String commandString) {
+        //send commandString to backend
+    }
+
+    public void consoleShowError(String errorString) {
+        //errorString is truly coming from BackEnd though
+        console.showError(errorString);
+    }
+
+    public void getAvailableVars(List<String> availableVarsList) {
+        //availableVarsList also truly coming from BackEnd though
+        availableVars.setAvailableVars(availableVarsList);
+    }
+
+    public void getUserCommands(List<String> userCommandsList) {
+        //userCommandsList also truly coming from BackEnd though
+        userCommands.setUserCommands(userCommandsList);
     }
 
     public void changeLanguage(String language) {

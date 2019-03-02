@@ -5,6 +5,7 @@ import GraphicsBackend.Grid;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -39,10 +40,7 @@ public class GraphicsArea extends Module {
     protected void setContent() {
         container = new VBox();
         content.setContent(container);
-        windowLayout.updateGraphicsArea();
-        //grid = new Grid(moduleWidth, moduleWidth);
-        //gridObjects = grid.getAllObjects();
-        //container.getChildren().addAll(gridObjects);
+        windowLayout.setGraphicsArea();
     }
 
     private void startAnimation(double delay) {
@@ -51,6 +49,13 @@ public class GraphicsArea extends Module {
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
         animation.play();
+    }
+
+    public void setVariables(Grid grid, List<ImageView> turtleImages) {
+        this.grid = grid;
+        for (ImageView image: turtleImages) {
+            container.getChildren().add(image);
+        }
     }
 
     private void step() {

@@ -141,13 +141,14 @@ public class WindowLayout {
 //        this.backendController = backendController;
 //    }
 
-    public void updateGraphicsArea(){
+    public void setGraphicsArea(){
         //Grid grid = backendController.getMyGrid();
         //List<Turtle> turtles = backendController.getMyTurtles();
-
+        //List<ImageView> turtleImages;
 //        for (Turtle turtle:turtles){
-//            myContainer.getChildren().add(turtle.getAdjustedTurtleImageView(0,0));
+            //turtleImages.add(turtle.getAdjustedTurtleImageView(0,0));
 //        }
+        //graphicsArea.setVariables(grid, turtleImages);
     }
 
     public void setBackgroundColor() {}

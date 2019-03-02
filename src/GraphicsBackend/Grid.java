@@ -15,6 +15,8 @@ public class Grid {
     private ArrayList<Line> bounds = new ArrayList<>();
     private double height;
     private double width;
+    //TODO make method so that screen color can be changed by the command
+    private int ScreenColor;
 
     public Grid(double gridHeight, double gridWidth){
         width = gridWidth;

@@ -42,7 +42,7 @@ public class LanguageSetting {
 
     //TODO: What do we do if there's an error. We just return semi-translated list? This method should probably throw an error
     //TODO: must deal with user defined commands also
-    String[] translateCommand(String[] listOfWords){
+    public String[] translateCommand(String[] listOfWords){
         var tokenConverter = new TokenConverter();
         for (int i = 0; i < listOfWords.length; i++) {
             if (tokenConverter.checkTypeOfInput(listOfWords[i]) == Token.COMMAND){
@@ -62,5 +62,22 @@ public class LanguageSetting {
             myNewHashMap.put(entry.getValue(), entry.getKey());
         }
         return myNewHashMap;
+    }
+
+
+    public Map<String[], String> makeReflectionMap() {
+        ResourceBundle englishProperty = ResourceBundle.getBundle("English");
+        Map<String[], String> map = new HashMap<>();
+        Enumeration<String> keys = englishProperty.getKeys();
+        while (keys.hasMoreElements()) {
+            String key = keys.nextElement();
+            ArrayList<String> list;
+            if (englishProperty.getString(key).contains("|")) {
+                map.put(englishProperty.getString(key).split("|"), englishProperty.getString(key).split("|")[0]);
+            }
+            return map;
+
+        }
+
     }
 }

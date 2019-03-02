@@ -1,6 +1,7 @@
 package Parser;
 
 
+import GraphicsBackend.Turtle;
 import Parser.Commands.Command;
 import Parser.Commands.RootCommand;
 import javafx.scene.control.Alert;
@@ -18,6 +19,7 @@ public class ExecuteCommand {
     public static final String WRONG_NUMBER_OF_PARAMETERS = "Wrong number of parameters";
     private List<Command> myCommandsList;
     private List<Token> myTokensList;
+    private List<Turtle> myTurtleList;
     Command headNode;
 
     public ExecuteCommand(List<Command> commandsList, List<Token> TokensList){

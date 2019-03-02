@@ -1,5 +1,6 @@
 package Parser;
 
+import GraphicsBackend.Turtle;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.Queries.*;
@@ -7,11 +8,23 @@ import Parser.Commands.Turtle_Command.*;
 import Parser.Commands.Math.*;
 import Parser.Commands.Boolean.*;
 
+import java.util.List;
+
 public class CommandFactory {
 
 //    HandleError handleError;
 
+    protected List<Turtle> myTurtleList;
+
+
+    public CommandFactory(List<Turtle> turtleList){
+        myTurtleList = turtleList;
+
+    }
+
     public Command getCommand(String word) {
+
+        Command chosenCommand = new Command(myTurtleList)
 
         //Turtle_Command
         if (word.equalsIgnoreCase("forward") || word.equalsIgnoreCase("fd")) {

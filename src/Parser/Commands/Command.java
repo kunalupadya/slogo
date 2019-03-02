@@ -1,9 +1,13 @@
 package Parser.Commands;
 
+import GraphicsBackend.Turtle;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Command{
+
+
 
 
     //in constructor, need to set isConstant, numparameters
@@ -12,6 +16,12 @@ public abstract class Command{
     protected double returnValue;
     protected int numParameters;
     protected int currentNumParameters = 0;
+    protected List<Turtle> myTurtleList;
+
+
+    public Command (List<Turtle> turtleList){
+        myTurtleList = turtleList;
+    }
 
     public int getCurrentNumParameters() {
         return currentNumParameters;

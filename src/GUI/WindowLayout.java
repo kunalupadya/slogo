@@ -152,8 +152,8 @@ public class WindowLayout {
         List<Turtle> turtles = backendController.getMyTurtles();
         List<ImageView> turtleImages = new ArrayList<>();
         for (Turtle turtle:turtles){
-            System.out.println(turtle.getxPos());
-            System.out.println(turtle.getyPos());
+            //System.out.println(turtle.getxPos());
+            //System.out.println(turtle.getyPos());
             turtleImages.add(turtle.getAdjustedTurtleImageView(0,0));
         }
 
@@ -164,6 +164,7 @@ public class WindowLayout {
 
     public void sendCommandString(String commandString) {
         //send commandString to backend
+        backendController.parseAndRun(commandString);
     }
 
     public void consoleShowError(String errorString) {

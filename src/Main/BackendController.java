@@ -12,7 +12,7 @@ import java.util.List;
 public class BackendController {
 
     private ParseCommand parser;
-    String codeLanguage;
+    String commmandLanguage;
     Grid myGrid;
     List<Turtle> myTurtles = new ArrayList<>();
     WindowLayout windowLayout;
@@ -20,13 +20,16 @@ public class BackendController {
     public BackendController(){
 //        setLanguage("English");
         myGrid = new Grid(400,400);
-        Turtle turtle1 = new Turtle(myGrid);
-        myTurtles.add(turtle1);
-        Turtle turtle2 = new Turtle(myGrid);
-        turtle2.turn(20);
-        turtle2.move(10000);
-        turtle2.move(300);
-        myTurtles.add(turtle2);
+        myTurtles.add(new Turtle(myGrid));
+        System.out.println("myTurtlelist size " + myTurtles.size() );
+    }
+
+    public String getCommanLanguage(){
+         return commmandLanguage;
+    }
+
+    public void setCommmandLanguage(String language){
+        commmandLanguage = language;
 
     }
 
@@ -38,21 +41,21 @@ public class BackendController {
         return myTurtles;
     }
 
+    public void showMessage(String string){
+        windowLayout.consoleShowError(string);
+    }
+
     public void setWindowLayout(WindowLayout windowLayout) {
         this.windowLayout = windowLayout;
     }
 
     public void parseAndRun(String userInput){
-        parser = new ParseCommand(userInput, myTurtles,this);
+        parser = new ParseCommand(userInput, myTurtles, commmandLanguage, this);
+
     }
 
 //    private void executeCommandTree(Expression rootExpr) {
 //    }
-//
-//    public String getCodeLanguage(){
-//        return codeLanguage;
-//    }
-//
 //    public ParseCommand getParser(){
 //        return parser;
 //    }

@@ -1,5 +1,6 @@
 package Parser;
 
+import GraphicsBackend.Turtle;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.RootCommand;
@@ -40,9 +41,6 @@ public class ParsingTree {
             currToken = tokensList.remove(FIRST);
             Command savedCurrentCommand = currCommand;
             Token savedCurrentToken = currToken;
-
-            System.out.println(commandsList);
-            System.out.println(tokensList);
             if (savedCurrentCommand.getClass() == ConstantCommand.class){
                 parent.addChildren(savedCurrentCommand);
             }

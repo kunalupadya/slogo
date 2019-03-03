@@ -44,6 +44,7 @@ public class WindowLayout {
     private ColorPicker setBackgroundColor, setPenColor;
     private final double sizeOfPadding = 5.0;
     private BackendController backendController;
+    private String defaultLanguage = "English";
 
     /**
      * TODO: add JavaDoc
@@ -68,6 +69,8 @@ public class WindowLayout {
         root.setBottom(console.getContent());
         root.setCenter(graphicsArea.getContent());
         root.setRight(rightBorderPane);
+
+        changeLanguage(defaultLanguage);
 
         myContainer = root;
     }
@@ -192,6 +195,6 @@ public class WindowLayout {
     }
 
     public void changeLanguage(String language) {
-        // Send new language to back end
+        backendController.setCommandLanguage(language);
     }
 }

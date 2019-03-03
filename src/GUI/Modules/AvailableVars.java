@@ -52,6 +52,8 @@ public class AvailableVars extends Module{
         container.getChildren().add(availableVarsDisplay);
     }
 
+
+
     public void setAvailableVars(List<String> myAvailableVars) {
         availableVars = myAvailableVars;
     }

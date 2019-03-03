@@ -21,16 +21,20 @@ public class BackendController {
 //        setLanguage("English");
         myGrid = new Grid(400,400);
         myTurtles.add(new Turtle(myGrid));
-        System.out.println("myTurtlelist size " + myTurtles.size() );
+        Turtle turtle2 = new Turtle(myGrid);
+        turtle2.turn(20);
+        turtle2.move(50);
+        turtle2.turn(300);
+        turtle2.move(100);
+        myTurtles.add(turtle2);
     }
 
-    public String getCommanLanguage(){
+    public String getCommandLanguage(){
          return commmandLanguage;
     }
 
-    public void setCommmandLanguage(String language){
+    public void setCommandLanguage(String language){
         commmandLanguage = language;
-
     }
 
     public Grid getMyGrid() {

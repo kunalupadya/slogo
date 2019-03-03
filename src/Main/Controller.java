@@ -1,6 +1,8 @@
 package Main;
 
 import GUI.WindowLayout;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -8,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * TODO: rename this class to Controller???
@@ -22,6 +25,7 @@ import javafx.stage.Stage;
  * @author Januario Carreiro
  */
 public class Controller extends Application {
+    private WindowLayout windowLayout;
     private static final int WINDOW_HEIGHT = 450;
     private static final int WINDOW_WIDTH = 800;
     private static final Paint BACKGROUND = Color.ANTIQUEWHITE;
@@ -55,7 +59,7 @@ public class Controller extends Application {
      */
     public void start (Stage stage) {
         var root = new BorderPane();
-        WindowLayout windowLayout = new WindowLayout(root, stage);
+        windowLayout = new WindowLayout(root, stage);
         BackendController backendController = new BackendController();
         windowLayout.setBackendController(backendController);
         backendController.setWindowLayout(windowLayout);
@@ -64,6 +68,12 @@ public class Controller extends Application {
         stage.setScene(myScene);
         stage.setTitle(WINDOW_TITLE);
         stage.show();
+
+        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+        var animation = new Timeline();
+        animation.setCycleCount(Timeline.INDEFINITE);
+        animation.getKeyFrames().add(frame);
+        animation.play();
 
         myScene.getStylesheets().add("ControlStyle.css");
 //
@@ -75,5 +85,9 @@ public class Controller extends Application {
 //        animation.getKeyFrames().add(frame);
 //        animation.play();
 //
+    }
+
+    private void step(double elapsedTime) {
+        windowLayout.step(elapsedTime);
     }
 }

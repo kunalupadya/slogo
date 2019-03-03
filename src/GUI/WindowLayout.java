@@ -16,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -43,6 +44,7 @@ public class WindowLayout {
     private ColorPicker setBackgroundColor, setPenColor;
     private final double sizeOfPadding = 5.0;
     private BackendController backendController;
+    private String defaultLanguage = "English";
 
     /**
      * TODO: add JavaDoc
@@ -144,6 +146,7 @@ public class WindowLayout {
 
     public void setBackendController(BackendController backendController) {
         this.backendController = backendController;
+        changeLanguage(defaultLanguage);
         setGraphicsArea();
     }
 
@@ -151,20 +154,26 @@ public class WindowLayout {
         List<Line> lines = backendController.getMyGrid().getAllObjects();
         List<Turtle> turtles = backendController.getMyTurtles();
         List<ImageView> turtleImages = new ArrayList<>();
-        for (Turtle turtle:turtles){
-            //System.out.println(turtle.getxPos());
-            //System.out.println(turtle.getyPos());
-            turtleImages.add(turtle.getAdjustedTurtleImageView(0,0));
-        }
-
+        for (Turtle turtle:turtles) {
+            ImageView turtleImage = turtle.getAdjustedTurtleImageView(0,0);
+            turtleImages.add(turtleImage); }
         graphicsArea.setVariables(lines, turtleImages);
     }
 
-    public void setBackgroundColor() {}
+    public void setBackgroundColor(Paint color) {
+        graphicsArea.setColor(color);
+    }
 
     public void sendCommandString(String commandString) {
-        //send commandString to backend
         backendController.parseAndRun(commandString);
+    }
+
+//    public void addToPrevCommands(String commandString) {
+//        console.addToHistory(commandString);
+//    }
+
+    public void addToConsole(String commandString) {
+        console.addToConsole(commandString);
     }
 
     public void consoleShowError(String errorString) {
@@ -183,6 +192,10 @@ public class WindowLayout {
     }
 
     public void changeLanguage(String language) {
-        // Send new language to back end
+        backendController.setCommandLanguage(language);
+    }
+
+    public void step(double elapsedTime) {
+        setGraphicsArea();
     }
 }

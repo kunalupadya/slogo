@@ -8,10 +8,12 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -25,6 +27,7 @@ import java.util.List;
 
 public class GraphicsArea extends Module {
     private Pane container;
+    private Grid grid;
     private double FRAMES_PER_SECOND = 0.5;
     private double MILLISECOND_IN_A_SECOND = 1000;
     private double MILLISECOND_DELAY = MILLISECOND_IN_A_SECOND / FRAMES_PER_SECOND;
@@ -32,7 +35,6 @@ public class GraphicsArea extends Module {
 
     public GraphicsArea(int width, int height, WindowLayout myWindowLayout) {
         super(width, height, myWindowLayout);
-        startAnimation(MILLISECOND_DELAY);
         setContent();
     }
 
@@ -43,18 +45,14 @@ public class GraphicsArea extends Module {
     @Override
     protected void setContent() {
         container = new Pane();
+        container.setMinWidth(moduleWidth + 50);
+        container.setMinHeight(moduleHeight + 50);
+        content.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         content.setContent(container);
     }
 
-    private void startAnimation(double delay) {
-        var frame = new KeyFrame(Duration.millis(delay), e -> step());
-        animation = new Timeline();
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
-        animation.play();
-    }
-
     public void setVariables(List<Line> lines, List<ImageView> turtleImages) {
+        container.getChildren().clear();
         for (Line n:lines){
             container.getChildren().add(n);
         }
@@ -63,8 +61,39 @@ public class GraphicsArea extends Module {
         }
     }
 
-    private void step() {
-        //How do you update the grid?
-        //Is it through add movement or getallobjects or something different?
+    private String colorToHex(Paint color) {
+        String hex1;
+        String hex2;
+
+        hex1 = Integer.toHexString(color.hashCode()).toUpperCase();
+
+        switch (hex1.length()) {
+            case 2:
+                hex2 = "000000";
+                break;
+            case 3:
+                hex2 = String.format("00000%s", hex1.substring(0,1));
+                break;
+            case 4:
+                hex2 = String.format("0000%s", hex1.substring(0,2));
+                break;
+            case 5:
+                hex2 = String.format("000%s", hex1.substring(0,3));
+                break;
+            case 6:
+                hex2 = String.format("00%s", hex1.substring(0,4));
+                break;
+            case 7:
+                hex2 = String.format("0%s", hex1.substring(0,5));
+                break;
+            default:
+                hex2 = hex1.substring(0, 6);
+        }
+        return hex2;
+    }
+
+    public void setColor(Paint color) {
+        String hexColor = colorToHex(color);
+        container.setStyle("-fx-background-color: #" + hexColor);
     }
 }

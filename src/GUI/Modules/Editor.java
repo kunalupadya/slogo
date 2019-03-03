@@ -1,9 +1,6 @@
 package GUI.Modules;
 
 import GUI.WindowLayout;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.geometry.Bounds;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -57,6 +54,7 @@ public class Editor extends Module {
         if (editorText != "") {
             editorText = editorText.replace("\n", " ");
         }
-        windowLayout.sendCommandString(editorText);
+        context.sendCommandString(editorText);
+        editor.clear();
     }
 }

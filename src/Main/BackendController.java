@@ -12,12 +12,10 @@ import java.util.List;
 public class BackendController {
 
     private ParseCommand parser;
-    String codeLanguage;
+    String commmandLanguage;
     Grid myGrid;
     List<Turtle> myTurtles = new ArrayList<>();
     WindowLayout windowLayout;
-//    double xLeftCorner = 0;
-//    double yLeftCorner = 0;
 
     public BackendController(){
 //        setLanguage("English");
@@ -31,6 +29,14 @@ public class BackendController {
         myTurtles.add(turtle2);
     }
 
+    public String getCommandLanguage(){
+         return commmandLanguage;
+    }
+
+    public void setCommandLanguage(String language){
+        commmandLanguage = language;
+    }
+
     public Grid getMyGrid() {
         return myGrid;
     }
@@ -39,21 +45,21 @@ public class BackendController {
         return myTurtles;
     }
 
+    public void showMessage(String string){
+        windowLayout.consoleShowError(string);
+    }
+
     public void setWindowLayout(WindowLayout windowLayout) {
         this.windowLayout = windowLayout;
     }
 
     public void parseAndRun(String userInput){
-        parser = new ParseCommand(userInput, myTurtles);
+        parser = new ParseCommand(userInput, myTurtles, commmandLanguage, this);
+
     }
 
 //    private void executeCommandTree(Expression rootExpr) {
 //    }
-//
-//    public String getCodeLanguage(){
-//        return codeLanguage;
-//    }
-//
 //    public ParseCommand getParser(){
 //        return parser;
 //    }

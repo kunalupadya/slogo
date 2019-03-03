@@ -4,16 +4,18 @@ import GraphicsBackend.Turtle;
 import Main.BackendController;
 import Parser.Commands.TurtleCommand;
 
-public class PenUpCommand extends TurtleCommand {
+public class ShowingCommand extends TurtleCommand {
 
-    public PenUpCommand(){
+    public static final int SHOWING = 1;
+    public static final int HIDDEN = 0;
+
+    public ShowingCommand(){
         isConstant = false;
         numParameters = 0;
     }
 
     @Override
     protected void turtleAction(Turtle turtle) {
-        turtle.getMyPen().setPenUp(true);
-        returnValue = 0;
+        returnValue = turtle.getTurtleVisibility() ? SHOWING : HIDDEN;
     }
 }

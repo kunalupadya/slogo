@@ -4,15 +4,15 @@ import GraphicsBackend.Turtle;
 import Main.BackendController;
 import Parser.Commands.TurtleCommand;
 
-public class BackCommand extends TurtleCommand {
+public class SetShapeCommand extends TurtleCommand {
 
-    public BackCommand(){
+    public SetShapeCommand(){
         isConstant = false;
         numParameters = 1;
     }
 
+    @Override
     protected void turtleAction(Turtle turtle){
-        turtle.move(-getChildren().get(0).getReturnValue());
-        returnValue = getChildren().get(0).getReturnValue();
+       turtle.setMyShape((int)getChildren().get(0).getReturnValue());
     }
 }

@@ -4,16 +4,15 @@ import GraphicsBackend.Turtle;
 import Main.BackendController;
 import Parser.Commands.TurtleCommand;
 
-public class RightCommand extends TurtleCommand {
+public class XcorCommand extends TurtleCommand {
 
-    public RightCommand(){
+    public XcorCommand(){
         isConstant = false;
-        numParameters = 1;
+        numParameters = 0;
     }
 
     @Override
     protected void turtleAction(Turtle turtle) {
-        turtle.turn(getChildren().get(0).getReturnValue());
-        returnValue = getChildren().get(0).getReturnValue();
+        returnValue =turtle.getxPos();
     }
 }

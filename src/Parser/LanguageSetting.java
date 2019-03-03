@@ -8,7 +8,6 @@ import java.util.*;
 
 public class LanguageSetting {
 
-    private String defaultLang = "English";
     private String myLanguage;
     private ResourceBundle myResources;
     private Map<String, String> translationMap;
@@ -17,8 +16,8 @@ public class LanguageSetting {
 
 
     public LanguageSetting(String language){
-        myLanguage = language;
-        System.out.println(myLanguage);
+        //myLanguage = language;
+        myLanguage = "English";
         myResources = ResourceBundle.getBundle(myLanguage);
         translationMap = convertResourceBundleToMap(myResources);
         newMap = reverseKeyFromValue(translationMap);
@@ -30,8 +29,8 @@ public class LanguageSetting {
         while (keys.hasMoreElements()) {
             String key = keys.nextElement();
             if(resource.getString(key).contains("|")){
-                System.out.println(resource.getString(key));
                 String[] splitString = resource.getString(key).split("\\|");
+                System.out.println(splitString);
                 map.put(key, splitString[0]);
                 map.put(key, splitString[1]);
             }
@@ -45,9 +44,8 @@ public class LanguageSetting {
 
     //TODO: What do we do if there's an error. We just return semi-translated list? This method should probably throw an error
     //TODO: must deal with user defined commands also
-    String[] translateCommand(String[] listOfWords){
+    public String[] translateCommand(String[] listOfWords){
         var tokenConverter = new TokenConverter();
-        System.out.println(newMap);
         for (int i = 0; i < listOfWords.length; i++) {
             if (tokenConverter.checkTypeOfInput(listOfWords[i]) == Token.COMMAND){
                 if (!newMap.containsKey(listOfWords[i])) {
@@ -66,5 +64,22 @@ public class LanguageSetting {
             myNewHashMap.put(entry.getValue(), entry.getKey());
         }
         return myNewHashMap;
+    }
+
+
+    public Map<String, String> makeReflectionMap() {
+        ResourceBundle englishProperty = ResourceBundle.getBundle("English");
+        Map<String, String> map = new HashMap<>();
+        Enumeration<String> keys = englishProperty.getKeys();
+        while (keys.hasMoreElements()) {
+            String key = keys.nextElement();
+            if (englishProperty.getString(key).contains("|")) {
+                map.put(englishProperty.getString(key).split("\\|")[0], key);
+                map.put(englishProperty.getString(key).split("\\|")[1], key);
+            }
+
+        }
+        return map;
+
     }
 }

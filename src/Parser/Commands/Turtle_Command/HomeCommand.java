@@ -1,7 +1,8 @@
 package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Point;
-import Parser.Commands.Command;
+import GraphicsBackend.Turtle;
+import Main.BackendController;
 import Parser.Commands.TurtleCommand;
 
 public class HomeCommand extends TurtleCommand {
@@ -11,9 +12,9 @@ public class HomeCommand extends TurtleCommand {
         numParameters = 0;
     }
 
-    public void performAction() {
-        returnValue = Math.sqrt(Math.pow(getTurtle().getxPos(), 2) + Math.pow(getTurtle().getyPos(),2));
-        getTurtle().moveTo(new Point(0,0));
-
+    @Override
+    protected void turtleAction(Turtle turtle) {
+        returnValue = Math.sqrt(Math.pow(turtle.getxPos(), 2) + Math.pow(turtle.getyPos(),2));
+        turtle.moveTo(new Point(0,0));
     }
 }

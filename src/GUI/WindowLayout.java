@@ -70,8 +70,6 @@ public class WindowLayout {
         root.setCenter(graphicsArea.getContent());
         root.setRight(rightBorderPane);
 
-        changeLanguage(defaultLanguage);
-
         myContainer = root;
     }
 
@@ -148,6 +146,7 @@ public class WindowLayout {
 
     public void setBackendController(BackendController backendController) {
         this.backendController = backendController;
+        changeLanguage(defaultLanguage);
         setGraphicsArea();
     }
 
@@ -157,8 +156,7 @@ public class WindowLayout {
         List<ImageView> turtleImages = new ArrayList<>();
         for (Turtle turtle:turtles) {
             ImageView turtleImage = turtle.getAdjustedTurtleImageView(0,0);
-            turtleImages.add(turtleImage);
-        }
+            turtleImages.add(turtleImage); }
         graphicsArea.setVariables(lines, turtleImages);
     }
 
@@ -194,7 +192,7 @@ public class WindowLayout {
     }
 
     public void changeLanguage(String language) {
-        //backendController.setCommandLanguage(language);
+        backendController.setCommandLanguage(language);
     }
 
     public void step(double elapsedTime) {

@@ -16,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -159,7 +160,9 @@ public class WindowLayout {
         graphicsArea.setVariables(lines, turtleImages);
     }
 
-    public void setBackgroundColor() {}
+    public void setBackgroundColor(Paint color) {
+        graphicsArea.setColor(color);
+    }
 
     public void sendCommandString(String commandString) {
         backendController.parseAndRun(commandString);

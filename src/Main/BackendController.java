@@ -23,10 +23,10 @@ public class BackendController {
 //        setLanguage("English");
         myGrid = new Grid(400,400);
         myTurtles.add(new Turtle(myGrid));
-        Turtle turtle2 = new Turtle(myGrid);
-        turtle2.move(50);
-        myTurtles.add(turtle2);
-
+        Turtle turtle1 = new Turtle(myGrid);
+        turtle1.move(50);
+        myTurtles.add(turtle1);
+        System.out.println("myTurtlelist size" + myTurtles.size() );
     }
 
     public Grid getMyGrid() {
@@ -35,6 +35,10 @@ public class BackendController {
 
     public List<Turtle> getMyTurtles() {
         return myTurtles;
+    }
+
+    public void showMessage(String string){
+        windowLayout.consoleShowError(string);
     }
 
     public void setWindowLayout(WindowLayout windowLayout) {

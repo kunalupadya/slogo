@@ -1,13 +1,12 @@
 package Parser;
 
-import GUI.Controls.SwitchLanguages;
 import GraphicsBackend.Turtle;
 import Parser.Commands.Command;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author Louis Lee
@@ -47,10 +46,11 @@ public class ParseCommand {
         //TODO: try catch block if command is not valid
         String[] translatedListOfWords = languageSetting.translateCommand(listOfWords);
         commandMap = languageSetting.makeReflectionMap();
+        System.out.println(commandMap.keySet());
 
         //convert word into tokens and check validity
         tokensList = addToTokenList(translatedListOfWords);
-        commandsList = stackCommand(translatedListOfWords, myTurtleList);
+        commandsList = stackCommand(translatedListOfWords, myTurtleList, commandMap);
 
         //Execute Command
         ExecuteCommand executeCommand = new ExecuteCommand(commandsList, tokensList);
@@ -66,25 +66,33 @@ public class ParseCommand {
         return list;
     }
 
-    //TODO: this method should create complete list of Commands that Execute Command merely runs using Command tree
-    //implementation is wrong currently
 
     private ArrayList<Command> stackCommand(String[] listOfWords, List<Turtle> turtleList, Map<String[], String> commandMap){
-        ArrayList<Command> list = new ArrayList<Command>();
-        ArrayList<String>
+        ArrayList<Command> commandArrayList = new ArrayList<Command>();
 
-
-        ////////// replace this with refelction;
-        CommandFactory commandFactory = new CommandFactory(turtleList);
         for(String word: listOfWords){
             for(String[] list1: commandMap.keySet()){
-                if(list1.contains(word)){
-                    Command newCommand = Command(commdandMap.get(list1))
+                ArrayList<String> list2 = new ArrayList<>(Arrays.asList(list1));
+                if(list2.contains(word)){
+                    try{
+                        Class<?> clazz = Class.forName("Parser.Commands.TurtleCommand." + commandMap.get(word) + "Command");
+                        Object object = clazz.getConstructor().newInstance();
+                        Command newCommand =(Command) object;
+                        newCommand.setMyTurtleList(turtleList);
+                        System.out.println("class found");
+                        commandArrayList.add(newCommand);
+
+                    }
+                    catch (Exception e) {
+                        System.out.println("class not found");
+                        e.printStackTrace();
+                    }
+
                 }
             }
 
         }
-        return list;
+        return commandArrayList;
     }
 
 }

@@ -77,11 +77,11 @@ public class LanguageSetting {
             String key = keys.nextElement();
             ArrayList<String> list;
             if (englishProperty.getString(key).contains("|")) {
-                map.put(englishProperty.getString(key).split("|"), englishProperty.getString(key).split("|")[0]);
+                map.put(englishProperty.getString(key).split("\\|"), englishProperty.getString(key).split("\\|")[0]);
             }
-            return map;
 
         }
+        return map;
 
     }
 }

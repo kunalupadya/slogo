@@ -18,10 +18,7 @@ public abstract class Command{
     protected int currentNumParameters = 0;
     protected List<Turtle> myTurtleList;
 
-
-    public Command (List<Turtle> turtleList){
-        myTurtleList = turtleList;
-    }
+    public void setMyTurtleList(List<Turtle> turtleList){myTurtleList = turtleList;}
 
     public int getCurrentNumParameters() {
         return currentNumParameters;

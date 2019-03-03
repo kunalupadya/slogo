@@ -1,5 +1,6 @@
 package Parser.Commands.Turtle_Command;
 
+import Main.BackendController;
 import Parser.Commands.TurtleCommand;
 
 public class TurtlesCommand extends TurtleCommand {
@@ -9,7 +10,7 @@ public class TurtlesCommand extends TurtleCommand {
         numParameters = 0;
     }
 
-    public void performAction(){
+    public void performAction(BackendController backendController){
         returnValue = getTurtleList().size();
     }
 }

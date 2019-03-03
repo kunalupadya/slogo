@@ -2,6 +2,7 @@ package Parser;
 
 import GUI.Controls.SwitchLanguages;
 import GraphicsBackend.Turtle;
+import Main.BackendController;
 import Parser.Commands.Command;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class ParseCommand {
     private List<Token> tokensList;
 
 
-    public ParseCommand(String consoleInput, List<Turtle> turtles){
+    public ParseCommand(String consoleInput, List<Turtle> turtles, BackendController backendController){
         //set Language;
 //        myLanguage = SwitchLanguages.getLanguage();
         myLanguage = "English";
@@ -46,7 +47,7 @@ public class ParseCommand {
         commandsList = stackCommand(translatedListOfWords);
 
         //Execute Command
-        ExecuteCommand executeCommand = new ExecuteCommand(commandsList, tokensList);
+        ExecuteCommand executeCommand = new ExecuteCommand(commandsList, tokensList, backendController);
         executeCommand.runCommands();
     }
 

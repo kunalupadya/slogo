@@ -1,5 +1,6 @@
 package Parser.Commands.Queries;
 
+import Main.BackendController;
 import Parser.Commands.TurtleCommand;
 
 public class PendownCommand extends TurtleCommand {
@@ -9,7 +10,7 @@ public class PendownCommand extends TurtleCommand {
         numParameters = 0;
     }
 
-    public void performAction(){
+    public void performAction(BackendController backendController){
         if (getTurtle().getMyPen().getPenUp()){
             returnValue = 1;
         }

@@ -1,5 +1,6 @@
 package Parser.Commands.Turtle_Command;
 
+import Main.BackendController;
 import Parser.Commands.TurtleCommand;
 
 public class SetXYCommand extends TurtleCommand{
@@ -9,7 +10,7 @@ public class SetXYCommand extends TurtleCommand{
         numParameters = 0;
     }
 
-    public void performAction() {
+    public void performAction(BackendController backendController) {
         returnValue =  Math.sqrt(Math.pow((getTurtle().getxPos()- getChildren().get(0).getReturnValue()), 2) + Math.pow((getTurtle().getyPos() - getChildren().get(1).getReturnValue()),2));
         getTurtle().setxPos((getChildren().get(0).getReturnValue()));
         getTurtle().setyPos(getChildren().get(0).getReturnValue());

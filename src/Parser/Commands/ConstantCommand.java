@@ -1,5 +1,7 @@
 package Parser.Commands;
 
+import Main.BackendController;
+
 public class ConstantCommand extends Command {
 
     public ConstantCommand(Double input){
@@ -8,7 +10,7 @@ public class ConstantCommand extends Command {
         numParameters = 0;
     }
 
-    public void performAction(){
+    public void performAction(BackendController backendController){
     }
 
 }

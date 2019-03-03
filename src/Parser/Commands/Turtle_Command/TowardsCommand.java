@@ -1,5 +1,6 @@
 package Parser.Commands.Turtle_Command;
 
+import Main.BackendController;
 import Parser.Commands.TurtleCommand;
 
 public class TowardsCommand extends TurtleCommand {
@@ -9,7 +10,7 @@ public class TowardsCommand extends TurtleCommand {
         numParameters = 2;
     }
 
-    public void performAction(){
+    public void performAction(BackendController backendController){
         double xdiff = getChildren().get(0).getReturnValue() - getTurtle().getxPos();
         double ydiff = getChildren().get(1).getReturnValue() - getTurtle().getyPos();
         double degrees = Math.toDegrees(Math.atan2(ydiff, xdiff)) - getTurtle().getMyAngle();

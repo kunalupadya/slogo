@@ -1,6 +1,6 @@
 package Parser.Commands.Queries;
 
-import Parser.Commands.Command;
+import Main.BackendController;
 import Parser.Commands.TurtleCommand;
 
 public class ShowingCommand extends TurtleCommand {
@@ -10,7 +10,7 @@ public class ShowingCommand extends TurtleCommand {
         numParameters = 0;
     }
 
-    public void performAction(){
+    public void performAction(BackendController backendController){
         getTurtle().setTurtleVisibility(true);
     }
 }

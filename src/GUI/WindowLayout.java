@@ -195,6 +195,6 @@ public class WindowLayout {
     }
 
     public void changeLanguage(String language) {
-        backendController.setCommandLanguage(language);
+        //backendController.setCommandLanguage(language);
     }
 }

@@ -1,6 +1,8 @@
 package Main;
 
 import GUI.WindowLayout;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -8,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * TODO: rename this class to Controller???
@@ -65,6 +68,12 @@ public class Controller extends Application {
         stage.setTitle(WINDOW_TITLE);
         stage.show();
 
+        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+        var animation = new Timeline();
+        animation.setCycleCount(Timeline.INDEFINITE);
+        animation.getKeyFrames().add(frame);
+        animation.play();
+
         myScene.getStylesheets().add("ControlStyle.css");
 //
 //        TODO: add step() to GUI.Windows.GraphicsArea?
@@ -75,5 +84,9 @@ public class Controller extends Application {
 //        animation.getKeyFrames().add(frame);
 //        animation.play();
 //
+    }
+
+    private void step(double elapsedTime) {
+        WindowLayout.step(elapsedTime);
     }
 }

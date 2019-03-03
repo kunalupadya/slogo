@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class Grid {
     public static final double GRID_OFFSET = 0.25;
-    private ArrayList<Node> myObjects = new ArrayList<>();
+    private ArrayList<Line> myObjects = new ArrayList<>();
     private ArrayList<Line> bounds = new ArrayList<>();
     private double height;
     private double width;
@@ -44,13 +44,13 @@ public class Grid {
         return width;
     }
 
-    public Point addMovement(double xPos, double yPos, double angle, double dist, Pen pen){
-        double newXPos = xPos + dist*Math.cos(Math.toRadians(angle));
-        double newYPos = yPos + dist*Math.sin(Math.toRadians(angle));
+    public void clear(){
+        myObjects.clear();
+    }
 
-        Line movement = new Line(xPos, yPos, newXPos, newYPos);
-        Point movementStart = new Point(xPos,yPos);
-        Point movementEnd = new Point(newXPos, newYPos);
+    public Point addMovement(double xPos, double yPos, double angle, double dist, Pen pen){
+        double newXPos = xPos - dist*Math.cos(Math.toRadians(angle));
+        double newYPos = yPos - dist*Math.sin(Math.toRadians(angle));
 
         boolean offScreenRight = newXPos>width;
         boolean offScreenLeft = newXPos<0;
@@ -58,7 +58,9 @@ public class Grid {
         boolean offScreenBottom = newYPos>width;
         boolean offScreen = offScreenBottom|offScreenLeft|offScreenRight|offScreenTop;
 
-        while(offScreen){
+        while(offScreen&dist>0){
+            Point movementStart = new Point(xPos,yPos);
+            Point movementEnd = new Point(newXPos, newYPos);
             Optional<Point> optionalIntersection = calculateIntersectionWithBounds(movementStart, movementEnd);
             Point intersection;
             if (optionalIntersection.isPresent()) {
@@ -76,47 +78,52 @@ public class Grid {
                 xPos = width-GRID_OFFSET;
                 yPos = intersection.getMyY();
             }
-            if (intersection.getMyY() == 0){
+            else if (intersection.getMyY() == 0){
                 //offscreentop
                 xPos = intersection.getMyX();
                 yPos = height-GRID_OFFSET;
             }
-            if (intersection.getMyX() == width){
+            else if (intersection.getMyX() == width){
                 //offscreenright
                 xPos = 0+GRID_OFFSET;
                 yPos = intersection.getMyY();
             }
-            if (intersection.getMyY() == 0){
+            else if (intersection.getMyY() == height){
                 //offscreenbottom
                 xPos = intersection.getMyX();
                 yPos = 0+GRID_OFFSET;
             }
-            newXPos = xPos + dist*Math.cos(Math.toRadians(angle));
-            newYPos = yPos + dist*Math.sin(Math.toRadians(angle));
+            newXPos = xPos - dist*Math.cos(Math.toRadians(angle));
+            newYPos = yPos - dist*Math.sin(Math.toRadians(angle));
             offScreenRight = newXPos>width;
             offScreenLeft = newXPos<0;
             offScreenTop = newYPos<0;
             offScreenBottom = newYPos>width;
             offScreen = offScreenBottom|offScreenLeft|offScreenRight|offScreenTop;
         }
-
-//        if ()
         createLine(pen, xPos, yPos, newXPos, newYPos);
         return new Point(newXPos, newYPos);
     }
 
     private void createLine(Pen pen, double xPos, double yPos, double newXPos, double newYPos) {
         Line movement = new Line(xPos, yPos, newXPos, newYPos);
-        movement.setStroke(pen.getPenColor());
-        movement.setStrokeWidth(pen.getPenWidth());
-        myObjects.add(movement);
+        if (pen.getPenColor().isPresent()) {
+            movement.setStroke(pen.getPenColor().get());
+            movement.setStrokeWidth(pen.getPenWidth());
+            myObjects.add(movement);
+        }
+
     }
 
     private Optional<Point> calculateIntersectionWithBounds(Point movementStart, Point movementEnd) {
         Optional<Point> intersectOptional = Optional.empty();
         for (Line bound: bounds){
             intersectOptional = calculateIntersection(movementStart, movementEnd, bound);
+            if (intersectOptional.isPresent()){
+                return intersectOptional;
+            }
         }
+        System.out.println("NULL");
         return intersectOptional;
     }
 
@@ -137,19 +144,25 @@ public class Grid {
         Optional<Point> returnedPoint = Optional.empty();
         if (determinant == 0)
         {
-            // The lines are parallel. This is simplified
-            // by returning a pair of FLT_MAX
+            // The lines are parallel, return empty optional
             return returnedPoint;
         }
         else
         {
             double x = (b2*c1 - b1*c2)/determinant;
             double y = (a1*c2 - a2*c1)/determinant;
-            boolean a = (x>=movementStart.getMyX())&(x<=movementEnd.getMyX());
-            boolean b = (x<=movementStart.getMyX())&(x>=movementEnd.getMyX());
-            boolean c = (y>=movementStart.getMyY())&(y<=movementEnd.getMyY());
-            boolean d = (y<=movementStart.getMyY())&(y>=movementEnd.getMyY());
-            if ((a|b)&(c|d)){
+
+            boolean xBetweenStartAndEndOfMovement = (x>=movementStart.getMyX())&(x<=movementEnd.getMyX());
+            boolean xBetweenEndAndStartOfMovement = (x<=movementStart.getMyX())&(x>=movementEnd.getMyX());
+            boolean yBetweenStartAndEndOfMovement = (y>=movementStart.getMyY())&(y<=movementEnd.getMyY());
+            boolean yBetweenEndAndStartOfMovement = (y<=movementStart.getMyY())&(y>=movementEnd.getMyY());
+            boolean pointOnInitialLine = xBetweenStartAndEndOfMovement|xBetweenEndAndStartOfMovement&yBetweenEndAndStartOfMovement|yBetweenStartAndEndOfMovement;
+
+            boolean withinGridX = (x<=width+GRID_OFFSET & x>=0-GRID_OFFSET);
+            boolean withinGridY = (y<=height+GRID_OFFSET & y>=0-GRID_OFFSET);
+            boolean withinGrid = withinGridX & withinGridY;
+
+            if (pointOnInitialLine&withinGrid){
                 returnedPoint = Optional.of(new Point(x, y));
                 return returnedPoint;
             }
@@ -159,9 +172,7 @@ public class Grid {
         }
     }
 
-    public List<Node> getAllObjects(){
-        List<Node> returnArray = new ArrayList<>();
-        Collections.copy(returnArray, myObjects);
-        return returnArray;
+    public List<Line> getAllObjects(){
+        return myObjects;
     }
 }

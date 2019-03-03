@@ -1,7 +1,8 @@
 package Parser;
 
-
 import GraphicsBackend.Turtle;
+
+import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.RootCommand;
 import javafx.scene.control.Alert;
@@ -17,16 +18,13 @@ public class ExecuteCommand {
 
     public static final String PARAMETERS_MISSING = "Parameters missing";
     public static final String WRONG_NUMBER_OF_PARAMETERS = "Wrong number of parameters";
-    private List<Command> myCommandsList;
-    private List<Token> myTokensList;
-    private List<Turtle> myTurtleList;
-    Command headNode;
+    private Command headNode;
+    private BackendController backendController;
 
-    public ExecuteCommand(List<Command> commandsList, List<Token> TokensList){
-        myCommandsList = commandsList;
-        myTokensList = TokensList;
-        ParsingTree parsingTree = new ParsingTree(myCommandsList, myTokensList);
+    public ExecuteCommand(List<Command> commandsList, List<Token> tokenList, BackendController backendController) {
+        ParsingTree parsingTree = new ParsingTree(commandsList, tokenList);
         headNode = parsingTree.getRoot();
+        this.backendController = backendController;
     }
 
     public void runCommands(){
@@ -45,7 +43,7 @@ public class ExecuteCommand {
                 return;
             }
             else if (node.getNumParameters() == 0){
-                node.performAction();
+                node.execute(backendController);
             }
             else{
                 throw new SyntaxError(PARAMETERS_MISSING);
@@ -57,7 +55,7 @@ public class ExecuteCommand {
         }
 
         if (node.getNumParameters() == node.getChildren().size()){
-            node.execute();
+            node.execute(backendController);
             System.out.println(node.getReturnValue());
         }
         else if (node.getClass() == RootCommand.class){

@@ -14,7 +14,7 @@ public class Turtle {
     private double yPos;
     private double myAngle;
     private double speed;
-    private Pen myPen = new Pen();
+    private Pen myPen;
     private Image turtleImage;
     private ImageView turtleImageView;
     private Grid myGrid;
@@ -27,6 +27,7 @@ public class Turtle {
         myGrid = grid;
         xPos = myGrid.getWidth()/ HALF;
         yPos = myGrid.getHeight()/ HALF;
+        myPen = new Pen();
         myAngle = 90;
         speed = 1;
         isTurtleVisible = true;
@@ -45,6 +46,7 @@ public class Turtle {
         turtle.setY(yPos-HALF_TURTLE_SIZE);
         turtle.setFitHeight(TURTLE_SIZE);
         turtle.setFitWidth(TURTLE_SIZE);
+        turtle.setRotate(myAngle-90);
     }
 
     public boolean getIsTurtleActive(){
@@ -56,29 +58,30 @@ public class Turtle {
     }
 
     public void move(double dist){
-
-//        Line movement = new Line(xPos, yPos, newXPos, newYPos);
-//        movement.setStroke(myPen.getPenColor());
-//        movement.setStrokeWidth(myPen.getPenWidth());
-        Point currentPosition = myGrid.addMovement(xPos, yPos, myAngle, dist, myPen);
-        xPos = currentPosition.getMyX();
-        yPos = currentPosition.getMyY();
-//        updateThisTurtleImageview();
-//        xPos = newXPos;
-//        yPos = newYPos;
+        Point newPosition = myGrid.addMovement(xPos, yPos, myAngle, dist, myPen);
+        xPos = newPosition.getMyX();
+        yPos = newPosition.getMyY();
     }
 
     public void moveTo(Point point){
-        xPos = point.getMyX();
-        yPos = point.getMyY();
+        xPos = point.getMyX()+myGrid.getWidth()/ HALF;
+        yPos = point.getMyY()+myGrid.getHeight()/ HALF;;
     }
 
     public void turn(double angle){
         myAngle += angle;
     }
 
+    public void turnTo(double angle){
+        myAngle = angle;
+    }
+
     public void setTurtleVisibility(boolean visibility){
         isTurtleVisible = visibility;
+    }
+
+    public boolean getTurtleVisibility(){
+        return isTurtleVisible;
     }
 
     public boolean isTurtleVisible(){
@@ -93,15 +96,15 @@ public class Turtle {
         return xPos;
     }
 
+    public Point getPos(){
+        return new Point(xPos,yPos);
+    }
+
+    public Grid getGrid() {
+        return myGrid;
+    }
+
     public int getMyShape(){ return myShape;}
-
-    public void setxPos(double xPos) {
-        this.xPos = xPos;
-    }
-
-    public void setyPos(double yPos) {
-        this.yPos = yPos;
-    }
 
     public double getMyAngle() {
         return myAngle;

@@ -1,6 +1,8 @@
 package Parser.Commands.Turtle_Command;
 
 
+import Main.BackendController;
+
 public class LessCommand extends BooleanCommand {
 
     public LessCommand(){
@@ -8,7 +10,7 @@ public class LessCommand extends BooleanCommand {
         numParameters = 2;
     }
 
-    public void performAction(){
+    public void performAction(BackendController backendController){
         returnValue =  returnValue(myChildrenList.get(0).getReturnValue() < myChildrenList.get(1).getReturnValue());
     }
 

@@ -1,5 +1,7 @@
 package Parser.Commands.Turtle_Command;
 
+import GraphicsBackend.Turtle;
+import Main.BackendController;
 import Parser.Commands.TurtleCommand;
 
 public class PenUpCommand extends TurtleCommand {
@@ -9,9 +11,9 @@ public class PenUpCommand extends TurtleCommand {
         numParameters = 0;
     }
 
-    public void performAction() {
-        getTurtle().getMyPen().setPenUp(true);
+    @Override
+    protected void turtleAction(Turtle turtle) {
+        turtle.getMyPen().setPenUp(true);
         returnValue = 0;
-
     }
 }

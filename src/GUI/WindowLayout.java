@@ -6,6 +6,7 @@ import GraphicsBackend.Grid;
 import GraphicsBackend.Turtle;
 import Main.BackendController;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ColorPicker;
@@ -15,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -146,7 +148,7 @@ public class WindowLayout {
     }
 
     public void setGraphicsArea(){
-        Grid grid = backendController.getMyGrid();
+        List<Line> lines = backendController.getMyGrid().getAllObjects();
         List<Turtle> turtles = backendController.getMyTurtles();
         List<ImageView> turtleImages = new ArrayList<>();
         for (Turtle turtle:turtles){
@@ -154,7 +156,8 @@ public class WindowLayout {
             //System.out.println(turtle.getyPos());
             turtleImages.add(turtle.getAdjustedTurtleImageView(0,0));
         }
-        graphicsArea.setVariables(grid, turtleImages);
+
+        graphicsArea.setVariables(lines, turtleImages);
     }
 
     public void setBackgroundColor() {}

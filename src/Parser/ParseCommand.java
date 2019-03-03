@@ -1,6 +1,7 @@
 package Parser;
 
 import GraphicsBackend.Turtle;
+import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 
@@ -23,12 +24,9 @@ public class ParseCommand {
     private List<Token> tokensList;
     private List<Turtle> myTurtleList;
     private Map<String, String> commandMap;
-    private String myCommandLanguage;
 
+    public ParseCommand(String consoleInput, List<Turtle> turtles,String commandLanguage, BackendController backendController){
 
-    public ParseCommand(String consoleInput, List<Turtle> turtles, String commandLanguage){
-        //set Language;
-//        myLanguage = SwitchLanguages.getLanguage();
         myLanguage = commandLanguage;
         myTurtleList = turtles;
 
@@ -56,7 +54,7 @@ public class ParseCommand {
         System.out.println("commandlist is " + commandsList.size());
 
         //Execute Command
-        ExecuteCommand executeCommand = new ExecuteCommand(commandsList, tokensList);
+        ExecuteCommand executeCommand = new ExecuteCommand(commandsList, tokensList, backendController);
         executeCommand.runCommands();
     }
 
@@ -72,18 +70,12 @@ public class ParseCommand {
 
     private ArrayList<Command> stackCommand(String[] listOfWords, List<Turtle> turtleList, Map<String, String> commandMap) {
         ArrayList<Command> commandArrayList = new ArrayList<Command>();
-        System.out.println(commandMap.keySet());
-        System.out.println(commandMap.values());
         for (String word : listOfWords) {
             if (commandMap.keySet().contains(word)) {
                 try {
-                    System.out.println("Parser.Commands.Turtle_Command." + commandMap.get(word) + "Command");
                     Class<?> clazz = Class.forName("Parser.Commands.Turtle_Command." + commandMap.get(word) + "Command");
                     Object object = clazz.getConstructor().newInstance();
                     Command newCommand = (Command) object;
-                    newCommand.setMyTurtleList(turtleList);
-                    System.out.println(newCommand.getMyTurtleListSize());
-                    System.out.println("class found");
                     commandArrayList.add(newCommand);
 
                 } catch (Exception e) {
@@ -93,6 +85,7 @@ public class ParseCommand {
                 }
             }
             else{
+                //TODO: @Dhanush : Add an error
                 Command newCommand = new ConstantCommand(Double.parseDouble(word));
                 commandArrayList.add(newCommand);
             }

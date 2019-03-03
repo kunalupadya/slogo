@@ -1,5 +1,7 @@
 package Parser.Commands.Turtle_Command;
 
+import GraphicsBackend.Turtle;
+import Main.BackendController;
 import Parser.Commands.TurtleCommand;
 
 public class YcorCommand extends TurtleCommand {
@@ -9,8 +11,8 @@ public class YcorCommand extends TurtleCommand {
         numParameters = 0;
     }
 
-    public void performAction(){
-        getTurtle().getyPos();
+    @Override
+    protected void turtleAction(Turtle turtle) {
+        returnValue =turtle.getyPos();
     }
-
 }

@@ -16,8 +16,6 @@ public class BackendController {
     Grid myGrid;
     List<Turtle> myTurtles = new ArrayList<>();
     WindowLayout windowLayout;
-//    double xLeftCorner = 0;
-//    double yLeftCorner = 0;
 
     public BackendController(){
 //        setLanguage("English");
@@ -52,7 +50,8 @@ public class BackendController {
     }
 
     public void parseAndRun(String userInput){
-        parser = new ParseCommand(userInput, myTurtles, commmandLanguage);
+        parser = new ParseCommand(userInput, myTurtles, commmandLanguage, this);
+
     }
 
 //    private void executeCommandTree(Expression rootExpr) {

@@ -35,7 +35,6 @@ public class GraphicsArea extends Module {
 
     public GraphicsArea(int width, int height, WindowLayout myWindowLayout) {
         super(width, height, myWindowLayout);
-        startAnimation(MILLISECOND_DELAY);
         setContent();
     }
 
@@ -52,15 +51,8 @@ public class GraphicsArea extends Module {
         content.setContent(container);
     }
 
-    private void startAnimation(double delay) {
-        var frame = new KeyFrame(Duration.millis(delay), e -> step());
-        animation = new Timeline();
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
-        animation.play();
-    }
-
     public void setVariables(List<Line> lines, List<ImageView> turtleImages) {
+        container.getChildren().clear();
         for (Line n:lines){
             container.getChildren().add(n);
         }
@@ -103,10 +95,5 @@ public class GraphicsArea extends Module {
     public void setColor(Paint color) {
         String hexColor = colorToHex(color);
         container.setStyle("-fx-background-color: #" + hexColor);
-    }
-
-    private void step() {
-        //How do you update the grid?
-        //Is it through add movement or getallobjects or something different?
     }
 }

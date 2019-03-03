@@ -159,7 +159,6 @@ public class WindowLayout {
             ImageView turtleImage = turtle.getAdjustedTurtleImageView(0,0);
             turtleImages.add(turtleImage);
         }
-
         graphicsArea.setVariables(lines, turtleImages);
     }
 
@@ -196,5 +195,9 @@ public class WindowLayout {
 
     public void changeLanguage(String language) {
         //backendController.setCommandLanguage(language);
+    }
+
+    public void step(double elapsedTime) {
+        setGraphicsArea();
     }
 }

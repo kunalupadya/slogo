@@ -25,6 +25,7 @@ import javafx.util.Duration;
  * @author Januario Carreiro
  */
 public class Controller extends Application {
+    private WindowLayout windowLayout;
     private static final int WINDOW_HEIGHT = 450;
     private static final int WINDOW_WIDTH = 800;
     private static final Paint BACKGROUND = Color.ANTIQUEWHITE;
@@ -58,7 +59,7 @@ public class Controller extends Application {
      */
     public void start (Stage stage) {
         var root = new BorderPane();
-        WindowLayout windowLayout = new WindowLayout(root, stage);
+        windowLayout = new WindowLayout(root, stage);
         BackendController backendController = new BackendController();
         windowLayout.setBackendController(backendController);
         backendController.setWindowLayout(windowLayout);
@@ -87,6 +88,6 @@ public class Controller extends Application {
     }
 
     private void step(double elapsedTime) {
-        WindowLayout.step(elapsedTime);
+        windowLayout.step(elapsedTime);
     }
 }

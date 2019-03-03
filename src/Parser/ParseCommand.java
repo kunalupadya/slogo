@@ -70,9 +70,15 @@ public class ParseCommand {
 
     private ArrayList<Command> stackCommand(String[] listOfWords, List<Turtle> turtleList, Map<String, String> commandMap) {
         ArrayList<Command> commandArrayList = new ArrayList<Command>();
+        System.out.println(commandMap.keySet());
+        System.out.println(commandMap.get("fd"));
+
         for (String word : listOfWords) {
+            //System.out.println(commandMap.get(word));
+            word = word.toLowerCase();
             if (commandMap.keySet().contains(word)) {
                 try {
+                    System.out.println("Parser.Commands.Turtle_Command." + commandMap.get(word) + "Command");
                     Class<?> clazz = Class.forName("Parser.Commands.Turtle_Command." + commandMap.get(word) + "Command");
                     Object object = clazz.getConstructor().newInstance();
                     Command newCommand = (Command) object;

@@ -1,5 +1,7 @@
 package Parser.Commands;
 
+import Main.BackendController;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,12 +31,12 @@ public abstract class Command{
         return returnValue;
     }
 
-    public void execute() {
-        performAction();
+    public void execute(BackendController backendController) {
+        performAction(backendController);
         isConstant = true;
     }
 
-    public abstract void performAction();
+    protected abstract void performAction(BackendController backendController);
 
     public void addChildren(Command command) {
         myChildrenList.add(command);

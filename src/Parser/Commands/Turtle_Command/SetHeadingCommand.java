@@ -1,6 +1,7 @@
 package Parser.Commands.Turtle_Command;
 
-import Parser.Commands.Command;
+import GraphicsBackend.Turtle;
+import Main.BackendController;
 import Parser.Commands.TurtleCommand;
 
 public class SetHeadingCommand extends TurtleCommand{
@@ -10,9 +11,9 @@ public class SetHeadingCommand extends TurtleCommand{
         numParameters = 1;
     }
 
-    public void performAction() {
-        getTurtle().turn(getChildren().get(0).getReturnValue());
+    @Override
+    protected void turtleAction(Turtle turtle) {
+        turtle.turnTo(getChildren().get(0).getReturnValue());
         returnValue = Math.abs(getChildren().get(0).getReturnValue());
-
     }
 }

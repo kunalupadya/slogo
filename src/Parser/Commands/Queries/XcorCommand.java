@@ -1,5 +1,7 @@
 package Parser.Commands.Queries;
 
+import GraphicsBackend.Turtle;
+import Main.BackendController;
 import Parser.Commands.TurtleCommand;
 
 public class XcorCommand extends TurtleCommand {
@@ -9,7 +11,8 @@ public class XcorCommand extends TurtleCommand {
         numParameters = 0;
     }
 
-    public void performAction(){
-        getTurtle().getxPos();
+    @Override
+    protected void turtleAction(Turtle turtle) {
+        returnValue =turtle.getxPos();
     }
 }

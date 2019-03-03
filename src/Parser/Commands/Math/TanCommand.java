@@ -1,5 +1,6 @@
 package Parser.Commands.Math;
 
+import Main.BackendController;
 import Parser.Commands.Command;
 
 public class TanCommand extends Command {
@@ -9,7 +10,7 @@ public class TanCommand extends Command {
         numParameters = 1;
     }
 
-    public void performAction(){
+    public void performAction(BackendController backendController){
         returnValue =  Math.tan(myChildrenList.get(0).getReturnValue());
     }
 

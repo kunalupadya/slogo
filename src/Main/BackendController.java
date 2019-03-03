@@ -22,12 +22,12 @@ public class BackendController {
     public BackendController(){
 //        setLanguage("English");
         myGrid = new Grid(400,400);
-        myTurtles.add(new Turtle(myGrid));
+        Turtle turtle1 = new Turtle(myGrid);
+//        myTurtles.add(turtle1);
         Turtle turtle2 = new Turtle(myGrid);
         turtle2.turn(20);
-        turtle2.move(50);
-        turtle2.turn(300);
-        turtle2.move(100);
+        turtle2.move(10000);
+        turtle2.move(300);
         myTurtles.add(turtle2);
 
     }
@@ -45,7 +45,7 @@ public class BackendController {
     }
 
     public void parseAndRun(String userInput){
-        parser = new ParseCommand(userInput, myTurtles);
+        parser = new ParseCommand(userInput, myTurtles,this);
     }
 
 //    private void executeCommandTree(Expression rootExpr) {

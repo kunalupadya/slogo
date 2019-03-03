@@ -1,5 +1,7 @@
 package Parser.Commands.Boolean;
 
+import Main.BackendController;
+
 public class AndCommand extends BooleanCommand{
 
     public AndCommand(){
@@ -7,7 +9,7 @@ public class AndCommand extends BooleanCommand{
         numParameters = 2;
     }
 
-    public void performAction(){
+    public void performAction(BackendController backendController){
         returnValue =  returnValue(myChildrenList.get(0).getReturnValue() !=0 && myChildrenList.get(1).getReturnValue() !=0);
     }
 

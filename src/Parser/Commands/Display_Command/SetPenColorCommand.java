@@ -1,5 +1,7 @@
 package Parser.Commands.Display_Command;
 
+import GraphicsBackend.Turtle;
+import Main.BackendController;
 import Parser.Commands.TurtleCommand;
 
 public class SetPenColorCommand extends TurtleCommand {
@@ -9,7 +11,9 @@ public class SetPenColorCommand extends TurtleCommand {
         numParameters = 1;
     }
 
-    public void performAction(){
-//        (getTurtle().getMyPen().setPenColor(getChildren().get(0).getReturnValue() (int));
+    @Override
+    protected void turtleAction(Turtle turtle) {
+    //        (getTurtle().getMyPen().setPenColor(getChildren().get(0).getReturnValue() (int));
     }
+
 }

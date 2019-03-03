@@ -31,6 +31,7 @@ public class Turtle {
         myAngle = 90;
         speed = 1;
         isTurtleVisible = true;
+        isTurtleActive = true;
         turtleImage = new javafx.scene.image.Image(this.getClass().getClassLoader().getResourceAsStream(DEFAULT_IMAGE));
 //        turtleImageView = new ImageView();
 //        updateThisTurtleImageview();
@@ -61,6 +62,8 @@ public class Turtle {
         Point newPosition = myGrid.addMovement(xPos, yPos, myAngle, dist, myPen);
         xPos = newPosition.getMyX();
         yPos = newPosition.getMyY();
+        System.out.println(xPos);
+        System.out.println(yPos);
     }
 
     public void moveTo(Point point){

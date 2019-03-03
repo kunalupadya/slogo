@@ -63,8 +63,7 @@ public class SwitchLanguages {
     private EventHandler<ActionEvent> changeLanguage() {
         return event -> {
             MenuItem mItem = (MenuItem) event.getSource();
-            String associatedProperty = myLanguageResources.getString(mItem.getText());
-            context.changeLanguage(associatedProperty);
+            context.changeLanguage(mItem.getText());
         };
     }
 }

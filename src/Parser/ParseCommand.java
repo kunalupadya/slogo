@@ -2,9 +2,9 @@ package Parser;
 
 import GraphicsBackend.Turtle;
 import Parser.Commands.Command;
+import Parser.Commands.ConstantCommand;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -22,13 +22,14 @@ public class ParseCommand {
 //    private HandleError handleError;
     private List<Token> tokensList;
     private List<Turtle> myTurtleList;
-    private Map<String[], String> commandMap;
+    private Map<String, String> commandMap;
+    private String myCommandLanguage;
 
 
-    public ParseCommand(String consoleInput, List<Turtle> turtles){
+    public ParseCommand(String consoleInput, List<Turtle> turtles, String commandLanguage){
         //set Language;
 //        myLanguage = SwitchLanguages.getLanguage();
-        myLanguage = "English";
+        myLanguage = commandLanguage;
         myTurtleList = turtles;
 
         //user typed empty string or didn't type anything
@@ -38,7 +39,9 @@ public class ParseCommand {
 
         RemoveComment removeComment = new RemoveComment(consoleInput);
         String refinedInput = removeComment.getOutput();
+        System.out.println(refinedInput);
         String [] listOfWords = refinedInput.split(whiteSpace);
+        System.out.println(listOfWords);
         
         //translate the input into default language
         LanguageSetting languageSetting = new LanguageSetting(myLanguage);
@@ -46,11 +49,11 @@ public class ParseCommand {
         //TODO: try catch block if command is not valid
         String[] translatedListOfWords = languageSetting.translateCommand(listOfWords);
         commandMap = languageSetting.makeReflectionMap();
-        System.out.println(commandMap.keySet());
 
         //convert word into tokens and check validity
         tokensList = addToTokenList(translatedListOfWords);
         commandsList = stackCommand(translatedListOfWords, myTurtleList, commandMap);
+        System.out.println("commandlist is " + commandsList.size());
 
         //Execute Command
         ExecuteCommand executeCommand = new ExecuteCommand(commandsList, tokensList);
@@ -67,28 +70,31 @@ public class ParseCommand {
     }
 
 
-    private ArrayList<Command> stackCommand(String[] listOfWords, List<Turtle> turtleList, Map<String[], String> commandMap){
+    private ArrayList<Command> stackCommand(String[] listOfWords, List<Turtle> turtleList, Map<String, String> commandMap) {
         ArrayList<Command> commandArrayList = new ArrayList<Command>();
+        System.out.println(commandMap.keySet());
+        System.out.println(commandMap.values());
+        for (String word : listOfWords) {
+            if (commandMap.keySet().contains(word)) {
+                try {
+                    System.out.println("Parser.Commands.Turtle_Command." + commandMap.get(word) + "Command");
+                    Class<?> clazz = Class.forName("Parser.Commands.Turtle_Command." + commandMap.get(word) + "Command");
+                    Object object = clazz.getConstructor().newInstance();
+                    Command newCommand = (Command) object;
+                    newCommand.setMyTurtleList(turtleList);
+                    System.out.println(newCommand.getMyTurtleListSize());
+                    System.out.println("class found");
+                    commandArrayList.add(newCommand);
 
-        for(String word: listOfWords){
-            for(String[] list1: commandMap.keySet()){
-                ArrayList<String> list2 = new ArrayList<>(Arrays.asList(list1));
-                if(list2.contains(word)){
-                    try{
-                        Class<?> clazz = Class.forName("Parser.Commands.TurtleCommand." + commandMap.get(word) + "Command");
-                        Object object = clazz.getConstructor().newInstance();
-                        Command newCommand =(Command) object;
-                        newCommand.setMyTurtleList(turtleList);
-                        System.out.println("class found");
-                        commandArrayList.add(newCommand);
-
-                    }
-                    catch (Exception e) {
-                        System.out.println("class not found");
-                        e.printStackTrace();
-                    }
+                } catch (Exception e) {
+                    System.out.println("class not found");
+                    //handleerror
 
                 }
+            }
+            else{
+                Command newCommand = new ConstantCommand(Double.parseDouble(word));
+                commandArrayList.add(newCommand);
             }
 
         }

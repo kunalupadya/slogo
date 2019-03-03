@@ -20,6 +20,8 @@ public abstract class Command{
 
     public void setMyTurtleList(List<Turtle> turtleList){myTurtleList = turtleList;}
 
+    public int getMyTurtleListSize(){return myTurtleList.size();}
+
     public int getCurrentNumParameters() {
         return currentNumParameters;
     }

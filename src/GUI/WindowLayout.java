@@ -168,6 +168,14 @@ public class WindowLayout {
         backendController.parseAndRun(commandString);
     }
 
+//    public void addToPrevCommands(String commandString) {
+//        console.addToHistory(commandString);
+//    }
+
+    public void addToConsole(String commandString) {
+        console.addToConsole(commandString);
+    }
+
     public void consoleShowError(String errorString) {
         //errorString is truly coming from BackEnd though
         console.showError(errorString);

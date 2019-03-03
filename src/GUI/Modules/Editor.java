@@ -55,5 +55,6 @@ public class Editor extends Module {
             editorText = editorText.replace("\n", " ");
         }
         context.sendCommandString(editorText);
+        editor.clear();
     }
 }

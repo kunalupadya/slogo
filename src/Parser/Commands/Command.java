@@ -36,7 +36,7 @@ public abstract class Command{
         isConstant = true;
     }
 
-    public abstract void performAction(BackendController backendController);
+    protected abstract void performAction(BackendController backendController);
 
     public void addChildren(Command command) {
         myChildrenList.add(command);

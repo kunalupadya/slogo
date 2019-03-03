@@ -66,65 +66,38 @@ public class Grid {
                 new Alert(Alert.AlertType.ERROR, "Internal miscalculation - turtle is offscreen").showAndWait();
                 break;
             }
-//            System.out.println("block");
-//            System.out.println(xPos);
-//            System.out.println(yPos);
-//            System.out.println(newXPos);
-//            System.out.println(newYPos);
-//            System.out.println("block");
             createLine(pen, xPos, yPos, intersection.getMyX(), intersection.getMyY());
             double distanceTravelled = Math.sqrt(Math.pow(xPos-intersection.getMyX(),2)+Math.pow(yPos-intersection.getMyY(),2));
             dist -= distanceTravelled;
-//            System.out.println("dist="+dist);
             if (intersection.getMyX() == 0){
                 //offscreenleft
                 xPos = width-GRID_OFFSET;
                 yPos = intersection.getMyY();
-                System.out.println("A");
             }
             else if (intersection.getMyY() == 0){
                 //offscreentop
-//                System.out.println("GOTCHA");
-//                System.out.println();
                 xPos = intersection.getMyX();
                 yPos = height-GRID_OFFSET;
-//                System.out.println(xPos);
-//                System.out.println(yPos);
-//                System.out.println(height);
-                System.out.println("B");
             }
             else if (intersection.getMyX() == width){
                 //offscreenright
                 xPos = 0+GRID_OFFSET;
                 yPos = intersection.getMyY();
-                System.out.println("C");
             }
             else if (intersection.getMyY() == height){
                 //offscreenbottom
                 xPos = intersection.getMyX();
                 yPos = 0+GRID_OFFSET;
-                System.out.println("D");
             }
             newXPos = xPos - dist*Math.cos(Math.toRadians(angle));
             newYPos = yPos - dist*Math.sin(Math.toRadians(angle));
-            System.out.println("after");
-            System.out.println(xPos);
-            System.out.println(yPos);
-            System.out.println(newXPos);
-            System.out.println(newYPos);
-            System.out.println("after");
             offScreenRight = newXPos>width;
             offScreenLeft = newXPos<0;
             offScreenTop = newYPos<0;
             offScreenBottom = newYPos>width;
             offScreen = offScreenBottom|offScreenLeft|offScreenRight|offScreenTop;
         }
-
-//        if ()
         createLine(pen, xPos, yPos, newXPos, newYPos);
-        System.out.println("AHAHAHAHA");
-        System.out.println(newXPos);
-        System.out.println(newYPos);
         return new Point(newXPos, newYPos);
     }
 
@@ -134,7 +107,6 @@ public class Grid {
             movement.setStroke(pen.getPenColor().get());
             movement.setStrokeWidth(pen.getPenWidth());
             myObjects.add(movement);
-            System.out.println("Line created: "+ xPos+" "+yPos+" "+newXPos+" "+newYPos);
         }
 
     }
@@ -142,23 +114,8 @@ public class Grid {
     private Optional<Point> calculateIntersectionWithBounds(Point movementStart, Point movementEnd) {
         Optional<Point> intersectOptional = Optional.empty();
         for (Line bound: bounds){
-//            System.out.println(bound.getStartX());
-//            System.out.println(bound.getStartY());
-//            System.out.println(bound.getEndX());
-//            System.out.println(bound.getEndY());
-//            System.out.println();
             intersectOptional = calculateIntersection(movementStart, movementEnd, bound);
             if (intersectOptional.isPresent()){
-//                System.out.println("OPTIONAL RETURNED");
-////                System.out.println(intersectOptional.get().getMyX());
-//                System.out.println(intersectOptional.get());
-//                System.out.println(intersectOptional.get().getMyX());
-//                System.out.println(intersectOptional.get().getMyY());
-//                System.out.println(movementStart.getMyX());
-//                System.out.println(movementStart.getMyY());
-//                System.out.println(movementEnd.getMyX());
-//                System.out.println(movementEnd.getMyY());
-//                System.out.println(bound);
                 return intersectOptional;
             }
         }
@@ -183,26 +140,25 @@ public class Grid {
         Optional<Point> returnedPoint = Optional.empty();
         if (determinant == 0)
         {
-            // The lines are parallel. This is simplified
-            // by returning a pair of FLT_MAX
+            // The lines are parallel, return empty optional
             return returnedPoint;
         }
         else
         {
             double x = (b2*c1 - b1*c2)/determinant;
             double y = (a1*c2 - a2*c1)/determinant;
-            boolean a = (x>=movementStart.getMyX())&(x<=movementEnd.getMyX());
-            boolean b = (x<=movementStart.getMyX())&(x>=movementEnd.getMyX());
-            boolean c = (y>=movementStart.getMyY())&(y<=movementEnd.getMyY());
-            boolean d = (y<=movementStart.getMyY())&(y>=movementEnd.getMyY());
-//            System.out.println(a);
+
+            boolean xBetweenStartAndEndOfMovement = (x>=movementStart.getMyX())&(x<=movementEnd.getMyX());
+            boolean xBetweenEndAndStartOfMovement = (x<=movementStart.getMyX())&(x>=movementEnd.getMyX());
+            boolean yBetweenStartAndEndOfMovement = (y>=movementStart.getMyY())&(y<=movementEnd.getMyY());
+            boolean yBetweenEndAndStartOfMovement = (y<=movementStart.getMyY())&(y>=movementEnd.getMyY());
+            boolean pointOnInitialLine = xBetweenStartAndEndOfMovement|xBetweenEndAndStartOfMovement&yBetweenEndAndStartOfMovement|yBetweenStartAndEndOfMovement;
+
             boolean withinGridX = (x<=width+GRID_OFFSET & x>=0-GRID_OFFSET);
             boolean withinGridY = (y<=height+GRID_OFFSET & y>=0-GRID_OFFSET);
             boolean withinGrid = withinGridX & withinGridY;
-//            System.out.println(b);
-//            System.out.println(c);
-//            System.out.println(d);
-            if ((a|b)&(c|d)&withinGrid){
+
+            if (pointOnInitialLine&withinGrid){
                 returnedPoint = Optional.of(new Point(x, y));
                 return returnedPoint;
             }

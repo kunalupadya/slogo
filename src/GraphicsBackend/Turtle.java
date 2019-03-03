@@ -58,13 +58,9 @@ public class Turtle {
     }
 
     public void move(double dist){
-        System.out.println("block");
-        System.out.println(xPos);
-        System.out.println(yPos);
-        System.out.println("block");
-        Point currentPosition = myGrid.addMovement(xPos, yPos, myAngle, dist, myPen);
-        xPos = currentPosition.getMyX();
-        yPos = currentPosition.getMyY();
+        Point newPosition = myGrid.addMovement(xPos, yPos, myAngle, dist, myPen);
+        xPos = newPosition.getMyX();
+        yPos = newPosition.getMyY();
     }
 
     public void moveTo(Point point){

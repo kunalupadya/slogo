@@ -1,6 +1,6 @@
-package Parser.Commands.Turtle_Command.Boolean;
+package Parser.Commands.Turtle_Command;
 
-public class GreaterCommand extends Parser.Commands.Turtle_Command.Boolean.BooleanCommand {
+public class GreaterCommand extends BooleanCommand {
 
     public GreaterCommand(){
         isConstant = false;

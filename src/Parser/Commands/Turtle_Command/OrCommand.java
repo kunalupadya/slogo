@@ -1,4 +1,4 @@
-import Parser.Commands.Turtle_Command.Boolean.BooleanCommand;
+package Parser.Commands.Turtle_Command;
 
 public class OrCommand extends BooleanCommand {
 

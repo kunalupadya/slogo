@@ -1,6 +1,6 @@
 package Parser.Commands.Turtle_Command;
 
-public class AndCommand extends Parser.Commands.Turtle_Command.Boolean.BooleanCommand {
+public class AndCommand extends BooleanCommand {
 
     public AndCommand(){
         isConstant = false;

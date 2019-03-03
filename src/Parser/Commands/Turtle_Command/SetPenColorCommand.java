@@ -10,6 +10,6 @@ public class SetPenColorCommand extends TurtleCommand {
     }
 
     public void performAction(){
-        (getTurtle().getMyPen().setPenColor(getChildren().get(0).getReturnValue());
+        //getTurtle().getMyPen().setPenColor(getChildren().get(0).getReturnValue());
     }
 }

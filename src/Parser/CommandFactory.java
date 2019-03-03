@@ -49,7 +49,7 @@ public class CommandFactory {
         } else if (word.equalsIgnoreCase("heading")) {
             return new HeadingCommand();
         } else if (word.equalsIgnoreCase("pendown?") || word.equalsIgnoreCase("pendownup")) {
-            return new PendownCommand();
+            return new PenDownCommand();
         } else if (word.equalsIgnoreCase("showing?") || word.equalsIgnoreCase("showingup")) {
             return new ShowingCommand();
         }

@@ -1,5 +1,6 @@
 package Parser.Commands.Display_Command;
 
+import GraphicsBackend.Turtle;
 import Main.BackendController;
 import Parser.Commands.TurtleCommand;
 
@@ -10,7 +11,8 @@ public class ShapeCommand extends TurtleCommand {
         numParameters = 0;
     }
 
-    public void performAction(BackendController backendController){
-       returnValue = getTurtle().getMyShape();
+    @Override
+    protected void turtleAction(Turtle turtle) {
+        returnValue = turtle.getMyShape();
     }
 }

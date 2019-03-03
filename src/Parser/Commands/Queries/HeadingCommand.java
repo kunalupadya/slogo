@@ -1,5 +1,6 @@
 package Parser.Commands.Queries;
 
+import GraphicsBackend.Turtle;
 import Main.BackendController;
 import Parser.Commands.TurtleCommand;
 
@@ -10,8 +11,8 @@ public class HeadingCommand extends TurtleCommand {
         numParameters = 0;
     }
 
-    public void performAction(BackendController backendController){
+    @Override
+    protected void turtleAction(Turtle turtle) {
         returnValue = myTurtle.getMyAngle();
-
     }
 }

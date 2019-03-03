@@ -17,12 +17,12 @@ public abstract class TurtleCommand extends Command{
     protected void performAction(BackendController backendController){
         for (Turtle turtle: backendController.getMyTurtles()) {
             if (turtle.getIsTurtleActive()) {
-                turtleAction();
+                turtleAction(turtle);
             }
         }
     }
 
-    protected abstract void turtleAction();
+    protected abstract void turtleAction(Turtle turtle);
 //    protected List<Turtle> getTurtleList(){
 //        return turtleList;
 //    }

@@ -22,15 +22,12 @@ public class BackendController {
     public BackendController(){
 //        setLanguage("English");
         myGrid = new Grid(400,400);
-//        Turtle turtle1 = new Turtle(myGrid);
+        Turtle turtle1 = new Turtle(myGrid);
 //        myTurtles.add(turtle1);
         Turtle turtle2 = new Turtle(myGrid);
         turtle2.turn(20);
-//        turtle2.move(50);
-//        turtle2.turn(300);
         turtle2.move(10000);
         turtle2.move(300);
-//        turtle1.move(201);
         myTurtles.add(turtle2);
 
     }

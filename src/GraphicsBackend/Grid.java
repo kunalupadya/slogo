@@ -44,6 +44,10 @@ public class Grid {
         return width;
     }
 
+    public void clear(){
+        myObjects.clear();
+    }
+
     public Point addMovement(double xPos, double yPos, double angle, double dist, Pen pen){
         double newXPos = xPos - dist*Math.cos(Math.toRadians(angle));
         double newYPos = yPos - dist*Math.sin(Math.toRadians(angle));

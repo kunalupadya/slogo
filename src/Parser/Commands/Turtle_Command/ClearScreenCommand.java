@@ -12,13 +12,9 @@ public class ClearScreenCommand extends TurtleCommand {
         numParameters = 0;
     }
 
-    public void performAction(BackendController backendController){
-        for (Turtle turtle: backendController.getMyTurtles()) {
-            if (turtle.getIsTurtleActive()) {
-                returnValue = Math.sqrt(Math.pow(getTurtle().getxPos(), 2) + Math.pow(getTurtle().getyPos(), 2));
-                getTurtle().moveTo(new Point(0, 0));
-            }
-        }
+    protected void turtleAction(Turtle turtle) {
+        returnValue = distance(new Point(0,0), turtle.getPos());
+        turtle.getGrid().clear();
+        turtle.moveTo(new Point(0, 0));
     }
-
 }

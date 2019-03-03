@@ -11,12 +11,8 @@ public class BackCommand extends TurtleCommand {
         numParameters = 1;
     }
 
-    public void performAction(BackendController backendController){
-        for (Turtle turtle: backendController.getMyTurtles()) {
-            if (turtle.getIsTurtleActive()) {
-                turtle.move(-getChildren().get(0).getReturnValue());
-                returnValue = getChildren().get(0).getReturnValue();
-            }
-        }
+    protected void turtleAction(Turtle turtle){
+        turtle.move(-getChildren().get(0).getReturnValue());
+        returnValue = getChildren().get(0).getReturnValue();
     }
 }

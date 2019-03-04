@@ -71,7 +71,9 @@ public class LanguageSetting {
                 map.put(englishProperty.getString(key).split("\\|")[0], key);
                 map.put(englishProperty.getString(key).split("\\|")[1], key);
             }
-
+            else{
+                map.put(englishProperty.getString(key), key);
+            }
         }
         return map;
 

@@ -4,10 +4,10 @@ import GraphicsBackend.Turtle;
 import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
+import Parser.Commands.Turtle_Command.ListEndCommand;
+import Parser.Commands.Turtle_Command.ListStartCommand;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Louis Lee
@@ -49,7 +49,7 @@ public class ParseCommand {
         //convert word into tokens and check validity
         tokensList = addToTokenList(translatedListOfWords);
         commandsList = stackCommand(translatedListOfWords, myTurtleList, commandMap);
-        System.out.println("commandlist is " + commandsList.size());
+        System.out.println("commandlist is " + commandsList);
 
         //Execute Command
         ExecuteCommand executeCommand = new ExecuteCommand(commandsList, tokensList, backendController);
@@ -68,12 +68,12 @@ public class ParseCommand {
 
     private ArrayList<Command> stackCommand(String[] listOfWords, List<Turtle> turtleList, Map<String, String> commandMap) {
         ArrayList<Command> commandArrayList = new ArrayList<Command>();
-        System.out.println(commandMap.keySet());
-        System.out.println(commandMap.get("fd"));
 
         for (String word : listOfWords) {
             //System.out.println(commandMap.get(word));
             word = word.toLowerCase();
+            System.out.println(word);
+            System.out.println(commandMap);
             if (commandMap.keySet().contains(word)) {
                 try {
                     System.out.println("Parser.Commands.Turtle_Command." + commandMap.get(word) + "Command");
@@ -83,12 +83,26 @@ public class ParseCommand {
                     commandArrayList.add(newCommand);
 
                 } catch (Exception e) {
+                    e.printStackTrace();
                     System.out.println("class not found");
                     //handleerror
 
                 }
             }
             else{
+                // DO NOT DELETE
+//                if (word.equals("[")){
+//                    commandArrayList.add(new ListStartCommand());
+//                }
+//                if (word.equals("]")){
+//                    commandArrayList.add(new ListEndCommand());
+//                }
+//                if (word.equals("(")){
+//                    commandArrayList.add(new ListStartCommand());
+//                }
+//                if (word.equals(")")){
+//                    commandArrayList.add(new ListEndCommand());
+//                }
                 //TODO: @Dhanush : Add an error
                 Command newCommand = new ConstantCommand(Double.parseDouble(word));
                 commandArrayList.add(newCommand);

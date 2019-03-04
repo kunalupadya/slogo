@@ -18,8 +18,8 @@ public class BackendController {
     private Grid myGrid;
     private List<Turtle> myTurtles = new ArrayList<>();
     private WindowLayout windowLayout;
-    Map<String, MakeUserInstructionCommand> userDefinedCommands;
-    Map<String, Variable> availableVariables;
+    private Map<String, MakeUserInstructionCommand> userDefinedCommands;
+    private Map<String, Variable> availableVariables;
 
     public BackendController(){
         myGrid = new Grid(400,400);
@@ -48,7 +48,13 @@ public class BackendController {
             return Optional.of(returnValue);
         }
         return Optional.empty();
+    }
 
+    public Optional<MakeUserInstructionCommand> getUserDefinedCommand(String commandName){
+        if (userDefinedCommands.containsKey(commandName)){
+            return Optional.of(userDefinedCommands.get(commandName));
+        }
+        return Optional.empty();
     }
 
     public String getCommandLanguage(){
@@ -78,7 +84,6 @@ public class BackendController {
 
     public void parseAndRun(String userInput){
         ParseCommand parser = new ParseCommand(userInput, myTurtles, commmandLanguage, this);
-
     }
 
 //    private void executeCommandTree(Expression rootExpr) {

@@ -55,7 +55,7 @@ public class LanguageSetting {
         return newList;
     }
 
-    public static boolean isNumeric(String strNum) {
+    public boolean isNumeric(String strNum) {
         try {
             double d = Double.parseDouble(strNum);
         } catch (NumberFormatException | NullPointerException nfe) {

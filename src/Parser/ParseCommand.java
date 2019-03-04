@@ -82,7 +82,19 @@ public class ParseCommand {
 //                    e.printStackTrace();
                 System.out.println("class not found");
                 Command newCommand;
-                if (word.charAt(0) == ':'){
+                if (word.equals("[")){
+                    newCommand = new ListStartCommand();
+                }
+                else if (word.equals("]")){
+                    newCommand = (new ListEndCommand());
+                }
+                else if (word.equals("(")){
+                    newCommand = new ListStartCommand();
+                }
+                else if (word.equals(")")){
+                    newCommand = new ListEndCommand();
+                }
+                else if (word.charAt(0) == ':'){
                     newCommand = new Variable(word.substring(1));
                 }
                 else{

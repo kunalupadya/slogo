@@ -8,20 +8,14 @@ import java.util.*;
 
 public class LanguageSetting {
 
-    private String defaultLang = "English";
     private String myLanguage;
     private ResourceBundle myResources;
     private Map<String, String> translationMap;
-    private Map<String, String> newMap;
-//    private HandleError handleError;
-
 
     public LanguageSetting(String language){
         myLanguage = language;
-        System.out.println(myLanguage);
         myResources = ResourceBundle.getBundle(myLanguage);
         translationMap = convertResourceBundleToMap(myResources);
-        newMap = reverseKeyFromValue(translationMap);
     }
 
     private static Map<String, String> convertResourceBundleToMap(ResourceBundle resource) {
@@ -30,13 +24,12 @@ public class LanguageSetting {
         while (keys.hasMoreElements()) {
             String key = keys.nextElement();
             if(resource.getString(key).contains("|")){
-                System.out.println(resource.getString(key));
                 String[] splitString = resource.getString(key).split("\\|");
-                map.put(key, splitString[0]);
-                map.put(key, splitString[1]);
+                map.put(splitString[0], key);
+                map.put(splitString[1], key);
             }
             else{
-                map.put(key, resource.getString(key));
+                map.put(resource.getString(key), key);
             }
         }
         System.out.println(map);
@@ -44,27 +37,45 @@ public class LanguageSetting {
     }
 
     //TODO: What do we do if there's an error. We just return semi-translated list? This method should probably throw an error
-    //TODO: must deal with user defined commands also
-    String[] translateCommand(String[] listOfWords){
-        var tokenConverter = new TokenConverter();
-        System.out.println(newMap);
+    //TODO: must deal with user defined commands
+    public String[] translateCommand(String[] listOfWords){
+        String[] newList = new String[listOfWords.length];
+
         for (int i = 0; i < listOfWords.length; i++) {
-            if (tokenConverter.checkTypeOfInput(listOfWords[i]) == Token.COMMAND){
-                if (!newMap.containsKey(listOfWords[i])) {
-//                    handleError.interpretationError(listOfWords[i]);
-                    break;
-                }
-                listOfWords[i] = newMap.get(listOfWords[i]);
+            if(isNumeric(listOfWords[i])){
+                newList[i] = listOfWords[i];
+            }
+            else{
+                newList[i] = translationMap.get(listOfWords[i]);
             }
         }
-        return listOfWords;
+        return newList;
     }
 
-    private Map<String, String> reverseKeyFromValue(Map<String, String> translationMap){
-        Map<String, String> myNewHashMap = new HashMap<>();
-        for(Map.Entry<String, String> entry : translationMap.entrySet()){
-            myNewHashMap.put(entry.getValue(), entry.getKey());
+    public static boolean isNumeric(String strNum) {
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException | NullPointerException nfe) {
+            return false;
         }
-        return myNewHashMap;
+        return true;
+    }
+
+    public Map<String, String> makeReflectionMap() {
+        ResourceBundle englishProperty = ResourceBundle.getBundle("English");
+        Map<String, String> map = new HashMap<>();
+        Enumeration<String> keys = englishProperty.getKeys();
+        while (keys.hasMoreElements()) {
+            String key = keys.nextElement();
+            if (englishProperty.getString(key).contains("|")) {
+                map.put(englishProperty.getString(key).split("\\|")[0], key);
+                map.put(englishProperty.getString(key).split("\\|")[1], key);
+            }
+            else{
+                map.put(englishProperty.getString(key), key);
+            }
+        }
+        return map;
+
     }
 }

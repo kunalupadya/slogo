@@ -1,11 +1,13 @@
 package Parser;
 
-import GUI.Controls.SwitchLanguages;
 import GraphicsBackend.Turtle;
+import Main.BackendController;
 import Parser.Commands.Command;
+import Parser.Commands.ConstantCommand;
+import Parser.Commands.Turtle_Command.ListEndCommand;
+import Parser.Commands.Turtle_Command.ListStartCommand;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Louis Lee
@@ -15,38 +17,42 @@ import java.util.List;
 public class ParseCommand {
 
     private final String whiteSpace = "\\s+";
-    private final String noInput = "";
     private String myLanguage;
     private ArrayList<Command> commandsList;
-//    private HandleError handleError;
     private List<Token> tokensList;
+    private List<Turtle> myTurtleList;
+    private Map<String, String> commandMap;
 
+    public ParseCommand(String consoleInput, List<Turtle> turtles,String commandLanguage, BackendController backendController){
 
-    public ParseCommand(String consoleInput, List<Turtle> turtles){
-        //set Language;
-//        myLanguage = SwitchLanguages.getLanguage();
-        myLanguage = "English";
+        myLanguage = commandLanguage;
+        System.out.println(myLanguage);
+        myTurtleList = turtles;
 
-        //user typed empty string or didn't type anything
-        if(consoleInput.equals(noInput) || consoleInput == null){
-//            handleError.noInputError();
+        //TODO Make handleerror work
+        if(consoleInput.equals(null) || consoleInput.equals("")){
+
         }
 
         RemoveComment removeComment = new RemoveComment(consoleInput);
         String refinedInput = removeComment.getOutput();
         String [] listOfWords = refinedInput.split(whiteSpace);
-        
+
         //translate the input into default language
         LanguageSetting languageSetting = new LanguageSetting(myLanguage);
+
         //TODO: try catch block if command is not valid
         String[] translatedListOfWords = languageSetting.translateCommand(listOfWords);
+        System.out.println("translated list of words" + translatedListOfWords[0] + translatedListOfWords[1]);
 
+        commandMap = languageSetting.makeReflectionMap();
         //convert word into tokens and check validity
         tokensList = addToTokenList(translatedListOfWords);
-        commandsList = stackCommand(translatedListOfWords);
+        commandsList = stackCommand(translatedListOfWords, myTurtleList, commandMap);
+        System.out.println("commandlist is " + commandsList);
 
         //Execute Command
-        ExecuteCommand executeCommand = new ExecuteCommand(commandsList, tokensList);
+        ExecuteCommand executeCommand = new ExecuteCommand(commandsList, tokensList, backendController);
         executeCommand.runCommands();
     }
 
@@ -59,22 +65,51 @@ public class ParseCommand {
         return list;
     }
 
-    //TODO: this method should create complete list of Commands that Execute Command merely runs using Command tree
-    //implementation is wrong currently
-    private ArrayList<Command> stackCommand(String[] listOfWords){
-        ArrayList<Command> list = new ArrayList<>();
-        CommandFactory commandFactory = new CommandFactory();
-        for(String word: listOfWords){
-            //TODO: error to be fixed after command implementation
+
+    private ArrayList<Command> stackCommand(String[] listOfWords, List<Turtle> turtleList, Map<String, String> commandMap) {
+        ArrayList<Command> commandArrayList = new ArrayList<Command>();
+
+        for (String word : listOfWords) {
+            //System.out.println(commandMap.get(word));
+            word = word.toLowerCase();
             System.out.println(word);
-//            if (word.equalsIgnoreCase("[")){
-//
-//            }
-//            if ()
-            Command newCommand = commandFactory.getCommand(word);
-            list.add(newCommand);
+            System.out.println(commandMap);
+            if (commandMap.keySet().contains(word)) {
+                try {
+                    System.out.println("Parser.Commands.Turtle_Command." + commandMap.get(word) + "Command");
+                    Class<?> clazz = Class.forName("Parser.Commands.Turtle_Command." + commandMap.get(word) + "Command");
+                    Object object = clazz.getConstructor().newInstance();
+                    Command newCommand = (Command) object;
+                    commandArrayList.add(newCommand);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("class not found");
+                    //handleerror
+
+                }
+            }
+            else{
+                // DO NOT DELETE
+//                if (word.equals("[")){
+//                    commandArrayList.add(new ListStartCommand());
+//                }
+//                if (word.equals("]")){
+//                    commandArrayList.add(new ListEndCommand());
+//                }
+//                if (word.equals("(")){
+//                    commandArrayList.add(new ListStartCommand());
+//                }
+//                if (word.equals(")")){
+//                    commandArrayList.add(new ListEndCommand());
+//                }
+                //TODO: @Dhanush : Add an error
+                Command newCommand = new ConstantCommand(Double.parseDouble(word));
+                commandArrayList.add(newCommand);
+            }
+
         }
-        return list;
+        return commandArrayList;
     }
 
 }

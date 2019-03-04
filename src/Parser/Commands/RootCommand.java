@@ -1,5 +1,7 @@
 package Parser.Commands;
 
+import Main.BackendController;
+
 public class RootCommand extends Command{
 
     public RootCommand(){
@@ -7,7 +9,7 @@ public class RootCommand extends Command{
         numParameters = (int) Double.POSITIVE_INFINITY;
     }
 
-    public void performAction(){
+    public void performAction(BackendController backendController){
     }
 
 }

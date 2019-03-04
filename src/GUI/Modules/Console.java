@@ -93,4 +93,20 @@ public class Console extends Module  {
             consoleInfo.appendText(errorString);
         }
     }
+
+//    public void addToHistory(String commandString) {
+//        commandHistory.add(0, commandString);
+//        commandPosition = -1;
+//        if (! consoleInfo.getText().equals("")) {
+//            consoleInfo.appendText("\n" + commandString);
+//        }
+//        else {
+//            consoleInfo.appendText(commandString);
+//        }
+//    }
+
+    public void addToConsole(String commandString) {
+        consoleInput.clear();
+        consoleInput.appendText(commandString);
+    }
 }

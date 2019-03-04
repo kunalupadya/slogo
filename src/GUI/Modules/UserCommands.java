@@ -3,9 +3,12 @@ package GUI.Modules;
 import GUI.WindowLayout;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 import java.awt.*;
@@ -26,9 +29,10 @@ public class UserCommands extends Module {
     public UserCommands(int width, int height, WindowLayout myWindowLayout) {
         super(width, height, "User Commands", myWindowLayout);
         userCommands = new ArrayList<>();
-        //userCommands.add("What's up");
+        userCommands.add("Sum 10 10");
         //userCommands.add("Nothing much");
         setContent();
+        setClick();
     }
 
     @Override
@@ -45,6 +49,28 @@ public class UserCommands extends Module {
             userCommandsDisplay.setPlaceholder(new Label("User Commands"));
         }
         container.getChildren().add(userCommandsDisplay);
+    }
+
+    private void setClick() {
+        userCommandsDisplay.setCellFactory(lv -> {
+            ListCell<String> cell = new ListCell<String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    setText(item);
+                }
+            };
+            cell.setOnMouseClicked(e -> {
+                if (!cell.isEmpty()) {
+                    context.addToConsole(cell.getItem());
+                    //Possibly get a text box to pop up where we write in parameters
+                    //context.sendCommandString(cell.getItem());
+                    //context.addToPrevCommands(cell.getItem());
+
+                }
+            });
+            return cell;
+        });
     }
 
     public void setUserCommands(List<String> myUserCommands) {

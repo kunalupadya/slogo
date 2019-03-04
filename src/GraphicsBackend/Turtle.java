@@ -54,10 +54,6 @@ public class Turtle {
         return isTurtleActive;
     }
 
-    public void setIsTurtleActive(boolean isTurtleActive){
-        this.isTurtleActive = isTurtleActive;
-    }
-
     public void setTurtleActive(boolean turtleActive) {
         isTurtleActive = turtleActive;
     }

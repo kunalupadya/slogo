@@ -5,6 +5,7 @@ import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.RootCommand;
 import Parser.Commands.Turtle_Command.ListEndCommand;
+import Parser.Commands.Variable;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -43,6 +44,9 @@ public class ParsingTree {
             Command savedCurrentCommand = currCommand;
             Token savedCurrentToken = currToken;
             if (savedCurrentCommand.getClass() == ConstantCommand.class){
+                parent.addChildren(savedCurrentCommand);
+            }
+            else if (savedCurrentCommand.getClass() == Variable.class){
                 parent.addChildren(savedCurrentCommand);
             }
             else if (currToken == Token.LIST_END){

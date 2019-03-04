@@ -7,6 +7,7 @@ import Parser.Commands.Command;
 import Parser.Commands.RootCommand;
 import Parser.Commands.Turtle_Command.ListEndCommand;
 import Parser.Commands.Turtle_Command.ListStartCommand;
+import Parser.Commands.Turtle_Command.MakeVariableCommand;
 import javafx.scene.control.Alert;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class ExecuteCommand {
 
     public static final String PARAMETERS_MISSING = "Parameters missing";
     public static final String WRONG_NUMBER_OF_PARAMETERS = "Wrong number of parameters";
+    public static final int EXPRESSION_INDEX = 1;
     private Command headNode;
     private BackendController backendController;
 
@@ -51,6 +53,10 @@ public class ExecuteCommand {
                 throw new SyntaxError(PARAMETERS_MISSING);
             }
             return;
+        }
+        if (node.getClass() == MakeVariableCommand.class){
+            traverse(node.getChildren().get(EXPRESSION_INDEX));
+            node.execute(backendController);
         }
         if (node.getClass() == ListStartCommand.class){
             for (Command child: node.getChildren()){

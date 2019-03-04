@@ -180,7 +180,6 @@ public class WindowLayout {
         else {
             turtles.get(turtleNumber).setTurtleActive(true);
         }
-        backendController.setMyTurtles(turtles);
     }
 
 //    public void addToPrevCommands(String commandString) {

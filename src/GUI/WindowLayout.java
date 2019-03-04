@@ -45,6 +45,7 @@ public class WindowLayout {
     private final double sizeOfPadding = 5.0;
     private BackendController backendController;
     private String defaultLanguage = "English";
+    private List<Turtle> turtles;
 
     /**
      * TODO: add JavaDoc
@@ -152,12 +153,16 @@ public class WindowLayout {
 
     public void setGraphicsArea(){
         List<Line> lines = backendController.getMyGrid().getAllObjects();
-        List<Turtle> turtles = backendController.getMyTurtles();
+        turtles = backendController.getMyTurtles();
         List<ImageView> turtleImages = new ArrayList<>();
+        List<Boolean> turtleActives = new ArrayList<>();
         for (Turtle turtle:turtles) {
             ImageView turtleImage = turtle.getAdjustedTurtleImageView(0,0);
-            turtleImages.add(turtleImage); }
-        graphicsArea.setVariables(lines, turtleImages);
+            Boolean isTurtleActive = turtle.getIsTurtleActive();
+            turtleImages.add(turtleImage);
+            turtleActives.add(isTurtleActive);
+        }
+        graphicsArea.setVariables(lines, turtleImages, turtleActives);
     }
 
     public void setBackgroundColor(Paint color) {
@@ -166,6 +171,16 @@ public class WindowLayout {
 
     public void sendCommandString(String commandString) {
         backendController.parseAndRun(commandString);
+    }
+
+    public void switchTurtleActive(int turtleNumber) {
+        if (turtles.get(turtleNumber).getIsTurtleActive()) {
+            turtles.get(turtleNumber).setTurtleActive(false);
+        }
+        else {
+            turtles.get(turtleNumber).setTurtleActive(true);
+        }
+        backendController.setMyTurtles(turtles);
     }
 
 //    public void addToPrevCommands(String commandString) {
@@ -195,7 +210,7 @@ public class WindowLayout {
         backendController.setCommandLanguage(language);
     }
 
-    public void step(double elapsedTime) {
+    public void step() {
         setGraphicsArea();
     }
 }

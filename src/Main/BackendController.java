@@ -45,6 +45,10 @@ public class BackendController {
         return myTurtles;
     }
 
+    public void setMyTurtles(List<Turtle> turtles) {
+        myTurtles = turtles;
+    }
+
     public void showMessage(String string){
         System.out.println(string);
         windowLayout.consoleShowError(string);

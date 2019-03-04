@@ -17,10 +17,8 @@ import java.util.Map;
 public class ParseCommand {
 
     private final String whiteSpace = "\\s+";
-    private final String noInput = "";
     private String myLanguage;
     private ArrayList<Command> commandsList;
-//    private HandleError handleError;
     private List<Token> tokensList;
     private List<Turtle> myTurtleList;
     private Map<String, String> commandMap;
@@ -28,26 +26,26 @@ public class ParseCommand {
     public ParseCommand(String consoleInput, List<Turtle> turtles,String commandLanguage, BackendController backendController){
 
         myLanguage = commandLanguage;
+        System.out.println(myLanguage);
         myTurtleList = turtles;
 
-        //user typed empty string or didn't type anything
-        if(consoleInput.equals(noInput) || consoleInput == null){
-//            handleError.noInputError();
+        //TODO Make handleerror work
+        if(consoleInput.equals(null) || consoleInput.equals("")){
+
         }
 
         RemoveComment removeComment = new RemoveComment(consoleInput);
         String refinedInput = removeComment.getOutput();
-        System.out.println(refinedInput);
         String [] listOfWords = refinedInput.split(whiteSpace);
-        System.out.println(listOfWords);
-        
+
         //translate the input into default language
         LanguageSetting languageSetting = new LanguageSetting(myLanguage);
 
         //TODO: try catch block if command is not valid
         String[] translatedListOfWords = languageSetting.translateCommand(listOfWords);
-        commandMap = languageSetting.makeReflectionMap();
+        System.out.println("translated list of words" + translatedListOfWords[0] + translatedListOfWords[1]);
 
+        commandMap = languageSetting.makeReflectionMap();
         //convert word into tokens and check validity
         tokensList = addToTokenList(translatedListOfWords);
         commandsList = stackCommand(translatedListOfWords, myTurtleList, commandMap);

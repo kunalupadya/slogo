@@ -18,7 +18,7 @@ public class BackendController {
     WindowLayout windowLayout;
 
     public BackendController(){
-//        setLanguage("English");
+
         myGrid = new Grid(400,400);
         myTurtles.add(new Turtle(myGrid));
         Turtle turtle2 = new Turtle(myGrid);
@@ -46,6 +46,7 @@ public class BackendController {
     }
 
     public void showMessage(String string){
+        System.out.println(string);
         windowLayout.consoleShowError(string);
     }
 

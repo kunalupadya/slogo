@@ -42,11 +42,14 @@ public class LanguageSetting {
         String[] newList = new String[listOfWords.length];
 
         for (int i = 0; i < listOfWords.length; i++) {
-            if(isNumeric(listOfWords[i])){
-                newList[i] = listOfWords[i];
-            }
-            else{
+            if (translationMap.containsKey(listOfWords[i])) {
                 newList[i] = translationMap.get(listOfWords[i]);
+            }
+//            if(isNumeric(listOfWords[i])){
+//                newList[i] = listOfWords[i];
+//            }
+            else{
+                newList[i] = listOfWords[i];
             }
         }
         return newList;

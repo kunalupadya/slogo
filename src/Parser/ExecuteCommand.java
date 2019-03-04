@@ -5,6 +5,8 @@ import GraphicsBackend.Turtle;
 import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.RootCommand;
+import Parser.Commands.Turtle_Command.ListEndCommand;
+import Parser.Commands.Turtle_Command.ListStartCommand;
 import javafx.scene.control.Alert;
 
 import java.util.List;
@@ -47,6 +49,12 @@ public class ExecuteCommand {
             }
             else{
                 throw new SyntaxError(PARAMETERS_MISSING);
+            }
+            return;
+        }
+        if (node.getClass() == ListStartCommand.class){
+            for (Command child: node.getChildren()){
+                traverse(child);
             }
             return;
         }

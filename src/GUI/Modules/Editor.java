@@ -16,7 +16,7 @@ public class Editor extends Module {
     private String editorText;
 
     public Editor(int width, int height, WindowLayout myWindowLayout) {
-        super(width, height, myWindowLayout);
+        super(width, height, "Editor", myWindowLayout);
         setContent();
 //        editor.layoutBoundsProperty().addListener(new ChangeListener<Bounds>() {
 //            @Override

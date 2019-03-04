@@ -24,7 +24,7 @@ public class Console extends Module  {
     private Font courier;
 
     public Console(int width, int height, WindowLayout myWindowLayout) {
-        super(width, height, myWindowLayout);
+        super(width, height, "Console", myWindowLayout);
         courier = new Font("Courier", 12);
         setContent();
     }

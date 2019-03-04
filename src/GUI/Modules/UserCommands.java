@@ -24,7 +24,7 @@ public class UserCommands extends Module {
     private ObservableList<String> userCommandsCollection;
 
     public UserCommands(int width, int height, WindowLayout myWindowLayout) {
-        super(width, height, myWindowLayout);
+        super(width, height, "User Commands", myWindowLayout);
         userCommands = new ArrayList<>();
         //userCommands.add("What's up");
         //userCommands.add("Nothing much");

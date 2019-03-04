@@ -4,17 +4,17 @@
     -fx-background-color:
             linear-gradient(#E6E8FA, #DADAD1),
             radial-gradient(center 50% -40%, radius 200%, #DBE4D3 45%, #D0D0CA 50%);
-    -fx-background-radius: 6, 5;
+    -fx-background-radius: 6, 6;
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
 }
 
 .button:hover {
     -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%, #CDD0D0 0%, #838B8B 100%),
+            linear-gradient(#E6E8FA, #DADAD1),
             #4E78A0,
             #9FABB7,
-            radial-gradient(center 50% 50%, radius 100%, #C8CFD6, #D4DEE9);
+            radial-gradient(center 50% 50%, radius 100%, #c9d6ce, #dfe9de);
 }
 
 #penColor {
@@ -57,4 +57,32 @@
 .list-view .placeholder{
     -fx-font-family: Courier;
     -fx-font-size: 12.0;
+}
+
+.close-button{
+    -fx-max-width: 5px;
+    -fx-max-height: 5px;
+    -fx-background-color:
+            linear-gradient(#E6E8FA, #DADAD1),
+            radial-gradient(center 50% -40%, radius 200%, #DBE4D3 45%, #D0D0CA 50%);
+    -fx-background-radius: 6, 6;
+    -fx-background-insets: 0, 1;
+    -fx-font-size: 0px;
+    -fx-graphic-text-gap: 0px;
+}
+
+#module{
+    -fx-border-color:#D4DEE9;
+}
+
+#module:hover{
+    -fx-border-color:#4E78A0;
+}
+
+#module:focused{
+    -fx-border-color:#4E78A0;
+}
+
+#toolbar{
+    -fx-background-color: #D4DEE9;
 }

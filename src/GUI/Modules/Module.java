@@ -1,7 +1,16 @@
 package GUI.Modules;
 
 import GUI.WindowLayout;
+import Main.TextMaker;
+import GUI.Controls.*;
+import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 /**
  * Superclass to serve as template for the separate modules (Abstract?)
@@ -9,35 +18,57 @@ import javafx.scene.control.ScrollPane;
  * @author Januario Carreiro & David Liu
  */
 public abstract class Module {
+    public final VBox vbox;
     public final ScrollPane content;
 
     public int moduleWidth;
     public int moduleHeight;
     public WindowLayout context;
 
-    public Module(int width, int height, WindowLayout context) {
+    public Module(int width, int height, String moduleName, WindowLayout context) {
         moduleWidth = width;
         moduleHeight = height;
+        this.vbox = new VBox();
+        vbox.setId("module");
         this.content = new ScrollPane();
         content.setMinSize(width, height);
         this.context = context;
         setLayout();
+        addToolbar(moduleName);
     }
 
-    protected void setLayout() {
+    private void setLayout() {
         content.setPrefViewportWidth(moduleWidth);
         content.setPrefViewportHeight(moduleHeight);
         content.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         content.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
     }
 
+    protected void addToolbar(String moduleName) {
+        HBox hbox = new HBox();
+        hbox.setPadding(new Insets(5, 5, 5, 5));
+        hbox.setId("toolbar");
+
+        Text title = TextMaker.makeText(moduleName, new Font("Courier", 12), 0, 0);
+
+        var padding = new Region();
+
+        Control close = new Close(this);
+
+        hbox.setHgrow(padding, Priority.ALWAYS);
+        hbox.getChildren().addAll(title, padding, close.getButton());
+        vbox.getChildren().addAll(hbox, content);
+    }
+
     protected abstract void setContent();
 
-    protected void setStyle(){
+    protected void setStyle(){}
 
+    public VBox getContent() {
+        return vbox;
     }
 
-    public ScrollPane getContent() {
-        return content;
-    }
+    public VBox getVBox() {return vbox;}
+
+    public void close() {}
 }

@@ -68,11 +68,11 @@ public class Controller extends Application {
         stage.setTitle(WINDOW_TITLE);
         stage.show();
 
-        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
-        var animation = new Timeline();
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
-        animation.play();
+//        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+//        var animation = new Timeline();
+//        animation.setCycleCount(Timeline.INDEFINITE);
+//        animation.getKeyFrames().add(frame);
+//        animation.play();
 
         myScene.getStylesheets().add("ControlStyle.css");
 //
@@ -87,6 +87,6 @@ public class Controller extends Application {
     }
 
     private void step(double elapsedTime) {
-        WindowLayout.step(elapsedTime);
+//        WindowLayout.step(elapsedTime);
     }
 }

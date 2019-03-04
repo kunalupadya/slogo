@@ -34,7 +34,7 @@ public class GraphicsArea extends Module {
     private Timeline animation;
 
     public GraphicsArea(int width, int height, WindowLayout myWindowLayout) {
-        super(width, height, myWindowLayout);
+        super(width, height, "Turtle Display", myWindowLayout);
         startAnimation(MILLISECOND_DELAY);
         setContent();
     }

@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Class will contain the initial layout for the Window
@@ -62,7 +63,7 @@ public class WindowLayout {
         var rightBorderPane = new BorderPane();
 
         rightBorderPane.setTop(availableVars.getContent());
-        rightBorderPane.setCenter(editor.getContent());
+        rightBorderPane.setCenter(editor.getVBox());
         rightBorderPane.setBottom(userCommands.getContent());
 
         root.setTop(returnButtons());
@@ -187,6 +188,6 @@ public class WindowLayout {
     }
 
     public void changeLanguage(String language) {
-        backendController.setCommandLanguage(language);
+//        backendController.setCommandLanguage(language);
     }
 }

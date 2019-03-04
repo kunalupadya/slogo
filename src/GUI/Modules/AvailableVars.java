@@ -24,7 +24,7 @@ public class AvailableVars extends Module{
     private ObservableList<String> availableVarsCollection;
 
     public AvailableVars(int width, int height, WindowLayout myWindowLayout) {
-        super(width, height, myWindowLayout);
+        super(width, height, "Available Variables", myWindowLayout);
         availableVars = new ArrayList<>();
         //availableVars.add("Available Variables");
         //availableVars.add("Bye");

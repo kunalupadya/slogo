@@ -17,7 +17,7 @@ public class LanguageSetting {
 
     public LanguageSetting(String language){
         //myLanguage = language;
-        myLanguage = "English";
+        myLanguage = language;
         myResources = ResourceBundle.getBundle(myLanguage);
         translationMap = convertResourceBundleToMap(myResources);
         newMap = reverseKeyFromValue(translationMap);
@@ -77,7 +77,9 @@ public class LanguageSetting {
                 map.put(englishProperty.getString(key).split("\\|")[0], key);
                 map.put(englishProperty.getString(key).split("\\|")[1], key);
             }
-
+            else{
+                map.put(englishProperty.getString(key), key);
+            }
         }
         return map;
 

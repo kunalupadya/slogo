@@ -4,6 +4,7 @@ import GraphicsBackend.Turtle;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.RootCommand;
+import Parser.Commands.Turtle_Command.ListEndCommand;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -51,10 +52,13 @@ public class ParsingTree {
                 while (currToken!=Token.LIST_END){
                     savedCurrentCommand.addChildren(makeTree(commandsList,tokensList, savedCurrentCommand));
                     parent.addChildren(savedCurrentCommand);
-                    currCommand = commandsList.remove(FIRST);
-                    currToken = tokensList.remove(FIRST);
-                    savedCurrentCommand = currCommand;
-                    savedCurrentToken = currToken;
+                    if (currCommand.getClass() != ListEndCommand.class){
+                        //TODO Add error, list is missing the end brace "]"
+                    }
+//                    currCommand = commandsList.remove(FIRST);
+//                    currToken = tokensList.remove(FIRST);
+//                    savedCurrentCommand = currCommand;
+//                    savedCurrentToken = currToken;
                 }
             }
             else{

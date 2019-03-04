@@ -3,9 +3,9 @@ package Parser.Commands.Turtle_Command;
 
 import Main.BackendController;
 
-public class LessCommand extends BooleanCommand {
+public class LessThanCommand extends BooleanCommand {
 
-    public LessCommand(){
+    public LessThanCommand(){
         isConstant = false;
         numParameters = 2;
     }

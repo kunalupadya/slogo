@@ -24,7 +24,6 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * Class will contain the initial layout for the Window
@@ -207,7 +206,7 @@ public class WindowLayout {
     }
 
     public void changeLanguage(String language) {
-//        backendController.setCommandLanguage(language);
+        backendController.setCommandLanguage(language);
     }
 
     public void step() {

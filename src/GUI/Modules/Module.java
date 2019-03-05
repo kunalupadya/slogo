@@ -1,8 +1,9 @@
 package GUI.Modules;
 
+import GUI.Controls.Close;
+import GUI.Controls.Control;
 import GUI.WindowLayout;
 import Main.TextMaker;
-import GUI.Controls.*;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
@@ -18,9 +19,8 @@ import javafx.scene.text.Text;
  * @author Januario Carreiro & David Liu
  */
 public abstract class Module {
-    public final VBox vbox;
     public final ScrollPane content;
-
+    public final VBox vbox;
     public int moduleWidth;
     public int moduleHeight;
     public WindowLayout context;
@@ -62,7 +62,9 @@ public abstract class Module {
 
     protected abstract void setContent();
 
-    protected void setStyle(){}
+    protected void setStyle(){
+
+    }
 
     public VBox getContent() {
         return vbox;
@@ -71,4 +73,5 @@ public abstract class Module {
     public VBox getVBox() {return vbox;}
 
     public void close() {}
+
 }

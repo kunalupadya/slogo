@@ -25,10 +25,11 @@ import javafx.util.Duration;
  * @author Januario Carreiro
  */
 public class Controller extends Application {
+    private WindowLayout windowLayout;
     private static final int WINDOW_HEIGHT = 450;
     private static final int WINDOW_WIDTH = 800;
     private static final Paint BACKGROUND = Color.ANTIQUEWHITE;
-    private static final int FRAMES_PER_SECOND = 60;
+    private static final int FRAMES_PER_SECOND = 1;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private static final String WINDOW_TITLE = "Simple Logo";
@@ -58,7 +59,7 @@ public class Controller extends Application {
      */
     public void start (Stage stage) {
         var root = new BorderPane();
-        WindowLayout windowLayout = new WindowLayout(root, stage);
+        windowLayout = new WindowLayout(root, stage);
         BackendController backendController = new BackendController();
         windowLayout.setBackendController(backendController);
         backendController.setWindowLayout(windowLayout);
@@ -68,11 +69,11 @@ public class Controller extends Application {
         stage.setTitle(WINDOW_TITLE);
         stage.show();
 
-//        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
-//        var animation = new Timeline();
-//        animation.setCycleCount(Timeline.INDEFINITE);
-//        animation.getKeyFrames().add(frame);
-//        animation.play();
+        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+        var animation = new Timeline();
+        animation.setCycleCount(Timeline.INDEFINITE);
+        animation.getKeyFrames().add(frame);
+        animation.play();
 
         myScene.getStylesheets().add("ControlStyle.css");
 //
@@ -87,6 +88,6 @@ public class Controller extends Application {
     }
 
     private void step(double elapsedTime) {
-//        WindowLayout.step(elapsedTime);
+        windowLayout.step();
     }
 }

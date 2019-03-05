@@ -6,13 +6,18 @@ import GraphicsBackend.Turtle;
 import Main.BackendController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
@@ -35,7 +40,6 @@ public class GraphicsArea extends Module {
 
     public GraphicsArea(int width, int height, WindowLayout myWindowLayout) {
         super(width, height, "Turtle Display", myWindowLayout);
-        startAnimation(MILLISECOND_DELAY);
         setContent();
     }
 
@@ -52,20 +56,21 @@ public class GraphicsArea extends Module {
         content.setContent(container);
     }
 
-    private void startAnimation(double delay) {
-        var frame = new KeyFrame(Duration.millis(delay), e -> step());
-        animation = new Timeline();
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
-        animation.play();
-    }
-
-    public void setVariables(List<Line> lines, List<ImageView> turtleImages) {
+    public void setVariables(List<Line> lines, List<ImageView> turtleImages, List<Boolean> turtleActives) {
+        container.getChildren().clear();
         for (Line n:lines){
             container.getChildren().add(n);
         }
-        for (ImageView image : turtleImages) {
-            container.getChildren().add(image);
+        for (int i = 0; i < turtleImages.size(); i++) {
+            ImageView turtle = turtleImages.get(i);
+            Boolean turtleActive = turtleActives.get(i);
+            if (turtleActives.get(i)) {
+                //Fix this magic value?
+                turtle.getStyleClass().add("turtle-shadow");
+            }
+            container.getChildren().add(turtle);
+            System.out.println("hi");
+            setClick(turtle, i);
         }
     }
 
@@ -105,8 +110,16 @@ public class GraphicsArea extends Module {
         container.setStyle("-fx-background-color: #" + hexColor);
     }
 
-    private void step() {
-        //How do you update the grid?
-        //Is it through add movement or getallobjects or something different?
+    private void setClick(ImageView turtle, int turtleNumber) {
+        turtle.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            if (turtle.getStyleClass().size() > 1) {
+                turtle.getStyleClass().remove("turtle-shadow");
+            }
+            else {
+                turtle.getStyleClass().add("turtle-shadow");
+            }
+            context.switchTurtleActive(turtleNumber);
+            event.consume();
+        });
     }
 }

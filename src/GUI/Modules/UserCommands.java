@@ -35,7 +35,7 @@ public class UserCommands extends Module {
     @Override
     protected void setContent() {
         container = new VBox();
-        content.setContent(container);
+//        content.setContent(container);
         container.prefHeightProperty().bind(content.heightProperty());
         if (userCommands != null) {
             userCommandsCollection = FXCollections.<String>observableArrayList(userCommands);
@@ -46,6 +46,7 @@ public class UserCommands extends Module {
             userCommandsDisplay.setPlaceholder(new Label("User Commands"));
         }
         container.getChildren().add(userCommandsDisplay);
+        content.getChildren().add(container);
     }
 
     private void setClick() {

@@ -59,13 +59,13 @@ public class FrontendController {
      */
     public FrontendController(BorderPane root, Stage stage) {
         myStage = stage;
-        editor = new Editor(200, 200, this);
-        availableVars = new AvailableVars(200, 100, this);
-        userCommands = new UserCommands(200, 100, this);
+        editor = new Editor(150, 200, this);
+        availableVars = new AvailableVars(150, 100, this);
+        userCommands = new UserCommands(150, 100, this);
         console = new Console(600, 100, this);
         graphicsArea = new GraphicsArea(400, 400, this);
-        palettes = new Palettes(200, 200, this);
-        currentState = new CurrentState(200, 200, this);
+        palettes = new Palettes(150, 200, this);
+        currentState = new CurrentState(150, 200, this);
 
         var leftBorderPane = new BorderPane();
         leftBorderPane.setTop(palettes.getContent());
@@ -81,6 +81,8 @@ public class FrontendController {
         root.setLeft(leftBorderPane);
         root.setCenter(graphicsArea.getContent());
         root.setRight(rightBorderPane);
+
+        setBackgroundColor(Color.LIGHTBLUE);
 
         myContainer = root;
     }
@@ -124,14 +126,12 @@ public class FrontendController {
 
         var leftButtons = new HBox(openHelp.getHyperlink(), switchLanguages.getButton(),
                 setBackgroundColor, setPenColor, setTurtleImage.getButton(), save.getButton());
-        leftButtons.setPadding(new Insets(sizeOfPadding, sizeOfPadding, sizeOfPadding, sizeOfPadding));
-        leftButtons.setSpacing(5);
+        leftButtons.getStyleClass().add("button-container");
 
         var padding = new Region();
 
         var rightButtons = new HBox(undo.getButton(), redo.getButton(), stopExecution.getButton(), run.getButton());
-        rightButtons.setPadding(new Insets(sizeOfPadding, sizeOfPadding, sizeOfPadding, sizeOfPadding));
-        rightButtons.setSpacing(5);
+        rightButtons.getStyleClass().add("button-container");
 
         buttonHandler.setHgrow(padding, Priority.ALWAYS);
         buttonHandler.getChildren().addAll(leftButtons, padding, rightButtons);

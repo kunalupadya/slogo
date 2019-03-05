@@ -39,7 +39,7 @@ public class AvailableVars extends Module{
     @Override
     protected void setContent() {
         container = new VBox();
-        content.setContent(container);
+//        content.setContent(container);
         container.prefHeightProperty().bind(content.heightProperty());
         if (availableVars != null) {
             availableVarsCollection = FXCollections.<String>observableArrayList(availableVars);
@@ -51,6 +51,7 @@ public class AvailableVars extends Module{
         }
 //        availableVarsDisplay.setEditable(false);
         container.getChildren().add(availableVarsDisplay);
+        content.getChildren().add(container);
     }
 
     private void setClick() {

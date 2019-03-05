@@ -12,10 +12,10 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import GUI.WindowLayout;
+import GUI.FrontendController;
 
 public class SwitchLanguages {
-    private WindowLayout context;
+    private FrontendController context;
     private ResourceBundle myLanguageResources;
     private MenuButton button;
 
@@ -25,12 +25,12 @@ public class SwitchLanguages {
      * TODO: Add setOnAction() for each MenuItem
      * @param context
      */
-    public SwitchLanguages(WindowLayout context) {
+    public SwitchLanguages(FrontendController context) {
         this.myLanguageResources = ResourceBundle.getBundle("/LanguageSettings");
         this.context = context;
         this.button = new MenuButton();
 
-        ImageView img = new ImageView(new Image(WindowLayout.class.getResourceAsStream("/images/language.png")));
+        ImageView img = new ImageView(new Image(FrontendController.class.getResourceAsStream("/images/language.png")));
         img.setFitHeight(20.0);
         img.setFitWidth(20.0);
         button.setGraphic(img);

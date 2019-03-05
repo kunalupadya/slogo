@@ -1,6 +1,6 @@
 package GUI.Controls;
 
-import GUI.WindowLayout;
+import GUI.FrontendController;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,12 +12,12 @@ import java.net.URISyntaxException;
 
 
 public class OpenHelp {
-    private WindowLayout context;
+    private FrontendController context;
     private Hyperlink myHyperlink;
 
-    public OpenHelp(WindowLayout context) {
+    public OpenHelp(FrontendController context) {
         myHyperlink = new Hyperlink();
-        Image hyperlinkGraphic = new Image(WindowLayout.class.getResourceAsStream("/images/help.png"), 20, 20, true, true);
+        Image hyperlinkGraphic = new Image(FrontendController.class.getResourceAsStream("/images/help.png"), 20, 20, true, true);
         myHyperlink.setGraphic(new ImageView(hyperlinkGraphic));
         myHyperlink.getStyleClass().add("button");
         myHyperlink.setOnAction(e -> action());

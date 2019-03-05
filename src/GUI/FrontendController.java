@@ -30,7 +30,7 @@ import java.util.List;
  *
  * @author Januario Carreiro & David Liu
  */
-public class WindowLayout {
+public class FrontendController {
     private Stage myStage;
     private BorderPane myContainer;
     private Editor editor;
@@ -52,7 +52,7 @@ public class WindowLayout {
      *
      * @param root
      */
-    public WindowLayout(BorderPane root, Stage stage) {
+    public FrontendController(BorderPane root, Stage stage) {
         myStage = stage;
         editor = new Editor(200, 200, this);
         availableVars = new AvailableVars(200, 100, this);

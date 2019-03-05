@@ -71,6 +71,11 @@
     -fx-graphic-text-gap: 0px;
 }
 
+#buttonHandler{
+    -fx-background-color: rgb(210,210,210);
+    -fx-border-color: rgb(186, 186, 186);
+}
+
 #module{
     -fx-border-color:#D4DEE9;
 }

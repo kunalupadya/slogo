@@ -33,17 +33,19 @@ import java.util.Optional;
  *
  * @author Januario Carreiro & David Liu
  */
-public class WindowLayout {
+public class FrontendController {
     private Stage myStage;
     private BorderPane myContainer;
     private Editor editor;
     private AvailableVars availableVars;
     private UserCommands userCommands;
     private GraphicsArea graphicsArea;
+    private Palettes palettes;
+    private CurrentState currentState;
     private Console console;
     private OpenHelp openHelp;
     private SwitchLanguages switchLanguages;
-    private Control redo, run, undo, stopExecution, setTurtleImage;;
+    private Control redo, run, undo, stopExecution, setTurtleImage, save;
     private ColorPicker setBackgroundColor, setPenColor;
     private final double sizeOfPadding = 5.0;
     private BackendController backendController;
@@ -55,22 +57,28 @@ public class WindowLayout {
      *
      * @param root
      */
-    public WindowLayout(BorderPane root, Stage stage) {
+    public FrontendController(BorderPane root, Stage stage) {
         myStage = stage;
         editor = new Editor(200, 200, this);
         availableVars = new AvailableVars(200, 100, this);
         userCommands = new UserCommands(200, 100, this);
         console = new Console(600, 100, this);
         graphicsArea = new GraphicsArea(400, 400, this);
+        palettes = new Palettes(200, 200, this);
+        currentState = new CurrentState(200, 200, this);
+
+        var leftBorderPane = new BorderPane();
+        leftBorderPane.setTop(palettes.getContent());
+        leftBorderPane.setCenter(currentState.getContent());
 
         var rightBorderPane = new BorderPane();
-
         rightBorderPane.setTop(availableVars.getContent());
         rightBorderPane.setCenter(editor.getVBox());
         rightBorderPane.setBottom(userCommands.getContent());
 
         root.setTop(returnButtons());
         root.setBottom(console.getContent());
+        root.setLeft(leftBorderPane);
         root.setCenter(graphicsArea.getContent());
         root.setRight(rightBorderPane);
 
@@ -80,7 +88,7 @@ public class WindowLayout {
     private HBox returnButtons() {
         var buttonHandler = new HBox();
 
-        buttonHandler.setStyle("-fx-background-color: #808080");
+        buttonHandler.setId("buttonHandler");
         buttonHandler.setMinWidth(600);
         buttonHandler.setMinHeight(30);
 
@@ -99,6 +107,9 @@ public class WindowLayout {
         switchLanguages = new SwitchLanguages(this);
         switchLanguages.getButton().setTooltip(new Tooltip("Switch Languages"));
 
+        save = new Save(this);
+        save.getButton().setTooltip(new Tooltip("Save"));
+
         undo = new Undo(this);
         undo.getButton().setTooltip(new Tooltip("Undo"));
 
@@ -112,7 +123,7 @@ public class WindowLayout {
         run.getButton().setTooltip(new Tooltip("Run"));
 
         var leftButtons = new HBox(openHelp.getHyperlink(), switchLanguages.getButton(),
-                setBackgroundColor, setPenColor, setTurtleImage.getButton());
+                setBackgroundColor, setPenColor, setTurtleImage.getButton(), save.getButton());
         leftButtons.setPadding(new Insets(sizeOfPadding, sizeOfPadding, sizeOfPadding, sizeOfPadding));
         leftButtons.setSpacing(5);
 
@@ -228,7 +239,7 @@ public class WindowLayout {
             penSize.add(pen.getPenSize());
             counter++;
         }
-        //Insert current state here
+        currentState.getTurtleAndPens(ids, xPositions, yPositions, penColors, penUp, penSize);
     }
 
     public void changeLanguage(String language) {
@@ -239,4 +250,6 @@ public class WindowLayout {
         setGraphicsArea();
         setCurrentState();
     }
+
+    public void save() {}
 }

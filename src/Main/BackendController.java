@@ -1,7 +1,7 @@
 package Main;
 
 
-import GUI.WindowLayout;
+import GUI.FrontendController;
 import GraphicsBackend.Grid;
 import GraphicsBackend.Turtle;
 import Parser.ParseCommand;
@@ -15,7 +15,7 @@ public class BackendController {
     String commmandLanguage;
     Grid myGrid;
     List<Turtle> myTurtles = new ArrayList<>();
-    WindowLayout windowLayout;
+    FrontendController frontendController;
 
     public BackendController(){
 
@@ -47,11 +47,11 @@ public class BackendController {
 
     public void showMessage(String string){
         System.out.println(string);
-        windowLayout.consoleShowError(string);
+        frontendController.consoleShowError(string);
     }
 
-    public void setWindowLayout(WindowLayout windowLayout) {
-        this.windowLayout = windowLayout;
+    public void setFrontendController(FrontendController frontendController) {
+        this.frontendController = frontendController;
     }
 
     public void parseAndRun(String userInput){

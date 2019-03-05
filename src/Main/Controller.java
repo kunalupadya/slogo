@@ -1,6 +1,6 @@
 package Main;
 
-import GUI.WindowLayout;
+import GUI.FrontendController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -25,7 +25,7 @@ import javafx.util.Duration;
  * @author Januario Carreiro
  */
 public class Controller extends Application {
-    private WindowLayout windowLayout;
+    private FrontendController frontendController;
     private static final int WINDOW_HEIGHT = 450;
     private static final int WINDOW_WIDTH = 800;
     private static final Paint BACKGROUND = Color.ANTIQUEWHITE;
@@ -59,10 +59,10 @@ public class Controller extends Application {
      */
     public void start (Stage stage) {
         var root = new BorderPane();
-        windowLayout = new WindowLayout(root, stage);
+        frontendController = new FrontendController(root, stage);
         BackendController backendController = new BackendController();
-        windowLayout.setBackendController(backendController);
-        backendController.setWindowLayout(windowLayout);
+        frontendController.setBackendController(backendController);
+        backendController.setFrontendController(frontendController);
 
         myScene = new Scene(root);
         stage.setScene(myScene);
@@ -88,6 +88,6 @@ public class Controller extends Application {
     }
 
     private void step(double elapsedTime) {
-        windowLayout.step();
+        frontendController.step();
     }
 }

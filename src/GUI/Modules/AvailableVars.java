@@ -1,13 +1,12 @@
 package GUI.Modules;
 
-import GUI.WindowLayout;
+import GUI.FrontendController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
@@ -24,8 +23,8 @@ public class AvailableVars extends Module{
     private ListView<String> availableVarsDisplay;
     private ObservableList<String> availableVarsCollection;
 
-    public AvailableVars(int width, int height, WindowLayout myWindowLayout) {
-        super(width, height, "Available Variables", myWindowLayout);
+    public AvailableVars(int width, int height, FrontendController myFrontendController) {
+        super(width, height, "Available Variables", myFrontendController);
         availableVars = new ArrayList<>();
         //availableVars.add("Available Variables");
         availableVars.add("Bye");

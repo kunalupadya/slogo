@@ -2,7 +2,7 @@ package GUI.Modules;
 
 import GUI.Controls.Close;
 import GUI.Controls.Control;
-import GUI.WindowLayout;
+import GUI.FrontendController;
 import Main.TextMaker;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
@@ -23,9 +23,9 @@ public abstract class Module {
     public final VBox vbox;
     public int moduleWidth;
     public int moduleHeight;
-    public WindowLayout context;
+    public FrontendController context;
 
-    public Module(int width, int height, String moduleName, WindowLayout context) {
+    public Module(int width, int height, String moduleName, FrontendController context) {
         moduleWidth = width;
         moduleHeight = height;
         this.vbox = new VBox();

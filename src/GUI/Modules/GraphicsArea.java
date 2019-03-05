@@ -1,28 +1,15 @@
 package GUI.Modules;
 
-import GUI.WindowLayout;
+import GUI.FrontendController;
 import GraphicsBackend.Grid;
-import GraphicsBackend.Turtle;
-import Main.BackendController;
-import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 
 import java.util.List;
 
@@ -39,8 +26,8 @@ public class GraphicsArea extends Module {
     private double MILLISECOND_DELAY = MILLISECOND_IN_A_SECOND / FRAMES_PER_SECOND;
     private Timeline animation;
 
-    public GraphicsArea(int width, int height, WindowLayout myWindowLayout) {
-        super(width, height, "Turtle Display", myWindowLayout);
+    public GraphicsArea(int width, int height, FrontendController myFrontendController) {
+        super(width, height, "Turtle Display", myFrontendController);
         setContent();
     }
 

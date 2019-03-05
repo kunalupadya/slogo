@@ -3,6 +3,7 @@ package GUI;
 import GUI.Controls.*;
 import GUI.Modules.*;
 import GraphicsBackend.Grid;
+import GraphicsBackend.Pen;
 import GraphicsBackend.Turtle;
 import Main.BackendController;
 import javafx.geometry.Insets;
@@ -16,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
@@ -24,6 +26,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Class will contain the initial layout for the Window
@@ -205,11 +208,35 @@ public class WindowLayout {
         userCommands.setUserCommands(userCommandsList);
     }
 
+    public void setCurrentState() {
+        turtles = backendController.getMyTurtles();
+        int counter = 0;
+        List<Integer> ids = new ArrayList<>();
+        List<Double> xPositions = new ArrayList<>();
+        List<Double> yPositions = new ArrayList<>();
+        List<Optional<Color>> penColors = new ArrayList<>();
+        List<Boolean> penUp = new ArrayList<>();
+        //Or Is It Pen Width???
+        List<Integer> penSize = new ArrayList<>();
+        for (Turtle turtle: turtles) {
+            Pen pen = turtle.getMyPen();
+            ids.add(counter);
+            xPositions.add(turtle.getxPos());
+            yPositions.add(turtle.getyPos());
+            penColors.add(pen.getPenColor());
+            penUp.add(pen.getPenUp());
+            penSize.add(pen.getPenSize());
+            counter++;
+        }
+        //Insert current state here
+    }
+
     public void changeLanguage(String language) {
         backendController.setCommandLanguage(language);
     }
 
     public void step() {
         setGraphicsArea();
+        setCurrentState();
     }
 }

@@ -107,6 +107,7 @@ public class GraphicsArea extends Module {
         });
     }
 
+    //Broken as of right now
     private void handleKeyInput(KeyCode code) {
         if (code == KeyCode.W) {
             context.sendCommandString("fd 10");

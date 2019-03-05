@@ -29,7 +29,6 @@ public class CurrentState extends Module {
     @Override
     protected void setContent() {
         container = new VBox();
-        content.setContent(container);
         container.prefHeightProperty().bind(content.heightProperty());
         if (turtleAndPens != null) {
             turtleAndPensCollection = FXCollections.<String>observableArrayList(turtleAndPens);
@@ -40,6 +39,7 @@ public class CurrentState extends Module {
             turtleAndPensDisplay.setPlaceholder(new Label("Turtles and Pens"));
         }
         container.getChildren().add(turtleAndPensDisplay);
+        content.getChildren().add(container);
     }
 
     public void getTurtleAndPens(List<Integer> ids, List<Double> xPositions, List<Double> yPositions,
@@ -47,8 +47,16 @@ public class CurrentState extends Module {
         turtleAndPens.clear();
         turtleAndPensCollection.clear();
         for (int i = 0; i < ids.size(); i++) {
-            String turtlePen = ids.get(i).toString() + xPositions.get(i).toString() + yPositions.get(i).toString() +
-                    penColors.get(i).toString() + penUp.get(i).toString() + penSize.get(i).toString();
+            String penDirection;
+            if (penUp.get(i)) {
+                penDirection = "Up";
+            }
+            else {
+                penDirection = "Down";
+            }
+            String turtlePen = "Turtle: " + ids.get(i).toString() + " " + xPositions.get(i).toString() + " "
+                    + yPositions.get(i).toString() + " Pen: " + penColors.get(i).toString() + " " +
+                    penDirection + " " + penSize.get(i).toString();
             turtleAndPens.add(turtlePen);
             turtleAndPensCollection.add(turtlePen);
         }

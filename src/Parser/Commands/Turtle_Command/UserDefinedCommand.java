@@ -16,6 +16,8 @@ public class UserDefinedCommand extends Command {
         this.name = name;
         this.variables = variables;
         this.headNode = headNode;
+        isConstant = false;
+        numParameters = variables.size();
     }
 
     public List<Variable> getVariables() {
@@ -24,6 +26,19 @@ public class UserDefinedCommand extends Command {
 
     public ListStartCommand getHeadNode() {
         return headNode;
+    }
+
+//    public UserDefinedCommand createCopy(){
+//        List<Variable> newVariables;
+//        ListStartCommand newHeadNode;
+//
+//        traverse()
+//
+//        new UserDefinedCommand()
+//    }
+
+    private void traverse(Command command, Command newHeadNode){
+
     }
 
     @Override

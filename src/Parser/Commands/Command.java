@@ -23,6 +23,10 @@ public abstract class Command{
         return currentNumParameters;
     }
 
+    public void setCurrentNumParameters(int currentNumParameters) {
+
+    }
+
     public boolean getIsConstant(){
         return isConstant;
     }
@@ -49,6 +53,8 @@ public abstract class Command{
     }
 
     protected abstract void performAction(BackendController backendController);
+
+    public abstract Command copy();
 
     public void addChildren(Command command) {
         myChildrenList.add(command);

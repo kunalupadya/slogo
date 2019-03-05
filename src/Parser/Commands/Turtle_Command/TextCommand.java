@@ -13,7 +13,6 @@ public class TextCommand extends Command {
         isConstant = false;
         numParameters = (int) Double.POSITIVE_INFINITY;
         this.text = text;
-
     }
 
     @Override
@@ -26,7 +25,7 @@ public class TextCommand extends Command {
             numParameters = command.getVariables().size();
 
             for (Command child: myChildrenList){
-
+                
             }
 
             command.getChildren().get(COMMANDS);

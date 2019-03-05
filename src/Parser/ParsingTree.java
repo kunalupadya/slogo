@@ -5,14 +5,10 @@ import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.RootCommand;
-import Parser.Commands.Turtle_Command.ListEndCommand;
-import Parser.Commands.Turtle_Command.MakeUserInstructionCommand;
+import Parser.Commands.Turtle_Command.*;
 import Parser.Commands.Variable;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class ParsingTree {
 
@@ -54,16 +50,33 @@ public class ParsingTree {
                 savedCurrentCommand.execute(backendController);
                 parent.addChildren(savedCurrentCommand);
             }
+            else if(savedCurrentCommand.getClass() == TextCommand.class){
+                String text = savedCurrentCommand.getText();
+                Optional<UserDefinedCommand> userDefinedCommand =  backendController.getUserDefinedCommand(text);
+                if (userDefinedCommand.isPresent()){
+                    UserDefinedCommand command = userDefinedCommand.get();
+                    // TODO COPY THE TREE AND ADD IT HERE
+//                    int numParameters = command.getNumParameters();
+//                    for (Command child: myChildrenList){
+//
+//                    }
+//
+//                    command.getChildren().get(COMMANDS);
+                }
+                else {
+                    // throw new TODO create exception, command not defined
+                }
+            }
             else if (savedCurrentCommand.getClass() == ConstantCommand.class){
                 parent.addChildren(savedCurrentCommand);
             }
             else if (savedCurrentCommand.getClass() == Variable.class){
                 parent.addChildren(savedCurrentCommand);
             }
-            else if (currToken == Token.LIST_END){
+            else if (savedCurrentCommand.getClass() == ListEndCommand.class){
                 return savedCurrentCommand;
             }
-            else if (currToken == Token.LIST_START){
+            else if (savedCurrentCommand.getClass() == ListStartCommand.class){
                 savedCurrentCommand.addChildren(makeTree(commandsList,tokensList, savedCurrentCommand));
                 parent.addChildren(savedCurrentCommand);
                 if (currCommand.getClass() != ListEndCommand.class){

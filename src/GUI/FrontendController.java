@@ -239,6 +239,7 @@ public class FrontendController {
             penSize.add(pen.getPenSize());
             counter++;
         }
+        counter = 0;
         currentState.getTurtleAndPens(ids, xPositions, yPositions, penColors, penUp, penSize);
     }
 

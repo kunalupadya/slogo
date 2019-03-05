@@ -45,9 +45,6 @@ public class LanguageSetting {
             if (translationMap.containsKey(listOfWords[i])) {
                 newList[i] = translationMap.get(listOfWords[i]);
             }
-//            if(isNumeric(listOfWords[i])){
-//                newList[i] = listOfWords[i];
-//            }
             else{
                 newList[i] = listOfWords[i];
             }
@@ -55,14 +52,6 @@ public class LanguageSetting {
         return newList;
     }
 
-    public boolean isNumeric(String strNum) {
-        try {
-            double d = Double.parseDouble(strNum);
-        } catch (NumberFormatException | NullPointerException nfe) {
-            return false;
-        }
-        return true;
-    }
 
     public Map<String, String> makeReflectionMap() {
         ResourceBundle englishProperty = ResourceBundle.getBundle("English");

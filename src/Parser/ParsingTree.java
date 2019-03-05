@@ -19,7 +19,7 @@ public class ParsingTree {
     public static final int FIRST = 0;
     private List<Command> children;
     private String value;
-//    private HandleError handleError;
+
     Command headNode;
     Command currCommand;
     Token currToken;

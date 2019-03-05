@@ -12,6 +12,9 @@ import java.util.Map;
 
 public class MakeUserInstructionCommand extends Command {
 
+    public static final int NAME_NODE = 0;
+    public static final int VARIABLES_LIST_NODE = 1;
+    public static final int COMMANDS_LIST_NODE = 2;
     private List< Variable> variables = new ArrayList<>();
 
     public MakeUserInstructionCommand(){
@@ -21,17 +24,28 @@ public class MakeUserInstructionCommand extends Command {
 
     @Override
     protected void performAction(BackendController backendController) {
-        String name = myChildrenList.get(0).getText();
-        for (Command variable: myChildrenList.get(1).getChildren()) {
+        returnValue = 0;
+        String name = myChildrenList.get(NAME_NODE).getText();
+        for (Command variable: myChildrenList.get(VARIABLES_LIST_NODE).getChildren()) {
             if (variable.getClass() == Variable.class) {
                 variables.add((Variable) variable);
             }
+            else if (variable.getClass() == ListEndCommand.class){
+
+            }
             else{
-                returnValue = 0;
                 // TODO throw new exception, not a variable parameter
             }
         }
-        backendController.addNewUserDefinedCommand(name, this);
+        
+        if (myChildrenList.get(VARIABLES_LIST_NODE).getClass() != ListStartCommand.class | myChildrenList.get(COMMANDS_LIST_NODE).getClass() != ListStartCommand.class){
+            //throw new exception
+            //TODO throw exception if either of the two arent lists
+        }
+        
+        UserDefinedCommand newUserDefinedCommand = new UserDefinedCommand(name, variables, (ListStartCommand) myChildrenList.get(COMMANDS_LIST_NODE));
+        
+        backendController.addNewUserDefinedCommand(name, newUserDefinedCommand);
         returnValue = 1;
     }
 

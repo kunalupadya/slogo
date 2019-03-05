@@ -19,7 +19,6 @@ public class ParsingTree {
     public static final int FIRST = 0;
     private List<Command> children;
     private String value;
-//    private HandleError handleError;
     Command headNode;
     Command currCommand;
     Token currToken;
@@ -32,8 +31,8 @@ public class ParsingTree {
         headNode = new RootCommand();
         commands = commandsList;
         tokens = tokensList;
-        headNode = makeTree(commandsList, tokensList, headNode);
         this.backendController = backendController;
+        headNode = makeTree(commandsList, tokensList, headNode);
     }
 
     public Command getRoot(){
@@ -53,6 +52,7 @@ public class ParsingTree {
                 savedCurrentCommand.addChildren(currCommand);
                 savedCurrentCommand.addChildren(makeTree(commandsList,tokensList,savedCurrentCommand));
                 savedCurrentCommand.execute(backendController);
+                parent.addChildren(savedCurrentCommand);
             }
             else if (savedCurrentCommand.getClass() == ConstantCommand.class){
                 parent.addChildren(savedCurrentCommand);
@@ -64,17 +64,11 @@ public class ParsingTree {
                 return savedCurrentCommand;
             }
             else if (currToken == Token.LIST_START){
-//                while (currToken!=Token.LIST_END){
-                    savedCurrentCommand.addChildren(makeTree(commandsList,tokensList, savedCurrentCommand));
-                    parent.addChildren(savedCurrentCommand);
-                    if (currCommand.getClass() != ListEndCommand.class){
-                        //TODO Add error, list is missing the end brace "]"
-                    }
-//                    currCommand = commandsList.remove(FIRST);
-//                    currToken = tokensList.remove(FIRST);
-//                    savedCurrentCommand = currCommand;
-//                    savedCurrentToken = currToken;
-//                }
+                savedCurrentCommand.addChildren(makeTree(commandsList,tokensList, savedCurrentCommand));
+                parent.addChildren(savedCurrentCommand);
+                if (currCommand.getClass() != ListEndCommand.class){
+                    //TODO Add error, list is missing the end brace "]"
+                }
             }
             else{
                 parent.addChildren(makeTree(commandsList,tokensList, savedCurrentCommand));

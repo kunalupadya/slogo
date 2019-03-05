@@ -6,6 +6,7 @@ import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.Turtle_Command.ListEndCommand;
 import Parser.Commands.Turtle_Command.ListStartCommand;
+import Parser.Commands.Turtle_Command.TextCommand;
 import Parser.Commands.Variable;
 
 import java.util.*;
@@ -98,7 +99,12 @@ public class ParseCommand {
                     newCommand = new Variable(word.substring(1));
                 }
                 else{
-                    newCommand = new ConstantCommand(Double.parseDouble(word));
+                    try{
+                        newCommand = new ConstantCommand(Double.parseDouble(word));
+                    }
+                    catch (NumberFormatException n){
+                        newCommand = new TextCommand(word);
+                    }
                 }
                 commandArrayList.add(newCommand);
                 //TODO add userdefined command here

@@ -18,10 +18,10 @@ public class TextCommand extends Command {
 
     @Override
     protected void performAction(BackendController backendController) {
-        Optional<MakeUserInstructionCommand> userDefinedCommand =  backendController.getUserDefinedCommand(text);
+        Optional<UserDefinedCommand> userDefinedCommand =  backendController.getUserDefinedCommand(text);
         if (userDefinedCommand.isPresent()){
 
-            MakeUserInstructionCommand command = userDefinedCommand.get();
+            UserDefinedCommand command = userDefinedCommand.get();
 
             numParameters = command.getVariables().size();
 

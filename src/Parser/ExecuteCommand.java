@@ -5,9 +5,7 @@ import GraphicsBackend.Turtle;
 import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.RootCommand;
-import Parser.Commands.Turtle_Command.ListEndCommand;
-import Parser.Commands.Turtle_Command.ListStartCommand;
-import Parser.Commands.Turtle_Command.MakeVariableCommand;
+import Parser.Commands.Turtle_Command.*;
 import javafx.scene.control.Alert;
 
 import java.util.List;
@@ -42,6 +40,9 @@ public class ExecuteCommand {
     }
 
     public void traverse(Command node){
+        if (node.getClass() == TextCommand.class){
+
+        }
         if (node.getChildren().isEmpty()){
             if (node.getIsConstant()){
                 return;
@@ -52,6 +53,10 @@ public class ExecuteCommand {
             else{
                 throw new SyntaxError(PARAMETERS_MISSING);
             }
+            return;
+        }
+        if (node.getClass() == MakeUserInstructionCommand.class){
+            //this is the only class that is executed as it is parsed, so it does not need to be reparsed
             return;
         }
         if (node.getClass() == MakeVariableCommand.class){

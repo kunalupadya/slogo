@@ -54,7 +54,6 @@ public class GraphicsArea extends Module {
                 turtle.getStyleClass().add("turtle-shadow");
             }
             content.getChildren().add(turtle);
-            System.out.println("hi");
             setClick(turtle, i);
         }
     }
@@ -113,13 +112,13 @@ public class GraphicsArea extends Module {
             context.sendCommandString("fd 10");
         }
         else if (code == KeyCode.A) {
-            //context.sendCommandString("")
+            context.sendCommandString("lt 30");
         }
         else if (code == KeyCode.S) {
-            //context.sendCommandString("")
+            //context.sendCommandString("bk 10");
         }
         else if (code == KeyCode.D) {
-            //context.sendCommandString("")
+            context.sendCommandString("rt 30");
         }
     }
 }

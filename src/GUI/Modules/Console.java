@@ -35,7 +35,7 @@ public class Console extends Module  {
         container.setPrefHeight(moduleHeight);
         System.out.println(container.getHeight());
         container.prefWidthProperty().bind(content.widthProperty());
-        content.setContent(container);
+        content.getChildren().add(container);
         commandHistory = new ArrayList<>();
         commandPosition = -1;
         consoleInfo = new TextArea();

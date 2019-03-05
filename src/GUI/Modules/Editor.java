@@ -37,7 +37,7 @@ public class Editor extends Module {
     @Override
     protected void setContent() {
         container = new VBox();
-        content.setContent(container);
+//        content.setContent(container);
         container.prefHeightProperty().bind(content.heightProperty());
         editor = new TextArea();
         editor.setWrapText(true);
@@ -46,6 +46,7 @@ public class Editor extends Module {
         editor.setPrefWidth(moduleWidth);
         editor.setPromptText("Editor");
         container.getChildren().add(editor);
+        content.getChildren().add(container);
     }
 
     public void run() {

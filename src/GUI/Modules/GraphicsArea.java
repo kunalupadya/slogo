@@ -19,7 +19,6 @@ import java.util.List;
  */
 
 public class GraphicsArea extends Module {
-    private Pane container;
     private Grid grid;
     private double FRAMES_PER_SECOND = 0.5;
     private double MILLISECOND_IN_A_SECOND = 1000;
@@ -37,18 +36,15 @@ public class GraphicsArea extends Module {
 
     @Override
     protected void setContent() {
-        container = new Pane();
-        container.setMinWidth(moduleWidth + 50);
-        container.setMinHeight(moduleHeight + 50);
-        content.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+//        content.setMinWidth(moduleWidth);
+//        content.setMinHeight(moduleHeight);
         content.setOnKeyReleased(event -> handleKeyInput(event.getCode()));
-        content.setContent(container);
     }
 
     public void setVariables(List<Line> lines, List<ImageView> turtleImages, List<Boolean> turtleActives) {
-        container.getChildren().clear();
+        content.getChildren().clear();
         for (Line n:lines){
-            container.getChildren().add(n);
+            content.getChildren().add(n);
         }
         for (int i = 0; i < turtleImages.size(); i++) {
             ImageView turtle = turtleImages.get(i);
@@ -57,7 +53,7 @@ public class GraphicsArea extends Module {
                 //Fix this magic value?
                 turtle.getStyleClass().add("turtle-shadow");
             }
-            container.getChildren().add(turtle);
+            content.getChildren().add(turtle);
             System.out.println("hi");
             setClick(turtle, i);
         }
@@ -96,7 +92,7 @@ public class GraphicsArea extends Module {
 
     public void setColor(Paint color) {
         String hexColor = colorToHex(color);
-        container.setStyle("-fx-background-color: #" + hexColor);
+        content.setStyle("-fx-background-color: #" + hexColor);
     }
 
     private void setClick(ImageView turtle, int turtleNumber) {

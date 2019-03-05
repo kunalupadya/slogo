@@ -6,10 +6,7 @@ import GUI.FrontendController;
 import Main.TextMaker;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -19,45 +16,45 @@ import javafx.scene.text.Text;
  * @author Januario Carreiro & David Liu
  */
 public abstract class Module {
-    public final ScrollPane content;
+    public final Pane content;
     public final VBox vbox;
+    private Pane toolbarPane;
     public int moduleWidth;
     public int moduleHeight;
     public FrontendController context;
+    private double heightProperty;
+    private double weightProperty;
+
+    private final double toolbarHeight = 20.0;
 
     public Module(int width, int height, String moduleName, FrontendController context) {
         moduleWidth = width;
         moduleHeight = height;
-        this.vbox = new VBox();
-        vbox.setId("module");
-        this.content = new ScrollPane();
-        content.setMinSize(width, height);
         this.context = context;
-        setLayout();
-        addToolbar(moduleName);
+        this.vbox = new VBox();
+        vbox.setPrefSize(width, height);
+        vbox.setId("module");
+        addToolbar(moduleName, 15, width);
+        this.content = new Pane();
+        content.prefHeightProperty().bind(vbox.heightProperty());
+        content.prefWidthProperty().bind(vbox.widthProperty());
+        vbox.getChildren().addAll(toolbarPane, content);
     }
 
-    private void setLayout() {
-        content.setPrefViewportWidth(moduleWidth);
-        content.setPrefViewportHeight(moduleHeight);
-        content.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        content.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-    }
+    protected void addToolbar(String moduleName, double height, double width) {
+        this.toolbarPane = new Pane();
+        toolbarPane.setPrefWidth(width);
+        toolbarPane.setMinHeight(height);
+        toolbarPane.setId("toolbar");
 
-    protected void addToolbar(String moduleName) {
-        HBox hbox = new HBox();
-        hbox.setPadding(new Insets(5, 5, 5, 5));
-        hbox.setId("toolbar");
-
-        Text title = TextMaker.makeText(moduleName, new Font("Courier", 12), 0, 0);
-
-        var padding = new Region();
+        Text title = TextMaker.makeText(moduleName, new Font("Courier", 12));
 
         Control close = new Close(this);
+        close.getButton().setLayoutX(150);
+        System.out.print("toolbarpane width:");
+        System.out.println(toolbarPane.getWidth());
 
-        hbox.setHgrow(padding, Priority.ALWAYS);
-        hbox.getChildren().addAll(title, padding, close.getButton());
-        vbox.getChildren().addAll(hbox, content);
+        toolbarPane.getChildren().addAll(title, close.getButton());
     }
 
     protected abstract void setContent();

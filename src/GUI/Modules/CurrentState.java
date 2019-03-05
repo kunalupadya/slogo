@@ -29,7 +29,6 @@ public class CurrentState extends Module {
     @Override
     protected void setContent() {
         container = new VBox();
-        content.setContent(container);
         container.prefHeightProperty().bind(content.heightProperty());
         if (turtleAndPens != null) {
             turtleAndPensCollection = FXCollections.<String>observableArrayList(turtleAndPens);
@@ -40,6 +39,7 @@ public class CurrentState extends Module {
             turtleAndPensDisplay.setPlaceholder(new Label("Turtles and Pens"));
         }
         container.getChildren().add(turtleAndPensDisplay);
+        content.getChildren().add(container);
     }
 
     public void getTurtleAndPens(List<Integer> ids, List<Double> xPositions, List<Double> yPositions,

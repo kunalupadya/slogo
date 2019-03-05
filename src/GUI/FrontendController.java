@@ -47,7 +47,6 @@ public class FrontendController {
     private SwitchLanguages switchLanguages;
     private Control redo, run, undo, stopExecution, setTurtleImage, save;
     private ColorPicker setBackgroundColor, setPenColor;
-    private final double sizeOfPadding = 5.0;
     private BackendController backendController;
     private String defaultLanguage = "English";
     private List<Turtle> turtles;
@@ -58,14 +57,14 @@ public class FrontendController {
      * @param root
      */
     public FrontendController(BorderPane root, Stage stage) {
-        myStage = stage;
-        editor = new Editor(150, 200, this);
-        availableVars = new AvailableVars(150, 100, this);
-        userCommands = new UserCommands(150, 100, this);
-        console = new Console(600, 100, this);
-        graphicsArea = new GraphicsArea(400, 400, this);
-        palettes = new Palettes(150, 200, this);
-        currentState = new CurrentState(150, 200, this);
+        this.myStage = stage;
+        this.editor = new Editor(200, 200, this);
+        this.availableVars = new AvailableVars(200, 100, this);
+        this.userCommands = new UserCommands(200, 100, this);
+        this.console = new Console(600, 100, this);
+        this.graphicsArea = new GraphicsArea(400, 400, this);
+        this.palettes = new Palettes(200, 200, this);
+        this.currentState = new CurrentState(200, 200, this);
 
         var leftBorderPane = new BorderPane();
         leftBorderPane.setTop(palettes.getContent());
@@ -84,7 +83,9 @@ public class FrontendController {
 
         setBackgroundColor(Color.LIGHTBLUE);
 
-        myContainer = root;
+        this.myContainer = root;
+
+        System.out.println(editor.getContent().getPrefWidth());
     }
 
     private HBox returnButtons() {

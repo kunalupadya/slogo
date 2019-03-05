@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -53,6 +54,7 @@ public class GraphicsArea extends Module {
         container.setMinWidth(moduleWidth + 50);
         container.setMinHeight(moduleHeight + 50);
         content.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        content.setOnKeyReleased(event -> handleKeyInput(event.getCode()));
         content.setContent(container);
     }
 
@@ -121,5 +123,20 @@ public class GraphicsArea extends Module {
             context.switchTurtleActive(turtleNumber);
             event.consume();
         });
+    }
+
+    private void handleKeyInput(KeyCode code) {
+        if (code == KeyCode.W) {
+            context.sendCommandString("fd 10");
+        }
+        else if (code == KeyCode.A) {
+            //context.sendCommandString("")
+        }
+        else if (code == KeyCode.S) {
+            //context.sendCommandString("")
+        }
+        else if (code == KeyCode.D) {
+            //context.sendCommandString("")
+        }
     }
 }

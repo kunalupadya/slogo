@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 
 
 public class Turtle {
-    public static final String DEFAULT_IMAGE = "initialTurtle.png";
+    public static final String DEFAULT_IMAGE = "/images/initialTurtle.png";
     public static final int TURTLE_SIZE = 50;
     public static final int HALF_TURTLE_SIZE = 25;
     public static final double HALF = 2.0;

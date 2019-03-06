@@ -44,8 +44,6 @@ public class Pen {
 
     public int getPenSize(){ return penSize;}
 
-
-    //TODO: parameter as an integer -> accept integer and change that to color.s
     public void setPenColor(Color color) {
         this.penColor = color;
     }
@@ -55,5 +53,6 @@ public class Pen {
     }
 
     //TODO: I made this but need to implement a way that pensize will affect the line width - Louis
-    public void setPenSize(int pixelSize){ this.penSize = pixelSize;}
+    public void setPenSize(int pixelSize){ this.penSize = pixelSize;
+    System.out.println(penSize);}
 }

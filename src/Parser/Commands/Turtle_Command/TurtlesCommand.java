@@ -19,7 +19,6 @@ public class TurtlesCommand extends TurtleCommand {
 
     @Override
     protected void turtleAction(Turtle turtle) {
-
     }
 
     @Override

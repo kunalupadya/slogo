@@ -85,7 +85,7 @@ public class FrontendController {
 
         setBackgroundColor(Color.LIGHTBLUE);
 
-        myContainer.setOnKeyReleased(event -> handleKeyInput(event.getCode()));
+//        myContainer.setOnKeyReleased(event -> handleKeyInput(event.getCode()));
     }
 
     private HBox returnButtons() {
@@ -252,7 +252,7 @@ public class FrontendController {
         setCurrentState();
     }
 
-    private void handleKeyInput(KeyCode code) {
+    public void handleKeyInput(KeyCode code) {
         if (code == KeyCode.W) {
             sendCommandString("fd 10");
         }

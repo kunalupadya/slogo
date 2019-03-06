@@ -17,8 +17,13 @@ public class SetPenColorCommand extends TurtleCommand {
 
     @Override
     protected void performAction(BackendController backendController){
-           myColor = backendController.getColor((int)getChildren().get(0).getReturnValue());
-           System.out.println(myColor);
+        myColor = backendController.getColor((int)getChildren().get(0).getReturnValue());
+        System.out.println(myColor);
+        for (Turtle turtle: backendController.getMyTurtles()) {
+            if (turtle.getIsTurtleActive()) {
+                turtleAction(turtle);
+            }
+        }
     }
 
     @Override

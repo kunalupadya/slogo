@@ -11,10 +11,7 @@ this will make the simulation run using step function - or just repeat playing g
 2.
 
 back end
-2. make a command(or something) similar to "tick"
-2-1. if not, make a button so that this is a simulation
-3. make a reset tick command
-6. make tick command
+2-1. if not, make a button so that the button executes go method everytime it is clicked
 
 slogo bounce_ball simulation code
 
@@ -37,9 +34,9 @@ to go
   ask [1,2,3,4,5][
     pendown
     bounce
-    forward 0.1
+    forward 1
   ]
-  //tick                                ;; we can create this latear, for now, we can make a go button that inputs go method to the console every second
+  //tick                                ;; we can create this later, for now, we can make a go button that inputs go method to the console every second
 end
 
 // this part done

@@ -21,11 +21,7 @@ public class Pen {
     }
 
     public Optional<Color> getPenColor() {
-        Optional<Color> returnedColor = Optional.empty();
-        if (!penUp) {
-            returnedColor = Optional.of(penColor);
-        }
-        return returnedColor;
+        return penColor;
     }
 
     public Color getMyPenColor(){

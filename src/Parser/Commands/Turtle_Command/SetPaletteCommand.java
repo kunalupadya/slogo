@@ -2,6 +2,7 @@ package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
 import Main.BackendController;
+import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 import javafx.scene.paint.Color;
 
@@ -26,6 +27,11 @@ public class SetPaletteCommand extends TurtleCommand {
 
     @Override
     protected void turtleAction(Turtle turtle) {
+    }
+
+    @Override
+    public Command copy() {
+        return new SetPaletteCommand();
     }
 
 }

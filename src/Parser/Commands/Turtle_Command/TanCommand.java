@@ -14,4 +14,8 @@ public class TanCommand extends Command {
         returnValue =  Math.tan(myChildrenList.get(0).getReturnValue());
     }
 
+    @Override
+    public Command copy() {
+        return new TanCommand();
+    }
 }

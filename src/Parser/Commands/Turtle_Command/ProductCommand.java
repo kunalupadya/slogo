@@ -14,5 +14,8 @@ public class ProductCommand extends Command {
         returnValue = myChildrenList.get(0).getReturnValue() * myChildrenList.get(1).getReturnValue();
     }
 
-
+    @Override
+    public Command copy() {
+        return new ProductCommand();
+    }
 }

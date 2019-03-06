@@ -15,4 +15,8 @@ public class AtanCommand extends Command {
         returnValue =  Math.atan(myChildrenList.get(0).getReturnValue());
     }
 
+    @Override
+    public Command copy() {
+        return new AtanCommand();
+    }
 }

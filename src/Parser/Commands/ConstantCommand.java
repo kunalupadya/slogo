@@ -13,4 +13,8 @@ public class ConstantCommand extends Command {
     public void performAction(BackendController backendController){
     }
 
+    @Override
+    public Command copy() {
+        return new ConstantCommand(returnValue);
+    }
 }

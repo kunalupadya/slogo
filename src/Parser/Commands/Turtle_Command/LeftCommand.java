@@ -2,6 +2,7 @@ package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
 import Main.BackendController;
+import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
 public class LeftCommand extends TurtleCommand {
@@ -18,4 +19,8 @@ public class LeftCommand extends TurtleCommand {
         returnValue = getChildren().get(0).getReturnValue();
     }
 
+    @Override
+    public Command copy() {
+        return new LeftCommand();
+    }
 }

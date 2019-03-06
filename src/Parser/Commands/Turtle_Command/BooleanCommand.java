@@ -11,5 +11,4 @@ public abstract class BooleanCommand extends Command{
             return 0;
         }
     }
-
 }

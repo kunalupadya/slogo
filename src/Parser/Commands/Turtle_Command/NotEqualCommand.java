@@ -1,6 +1,7 @@
 package Parser.Commands.Turtle_Command;
 
 import Main.BackendController;
+import Parser.Commands.Command;
 
 public class NotEqualCommand extends BooleanCommand{
 
@@ -13,4 +14,8 @@ public class NotEqualCommand extends BooleanCommand{
         returnValue =  returnValue(myChildrenList.get(0).getReturnValue() !=0);
     }
 
+    @Override
+    public Command copy() {
+        return new NotEqualCommand();
+    }
 }

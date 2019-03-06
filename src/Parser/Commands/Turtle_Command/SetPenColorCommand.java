@@ -2,6 +2,7 @@ package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
 import Main.BackendController;
+import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
 public class SetPenColorCommand extends TurtleCommand {
@@ -16,4 +17,8 @@ public class SetPenColorCommand extends TurtleCommand {
     //        (getTurtle().getMyPen().setPenColor(getChildren().get(0).getReturnValue() (int));
     }
 
+    @Override
+    public Command copy() {
+        return new SetPenColorCommand();
+    }
 }

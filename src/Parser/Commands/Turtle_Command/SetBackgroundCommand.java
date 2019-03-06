@@ -15,4 +15,8 @@ public class SetBackgroundCommand extends Command {
 
     }
 
+    @Override
+    public Command copy() {
+        return new SetBackgroundCommand();
+    }
 }

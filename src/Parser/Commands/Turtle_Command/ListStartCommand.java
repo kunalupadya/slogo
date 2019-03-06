@@ -16,4 +16,9 @@ public class ListStartCommand extends Command {
 //        }
         returnValue = myChildrenList.size()-1;
     }
+
+    @Override
+    public Command copy() {
+        return new ListStartCommand();
+    }
 }

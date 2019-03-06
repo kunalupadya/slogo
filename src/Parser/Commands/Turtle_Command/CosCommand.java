@@ -14,4 +14,8 @@ public class CosCommand extends Command {
         returnValue =  Math.cos(myChildrenList.get(0).getReturnValue());
     }
 
+    @Override
+    public Command copy() {
+        return new CosCommand();
+    }
 }

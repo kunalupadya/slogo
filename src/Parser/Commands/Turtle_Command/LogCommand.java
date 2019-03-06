@@ -14,4 +14,8 @@ public class LogCommand extends Command {
         returnValue =  Math.log(myChildrenList.get(0).getReturnValue());
     }
 
+    @Override
+    public Command copy() {
+        return new LogCommand();
+    }
 }

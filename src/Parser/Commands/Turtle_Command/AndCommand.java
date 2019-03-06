@@ -1,6 +1,7 @@
 package Parser.Commands.Turtle_Command;
 
 import Main.BackendController;
+import Parser.Commands.Command;
 
 public class AndCommand extends BooleanCommand{
 
@@ -13,4 +14,8 @@ public class AndCommand extends BooleanCommand{
         returnValue =  returnValue(myChildrenList.get(0).getReturnValue() !=0 && myChildrenList.get(1).getReturnValue() !=0);
     }
 
+    @Override
+    public Command copy() {
+        return new AndCommand();
+    }
 }

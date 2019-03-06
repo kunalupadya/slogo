@@ -1,17 +1,14 @@
 package GUI.Modules;
 
-import GUI.WindowLayout;
+import GUI.FrontendController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +23,8 @@ public class UserCommands extends Module {
     private ListView<String> userCommandsDisplay;
     private ObservableList<String> userCommandsCollection;
 
-    public UserCommands(int width, int height, WindowLayout myWindowLayout) {
-        super(width, height, myWindowLayout);
+    public UserCommands(int width, int height, FrontendController myFrontendController) {
+        super(width, height, "User Commands", myFrontendController);
         userCommands = new ArrayList<>();
         userCommands.add("Sum 10 10");
         //userCommands.add("Nothing much");
@@ -38,7 +35,7 @@ public class UserCommands extends Module {
     @Override
     protected void setContent() {
         container = new VBox();
-        content.setContent(container);
+//        content.setContent(container);
         container.prefHeightProperty().bind(content.heightProperty());
         if (userCommands != null) {
             userCommandsCollection = FXCollections.<String>observableArrayList(userCommands);
@@ -49,6 +46,7 @@ public class UserCommands extends Module {
             userCommandsDisplay.setPlaceholder(new Label("User Commands"));
         }
         container.getChildren().add(userCommandsDisplay);
+        content.getChildren().add(container);
     }
 
     private void setClick() {

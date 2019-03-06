@@ -13,7 +13,7 @@ public class LanguageSetting {
     private Map<String, String> translationMap;
 
     public LanguageSetting(String language){
-        myLanguage = language;
+        myLanguage = "languageProperties/" + language;
         myResources = ResourceBundle.getBundle(myLanguage);
         translationMap = convertResourceBundleToMap(myResources);
     }
@@ -54,7 +54,7 @@ public class LanguageSetting {
 
 
     public Map<String, String> makeReflectionMap() {
-        ResourceBundle englishProperty = ResourceBundle.getBundle("English");
+        ResourceBundle englishProperty = ResourceBundle.getBundle("/languageProperties/English");
         Map<String, String> map = new HashMap<>();
         Enumeration<String> keys = englishProperty.getKeys();
         while (keys.hasMoreElements()) {

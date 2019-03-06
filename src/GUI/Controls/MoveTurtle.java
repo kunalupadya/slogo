@@ -14,9 +14,9 @@ import java.util.ResourceBundle;
 
 import GUI.FrontendController;
 
-public class SwitchLanguages {
+public class MoveTurtle {
     private FrontendController context;
-    private ResourceBundle myLanguageResources;
+    private ResourceBundle myDirectionsResources;
     private MenuButton button;
 
     /**
@@ -25,12 +25,12 @@ public class SwitchLanguages {
      * TODO: Add setOnAction() for each MenuItem
      * @param context
      */
-    public SwitchLanguages(FrontendController context) {
-        this.myLanguageResources = ResourceBundle.getBundle("/languageProperties/LanguageSettings");
+    public MoveTurtle(FrontendController context) {
+        this.myDirectionsResources = ResourceBundle.getBundle("/buttonProperties/TurtleMovements");
         this.context = context;
         this.button = new MenuButton();
 
-        ImageView img = new ImageView(new Image(FrontendController.class.getResourceAsStream("/images/language.png")));
+        ImageView img = new ImageView(new Image(FrontendController.class.getResourceAsStream("/images/moveTurtle.png")));
         img.setFitHeight(20.0);
         img.setFitWidth(20.0);
         button.setGraphic(img);
@@ -41,13 +41,9 @@ public class SwitchLanguages {
         button.getItems().addAll(itemList);
     }
 
-    public MenuButton getButton() {
-        return button;
-    }
-
     private List<MenuItem> makeMenuItems() {
-        EventHandler<ActionEvent> action = changeLanguage();
-        Enumeration<String> itemEnum = myLanguageResources.getKeys();
+        EventHandler<ActionEvent> action = move();
+        Enumeration<String> itemEnum = myDirectionsResources.getKeys();
         var itemList = new ArrayList<MenuItem>();
 
         while(itemEnum.hasMoreElements()) {
@@ -60,10 +56,15 @@ public class SwitchLanguages {
         return itemList;
     }
 
-    private EventHandler<ActionEvent> changeLanguage() {
+    private EventHandler<ActionEvent> move() {
         return event -> {
             MenuItem mItem = (MenuItem) event.getSource();
-            context.changeLanguage(mItem.getText());
+            String command = myDirectionsResources.getString(mItem.getText());
+            context.sendCommandString(command);
         };
+    }
+
+    public MenuButton getButton() {
+        return button;
     }
 }

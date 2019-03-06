@@ -2,14 +2,14 @@ package GUI.Controls;
 
 import javafx.scene.control.ColorPicker;
 
-import GUI.WindowLayout;
+import GUI.FrontendController;
 import javafx.scene.paint.Paint;
 
 public class SetBackgroundColor {
-    private WindowLayout context;
+    private FrontendController context;
     final ColorPicker colorPicker;
 
-    public SetBackgroundColor(WindowLayout context) {
+    public SetBackgroundColor(FrontendController context) {
         this.context = context;
         this.colorPicker = new ColorPicker();
 

@@ -1,0 +1,56 @@
+things that need implementation for the simulation
+
+front end
+
+1. add a go button(like cell society - that can control speed) don't really need a slider
+this will make the simulation run using step function - or just repeat playing go button
+
+-> clicking this button will run 'go' command
+->
+
+2.
+
+back end
+2-1. if not, make a button so that the button executes go method everytime it is clicked
+
+slogo bounce_ball simulation code
+
+//this part done
+//set up
+to setup
+  clearscreen
+  tell [1 2 3 4 5]                      ;; create 5 turtles
+  ask [1 2 3 4 5] [ randomize ]         ;; place them randomly
+  //reset-ticks                         ;; we could wait for this
+end
+
+//this part done
+to randomize
+  setxy random 400 random 400   ; 400 is the screen size
+end
+
+//this part done - main function
+to go
+  ask [1,2,3,4,5][
+    pendown
+    bounce
+    forward 1
+  ]
+  //tick                                ;; we can create this later, for now, we can make a go button that inputs go method to the console every second
+end
+
+// this part done
+to bounce
+
+  if equal xcor 400
+    [ setheading minus heading) ]
+
+  if equal xcor 0
+    [ setheading minus heading) ]
+
+  if equal ycor 400
+    [ setheading difference 180 heading) ]
+
+  if equal ycor 0
+      [ setheading difference 180 heading) ]
+end

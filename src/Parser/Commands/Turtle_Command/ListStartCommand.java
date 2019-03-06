@@ -14,5 +14,6 @@ public class ListStartCommand extends Command {
 //        for (Command c:myChildrenList){
 //            c.execute(backendController);
 //        }
+        returnValue = myChildrenList.size()-1;
     }
 }

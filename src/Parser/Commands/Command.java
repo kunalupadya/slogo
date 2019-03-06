@@ -14,6 +14,7 @@ public abstract class Command{
     protected List<Command> myChildrenList = new ArrayList<>();
     protected boolean isConstant;
     protected double returnValue;
+    protected String text;
     protected int numParameters;
     protected int currentNumParameters = 0;
 
@@ -32,6 +33,14 @@ public abstract class Command{
 
     public double getReturnValue() {
         return returnValue;
+    }
+
+    public void setReturnValue(double returnValue) {
+        this.returnValue = returnValue;
+    }
+
+    public String getText() {
+        return text;
     }
 
     public void execute(BackendController backendController) {

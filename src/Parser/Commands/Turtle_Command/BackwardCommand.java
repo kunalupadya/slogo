@@ -4,9 +4,9 @@ import GraphicsBackend.Turtle;
 import Main.BackendController;
 import Parser.Commands.TurtleCommand;
 
-public class BackCommand extends TurtleCommand {
+public class BackwardCommand extends TurtleCommand {
 
-    public BackCommand(){
+    public BackwardCommand(){
         isConstant = false;
         numParameters = 1;
     }

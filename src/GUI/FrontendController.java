@@ -243,6 +243,11 @@ public class FrontendController {
         currentState.getTurtleAndPens(ids, xPositions, yPositions, angles, penColors, penUp, penSize);
     }
 
+    public void getPalettes() {
+        Color[] paletteIndices = backendController.getColorPalette();
+        palettes.setPalettes(paletteIndices);
+    }
+
     public void changeLanguage(String language) {
         backendController.setCommandLanguage(language);
     }
@@ -250,6 +255,7 @@ public class FrontendController {
     public void step() {
         setGraphicsArea();
         setCurrentState();
+        getPalettes();
     }
 
     /**

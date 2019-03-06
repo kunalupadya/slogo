@@ -98,6 +98,10 @@ public class BackendController {
         return myPalette.getColorIndex(color);
     }
 
+    public Color[] getColorPalette() {
+        return myPalette.getColorPalette();
+    }
+
     public Color getColor(int index){
         return myPalette.getColor(index);
     }

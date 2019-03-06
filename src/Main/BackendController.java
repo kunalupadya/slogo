@@ -3,6 +3,7 @@ package Main;
 
 import GUI.FrontendController;
 import GraphicsBackend.Grid;
+import GraphicsBackend.Palette;
 import GraphicsBackend.Turtle;
 import Parser.Commands.Turtle_Command.MakeUserInstructionCommand;
 import Parser.Commands.Variable;
@@ -19,14 +20,13 @@ public class BackendController {
     private List<Turtle> myTurtles = new ArrayList<>();
     private Map<String, MakeUserInstructionCommand> userDefinedCommands;
     private Map<String, Variable> availableVariables;
-    private Color[] myColorPalette;
     private FrontendController frontendController;
+    private Palette myPalette;
 
     public BackendController(){
         myGrid = new Grid(400,400);
         userDefinedCommands = new HashMap<>();
         availableVariables = new HashMap<>();
-        myColorPalette = new Color[256];
         myTurtles.add(new Turtle(myGrid));
         Turtle turtle2 = new Turtle(myGrid);
         turtle2.turn(20);
@@ -34,6 +34,8 @@ public class BackendController {
         turtle2.turn(300);
         turtle2.move(100);
         myTurtles.add(turtle2);
+        myPalette = new Palette();
+
     }
 
     public void addNewUserDefinedCommand(String commandName, MakeUserInstructionCommand tree){
@@ -88,13 +90,18 @@ public class BackendController {
         ParseCommand parser = new ParseCommand(userInput, myTurtles, commmandLanguage, this);
     }
 
-    public Color getColorPalette(int index){
-        return myColorPalette[index];
+    public int getColorPaletteIndex(Color color){
+        return myPalette.getColorIndex(color);
+    }
+
+    public Color getColor(int index){
+        return myPalette.getColor(index);
     }
 
     public void setMyPalette(int index, Color color){
-        myColorPalette[index] = color;
+        myPalette.setMyColorPalette(index, color);
     }
+
 
 }
 

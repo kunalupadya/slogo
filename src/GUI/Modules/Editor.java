@@ -1,6 +1,6 @@
 package GUI.Modules;
 
-import GUI.WindowLayout;
+import GUI.FrontendController;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -15,8 +15,8 @@ public class Editor extends Module {
     private TextArea editor;
     private String editorText;
 
-    public Editor(int width, int height, WindowLayout myWindowLayout) {
-        super(width, height, myWindowLayout);
+    public Editor(int width, int height, FrontendController myFrontendController) {
+        super(width, height, "Editor", myFrontendController);
         setContent();
 //        editor.layoutBoundsProperty().addListener(new ChangeListener<Bounds>() {
 //            @Override
@@ -37,7 +37,7 @@ public class Editor extends Module {
     @Override
     protected void setContent() {
         container = new VBox();
-        content.setContent(container);
+//        content.setContent(container);
         container.prefHeightProperty().bind(content.heightProperty());
         editor = new TextArea();
         editor.setWrapText(true);
@@ -46,6 +46,7 @@ public class Editor extends Module {
         editor.setPrefWidth(moduleWidth);
         editor.setPromptText("Editor");
         container.getChildren().add(editor);
+        content.getChildren().add(container);
     }
 
     public void run() {

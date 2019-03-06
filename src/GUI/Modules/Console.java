@@ -1,6 +1,6 @@
 package GUI.Modules;
 
-import GUI.WindowLayout;
+import GUI.FrontendController;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -23,8 +23,8 @@ public class Console extends Module  {
     private int commandPosition;
     private Font courier;
 
-    public Console(int width, int height, WindowLayout myWindowLayout) {
-        super(width, height, myWindowLayout);
+    public Console(int width, int height, FrontendController myFrontendController) {
+        super(width, height, "Console", myFrontendController);
         courier = new Font("Courier", 12);
         setContent();
     }
@@ -32,10 +32,10 @@ public class Console extends Module  {
     @Override
     protected void setContent() {
         container = new VBox();
-        container.setPrefHeight(moduleHeight);
+        container.setPrefHeight(moduleHeight - toolbarHeight + 2);
         System.out.println(container.getHeight());
         container.prefWidthProperty().bind(content.widthProperty());
-        content.setContent(container);
+        content.getChildren().add(container);
         commandHistory = new ArrayList<>();
         commandPosition = -1;
         consoleInfo = new TextArea();

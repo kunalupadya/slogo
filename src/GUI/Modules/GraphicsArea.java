@@ -1,22 +1,15 @@
 package GUI.Modules;
 
-import GUI.WindowLayout;
+import GUI.FrontendController;
 import GraphicsBackend.Grid;
-import GraphicsBackend.Turtle;
-import Main.BackendController;
-import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 
 import java.util.List;
 
@@ -26,15 +19,14 @@ import java.util.List;
  */
 
 public class GraphicsArea extends Module {
-    private Pane container;
     private Grid grid;
     private double FRAMES_PER_SECOND = 0.5;
     private double MILLISECOND_IN_A_SECOND = 1000;
     private double MILLISECOND_DELAY = MILLISECOND_IN_A_SECOND / FRAMES_PER_SECOND;
     private Timeline animation;
 
-    public GraphicsArea(int width, int height, WindowLayout myWindowLayout) {
-        super(width, height, myWindowLayout);
+    public GraphicsArea(int width, int height, FrontendController myFrontendController) {
+        super(width, height, "Turtle Display", myFrontendController);
         setContent();
     }
 
@@ -44,20 +36,25 @@ public class GraphicsArea extends Module {
 
     @Override
     protected void setContent() {
-        container = new Pane();
-        container.setMinWidth(moduleWidth + 50);
-        container.setMinHeight(moduleHeight + 50);
-        content.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        content.setContent(container);
+//        content.setMinWidth(moduleWidth);
+//        content.setMinHeight(moduleHeight);
+//        content.setOnKeyReleased(event -> context.handleKeyInput(event.getCode()));
     }
 
-    public void setVariables(List<Line> lines, List<ImageView> turtleImages) {
-        container.getChildren().clear();
+    public void setVariables(List<Line> lines, List<ImageView> turtleImages, List<Boolean> turtleActives) {
+        content.getChildren().clear();
         for (Line n:lines){
-            container.getChildren().add(n);
+            content.getChildren().add(n);
         }
-        for (ImageView image : turtleImages) {
-            container.getChildren().add(image);
+        for (int i = 0; i < turtleImages.size(); i++) {
+            ImageView turtle = turtleImages.get(i);
+            Boolean turtleActive = turtleActives.get(i);
+            if (turtleActives.get(i)) {
+                //Fix this magic value?
+                turtle.getStyleClass().add("turtle-shadow");
+            }
+            content.getChildren().add(turtle);
+            setClick(turtle, i);
         }
     }
 
@@ -94,6 +91,34 @@ public class GraphicsArea extends Module {
 
     public void setColor(Paint color) {
         String hexColor = colorToHex(color);
-        container.setStyle("-fx-background-color: #" + hexColor);
+        content.setStyle("-fx-background-color: #" + hexColor);
+    }
+
+    private void setClick(ImageView turtle, int turtleNumber) {
+        turtle.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            if (turtle.getStyleClass().size() > 1) {
+                turtle.getStyleClass().remove("turtle-shadow");
+            }
+            else {
+                turtle.getStyleClass().add("turtle-shadow");
+            }
+            context.switchTurtleActive(turtleNumber);
+            event.consume();
+        });
+    }
+
+    private void handleKeyInput(KeyCode code) {
+        if (code == KeyCode.W) {
+            context.sendCommandString("fd 10");
+        }
+        else if (code == KeyCode.A) {
+            context.sendCommandString("lt 30");
+        }
+        else if (code == KeyCode.S) {
+            //context.sendCommandString("bk 10");
+        }
+        else if (code == KeyCode.D) {
+            context.sendCommandString("rt 30");
+        }
     }
 }

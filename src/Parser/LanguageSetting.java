@@ -13,7 +13,7 @@ public class LanguageSetting {
     private Map<String, String> translationMap;
 
     public LanguageSetting(String language){
-        myLanguage = language;
+        myLanguage = "languageProperties/" + language;
         myResources = ResourceBundle.getBundle(myLanguage);
         translationMap = convertResourceBundleToMap(myResources);
     }
@@ -45,9 +45,6 @@ public class LanguageSetting {
             if (translationMap.containsKey(listOfWords[i])) {
                 newList[i] = translationMap.get(listOfWords[i]);
             }
-//            if(isNumeric(listOfWords[i])){
-//                newList[i] = listOfWords[i];
-//            }
             else{
                 newList[i] = listOfWords[i];
             }
@@ -55,17 +52,9 @@ public class LanguageSetting {
         return newList;
     }
 
-    public boolean isNumeric(String strNum) {
-        try {
-            double d = Double.parseDouble(strNum);
-        } catch (NumberFormatException | NullPointerException nfe) {
-            return false;
-        }
-        return true;
-    }
 
     public Map<String, String> makeReflectionMap() {
-        ResourceBundle englishProperty = ResourceBundle.getBundle("English");
+        ResourceBundle englishProperty = ResourceBundle.getBundle("/languageProperties/English");
         Map<String, String> map = new HashMap<>();
         Enumeration<String> keys = englishProperty.getKeys();
         while (keys.hasMoreElements()) {

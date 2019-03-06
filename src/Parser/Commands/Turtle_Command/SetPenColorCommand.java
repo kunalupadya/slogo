@@ -4,8 +4,11 @@ import GraphicsBackend.Turtle;
 import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
+import javafx.scene.paint.Color;
 
 public class SetPenColorCommand extends TurtleCommand {
+
+    private Color myColor;
 
     public SetPenColorCommand(){
         isConstant = false;
@@ -13,8 +16,17 @@ public class SetPenColorCommand extends TurtleCommand {
     }
 
     @Override
+    protected void performAction(BackendController backendController){
+           myColor = backendController.getColor((int)getChildren().get(0).getReturnValue());
+           System.out.println(myColor);
+    }
+
+    @Override
     protected void turtleAction(Turtle turtle) {
-    //        (getTurtle().getMyPen().setPenColor(getChildren().get(0).getReturnValue() (int));
+        turtle.getMyPen().setPenColor(myColor);
+        returnValue = getChildren().get(0).getReturnValue();
+        System.out.println(myColor);
+        System.out.println(returnValue);
     }
 
     @Override

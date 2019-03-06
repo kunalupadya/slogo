@@ -110,7 +110,7 @@ public class Grid {
     private void createLine(Pen pen, double xPos, double yPos, double newXPos, double newYPos) {
         Line movement = new Line(xPos, yPos, newXPos, newYPos);
         if (!pen.getPenUp()) {
-            movement.setStroke(pen.getPenColor());
+            movement.setStroke(pen.getMyPenColor());
             movement.setStrokeWidth(pen.getPenWidth());
             myObjects.add(movement);
         }

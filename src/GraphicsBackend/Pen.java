@@ -20,8 +20,18 @@ public class Pen {
         penColor = color;
     }
 
-    public Color getPenColor() {
-        return penColor;
+    public Optional<Color> getPenColor() {
+
+        Optional<Color> returnedColor = Optional.empty();
+        if (!penUp) {
+            returnedColor = Optional.of(penColor);
+        }
+        return returnedColor;
+
+    }
+
+    public Color getMyPenColor(){
+        return this.penColor;
     }
 
     public double getPenWidth() {
@@ -36,8 +46,8 @@ public class Pen {
 
 
     //TODO: parameter as an integer -> accept integer and change that to color.s
-    public void setPenColor(Color penColor) {
-        this.penColor = penColor;
+    public void setPenColor(Color color) {
+        this.penColor = color;
     }
 
     public void setPenUp(boolean penUp) {

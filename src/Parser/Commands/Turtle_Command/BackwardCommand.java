@@ -19,6 +19,6 @@ public class BackwardCommand extends TurtleCommand {
 
     @Override
     public Command copy() {
-        return new BackCommand();
+        return new BackwardCommand();
     }
 }

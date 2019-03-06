@@ -1,37 +1,39 @@
-/*
 package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
 import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
+import javafx.scene.paint.Color;
 
-public class IDCommand extends TurtleCommand {
+public class GetPenColorCommand extends TurtleCommand {
 
-    public IDCommand(){
+    private Color myColor;
+
+    public GetPenColorCommand(){
         isConstant = false;
         numParameters = 0;
     }
 
+
     @Override
     protected void performAction(BackendController backendController){
-        for (Turtle turtle: backendController.getMyTurtles()) {
-            if (turtle.getIsTurtleActive()) {
-                returnValue = backendController.getMyTurtles().
-            }
-        }
+        returnValue = backendController.getColorPaletteIndex(myColor);
+        System.out.println(myColor);
     }
 
     @Override
     protected void turtleAction(Turtle turtle) {
+        myColor = turtle.getMyPen().getMyPenColor();
+        System.out.println(myColor);
 
     }
 
     @Override
     public Command copy() {
-        return new IDCommand();
+        return new GetPenColorCommand();
     }
 
 
 }
-*/
+

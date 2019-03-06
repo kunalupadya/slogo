@@ -32,7 +32,6 @@ public class LanguageSetting {
                 map.put(resource.getString(key), key);
             }
         }
-        System.out.println(map);
         return map;
     }
 

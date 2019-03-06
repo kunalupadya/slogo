@@ -32,7 +32,9 @@ public class OpenHelp {
         {
             try {
                 Desktop.getDesktop().browse(new URI("https://www2.cs.duke.edu/courses/compsci308/current/assign/03_slogo/commands.php"));
-            } catch (IOException | URISyntaxException e1) {
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } catch (URISyntaxException e1) {
                 e1.printStackTrace();
             }
         }

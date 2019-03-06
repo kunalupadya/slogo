@@ -84,8 +84,6 @@ public class FrontendController {
         root.setRight(rightBorderPane);
 
         setBackgroundColor(Color.LIGHTBLUE);
-
-//        myContainer.setOnKeyReleased(event -> handleKeyInput(event.getCode()));
     }
 
     private HBox returnButtons() {
@@ -227,6 +225,7 @@ public class FrontendController {
         List<Double> xPositions = new ArrayList<>();
         List<Double> yPositions = new ArrayList<>();
         List<Optional<Color>> penColors = new ArrayList<>();
+        List<Double> angles = new ArrayList<>();
         List<Boolean> penUp = new ArrayList<>();
         //Or Is It Pen Width???
         List<Integer> penSize = new ArrayList<>();
@@ -235,12 +234,13 @@ public class FrontendController {
             ids.add(counter);
             xPositions.add(turtle.getxPos());
             yPositions.add(turtle.getyPos());
+            angles.add(turtle.getMyAngle());
             penColors.add(pen.getPenColor());
             penUp.add(pen.getPenUp());
             penSize.add(pen.getPenSize());
             counter++;
         }
-        currentState.getTurtleAndPens(ids, xPositions, yPositions, penColors, penUp, penSize);
+        currentState.getTurtleAndPens(ids, xPositions, yPositions, angles, penColors, penUp, penSize);
     }
 
     public void changeLanguage(String language) {
@@ -250,21 +250,6 @@ public class FrontendController {
     public void step() {
         setGraphicsArea();
         setCurrentState();
-    }
-
-    public void handleKeyInput(KeyCode code) {
-        if (code == KeyCode.W) {
-            sendCommandString("fd 10");
-        }
-        else if (code == KeyCode.A) {
-            sendCommandString("lt 30");
-        }
-        else if (code == KeyCode.S) {
-            //context.sendCommandString("bk 10");
-        }
-        else if (code == KeyCode.D) {
-            sendCommandString("rt 30");
-        }
     }
 
     public void save() {}

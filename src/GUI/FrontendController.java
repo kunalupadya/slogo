@@ -2,18 +2,14 @@ package GUI;
 
 import GUI.Controls.*;
 import GUI.Modules.*;
-import GraphicsBackend.Grid;
 import GraphicsBackend.Pen;
 import GraphicsBackend.Turtle;
 import Main.BackendController;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
@@ -45,6 +41,7 @@ public class FrontendController {
     private CurrentState currentState;
     private Console console;
     private OpenHelp openHelp;
+    private MoveTurtle moveTurtle;
     private SwitchLanguages switchLanguages;
     private Control redo, run, undo, stopExecution, setTurtleImage, save;
     private ColorPicker setBackgroundColor, setPenColor;
@@ -111,6 +108,9 @@ public class FrontendController {
         save = new Save(this);
         save.getButton().setTooltip(new Tooltip("Save"));
 
+        moveTurtle = new MoveTurtle(this);
+        moveTurtle.getButton().setTooltip(new Tooltip("Move Turtle"));
+
         undo = new Undo(this);
         undo.getButton().setTooltip(new Tooltip("Undo"));
 
@@ -129,7 +129,7 @@ public class FrontendController {
 
         var padding = new Region();
 
-        var rightButtons = new HBox(undo.getButton(), redo.getButton(), stopExecution.getButton(), run.getButton());
+        var rightButtons = new HBox(moveTurtle.getButton(), undo.getButton(), redo.getButton(), stopExecution.getButton(), run.getButton());
         rightButtons.getStyleClass().add("button-container");
 
         buttonHandler.setHgrow(padding, Priority.ALWAYS);

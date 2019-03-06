@@ -38,7 +38,7 @@ public class GraphicsArea extends Module {
     protected void setContent() {
 //        content.setMinWidth(moduleWidth);
 //        content.setMinHeight(moduleHeight);
-        content.setOnKeyReleased(event -> context.handleKeyInput(event.getCode()));
+//        content.setOnKeyReleased(event -> context.handleKeyInput(event.getCode()));
     }
 
     public void setVariables(List<Line> lines, List<ImageView> turtleImages, List<Boolean> turtleActives) {

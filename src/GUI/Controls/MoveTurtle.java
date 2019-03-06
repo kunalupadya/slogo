@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 
 import GUI.FrontendController;
 
-public class moveTurtle {
+public class MoveTurtle {
     private FrontendController context;
     private ResourceBundle myDirectionsResources;
     private MenuButton button;
@@ -25,7 +25,7 @@ public class moveTurtle {
      * TODO: Add setOnAction() for each MenuItem
      * @param context
      */
-    moveTurtle(FrontendController context) {
+    public MoveTurtle(FrontendController context) {
         this.myDirectionsResources = ResourceBundle.getBundle("/buttonProperties/TurtleMovements");
         this.context = context;
         this.button = new MenuButton();

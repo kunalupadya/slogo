@@ -106,19 +106,4 @@ public class GraphicsArea extends Module {
             event.consume();
         });
     }
-
-    private void handleKeyInput(KeyCode code) {
-        if (code == KeyCode.W) {
-            context.sendCommandString("fd 10");
-        }
-        else if (code == KeyCode.A) {
-            context.sendCommandString("lt 30");
-        }
-        else if (code == KeyCode.S) {
-            //context.sendCommandString("bk 10");
-        }
-        else if (code == KeyCode.D) {
-            context.sendCommandString("rt 30");
-        }
-    }
 }

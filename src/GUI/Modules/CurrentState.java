@@ -43,7 +43,7 @@ public class CurrentState extends Module {
     }
 
     public void getTurtleAndPens(List<Integer> ids, List<Double> xPositions, List<Double> yPositions, List<Double> angles,
-                                 List<Optional<Color>> penColors, List<Boolean> penUp, List<Integer> penSize) {
+                                 List<Color> penColors, List<Boolean> penUp, List<Integer> penSize) {
         turtleAndPensCollection.clear();
         turtleAndPens.clear();
         String penDirection;

@@ -16,8 +16,9 @@ public class UserDefinedCommand extends Command {
         this.name = name;
         this.variables = variables;
         this.headNode = headNode;
+        myChildrenList.add(headNode);
         isConstant = false;
-        numParameters = variables.size();
+        numParameters = 1;
     }
 
     public List<Variable> getVariables() {

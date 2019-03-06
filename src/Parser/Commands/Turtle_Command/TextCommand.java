@@ -14,7 +14,7 @@ public class TextCommand extends Command {
 
     public TextCommand(String text){
         isConstant = false;
-        numParameters = (int) Double.POSITIVE_INFINITY;
+        numParameters = 0;
         this.text = text;
     }
 
@@ -24,14 +24,17 @@ public class TextCommand extends Command {
         if (userDefinedCommand.isPresent()){
 
             UserDefinedCommand command = userDefinedCommand.get();
+            UserDefinedCommand copyOfCommand = (UserDefinedCommand) command.copy();
+            List<Variable> variables = copyOfCommand.getVariables();
 
-            numParameters = command.getVariables().size();
-
-            for (Command child: myChildrenList){
-
+            for (int k = 0; k<myChildrenList.size(); k++){
+                Variable currentVariable = variables.get(k);
+                currentVariable.setReturnValue(myChildrenList.get(k).getReturnValue());
             }
 
-            command.getChildren().get(COMMANDS);
+            myChildrenList.clear();
+
+            myChildrenList.add(copyOfCommand);
         }
         else {
             // throw new TODO create exception, command not defined

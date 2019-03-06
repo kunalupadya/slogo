@@ -9,6 +9,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ResourceBundle;
 
 
 public class OpenHelp {
@@ -16,8 +17,10 @@ public class OpenHelp {
     private Hyperlink myHyperlink;
 
     public OpenHelp(FrontendController context) {
-        myHyperlink = new Hyperlink();
-        Image hyperlinkGraphic = new Image(FrontendController.class.getResourceAsStream("/images/help.png"), 20, 20, true, true);
+        this.myHyperlink = new Hyperlink();
+        ResourceBundle buttonImages = ResourceBundle.getBundle("/buttonProperties/ButtonImages");
+        String image = buttonImages.getString("OpenHelp");
+        Image hyperlinkGraphic = new Image(FrontendController.class.getResourceAsStream(image), 20, 20, true, true);
         myHyperlink.setGraphic(new ImageView(hyperlinkGraphic));
         myHyperlink.getStyleClass().add("button");
         myHyperlink.setOnAction(e -> action());

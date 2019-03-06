@@ -13,6 +13,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
@@ -58,6 +59,7 @@ public class FrontendController {
      */
     public FrontendController(BorderPane root, Stage stage) {
         this.myStage = stage;
+        this.myContainer = root;
         this.editor = new Editor(200, 200, this);
         this.availableVars = new AvailableVars(200, 100, this);
         this.userCommands = new UserCommands(200, 100, this);
@@ -83,9 +85,7 @@ public class FrontendController {
 
         setBackgroundColor(Color.LIGHTBLUE);
 
-        this.myContainer = root;
-
-        System.out.println(editor.getContent().getPrefWidth());
+        myContainer.setOnKeyReleased(event -> handleKeyInput(event.getCode()));
     }
 
     private HBox returnButtons() {
@@ -250,6 +250,21 @@ public class FrontendController {
     public void step() {
         setGraphicsArea();
         setCurrentState();
+    }
+
+    private void handleKeyInput(KeyCode code) {
+        if (code == KeyCode.W) {
+            sendCommandString("fd 10");
+        }
+        else if (code == KeyCode.A) {
+            sendCommandString("lt 30");
+        }
+        else if (code == KeyCode.S) {
+            //context.sendCommandString("bk 10");
+        }
+        else if (code == KeyCode.D) {
+            sendCommandString("rt 30");
+        }
     }
 
     public void save() {}

@@ -32,7 +32,7 @@ public class Turtle {
         speed = 1;
         isTurtleVisible = true;
         isTurtleActive = true;
-        turtleImage = new javafx.scene.image.Image(this.getClass().getClassLoader().getResourceAsStream(DEFAULT_IMAGE));
+        turtleImage = new javafx.scene.image.Image(this.getClass().getResourceAsStream(DEFAULT_IMAGE));
 //        turtleImageView = new ImageView();
 //        updateThisTurtleImageview();
     }

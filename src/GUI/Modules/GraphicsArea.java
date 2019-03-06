@@ -3,11 +3,9 @@ package GUI.Modules;
 import GUI.FrontendController;
 import GraphicsBackend.Grid;
 import javafx.animation.Timeline;
-import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
@@ -21,6 +19,11 @@ import java.util.List;
  */
 
 public class GraphicsArea extends Module {
+    private Grid grid;
+    private double FRAMES_PER_SECOND = 0.5;
+    private double MILLISECOND_IN_A_SECOND = 1000;
+    private double MILLISECOND_DELAY = MILLISECOND_IN_A_SECOND / FRAMES_PER_SECOND;
+    private Timeline animation;
 
     public GraphicsArea(int width, int height, FrontendController myFrontendController) {
         super(width, height, "Turtle Display", myFrontendController);
@@ -35,28 +38,7 @@ public class GraphicsArea extends Module {
     protected void setContent() {
 //        content.setMinWidth(moduleWidth);
 //        content.setMinHeight(moduleHeight);
-        vbox.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                    if(mouseEvent.getClickCount() == 2){
-                        System.out.println("Double clicked");
-                    }
-                    else if(mouseEvent.getClickCount() == 1) {
-                        System.out.println("Single clicked");
-                    }
-                }
-                else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
-                    if(mouseEvent.getClickCount() == 2) {
-                        System.out.println("Double clicked");
-                    }
-                    else if(mouseEvent.getClickCount() == 1) {
-                        System.out.println("Single clicked");
-                    }
-                }
-            }
-        });
-        vbox.setOnKeyReleased(event -> handleKeyInput(event.getCode()));
+        content.setOnKeyReleased(event -> handleKeyInput(event.getCode()));
     }
 
     public void setVariables(List<Line> lines, List<ImageView> turtleImages, List<Boolean> turtleActives) {
@@ -125,7 +107,6 @@ public class GraphicsArea extends Module {
         });
     }
 
-    //Broken as of right now
     private void handleKeyInput(KeyCode code) {
         if (code == KeyCode.W) {
             context.sendCommandString("fd 10");

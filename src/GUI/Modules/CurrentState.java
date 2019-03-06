@@ -42,23 +42,10 @@ public class CurrentState extends Module {
         content.getChildren().add(container);
     }
 
-    public void getTurtleAndPens(List<Integer> ids, List<Double> xPositions, List<Double> yPositions, List<Double> angles,
+    public void getTurtleAndPens(List<Integer> ids, List<Double> xPositions, List<Double> yPositions,
                                  List<Optional<Color>> penColors, List<Boolean> penUp, List<Integer> penSize) {
-        turtleAndPens.clear();
-        turtleAndPensCollection.clear();
         for (int i = 0; i < ids.size(); i++) {
-            String penDirection;
-            if (penUp.get(i)) {
-                penDirection = "Up";
-            }
-            else {
-                penDirection = "Down";
-            }
-            String turtlePen = "Turtle: " + ids.get(i).toString() + " " + xPositions.get(i).toString() + " "
-                    + yPositions.get(i).toString() + " " + angles.get(i).toString() + " Pen: " + penColors.get(i).toString() + " " +
-                    penDirection + " " + penSize.get(i).toString();
-            turtleAndPens.add(turtlePen);
-            turtleAndPensCollection.add(turtlePen);
+            
         }
     }
 }

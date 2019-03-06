@@ -42,24 +42,16 @@ public class LanguageSetting {
         String[] newList = new String[listOfWords.length];
 
         for (int i = 0; i < listOfWords.length; i++) {
-            if(isNumeric(listOfWords[i])){
-                newList[i] = listOfWords[i];
+            if (translationMap.containsKey(listOfWords[i])) {
+                newList[i] = translationMap.get(listOfWords[i]);
             }
             else{
-                newList[i] = translationMap.get(listOfWords[i]);
+                newList[i] = listOfWords[i];
             }
         }
         return newList;
     }
 
-    public static boolean isNumeric(String strNum) {
-        try {
-            double d = Double.parseDouble(strNum);
-        } catch (NumberFormatException | NullPointerException nfe) {
-            return false;
-        }
-        return true;
-    }
 
     public Map<String, String> makeReflectionMap() {
         ResourceBundle englishProperty = ResourceBundle.getBundle("/languageProperties/English");

@@ -6,6 +6,7 @@ import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.Turtle_Command.ListEndCommand;
 import Parser.Commands.Turtle_Command.ListStartCommand;
+import Parser.Commands.Variable;
 
 import java.util.*;
 
@@ -43,7 +44,7 @@ public class ParseCommand {
 
         //TODO: try catch block if command is not valid
         String[] translatedListOfWords = languageSetting.translateCommand(listOfWords);
-        System.out.println("translated list of words" + translatedListOfWords[0] + translatedListOfWords[1]);
+//        System.out.println("translated list of words" + translatedListOfWords[0] + translatedListOfWords[1]);
 
         commandMap = languageSetting.makeReflectionMap();
         //convert word into tokens and check validity
@@ -70,26 +71,40 @@ public class ParseCommand {
         ArrayList<Command> commandArrayList = new ArrayList<Command>();
 
         for (String word : listOfWords) {
-            //System.out.println(commandMap.get(word));
-            word = word.toLowerCase();
-            System.out.println(word);
-            System.out.println(commandMap);
-            if (commandMap.keySet().contains(word)) {
-                try {
-                    System.out.println("Parser.Commands.Turtle_Command." + commandMap.get(word) + "Command");
-                    Class<?> clazz = Class.forName("Parser.Commands.Turtle_Command." + commandMap.get(word) + "Command");
-                    Object object = clazz.getConstructor().newInstance();
-                    Command newCommand = (Command) object;
-                    commandArrayList.add(newCommand);
+            try {
+                System.out.println("Parser.Commands.Turtle_Command." + word + "Command");
+                Class<?> clazz = Class.forName("Parser.Commands.Turtle_Command." + word + "Command");
+                Object object = clazz.getConstructor().newInstance();
+                Command newCommand = (Command) object;
+                commandArrayList.add(newCommand);
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    System.out.println("class not found");
-                    //handleerror
-
+            } catch (Exception e) {
+//                    e.printStackTrace();
+                System.out.println("class not found");
+                Command newCommand;
+                if (word.equals("[")){
+                    newCommand = new ListStartCommand();
                 }
+                else if (word.equals("]")){
+                    newCommand = (new ListEndCommand());
+                }
+                else if (word.equals("(")){
+                    newCommand = new ListStartCommand();
+                }
+                else if (word.equals(")")){
+                    newCommand = new ListEndCommand();
+                }
+                else if (word.charAt(0) == ':'){
+                    newCommand = new Variable(word.substring(1));
+                }
+                else{
+                    newCommand = new ConstantCommand(Double.parseDouble(word));
+                }
+                commandArrayList.add(newCommand);
+                //TODO add userdefined command here
             }
-            else{
+//            }
+//            else{
                 // DO NOT DELETE
 //                if (word.equals("[")){
 //                    commandArrayList.add(new ListStartCommand());
@@ -103,11 +118,6 @@ public class ParseCommand {
 //                if (word.equals(")")){
 //                    commandArrayList.add(new ListEndCommand());
 //                }
-                //TODO: @Dhanush : Add an error
-                Command newCommand = new ConstantCommand(Double.parseDouble(word));
-                commandArrayList.add(newCommand);
-            }
-
         }
         return commandArrayList;
     }

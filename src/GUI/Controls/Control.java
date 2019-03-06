@@ -17,8 +17,8 @@ import java.io.FileNotFoundException;
  * @author Januario Carreiro
  */
 public abstract class Control {
-    private Button button;
-    private ImageView img;
+    Button button;
+    ImageView img;
 
     /**
      * TODO: finish JavaDoc

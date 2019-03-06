@@ -1,13 +1,13 @@
 package GUI.Controls;
 
-import GUI.WindowLayout;
+import GUI.FrontendController;
 import javafx.scene.image.Image;
 
 public class Redo extends Control {
-    private WindowLayout context;
+    private FrontendController context;
 
-    public Redo(WindowLayout context) {
-        super(new Image(WindowLayout.class.getResourceAsStream("/images/redo.png")));
+    public Redo(FrontendController context) {
+        super(new Image(FrontendController.class.getResourceAsStream("/images/redo.png")));
         this.context = context;
     }
 

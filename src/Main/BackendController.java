@@ -1,7 +1,7 @@
 package Main;
 
 
-import GUI.WindowLayout;
+import GUI.FrontendController;
 import GraphicsBackend.Grid;
 import GraphicsBackend.Turtle;
 import Parser.Commands.Turtle_Command.MakeUserInstructionCommand;
@@ -13,14 +13,14 @@ import java.util.*;
 
 public class BackendController {
 
-//    private ParseCommand parser;
+
     private String commmandLanguage;
     private Grid myGrid;
     private List<Turtle> myTurtles = new ArrayList<>();
-    private WindowLayout windowLayout;
     private Map<String, MakeUserInstructionCommand> userDefinedCommands;
     private Map<String, Variable> availableVariables;
     private Color[] myColorPalette;
+    private FrontendController frontendController;
 
     public BackendController(){
         myGrid = new Grid(400,400);
@@ -34,10 +34,6 @@ public class BackendController {
         turtle2.turn(300);
         turtle2.move(100);
         myTurtles.add(turtle2);
-    }
-
-    public Color[] getColorPalette(){
-        return myColorPalette;
     }
 
     public void addNewUserDefinedCommand(String commandName, MakeUserInstructionCommand tree){
@@ -81,17 +77,20 @@ public class BackendController {
 
     public void showMessage(String string){
         System.out.println(string);
-        windowLayout.consoleShowError(string);
+        frontendController.consoleShowError(string);
     }
 
-    public void setWindowLayout(WindowLayout windowLayout) {
-        this.windowLayout = windowLayout;
+    public void setFrontendController(FrontendController frontendController) {
+        this.frontendController = frontendController;
     }
 
     public void parseAndRun(String userInput){
         ParseCommand parser = new ParseCommand(userInput, myTurtles, commmandLanguage, this);
     }
 
+    public Color getColorPalette(int index){
+        return myColorPalette[index];
+    }
 
     public void setMyPalette(int index, Color color){
         myColorPalette[index] = color;

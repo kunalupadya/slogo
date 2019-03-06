@@ -20,6 +20,8 @@ public class SetPaletteCommand extends TurtleCommand {
         int g = (int) getChildren().get(2).getReturnValue();
         int b = (int) getChildren().get(3).getReturnValue();
         backendController.setMyPalette(index, Color.rgb(r,g,b));
+        returnValue = index;
+        System.out.println(backendController.getColorPalette(index));
     }
 
     @Override

@@ -1,13 +1,13 @@
 package GUI.Controls;
 
-import GUI.WindowLayout;
+import GUI.FrontendController;
 import javafx.scene.image.Image;
 
 public class Undo extends Control {
-    private WindowLayout context;
+    private FrontendController context;
 
-    public Undo(WindowLayout context) {
-        super(new Image(WindowLayout.class.getResourceAsStream("/images/undo.png")));
+    public Undo(FrontendController context) {
+        super(new Image(FrontendController.class.getResourceAsStream("/images/undo.png")));
         this.context = context;
     }
 

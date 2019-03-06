@@ -1,13 +1,13 @@
 package GUI.Controls;
 
-import GUI.WindowLayout;
+import GUI.FrontendController;
 import javafx.scene.image.Image;
 
 public class SetTurtleImage extends Control {
-    private WindowLayout context;
+    private FrontendController context;
 
-    public SetTurtleImage(WindowLayout context) {
-        super(new Image(WindowLayout.class.getResourceAsStream("/images/initialTurtle.png")));
+    public SetTurtleImage(FrontendController context) {
+        super(new Image(FrontendController.class.getResourceAsStream("/images/initialTurtle.png")));
         this.context = context;
     }
 

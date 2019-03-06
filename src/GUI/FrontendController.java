@@ -57,13 +57,13 @@ public class FrontendController {
     public FrontendController(BorderPane root, Stage stage) {
         this.myStage = stage;
         this.myContainer = root;
-        this.editor = new Editor(200, 200, this);
-        this.availableVars = new AvailableVars(200, 100, this);
-        this.userCommands = new UserCommands(200, 100, this);
-        this.console = new Console(600, 100, this);
-        this.graphicsArea = new GraphicsArea(400, 400, this);
-        this.palettes = new Palettes(200, 200, this);
-        this.currentState = new CurrentState(200, 200, this);
+        this.editor = new Editor(200, 210, this);
+        this.availableVars = new AvailableVars(200, 105, this);
+        this.userCommands = new UserCommands(200, 105, this);
+        this.console = new Console(800, 100, this);
+        this.graphicsArea = new GraphicsArea(400, 420, this);
+        this.palettes = new Palettes(200, 220, this);
+        this.currentState = new CurrentState(200, 220, this);
 
         var leftBorderPane = new BorderPane();
         leftBorderPane.setTop(palettes.getContent());
@@ -250,6 +250,10 @@ public class FrontendController {
     public void step() {
         setGraphicsArea();
         setCurrentState();
+    }
+
+    public void close(Class clazz) {
+        myContainer.setBottom(null);
     }
 
     public void save() {}

@@ -51,7 +51,7 @@ public abstract class Module {
         title.setLayoutY(10);
         title.setLayoutX(5);
 
-        Control close = new Close(this);
+        Control close = new Close(this, this.getClass());
         close.getButton().setLayoutX(moduleWidth - 25);
         close.getButton().setLayoutY(-6);
 
@@ -60,9 +60,7 @@ public abstract class Module {
 
     protected abstract void setContent();
 
-    protected void setStyle(){
-
-    }
+    protected void setStyle(){}
 
     public VBox getContent() {
         return vbox;
@@ -70,6 +68,6 @@ public abstract class Module {
 
     public VBox getVBox() {return vbox;}
 
-    public void close() {}
+    public void close(Class clazz) {context.close(clazz);}
 
 }

@@ -14,5 +14,8 @@ public class PiCommand extends Command {
         returnValue = Math.PI;
     }
 
-
+    @Override
+    public Command copy() {
+        return new PiCommand();
+    }
 }

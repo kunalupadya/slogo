@@ -16,5 +16,8 @@ public class RandomCommand extends Command {
         returnValue =  new Random().nextInt((int)myChildrenList.get(0).getReturnValue());
     }
 
-
+    @Override
+    public Command copy() {
+        return new RandomCommand();
+    }
 }

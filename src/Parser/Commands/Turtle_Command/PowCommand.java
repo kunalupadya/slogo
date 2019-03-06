@@ -14,4 +14,8 @@ public class PowCommand extends Command {
         returnValue =  Math.pow(myChildrenList.get(0).getReturnValue(),myChildrenList.get(1).getReturnValue());
     }
 
+    @Override
+    public Command copy() {
+        return new PowCommand();
+    }
 }

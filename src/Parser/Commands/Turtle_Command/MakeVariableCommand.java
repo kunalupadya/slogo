@@ -23,4 +23,9 @@ public class MakeVariableCommand extends Command {
             //throw new TODO create an exception here to represent inputting something other than a variable as the first param
         }
     }
+
+    @Override
+    public Command copy() {
+        return new MakeVariableCommand();
+    }
 }

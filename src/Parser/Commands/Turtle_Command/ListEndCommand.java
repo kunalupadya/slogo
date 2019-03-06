@@ -15,4 +15,9 @@ public class ListEndCommand extends Command {
 //            c.execute(backendController);
 //        }
     }
+
+    @Override
+    public Command copy() {
+        return new ListEndCommand();
+    }
 }

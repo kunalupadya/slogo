@@ -3,6 +3,7 @@ package Parser.Commands.Turtle_Command;
 import GraphicsBackend.Point;
 import GraphicsBackend.Turtle;
 import Main.BackendController;
+import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
 public class SetXYCommand extends TurtleCommand{
@@ -17,5 +18,10 @@ public class SetXYCommand extends TurtleCommand{
         Point newPos =  new Point(getChildren().get(0).getReturnValue(), getChildren().get(1).getReturnValue());
         returnValue =  distance(turtle.getPos(),newPos);
         turtle.moveTo(newPos);
+    }
+
+    @Override
+    public Command copy() {
+        return new SetXYCommand();
     }
 }

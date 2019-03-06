@@ -4,26 +4,34 @@ import GraphicsBackend.Turtle;
 import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
+import javafx.scene.paint.Color;
 
-public class TurtlesCommand extends TurtleCommand {
+public class GetPenColorCommand extends TurtleCommand {
 
-    public TurtlesCommand(){
+    private Color myColor;
+
+    public GetPenColorCommand(){
         isConstant = false;
         numParameters = 0;
     }
 
+
     @Override
     protected void performAction(BackendController backendController){
-        returnValue = backendController.getMyTurtles().size();
+        returnValue = backendController.getColorPaletteIndex(myColor);
     }
 
     @Override
     protected void turtleAction(Turtle turtle) {
+        myColor = turtle.getMyPen().getMyPenColor();
 
     }
 
     @Override
     public Command copy() {
-        return new TurtlesCommand();
+        return new GetPenColorCommand();
     }
+
+
 }
+

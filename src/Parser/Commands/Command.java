@@ -31,6 +31,10 @@ public abstract class Command{
         return numParameters;
     }
 
+    public void setNumParameters(int numParameters) {
+        this.numParameters = numParameters;
+    }
+
     public double getReturnValue() {
         return returnValue;
     }
@@ -49,6 +53,8 @@ public abstract class Command{
     }
 
     protected abstract void performAction(BackendController backendController);
+
+    public abstract Command copy();
 
     public void addChildren(Command command) {
         myChildrenList.add(command);

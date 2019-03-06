@@ -87,8 +87,8 @@ public class FrontendController {
         var buttonHandler = new HBox();
 
         buttonHandler.setId("buttonHandler");
-        buttonHandler.setMinWidth(600);
-        buttonHandler.setMinHeight(30);
+        buttonHandler.setMaxWidth(800);
+        buttonHandler.setMaxHeight(30);
 
         openHelp = new OpenHelp(this);
         openHelp.getHyperlink().setTooltip(new Tooltip("Help"));
@@ -252,6 +252,10 @@ public class FrontendController {
         setCurrentState();
     }
 
+    /**
+     * TODO: Use a properties file to be able to setNode to null
+     * @param clazz
+     */
     public void close(Class clazz) {
         myContainer.setBottom(null);
     }

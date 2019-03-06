@@ -224,7 +224,7 @@ public class FrontendController {
         List<Integer> ids = new ArrayList<>();
         List<Double> xPositions = new ArrayList<>();
         List<Double> yPositions = new ArrayList<>();
-        List<Optional<Color>> penColors = new ArrayList<>();
+        List<Color> penColors = new ArrayList<>();
         List<Double> angles = new ArrayList<>();
         List<Boolean> penUp = new ArrayList<>();
         //Or Is It Pen Width???
@@ -235,7 +235,7 @@ public class FrontendController {
             xPositions.add(turtle.getxPos());
             yPositions.add(turtle.getyPos());
             angles.add(turtle.getMyAngle());
-            penColors.add(pen.getPenColor());
+            penColors.add(pen.getMyPenColor());
             penUp.add(pen.getPenUp());
             penSize.add(pen.getPenSize());
             counter++;

@@ -1,6 +1,6 @@
 package GUI.Controls;
 
-import GUI.WindowLayout;
+import GUI.FrontendController;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,15 +9,18 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ResourceBundle;
 
 
 public class OpenHelp {
-    private WindowLayout context;
+    private FrontendController context;
     private Hyperlink myHyperlink;
 
-    public OpenHelp(WindowLayout context) {
-        myHyperlink = new Hyperlink();
-        Image hyperlinkGraphic = new Image(WindowLayout.class.getResourceAsStream("/images/help.png"), 20, 20, true, true);
+    public OpenHelp(FrontendController context) {
+        this.myHyperlink = new Hyperlink();
+        ResourceBundle buttonImages = ResourceBundle.getBundle("/buttonProperties/ButtonImages");
+        String image = buttonImages.getString("OpenHelp");
+        Image hyperlinkGraphic = new Image(FrontendController.class.getResourceAsStream(image), 20, 20, true, true);
         myHyperlink.setGraphic(new ImageView(hyperlinkGraphic));
         myHyperlink.getStyleClass().add("button");
         myHyperlink.setOnAction(e -> action());

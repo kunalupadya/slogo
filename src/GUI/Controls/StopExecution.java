@@ -1,13 +1,13 @@
 package GUI.Controls;
 
-import GUI.WindowLayout;
+import GUI.FrontendController;
 import javafx.scene.image.Image;
 
 public class StopExecution extends Control {
-    private WindowLayout context;
+    private FrontendController context;
 
-    public StopExecution(WindowLayout context) {
-        super(new Image(WindowLayout.class.getResourceAsStream("/images/stop.png")));
+    public StopExecution(FrontendController context) {
+        super(new Image(FrontendController.class.getResourceAsStream("/images/stop.png")));
     }
 
     @Override

@@ -25,7 +25,7 @@ class TokenConverter {
 
     private HashMap<String, Pattern> makeMap() {
         HashMap<String, Pattern> regexMap = new HashMap<>();
-        ResourceBundle resources = ResourceBundle.getBundle("Syntax");
+        ResourceBundle resources = ResourceBundle.getBundle("/languageProperties/Syntax");
         Enumeration<String> iter = resources.getKeys();
         while (iter.hasMoreElements()) {
             String key = iter.nextElement();
@@ -38,7 +38,7 @@ class TokenConverter {
     private String checkRegex(String input) {
         for(Map.Entry<String, Pattern> entry : myRegexMap.entrySet()){
             Pattern value = entry.getValue();
-            if(value.matcher(input).matches()){
+            if(value.matcher("/languageProperties/" + input).matches()){
                 return entry.getKey();
             }
         }

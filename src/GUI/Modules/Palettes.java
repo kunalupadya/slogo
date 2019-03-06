@@ -1,11 +1,11 @@
 package GUI.Modules;
 
-import GUI.WindowLayout;
+import GUI.FrontendController;
 
 public class Palettes extends Module {
 
-    public Palettes(int width, int height, WindowLayout myWindowLayout) {
-        super(width, height, myWindowLayout);
+    public Palettes(int width, int height, FrontendController myFrontendController) {
+        super(width, height, "Palettes", myFrontendController);
     }
 
     @Override

@@ -91,7 +91,6 @@ public class BackendController {
 
     public void parseAndRun(String userInput){
         ParseCommand parser = new ParseCommand(userInput, myTurtles, commmandLanguage, this);
-        System.out.println("hi");
     }
 
     public int getColorPaletteIndex(Color color){

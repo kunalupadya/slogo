@@ -28,7 +28,6 @@ public class ParseCommand {
     public ParseCommand(String consoleInput, List<Turtle> turtles,String commandLanguage, BackendController backendController){
 
         myLanguage = commandLanguage;
-        System.out.println(myLanguage);
         myTurtleList = turtles;
 
         //TODO Make handleerror work
@@ -51,7 +50,6 @@ public class ParseCommand {
         //convert word into tokens and check validity
         tokensList = addToTokenList(translatedListOfWords);
         commandsList = stackCommand(translatedListOfWords, myTurtleList, commandMap);
-        System.out.println("commandlist is " + commandsList);
 
         //Execute Command
         ExecuteCommand executeCommand = new ExecuteCommand(commandsList, tokensList, backendController);
@@ -81,7 +79,7 @@ public class ParseCommand {
 
             } catch (Exception e) {
 //                    e.printStackTrace();
-                System.out.println("class not found");
+                System.out.println("command class not found");
                 Command newCommand;
                 if (word.equals("[")){
                     newCommand = new ListStartCommand();

@@ -20,11 +20,10 @@ public class BackendController {
     private String commmandLanguage;
     private Grid myGrid;
     private List<Turtle> myTurtles = new ArrayList<>();
-    private WindowLayout windowLayout;
+    private FrontendController frontendController;
     private Map<String, UserDefinedCommand> userDefinedCommands;
     private Map<String, Variable> availableVariables;
     private Color[] myColorPalette;
-    private FrontendController frontendController;
 
     public BackendController(){
         myGrid = new Grid(400,400);

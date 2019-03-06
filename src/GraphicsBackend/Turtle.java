@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 
 
 public class Turtle {
-    public static final String DEFAULT_IMAGE = "initialTurtle.png";
+    public static final String DEFAULT_IMAGE = "/images/initialTurtle.png";
     public static final int TURTLE_SIZE = 50;
     public static final int HALF_TURTLE_SIZE = 25;
     public static final double HALF = 2.0;
@@ -32,7 +32,7 @@ public class Turtle {
         speed = 1;
         isTurtleVisible = true;
         isTurtleActive = true;
-        turtleImage = new javafx.scene.image.Image(this.getClass().getClassLoader().getResourceAsStream(DEFAULT_IMAGE));
+        turtleImage = new javafx.scene.image.Image(this.getClass().getResourceAsStream(DEFAULT_IMAGE));
 //        turtleImageView = new ImageView();
 //        updateThisTurtleImageview();
     }

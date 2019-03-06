@@ -26,7 +26,7 @@ public class SwitchLanguages {
      * @param context
      */
     public SwitchLanguages(FrontendController context) {
-        this.myLanguageResources = ResourceBundle.getBundle("/LanguageSettings");
+        this.myLanguageResources = ResourceBundle.getBundle("/languageProperties/LanguageSettings");
         this.context = context;
         this.button = new MenuButton();
 

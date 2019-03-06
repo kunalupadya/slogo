@@ -13,6 +13,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
@@ -58,6 +59,7 @@ public class FrontendController {
      */
     public FrontendController(BorderPane root, Stage stage) {
         this.myStage = stage;
+        this.myContainer = root;
         this.editor = new Editor(200, 200, this);
         this.availableVars = new AvailableVars(200, 100, this);
         this.userCommands = new UserCommands(200, 100, this);
@@ -83,9 +85,6 @@ public class FrontendController {
 
         setBackgroundColor(Color.LIGHTBLUE);
 
-        this.myContainer = root;
-
-        System.out.println(editor.getContent().getPrefWidth());
     }
 
     private HBox returnButtons() {
@@ -227,6 +226,7 @@ public class FrontendController {
         List<Double> xPositions = new ArrayList<>();
         List<Double> yPositions = new ArrayList<>();
         List<Optional<Color>> penColors = new ArrayList<>();
+        List<Double> angles = new ArrayList<>();
         List<Boolean> penUp = new ArrayList<>();
         //Or Is It Pen Width???
         List<Integer> penSize = new ArrayList<>();
@@ -235,12 +235,13 @@ public class FrontendController {
             ids.add(counter);
             xPositions.add(turtle.getxPos());
             yPositions.add(turtle.getyPos());
+            angles.add(turtle.getMyAngle());
             penColors.add(pen.getPenColor());
             penUp.add(pen.getPenUp());
             penSize.add(pen.getPenSize());
             counter++;
         }
-        currentState.getTurtleAndPens(ids, xPositions, yPositions, penColors, penUp, penSize);
+        currentState.getTurtleAndPens(ids, xPositions, yPositions, angles, penColors, penUp, penSize);
     }
 
     public void changeLanguage(String language) {

@@ -2,6 +2,7 @@ package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
 import Main.BackendController;
+import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
 public class TurtlesCommand extends TurtleCommand {
@@ -19,5 +20,10 @@ public class TurtlesCommand extends TurtleCommand {
     @Override
     protected void turtleAction(Turtle turtle) {
 
+    }
+
+    @Override
+    public Command copy() {
+        return new TurtlesCommand();
     }
 }

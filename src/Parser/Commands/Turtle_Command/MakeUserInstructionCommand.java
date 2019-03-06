@@ -52,4 +52,9 @@ public class MakeUserInstructionCommand extends Command {
     public List<Variable> getVariables() {
         return variables;
     }
+
+    @Override
+    public Command copy() {
+        return new MakeUserInstructionCommand();
+    }
 }

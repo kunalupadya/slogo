@@ -14,5 +14,8 @@ public class DifferenceCommand extends Command {
         returnValue =  Math.abs(myChildrenList.get(0).getReturnValue() - myChildrenList.get(1).getReturnValue());
     }
 
-
+    @Override
+    public Command copy() {
+        return new DifferenceCommand();
+    }
 }

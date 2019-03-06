@@ -2,6 +2,7 @@ package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
 import Main.BackendController;
+import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
 public class ShowingCommand extends TurtleCommand {
@@ -17,5 +18,10 @@ public class ShowingCommand extends TurtleCommand {
     @Override
     protected void turtleAction(Turtle turtle) {
         returnValue = turtle.getTurtleVisibility() ? SHOWING : HIDDEN;
+    }
+
+    @Override
+    public Command copy() {
+        return new ShowingCommand();
     }
 }

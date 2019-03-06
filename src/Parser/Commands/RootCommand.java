@@ -12,4 +12,8 @@ public class RootCommand extends Command{
     public void performAction(BackendController backendController){
     }
 
+    @Override
+    public Command copy() {
+        return new RootCommand();
+    }
 }

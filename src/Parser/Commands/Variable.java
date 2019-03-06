@@ -24,4 +24,9 @@ public class Variable extends Command{
             //throw new TODO make an exception for not having defined the variable
         }
     }
+
+    @Override
+    public Command copy() {
+        return new Variable(text);
+    }
 }

@@ -21,6 +21,7 @@ public class ParsingTree {
     List<Command> commands;
     List<Token> tokens;
     BackendController backendController;
+    List<Command> potentialRecursionList = new LinkedList<>();
 
 
     public ParsingTree(List<Command> commandsList, List<Token> tokensList, BackendController backendController){
@@ -45,23 +46,47 @@ public class ParsingTree {
             if (savedCurrentCommand.getClass() == MakeUserInstructionCommand.class){
                 currCommand = commandsList.remove(FIRST);
                 currToken = tokensList.remove(FIRST);
+                String name = currCommand.getText();
+                if (name == null){
+                    //throw new TODO make exception, user defined command name not valid
+                }
                 savedCurrentCommand.addChildren(currCommand);
+                currCommand = commandsList.remove(FIRST);
+                currToken = tokensList.remove(FIRST);
+                Command variablesList = currCommand;
+                if (variablesList.getClass() == ListStartCommand.class){
+                    variablesList.addChildren(makeTree(commandsList,tokensList, variablesList));
+                    savedCurrentCommand.addChildren(variablesList);
+                    if (currCommand.getClass() != ListEndCommand.class){
+                        //TODO Add error, list is missing the end brace "]"
+                    } //TODO make this extracted from the list start command class
+                }
+                else {
+                    //throw new TODO add exception missing variables list
+                }
+                List<Variable> listOfVariableList = new LinkedList<>();
+                //create variables list from current children list
+                for (Command command: variablesList.getChildren()){
+                    if (command.getClass() == Variable.class){
+                        listOfVariableList.add((Variable) command);
+                    }
+                    else{
+                        //throw new TODO create exception - variables list containes a non variable command
+                    }
+                }
+                UserDefinedCommand newUserDefinedCommand = new UserDefinedCommand(name, listOfVariableList, null);
+                backendController.addNewUserDefinedCommand(name, newUserDefinedCommand);
                 savedCurrentCommand.addChildren(makeTree(commandsList,tokensList,savedCurrentCommand));
                 savedCurrentCommand.execute(backendController);
                 parent.addChildren(savedCurrentCommand);
             }
             else if(savedCurrentCommand.getClass() == TextCommand.class){
                 String text = savedCurrentCommand.getText();
-                Optional<UserDefinedCommand> userDefinedCommand =  backendController.getUserDefinedCommand(text);
+                Optional<UserDefinedCommand> userDefinedCommand = backendController.getUserDefinedCommand(text);
                 if (userDefinedCommand.isPresent()){
                     UserDefinedCommand command = userDefinedCommand.get();
-                    // TODO COPY THE TREE AND ADD IT HERE
-//                    int numParameters = command.getNumParameters();
-//                    for (Command child: myChildrenList){
-//
-//                    }
-//
-//                    command.getChildren().get(COMMANDS);
+                    savedCurrentCommand.setNumParameters(command.getVariables().size());
+                    parent.addChildren(makeTree(commandsList,tokensList, savedCurrentCommand));
                 }
                 else {
                     // throw new TODO create exception, command not defined

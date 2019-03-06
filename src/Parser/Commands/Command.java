@@ -23,16 +23,16 @@ public abstract class Command{
         return currentNumParameters;
     }
 
-    public void setCurrentNumParameters(int currentNumParameters) {
-
-    }
-
     public boolean getIsConstant(){
         return isConstant;
     }
 
     public  int getNumParameters(){
         return numParameters;
+    }
+
+    public void setNumParameters(int numParameters) {
+        this.numParameters = numParameters;
     }
 
     public double getReturnValue() {

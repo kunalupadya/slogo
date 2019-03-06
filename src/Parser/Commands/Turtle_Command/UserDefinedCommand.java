@@ -12,7 +12,7 @@ public class UserDefinedCommand extends Command {
     private List<Variable> variables;
     private ListStartCommand headNode;
 
-    UserDefinedCommand(String name, List<Variable> variables, ListStartCommand headNode){
+    public UserDefinedCommand(String name, List<Variable> variables, ListStartCommand headNode){
         this.name = name;
         this.variables = variables;
         this.headNode = headNode;
@@ -28,21 +28,32 @@ public class UserDefinedCommand extends Command {
         return headNode;
     }
 
-//    public UserDefinedCommand createCopy(){
-//        List<Variable> newVariables;
-//        ListStartCommand newHeadNode;
-//
-//        traverse()
-//
-//        new UserDefinedCommand()
-//    }
 
-    private void traverse(Command command, Command newHeadNode){
+    private Command traverse(Command command){
 
+        Command newHeadNode;
+        newHeadNode = command.copy();
+        for (Command c: command.getChildren()){
+            newHeadNode.addChildren(traverse(c));
+        }
+        return newHeadNode;
     }
 
     @Override
     protected void performAction(BackendController backendController) {
 
+    }
+
+    @Override
+    public Command copy() {
+        //        List<Variable> newVariables;
+//        ListStartCommand newHeadNode;
+//
+//        traverse()
+//
+//        new UserDefinedCommand()
+
+        ListStartCommand newHeadNode = (ListStartCommand) traverse(headNode);
+        return new UserDefinedCommand(name, variables, newHeadNode);
     }
 }

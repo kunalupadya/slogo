@@ -258,6 +258,7 @@ public class FrontendController {
      */
     public void close(Class clazz) {
         myContainer.setBottom(null);
+        myStage.setMaxHeight(450);
     }
 
     public void save() {}

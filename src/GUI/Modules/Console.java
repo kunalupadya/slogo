@@ -32,7 +32,7 @@ public class Console extends Module  {
     @Override
     protected void setContent() {
         container = new VBox();
-        container.setPrefHeight(moduleHeight);
+        container.setPrefHeight(moduleHeight - toolbarHeight + 2);
         System.out.println(container.getHeight());
         container.prefWidthProperty().bind(content.widthProperty());
         content.getChildren().add(container);

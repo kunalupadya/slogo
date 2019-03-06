@@ -25,34 +25,35 @@ public abstract class Module {
     private double heightProperty;
     private double weightProperty;
 
-    private final double toolbarHeight = 20.0;
+    final double toolbarHeight = 20.0;
 
     public Module(int width, int height, String moduleName, FrontendController context) {
-        moduleWidth = width;
-        moduleHeight = height;
         this.context = context;
         this.vbox = new VBox();
-        vbox.setPrefSize(width, height);
+        this.moduleWidth = width;
+        this.moduleHeight = height;
+        vbox.setPrefSize(moduleWidth, moduleHeight);
         vbox.setId("module");
-        addToolbar(moduleName, 15, width);
+        addToolbar(moduleName, 15);
         this.content = new Pane();
         content.prefHeightProperty().bind(vbox.heightProperty());
         content.prefWidthProperty().bind(vbox.widthProperty());
         vbox.getChildren().addAll(toolbarPane, content);
     }
 
-    protected void addToolbar(String moduleName, double height, double width) {
+    protected void addToolbar(String moduleName, double height) {
         this.toolbarPane = new Pane();
-        toolbarPane.setPrefWidth(width);
+        toolbarPane.setPrefWidth(moduleWidth);
         toolbarPane.setMinHeight(height);
         toolbarPane.setId("toolbar");
 
         Text title = TextMaker.makeText(moduleName, new Font("Courier", 12));
+        title.setLayoutY(10);
+        title.setLayoutX(5);
 
         Control close = new Close(this);
-        close.getButton().setLayoutX(150);
-        System.out.print("toolbarpane width:");
-        System.out.println(toolbarPane.getWidth());
+        close.getButton().setLayoutX(moduleWidth - 25);
+        close.getButton().setLayoutY(-6);
 
         toolbarPane.getChildren().addAll(title, close.getButton());
     }

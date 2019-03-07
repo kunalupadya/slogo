@@ -37,7 +37,7 @@ public class LanguageSetting {
 
     //TODO: What do we do if there's an error. We just return semi-translated list? This method should probably throw an error
     //TODO: must deal with user defined commands
-    public String[] translateCommand(String[] listOfWords){
+    String[] translateCommand(String[] listOfWords){
         String[] newList = new String[listOfWords.length];
 
         for (int i = 0; i < listOfWords.length; i++) {

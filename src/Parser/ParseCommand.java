@@ -16,6 +16,7 @@ import java.util.*;
  * @co-author Dhanush Madabusi
  */
 
+//TODO: class needs refactoring
 public class ParseCommand {
 
     private final String whiteSpace = "\\s+";
@@ -64,7 +65,7 @@ public class ParseCommand {
 
 
     private ArrayList<Command> stackCommand(String[] listOfWords, List<Token> tokensList) {
-        ArrayList<Command> commandArrayList = new ArrayList<Command>();
+        ArrayList<Command> commandArrayList = new ArrayList<>();
 
         for (int a=0; a< listOfWords.length; a++){
             String word = listOfWords[a];

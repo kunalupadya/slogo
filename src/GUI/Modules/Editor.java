@@ -18,20 +18,6 @@ public class Editor extends Module {
     public Editor(int width, int height, FrontendController myFrontendController) {
         super(width, height, "Editor", myFrontendController);
         setContent();
-//        editor.layoutBoundsProperty().addListener(new ChangeListener<Bounds>() {
-//            @Override
-//            public void changed(ObservableValue<? extends Bounds> observable, Bounds oldValue, Bounds newValue) {
-//                if (moduleHeight != newValue.getHeight()) {
-//                    moduleHeight = (int) newValue.getHeight();
-//                    editor.setPrefHeight(editor.getLayoutBounds().getHeight() + 20);
-//                    System.out.println(editor.getLayoutBounds().getHeight());
-//                }
-//            }
-//        });
-    }
-
-    @Override
-    protected void setStyle(){
     }
 
     @Override
@@ -52,7 +38,7 @@ public class Editor extends Module {
     public void run() {
         //do a better job of "debugging" the editor text
         editorText = editor.getText();
-        if (editorText != "") {
+        if (! editorText.equals("")) {
             editorText = editorText.replace("\n", " ");
         }
         context.sendCommandString(editorText);

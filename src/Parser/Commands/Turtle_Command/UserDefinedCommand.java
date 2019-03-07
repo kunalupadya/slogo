@@ -5,6 +5,7 @@ import Parser.Commands.Command;
 import Parser.Commands.Variable;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class UserDefinedCommand extends Command {
@@ -42,7 +43,7 @@ public class UserDefinedCommand extends Command {
 
     @Override
     protected void performAction(BackendController backendController) {
-
+        backendController.removeUserDefinedCommandFromStack(this);
     }
 
     @Override
@@ -54,7 +55,11 @@ public class UserDefinedCommand extends Command {
 //
 //        new UserDefinedCommand()
 
+        List<Variable> newVariables = new LinkedList<>();
+        for (Variable v:variables){
+            newVariables.add((Variable) v.copy());
+        }
         ListStartCommand newHeadNode = (ListStartCommand) traverse(headNode);
-        return new UserDefinedCommand(name, variables, newHeadNode);
+        return new UserDefinedCommand(name, newVariables, newHeadNode);
     }
 }

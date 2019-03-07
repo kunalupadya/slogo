@@ -23,6 +23,7 @@ public class BackendController {
     private List<Turtle> myTurtles = new ArrayList<>();
     private Map<String, UserDefinedCommand> userDefinedCommands;
     private Map<String, Variable> availableVariables;
+    private List<UserDefinedCommand> userDefinedCommandStack = new LinkedList<>();
     private FrontendController frontendController;
     private Palette myPalette;
 
@@ -49,11 +50,27 @@ public class BackendController {
         availableVariables.put(variableName, variable);
     }
 
+    public void addUserDefinedCommandToStack(UserDefinedCommand userDefinedCommand){
+        userDefinedCommandStack.add(userDefinedCommand);
+    }
+
+    public void removeUserDefinedCommandFromStack(UserDefinedCommand userDefinedCommand){
+        userDefinedCommandStack.remove(userDefinedCommand);
+    }
+
     public Optional<Double> getVariableIfExists(String variableName){
         if (availableVariables.containsKey(variableName)){
             Double returnValue = availableVariables.get(variableName).getReturnValue();
             return Optional.of(returnValue);
         }
+        List<Variable> stackVariables = userDefinedCommandStack.get(userDefinedCommandStack.size()-1).getVariables();
+        for (Variable v:stackVariables){
+            if (v.getText().equals(variableName)){
+                Double returnValue = v.getReturnValue();
+                return Optional.of(returnValue);
+            }
+        }
+
         return Optional.empty();
     }
 
@@ -62,6 +79,14 @@ public class BackendController {
             return Optional.of(userDefinedCommands.get(commandName));
         }
         return Optional.empty();
+    }
+
+    public Set<String> getAllCommands() {
+        return userDefinedCommands.keySet();
+    }
+
+    public Set<String> getAllVariables() {
+        return availableVariables.keySet();
     }
 
     public String getCommandLanguage(){
@@ -91,7 +116,6 @@ public class BackendController {
 
     public void parseAndRun(String userInput){
         ParseCommand parser = new ParseCommand(userInput, myTurtles, commmandLanguage, this);
-        System.out.println("hi");
     }
 
     public int getColorPaletteIndex(Color color){

@@ -13,10 +13,8 @@ public class Turtle {
     private double xPos;
     private double yPos;
     private double myAngle;
-    private double speed;
     private Pen myPen;
     private Image turtleImage;
-    private ImageView turtleImageView;
     private Grid myGrid;
     private boolean isTurtleVisible;
     private boolean isTurtleActive;
@@ -29,7 +27,6 @@ public class Turtle {
         yPos = myGrid.getHeight()/ HALF;
         myPen = new Pen();
         myAngle = 90;
-        speed = 1;
         isTurtleVisible = true;
         isTurtleActive = true;
         turtleImage = new javafx.scene.image.Image(this.getClass().getResourceAsStream(DEFAULT_IMAGE));

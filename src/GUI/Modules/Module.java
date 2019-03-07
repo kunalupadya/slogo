@@ -4,8 +4,6 @@ import GUI.Controls.Close;
 import GUI.Controls.Control;
 import GUI.FrontendController;
 import Main.TextMaker;
-import javafx.geometry.Insets;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -16,41 +14,42 @@ import javafx.scene.text.Text;
  * @author Januario Carreiro & David Liu
  */
 public abstract class Module {
-    public final Pane content;
-    public final VBox vbox;
-    private Pane toolbarPane;
+    public Pane content;
+    public final VBox module;
+    Pane toolbarPane;
     public int moduleWidth;
     public int moduleHeight;
     public FrontendController context;
+    Control close;
 
     final double toolbarHeight = 20.0;
 
     public Module(int width, int height, String moduleName, FrontendController context) {
+        this.module = new VBox();
         this.content = new Pane();
-        this.vbox = new VBox();
         this.moduleWidth = width;
         this.moduleHeight = height;
         this.context = context;
-        vbox.setMinSize(moduleWidth, moduleHeight);
-        vbox.setMaxSize(moduleWidth, moduleHeight);
-        vbox.setId("module");
-        addToolbar(moduleName, toolbarHeight);
-        content.prefHeightProperty().bind(vbox.heightProperty());
-        content.prefWidthProperty().bind(vbox.widthProperty());
-        vbox.getChildren().addAll(toolbarPane, content);
+        module.setMinSize(moduleWidth, moduleHeight);
+        module.setMaxSize(moduleWidth, moduleHeight);
+        module.setId("module");
+        addToolbar(moduleName);
+        content.prefHeightProperty().bind(module.heightProperty());
+        content.prefWidthProperty().bind(module.widthProperty());
+        module.getChildren().addAll(toolbarPane, content);
     }
 
-    protected void addToolbar(String moduleName, double height) {
+    protected void addToolbar(String moduleName) {
         this.toolbarPane = new Pane();
         toolbarPane.setPrefWidth(moduleWidth);
-        toolbarPane.setMinHeight(height);
+        toolbarPane.setMinHeight(toolbarHeight);
         toolbarPane.setId("toolbar");
 
         Text title = TextMaker.makeText(moduleName, new Font("Courier", 12));
         title.setLayoutY(10);
         title.setLayoutX(5);
 
-        Control close = new Close(this, this.getClass());
+        close = new Close(this, this.getClass());
         close.getButton().setLayoutX(moduleWidth - 25);
         close.getButton().setLayoutY(-6);
 
@@ -59,13 +58,9 @@ public abstract class Module {
 
     protected abstract void setContent();
 
-    protected void setStyle(){}
-
     public VBox getContent() {
-        return vbox;
+        return module;
     }
-
-    public VBox getVBox() {return vbox;}
 
     public void close(Class clazz) {context.close(clazz);}
 

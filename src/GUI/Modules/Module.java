@@ -7,6 +7,7 @@ import Main.TextMaker;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import java.util.ResourceBundle;
 
 /**
  * Superclass to serve as template for the separate modules (Abstract?)
@@ -14,6 +15,8 @@ import javafx.scene.text.Text;
  * @author Januario Carreiro & David Liu
  */
 public abstract class Module {
+    public ResourceBundle myResourceBundles;
+    public VBox container;
     public Pane content;
     public final VBox module;
     Pane toolbarPane;
@@ -25,6 +28,7 @@ public abstract class Module {
     final double toolbarHeight = 20.0;
 
     public Module(int width, int height, String moduleName, FrontendController context) {
+        this.myResourceBundles = ResourceBundle.getBundle("/moduleProperties/ModuleLabel");
         this.module = new VBox();
         this.content = new Pane();
         this.moduleWidth = width;
@@ -44,8 +48,7 @@ public abstract class Module {
         toolbarPane.setPrefWidth(moduleWidth);
         toolbarPane.setMinHeight(toolbarHeight);
         toolbarPane.setId("toolbar");
-
-        Text title = TextMaker.makeText(moduleName, new Font("Courier", 12));
+        Text title = TextMaker.makeText(moduleName, new Font(myResourceBundles.getString("Font"), 12));
         title.setLayoutY(10);
         title.setLayoutX(5);
 

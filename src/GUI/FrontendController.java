@@ -318,6 +318,10 @@ public class FrontendController {
         }
     }
 
+    public void undo(){
+        backendController.undo();
+    }
+
     private void closeModule(String modulePane, String modulePosition) {
         switch(modulePane) {
             case "myContainer":

@@ -3,9 +3,7 @@ package GUI.Modules;
 import GUI.Controls.Close;
 import GUI.Controls.Control;
 import GUI.FrontendController;
-import Main.TextMaker;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import java.util.ResourceBundle;
 
@@ -47,7 +45,7 @@ public abstract class Module {
         toolbarPane.setPrefWidth(moduleWidth);
         toolbarPane.setMinHeight(toolbarHeight);
         toolbarPane.setId("toolbar");
-        Text title = TextMaker.makeText(moduleName, new Font(myResourceBundles.getString("Font"), 12));
+        Text title = new Text(moduleName);
         title.setLayoutY(10);
         title.setLayoutX(5);
 

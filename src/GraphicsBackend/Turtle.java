@@ -3,6 +3,9 @@ package GraphicsBackend;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.LinkedList;
+import java.util.List;
+
 
 public class Turtle {
     public static final String DEFAULT_IMAGE = "/images/initialTurtle.png";
@@ -22,6 +25,7 @@ public class Turtle {
     private boolean isTurtleActive;
     //TODO implement turtle shape using int index
     private int myShape;
+    private LinkedList<Point> previousPositions = new LinkedList<>();
 
     public Turtle(Grid grid){
         myGrid = grid;

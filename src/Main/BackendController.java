@@ -130,7 +130,9 @@ public class BackendController {
         frontendController.setBackgroundColor(color);
     }
 
+    public void undo(){
 
+    }
 }
 
 //    private void executeCommandTree(Expression rootExpr) {

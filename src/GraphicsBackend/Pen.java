@@ -9,7 +9,7 @@ public class Pen {
     //TODO Need to change pencolor to int
     private Color penColor;
     private boolean penUp = false;
-    private int penSize = 10;
+    private int penSize = 1;
 
     public Pen(){
         this(Color.BLACK);

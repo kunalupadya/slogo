@@ -57,13 +57,13 @@ public class FrontendController {
     public FrontendController(BorderPane root, Stage stage) {
         this.myStage = stage;
         this.myContainer = root;
-        this.editor = new Editor(200, 200, this);
-        this.availableVars = new AvailableVars(200, 100, this);
-        this.userCommands = new UserCommands(200, 100, this);
-        this.console = new Console(600, 100, this);
-        this.graphicsArea = new GraphicsArea(400, 400, this);
-        this.palettes = new Palettes(200, 200, this);
-        this.currentState = new CurrentState(200, 200, this);
+        this.editor = new Editor(200, 210, this);
+        this.availableVars = new AvailableVars(200, 105, this);
+        this.userCommands = new UserCommands(200, 105, this);
+        this.console = new Console(800, 100, this);
+        this.graphicsArea = new GraphicsArea(400, 420, this);
+        this.palettes = new Palettes(200, 210, this);
+        this.currentState = new CurrentState(200, 210, this);
 
         var leftBorderPane = new BorderPane();
         leftBorderPane.setTop(palettes.getContent());
@@ -87,8 +87,8 @@ public class FrontendController {
         var buttonHandler = new HBox();
 
         buttonHandler.setId("buttonHandler");
-        buttonHandler.setMinWidth(600);
-        buttonHandler.setMinHeight(30);
+        buttonHandler.setMaxWidth(800);
+        buttonHandler.setMaxHeight(30);
 
         openHelp = new OpenHelp(this);
         openHelp.getHyperlink().setTooltip(new Tooltip("Help"));
@@ -235,12 +235,17 @@ public class FrontendController {
             xPositions.add(turtle.getxPos());
             yPositions.add(turtle.getyPos());
             angles.add(turtle.getMyAngle());
-            penColors.add(pen.getPenColor());
+            penColors.add(pen.getMyPenColor());
             penUp.add(pen.getPenUp());
             penSize.add(pen.getPenSize());
             counter++;
         }
         currentState.getTurtleAndPens(ids, xPositions, yPositions, angles, penColors, penUp, penSize);
+    }
+
+    public void getPalettes() {
+        Color[] paletteIndices = backendController.getColorPalette();
+        palettes.setPalettes(paletteIndices);
     }
 
     public void changeLanguage(String language) {
@@ -250,6 +255,16 @@ public class FrontendController {
     public void step() {
         setGraphicsArea();
         setCurrentState();
+        getPalettes();
+    }
+
+    /**
+     * TODO: Use a properties file to be able to setNode to null
+     * @param clazz
+     */
+    public void close(Class clazz) {
+        myContainer.setBottom(null);
+        myStage.setMaxHeight(450);
     }
 
     public void save() {}

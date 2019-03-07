@@ -63,8 +63,8 @@ public class Console extends Module  {
             }
             commandHistory.add(0, parameterValue);
             commandPosition = -1;
-            context.sendCommandString(parameterValue);
             consoleInput.clear();
+            context.sendCommandString(parameterValue);
         }
         if (code == KeyCode.UP) {
             if (!commandHistory.isEmpty() && !(commandPosition >= commandHistory.size() - 1)) {

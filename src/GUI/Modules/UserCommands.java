@@ -74,5 +74,4 @@ public class UserCommands extends Module {
     public void setUserCommands(List<String> myUserCommands) {
         userCommands = myUserCommands;
     }
-
 }

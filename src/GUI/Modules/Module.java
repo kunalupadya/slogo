@@ -22,20 +22,19 @@ public abstract class Module {
     public int moduleWidth;
     public int moduleHeight;
     public FrontendController context;
-    private double heightProperty;
-    private double weightProperty;
 
     final double toolbarHeight = 20.0;
 
     public Module(int width, int height, String moduleName, FrontendController context) {
-        this.context = context;
+        this.content = new Pane();
         this.vbox = new VBox();
         this.moduleWidth = width;
         this.moduleHeight = height;
-        vbox.setPrefSize(moduleWidth, moduleHeight);
+        this.context = context;
+        vbox.setMinSize(moduleWidth, moduleHeight);
+        vbox.setMaxSize(moduleWidth, moduleHeight);
         vbox.setId("module");
-        addToolbar(moduleName, 15);
-        this.content = new Pane();
+        addToolbar(moduleName, toolbarHeight);
         content.prefHeightProperty().bind(vbox.heightProperty());
         content.prefWidthProperty().bind(vbox.widthProperty());
         vbox.getChildren().addAll(toolbarPane, content);
@@ -51,7 +50,7 @@ public abstract class Module {
         title.setLayoutY(10);
         title.setLayoutX(5);
 
-        Control close = new Close(this);
+        Control close = new Close(this, this.getClass());
         close.getButton().setLayoutX(moduleWidth - 25);
         close.getButton().setLayoutY(-6);
 
@@ -60,9 +59,7 @@ public abstract class Module {
 
     protected abstract void setContent();
 
-    protected void setStyle(){
-
-    }
+    protected void setStyle(){}
 
     public VBox getContent() {
         return vbox;
@@ -70,6 +67,6 @@ public abstract class Module {
 
     public VBox getVBox() {return vbox;}
 
-    public void close() {}
+    public void close(Class clazz) {context.close(clazz);}
 
 }

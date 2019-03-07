@@ -1,21 +1,34 @@
 package GUI.Modules;
 
+import GUI.Controls.Control;
 import GUI.FrontendController;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  *
  */
 
 public class GraphicsArea extends Module {
+    private Pane toolbarPane;
+    private Control close;
+    private ResourceBundle myResourceBundles;
+    private FrontendController context;
+    private Pane content;
 
     public GraphicsArea(int width, int height, FrontendController myFrontendController) {
         super(width, height, "Turtle Display", myFrontendController);
+        toolbarPane = getToolbarPane();
+        close = getClose();
+        myResourceBundles = getMyResourceBundles();
+        context = getContext();
+        content = getPane();
         toolbarPane.getChildren().remove(close.getButton());
     }
 

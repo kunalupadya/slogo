@@ -41,15 +41,7 @@ public class ExecuteCommand {
 
     public void traverse(Command node){
         if (node.getChildren().isEmpty()&node.getClass() != TextCommand.class){
-            if (node.getIsConstant()){
-                return;
-            }
-            else if (node.getNumParameters() == 0){
-                node.execute(backendController);
-            }
-            else{
-                throw new SyntaxError(PARAMETERS_MISSING);
-            }
+            handleEmptyChildrenCommands(node);
             return;
         }
         if (node.getClass() == MakeUserInstructionCommand.class | node.getClass() == ListEndCommand.class){
@@ -87,5 +79,18 @@ public class ExecuteCommand {
         else{
             throw new SyntaxError(WRONG_NUMBER_OF_PARAMETERS);
         }
+    }
+
+    private void handleEmptyChildrenCommands(Command node) {
+        if (node.getIsConstant()){
+            return;
+        }
+        else if (node.getNumParameters() == 0){
+            node.execute(backendController);
+        }
+        else{
+            throw new SyntaxError(PARAMETERS_MISSING);
+        }
+        return;
     }
 }

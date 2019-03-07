@@ -2,19 +2,31 @@ package GUI.Modules;
 
 import GUI.FrontendController;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+
+import java.util.ResourceBundle;
 
 /**
  *
  */
 
 public class Editor extends Module {
+    private VBox container;
+    private Pane content;
     private TextArea editor;
     private String editorText;
+    private int moduleWidth;
+    private ResourceBundle myResourceBundles;
+    private FrontendController context;
 
     public Editor(int width, int height, FrontendController myFrontendController) {
         super(width, height, "Editor", myFrontendController);
+        content = getPane();
+        myResourceBundles = getMyResourceBundles();
+        moduleWidth = getModuleWidth();
+        context = getContext();
         setContent();
     }
 

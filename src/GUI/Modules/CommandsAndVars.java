@@ -1,13 +1,25 @@
 package GUI.Modules;
 
 import GUI.FrontendController;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+
+import java.util.List;
 import java.util.Set;
 
 public class CommandsAndVars extends ListModule {
+    private FrontendController context;
+    private List<String> list;
+    private ListView<String> listDisplay;
+    private ObservableList<String> listCollection;
 
     public CommandsAndVars(int width, int height, String moduleName, FrontendController myFrontendController) {
         super(width, height, moduleName, myFrontendController);
+        context = getContext();
+        list = getList();
+        listDisplay = getListDisplay();
+        listCollection = getListCollection();
         setClick();
     }
 

@@ -62,8 +62,8 @@ public class FrontendController {
         this.userCommands = new UserCommands(200, 105, this);
         this.console = new Console(800, 100, this);
         this.graphicsArea = new GraphicsArea(400, 420, this);
-        this.palettes = new Palettes(200, 220, this);
-        this.currentState = new CurrentState(200, 220, this);
+        this.palettes = new Palettes(200, 210, this);
+        this.currentState = new CurrentState(200, 210, this);
 
         var leftBorderPane = new BorderPane();
         leftBorderPane.setTop(palettes.getContent());

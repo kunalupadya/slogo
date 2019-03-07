@@ -29,7 +29,7 @@ public class Controller extends Application {
     private static final int WINDOW_HEIGHT = 450;
     private static final int WINDOW_WIDTH = 800;
     private static final Paint BACKGROUND = Color.ANTIQUEWHITE;
-    private static final int FRAMES_PER_SECOND = 1;
+    private static final int FRAMES_PER_SECOND = 4;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private static final String WINDOW_TITLE = "Simple Logo";

@@ -13,6 +13,6 @@ public class Undo extends Control {
 
     @Override
     protected void action() {
-
+        context.undo();
     }
 }

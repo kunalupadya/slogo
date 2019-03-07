@@ -64,6 +64,14 @@ public class BackendController {
         return Optional.empty();
     }
 
+    public Set<String> getAllCommands() {
+        return userDefinedCommands.keySet();
+    }
+
+    public Set<String> getAllVariables() {
+        return availableVariables.keySet();
+    }
+
     public String getCommandLanguage(){
          return commmandLanguage;
     }

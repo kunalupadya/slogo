@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * TODO: need to get list of user commands from somewhere along the backend
@@ -26,7 +27,7 @@ public class UserCommands extends Module {
     public UserCommands(int width, int height, FrontendController myFrontendController) {
         super(width, height, "User Commands", myFrontendController);
         userCommands = new ArrayList<>();
-        userCommands.add("Sum 10 10");
+        //userCommands.add("Sum 10 10");
         //userCommands.add("Nothing much");
         setContent();
         setClick();
@@ -71,7 +72,12 @@ public class UserCommands extends Module {
         });
     }
 
-    public void setUserCommands(List<String> myUserCommands) {
-        userCommands = myUserCommands;
+    public void setUserCommands(Set<String> myUserCommands) {
+        userCommands.clear();
+        userCommandsCollection.clear();
+        for (String s: myUserCommands) {
+            userCommandsCollection.add(s);
+            userCommands.add(s);
+        }
     }
 }

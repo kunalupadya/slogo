@@ -7,7 +7,6 @@ import Parser.Commands.TurtleCommand;
 
 public class SetPenSizeCommand extends TurtleCommand {
 
-    private int myPenSize;
     public SetPenSizeCommand(){
         isConstant = false;
         numParameters = 1;
@@ -26,7 +25,6 @@ public class SetPenSizeCommand extends TurtleCommand {
     protected void turtleAction(Turtle turtle) {
         turtle.getMyPen().setPenSize((int)getChildren().get(0).getReturnValue());
         returnValue = getChildren().get(0).getReturnValue();
-        System.out.println(returnValue);
     }
 
     @Override

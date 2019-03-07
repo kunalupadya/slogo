@@ -259,7 +259,6 @@ public class FrontendController {
             penColors.add(pen.getMyPenColor());
             penUp.add(pen.getPenUp());
             penSize.add(pen.getPenSize());
-            System.out.println(pen.getPenSize());
             counter++;
         }
         currentState.getTurtleAndPens(ids, xPositions, yPositions, angles, penColors, penUp, penSize);

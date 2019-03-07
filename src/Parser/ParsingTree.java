@@ -38,7 +38,6 @@ public class ParsingTree {
 
     public Command makeTree(List<Command> commandsList, List<Token> tokensList, Command parent){
         while (!commandsList.isEmpty()) {
-            System.out.println();
             currCommand = commandsList.remove(FIRST);
             currToken = tokensList.remove(FIRST);
             Command savedCurrentCommand = currCommand;
@@ -81,7 +80,7 @@ public class ParsingTree {
                 backendController.addNewUserDefinedCommand(name, newUserDefinedCommand);
                 parent.addChildren(makeTree(commandsList,tokensList,savedCurrentCommand));
                 savedCurrentCommand.execute(backendController);
-//                parent.addChildren(savedCurrentCommand);
+
             }
             else if(savedCurrentCommand.getClass() == TextCommand.class){
                 String text = savedCurrentCommand.getText();
@@ -90,7 +89,7 @@ public class ParsingTree {
                     UserDefinedCommand command = userDefinedCommand.get();
                     savedCurrentCommand.setNumParameters(command.getVariables().size());
                     parent.addChildren(makeTree(commandsList,tokensList, savedCurrentCommand));
-//                    parent.addChildren(savedCurrentCommand);
+
                 }
                 else {
                     // throw new TODO create exception, command not defined
@@ -110,6 +109,7 @@ public class ParsingTree {
                 parent.addChildren(savedCurrentCommand);
                 if (currCommand.getClass() != ListEndCommand.class){
                     //TODO Add error, list is missing the end brace "]"
+                    System.out.println("OH NO!!!");
                 }
             }
             else{

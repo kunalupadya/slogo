@@ -52,7 +52,6 @@ public class Pen {
         this.penUp = penUp;
     }
 
-    //TODO: I made this but need to implement a way that pensize will affect the line width - Louis
     public void setPenSize(int pixelSize){ this.penSize = pixelSize;
-    System.out.println(penSize);}
+    System.out.println("pensize has been changed to" + penSize);}
 }

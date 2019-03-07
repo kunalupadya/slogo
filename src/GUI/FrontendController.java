@@ -227,7 +227,6 @@ public class FrontendController {
         List<Color> penColors = new ArrayList<>();
         List<Double> angles = new ArrayList<>();
         List<Boolean> penUp = new ArrayList<>();
-        //Or Is It Pen Width???
         List<Integer> penSize = new ArrayList<>();
         for (Turtle turtle: turtles) {
             Pen pen = turtle.getMyPen();
@@ -238,6 +237,7 @@ public class FrontendController {
             penColors.add(pen.getMyPenColor());
             penUp.add(pen.getPenUp());
             penSize.add(pen.getPenSize());
+            System.out.println(pen.getPenSize());
             counter++;
         }
         currentState.getTurtleAndPens(ids, xPositions, yPositions, angles, penColors, penUp, penSize);

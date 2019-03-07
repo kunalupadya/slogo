@@ -10,11 +10,10 @@ public class SetBackgroundCommand extends Command {
         numParameters = 1;
     }
 
-    //TODO: setBackGrounColor by calling grid
     public void performAction(BackendController backendController){
+        backendController.setBackGroundColor(backendController.getColor((int)getChildren().get(0).getReturnValue()));
 
     }
-
     @Override
     public Command copy() {
         return new SetBackgroundCommand();

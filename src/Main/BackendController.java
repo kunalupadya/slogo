@@ -110,8 +110,8 @@ public class BackendController {
         myPalette.setMyColorPalette(index, color);
     }
 
-    public void setBackGround(){
-
+    public void setBackGroundColor(Color color){
+        frontendController.setBackgroundColor(color);
     }
 
 

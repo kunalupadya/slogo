@@ -8,6 +8,11 @@ public class Palette {
 
     public Palette(){
         myColorPalette = new Color[256];
+        myColorPalette[0] = Color.BLACK;
+        myColorPalette[1] = Color.WHITE;
+        myColorPalette[2] = Color.RED;
+        myColorPalette[3] = Color.BLUE;
+        myColorPalette[4] = Color.GREEN;
     }
 
     public Color[] getColorPalette(){

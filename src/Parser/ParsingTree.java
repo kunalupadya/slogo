@@ -105,7 +105,8 @@ public class ParsingTree {
                 return savedCurrentCommand;
             }
             else if (savedCurrentCommand.getClass() == ListStartCommand.class){
-                parent.addChildren(makeTree(commandsList,tokensList, savedCurrentCommand));
+                savedCurrentCommand.addChildren(makeTree(commandsList,tokensList, savedCurrentCommand));
+                parent.addChildren(savedCurrentCommand);
                 if (currCommand.getClass() != ListEndCommand.class){
                     //TODO Add error, list is missing the end brace "]"
                     System.out.println("OH NO!!!");

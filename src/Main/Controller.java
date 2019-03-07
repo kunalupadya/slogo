@@ -33,7 +33,7 @@ public class Controller extends Application {
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private static final String WINDOW_TITLE = "Simple Logo";
-    public static Font Aller_Bd, Aller_Lt, Aller_LtIt;
+    private static Font Aller_Bd, Aller_Lt, Aller_LtIt;
     private Scene myScene;
 
     /**

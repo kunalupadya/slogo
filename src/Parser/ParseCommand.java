@@ -25,6 +25,7 @@ public class ParseCommand {
     private List<Turtle> myTurtleList;
     private Map<String, String> commandMap;
 
+
     public ParseCommand(String consoleInput, List<Turtle> turtles,String commandLanguage, BackendController backendController){
 
         myLanguage = commandLanguage;
@@ -34,9 +35,8 @@ public class ParseCommand {
         if(consoleInput.equals(null) || consoleInput.equals("")){
 
         }
-
-        RemoveComment removeComment = new RemoveComment(consoleInput);
-        String refinedInput = removeComment.getOutput();
+        RemoveComment removeComment = new RemoveComment();
+        String refinedInput = removeComment.deleteComment(consoleInput);
         String [] listOfWords = refinedInput.split(whiteSpace);
 
         //translate the input into default language
@@ -49,7 +49,7 @@ public class ParseCommand {
         commandsList = stackCommand(translatedListOfWords, tokensList);
 
         //Execute Command
-        ExecuteCommand executeCommand = new ExecuteCommand(commandsList, tokensList, backendController);
+        ExecuteCommand executeCommand = new ExecuteCommand(commandsList, backendController);
         executeCommand.runCommands();
     }
 

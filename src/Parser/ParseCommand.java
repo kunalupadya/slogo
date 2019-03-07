@@ -49,7 +49,7 @@ public class ParseCommand {
         commandsList = stackCommand(translatedListOfWords, tokensList);
 
         //Execute Command
-        ExecuteCommand executeCommand = new ExecuteCommand(commandsList, tokensList, backendController);
+        ExecuteCommand executeCommand = new ExecuteCommand(commandsList, backendController);
         executeCommand.runCommands();
     }
 

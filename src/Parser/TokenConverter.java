@@ -38,7 +38,7 @@ class TokenConverter {
     private String checkRegex(String input) {
         for(Map.Entry<String, Pattern> entry : myRegexMap.entrySet()){
             Pattern value = entry.getValue();
-            if(value.matcher("/languageProperties/" + input).matches()){
+            if(value.matcher(input).matches()){
                 return entry.getKey();
             }
         }

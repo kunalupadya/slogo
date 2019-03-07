@@ -27,7 +27,7 @@ public abstract class Command{
         return isConstant;
     }
 
-    public  int getNumParameters(){
+    public int getNumParameters(){
         return numParameters;
     }
 

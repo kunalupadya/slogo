@@ -1,7 +1,7 @@
 package GUI.Modules;
 
 import GUI.Controls.Close;
-import GUI.Controls.Control;
+import GUI.Controls.ButtonControl;
 import GUI.FrontendController;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
@@ -21,7 +21,7 @@ public abstract class Module {
     public int moduleWidth;
     public int moduleHeight;
     public FrontendController context;
-    Control close;
+    ButtonControl close;
 
     final double toolbarHeight = 20.0;
 

@@ -3,7 +3,7 @@ package GUI.Controls;
 import GUI.Modules.Module;
 import javafx.scene.image.Image;
 
-public class Close extends Control{
+public class Close extends ButtonControl {
     private Module context;
     private Class clazz;
     /**

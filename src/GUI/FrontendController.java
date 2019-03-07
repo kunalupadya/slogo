@@ -36,6 +36,7 @@ import java.util.Set;
 public class FrontendController {
     private Stage myStage;
     private BorderPane myContainer, leftBorderPane, rightBorderPane;
+    private HBox buttonHandler;
     private Editor editor;
     private AvailableVars availableVars;
     private UserCommands userCommands;
@@ -100,7 +101,7 @@ public class FrontendController {
     }
 
     private HBox returnButtons() {
-        var buttonHandler = new HBox();
+        buttonHandler = new HBox();
 
         buttonHandler.setId("buttonHandler");
         buttonHandler.setMaxWidth(800);
@@ -285,6 +286,31 @@ public class FrontendController {
         moduleList.remove(className);
 
         closeModule(myModuleContainer.getString(className), myModulePosition.getString(className));
+
+        if (clazz.equals(console.getClass())) {
+            myStage.setMaxHeight(485);
+        }
+        else if ((clazz.equals(palettes.getClass()) && (! moduleList.contains("CurrentState")))
+                || (clazz.equals(currentState.getClass()) && (! moduleList.contains("Palettes")))) {
+            myContainer.setLeft(null);
+            buttonHandler.setMinWidth(600);
+            buttonHandler.setMaxWidth(600);
+            console.getContent().setMinWidth(600);
+            console.getContent().setMaxWidth(600);
+            if (myStage.getWidth() != 600) {
+                myStage.setMaxWidth(600);
+            }
+        }
+        else if ((!moduleList.contains("Editor") && !moduleList.contains("AvailableVars") && !moduleList.contains("UserCommands"))) {
+            myContainer.setRight(null);
+            buttonHandler.setMinWidth(600);
+            buttonHandler.setMaxWidth(600);
+            console.getContent().setMinWidth(600);
+            console.getContent().setMaxWidth(600);
+            if (myStage.getWidth() != 600) {
+                myStage.setMaxWidth(600);
+            }
+        }
     }
 
     private void closeModule(String modulePane, String modulePosition) {

@@ -16,10 +16,11 @@ import javafx.scene.text.Text;
 public abstract class Module {
     public Pane content;
     public final VBox module;
-    private Pane toolbarPane;
+    Pane toolbarPane;
     public int moduleWidth;
     public int moduleHeight;
     public FrontendController context;
+    Control close;
 
     final double toolbarHeight = 20.0;
 
@@ -48,7 +49,7 @@ public abstract class Module {
         title.setLayoutY(10);
         title.setLayoutX(5);
 
-        Control close = new Close(this, this.getClass());
+        close = new Close(this, this.getClass());
         close.getButton().setLayoutX(moduleWidth - 25);
         close.getButton().setLayoutY(-6);
 

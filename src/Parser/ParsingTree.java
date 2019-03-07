@@ -1,6 +1,5 @@
 package Parser;
 
-import GraphicsBackend.Turtle;
 import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
@@ -32,20 +31,10 @@ public class ParsingTree {
             currCommand = commandsList.remove(FIRST);
             Command savedCurrentCommand = currCommand;
             if (savedCurrentCommand.getClass() == MakeUserInstructionCommand.class){
-                makeUserDefinedCommand(commandsList, parent, savedCurrentCommand);
+                handleUserDefinedCommand(commandsList, parent, savedCurrentCommand);
             }
             else if(savedCurrentCommand.getClass() == TextCommand.class){
-                String text = savedCurrentCommand.getText();
-                Optional<UserDefinedCommand> userDefinedCommand = backendController.getUserDefinedCommand(text);
-                if (userDefinedCommand.isPresent()){
-                    UserDefinedCommand command = userDefinedCommand.get();
-                    savedCurrentCommand.setNumParameters(command.getVariables().size());
-                    parent.addChildren(makeTree(commandsList, savedCurrentCommand));
-
-                }
-                else {
-                    // throw new TODO create exception, command not defined
-                }
+                handleTextCommand(commandsList, parent, savedCurrentCommand);
             }
             else if (savedCurrentCommand.getClass() == ConstantCommand.class){
                 parent.addChildren(savedCurrentCommand);
@@ -57,7 +46,7 @@ public class ParsingTree {
                 return savedCurrentCommand;
             }
             else if (savedCurrentCommand.getClass() == ListStartCommand.class){
-                commandIsListStart(commandsList, parent, savedCurrentCommand);
+                handleListStartCommand(commandsList, parent, savedCurrentCommand);
             }
             else{
                 parent.addChildren(makeTree(commandsList, savedCurrentCommand));
@@ -69,7 +58,21 @@ public class ParsingTree {
         return parent;
     }
 
-    private void commandIsListStart(List<Command> commandsList, Command parent, Command savedCurrentCommand) {
+    private void handleTextCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) {
+        String text = savedCurrentCommand.getText();
+        Optional<UserDefinedCommand> userDefinedCommand = backendController.getUserDefinedCommand(text);
+        if (userDefinedCommand.isPresent()){
+            UserDefinedCommand command = userDefinedCommand.get();
+            savedCurrentCommand.setNumParameters(command.getVariables().size());
+            parent.addChildren(makeTree(commandsList, savedCurrentCommand));
+
+        }
+        else {
+            // throw new TODO create exception, command not defined
+        }
+    }
+
+    private void handleListStartCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) {
         savedCurrentCommand.addChildren(makeTree(commandsList, savedCurrentCommand));
         parent.addChildren(savedCurrentCommand);
         if (currCommand.getClass() != ListEndCommand.class){
@@ -78,7 +81,7 @@ public class ParsingTree {
         }
     }
 
-    private void makeUserDefinedCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) {
+    private void handleUserDefinedCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) {
         currCommand = commandsList.remove(FIRST);
         String name = currCommand.getText();
         if (name == null){
@@ -88,12 +91,7 @@ public class ParsingTree {
         currCommand = commandsList.remove(FIRST);
         Command variablesList = currCommand;
         if (variablesList.getClass() == ListStartCommand.class){
-//            commandIsListStart(commandsList, parent, variablesList);
-            variablesList.addChildren(makeTree(commandsList, variablesList));
-            savedCurrentCommand.addChildren(variablesList);
-            if (currCommand.getClass() != ListEndCommand.class){
-                //TODO Add error, list is missing the end brace "]"
-            } //TODO make this extracted from the list start command class
+            handleListStartCommand(commandsList, savedCurrentCommand, variablesList);
         }
         else {
             //throw new TODO add exception missing variables list

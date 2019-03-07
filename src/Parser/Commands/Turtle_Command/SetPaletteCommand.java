@@ -8,6 +8,11 @@ import javafx.scene.paint.Color;
 
 public class SetPaletteCommand extends TurtleCommand {
 
+    public static final int INDEX = 0;
+    public static final int R_VALUE = 1;
+    public static final int G_VALUE = 2;
+    public static final int B_VALUE = 3;
+
     public SetPaletteCommand(){
         isConstant = false;
         numParameters = 4;
@@ -16,13 +21,12 @@ public class SetPaletteCommand extends TurtleCommand {
     @Override
     protected void performAction(BackendController backendController){
 
-        int index = (int) getChildren().get(0).getReturnValue();
-        int r = (int) getChildren().get(1).getReturnValue();
-        int g = (int) getChildren().get(2).getReturnValue();
-        int b = (int) getChildren().get(3).getReturnValue();
+        int index = (int) getChildren().get(INDEX).getReturnValue();
+        int r = (int) getChildren().get(R_VALUE).getReturnValue();
+        int g = (int) getChildren().get(G_VALUE).getReturnValue();
+        int b = (int) getChildren().get(B_VALUE).getReturnValue();
         backendController.setMyPalette(index, Color.rgb(r,g,b));
         returnValue = index;
-        System.out.println(backendController.getColor(index));
     }
 
     @Override

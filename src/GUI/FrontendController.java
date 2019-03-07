@@ -5,6 +5,7 @@ import GUI.Modules.*;
 import GraphicsBackend.Pen;
 import GraphicsBackend.Turtle;
 import Main.BackendController;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ColorPicker;
@@ -21,9 +22,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.*;
 
 /**
  * Class will contain the initial layout for the Window
@@ -32,7 +34,7 @@ import java.util.Optional;
  */
 public class FrontendController {
     private Stage myStage;
-    private BorderPane myContainer;
+    private BorderPane myContainer, leftBorderPane, rightBorderPane;
     private Editor editor;
     private AvailableVars availableVars;
     private UserCommands userCommands;
@@ -48,6 +50,8 @@ public class FrontendController {
     private BackendController backendController;
     private String defaultLanguage = "English";
     private List<Turtle> turtles;
+    private List<String> moduleList;
+    private ResourceBundle myModuleContainer, myModulePosition;
 
     /**
      * TODO: add JavaDoc
@@ -57,6 +61,7 @@ public class FrontendController {
     public FrontendController(BorderPane root, Stage stage) {
         this.myStage = stage;
         this.myContainer = root;
+
         this.editor = new Editor(200, 210, this);
         this.availableVars = new AvailableVars(200, 105, this);
         this.userCommands = new UserCommands(200, 105, this);
@@ -65,20 +70,30 @@ public class FrontendController {
         this.palettes = new Palettes(200, 210, this);
         this.currentState = new CurrentState(200, 210, this);
 
-        var leftBorderPane = new BorderPane();
+        this.myModuleContainer = ResourceBundle.getBundle("/buttonProperties/ModuleContainer");
+        this.myModulePosition = ResourceBundle.getBundle("/buttonProperties/ModulePosition");
+        this.moduleList = new ArrayList<>();
+
+        Enumeration<String> itemEnum = myModuleContainer.getKeys();
+
+        while(itemEnum.hasMoreElements()) {
+            moduleList.add(itemEnum.nextElement());
+        }
+
+        leftBorderPane = new BorderPane();
         leftBorderPane.setTop(palettes.getContent());
         leftBorderPane.setCenter(currentState.getContent());
 
-        var rightBorderPane = new BorderPane();
+        rightBorderPane = new BorderPane();
         rightBorderPane.setTop(availableVars.getContent());
         rightBorderPane.setCenter(editor.getContent());
         rightBorderPane.setBottom(userCommands.getContent());
 
-        root.setTop(returnButtons());
-        root.setBottom(console.getContent());
-        root.setLeft(leftBorderPane);
-        root.setCenter(graphicsArea.getContent());
-        root.setRight(rightBorderPane);
+        myContainer.setTop(returnButtons());
+        myContainer.setBottom(console.getContent());
+        myContainer.setLeft(leftBorderPane);
+        myContainer.setCenter(graphicsArea.getContent());
+        myContainer.setRight(rightBorderPane);
 
         setBackgroundColor(Color.LIGHTBLUE);
     }
@@ -262,9 +277,40 @@ public class FrontendController {
      * TODO: Use a properties file to be able to setNode to null
      * @param clazz
      */
-    public void close(Class clazz) {
-        myContainer.setBottom(null);
-        myStage.setMaxHeight(450);
+    public void close(Class<?> clazz) {
+        String className = clazz.getSimpleName();
+        moduleList.remove(className);
+
+        closeModule(myModuleContainer.getString(className), myModulePosition.getString(className));
+    }
+
+    private void closeModule(String modulePane, String modulePosition) {
+        switch(modulePane) {
+            case "myContainer":
+                try {
+                    Method m = myContainer.getClass().getDeclaredMethod(modulePosition, Node.class);
+                    m.invoke(myContainer, (Object) null);
+                } catch (Exception e) {
+                    System.out.println("Error Occurred when Removing Module");
+                }
+                break;
+            case "leftBorderPane":
+                try {
+                    Method m = leftBorderPane.getClass().getMethod(modulePosition, Node.class);
+                    m.invoke(leftBorderPane, (Object) null);
+                } catch (Exception e) {
+                    System.out.println("Error Occurred when Removing Module");
+                }
+                break;
+            case "rightBorderPane":
+                try {
+                    Method m = rightBorderPane.getClass().getMethod(modulePosition, Node.class);
+                    m.invoke(rightBorderPane, (Object) null);
+                } catch (Exception e) {
+                    System.out.println("Error Occurred when Removing Module");
+                }
+                break;
+        }
     }
 
     public void save() {}

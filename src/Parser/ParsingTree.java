@@ -29,32 +29,28 @@ public class ParsingTree {
         commands = commandsList;
         tokens = tokensList;
         this.backendController = backendController;
-        headNode = makeTree(commandsList, tokensList, headNode);
+        headNode = makeTree(commandsList, headNode);
     }
 
     public Command getRoot(){
         return headNode;
     }
 
-    public Command makeTree(List<Command> commandsList, List<Token> tokensList, Command parent){
+    public Command makeTree(List<Command> commandsList, Command parent){
         while (!commandsList.isEmpty()) {
             currCommand = commandsList.remove(FIRST);
-            currToken = tokensList.remove(FIRST);
             Command savedCurrentCommand = currCommand;
-            Token savedCurrentToken = currToken;
             if (savedCurrentCommand.getClass() == MakeUserInstructionCommand.class){
                 currCommand = commandsList.remove(FIRST);
-                currToken = tokensList.remove(FIRST);
                 String name = currCommand.getText();
                 if (name == null){
                     //throw new TODO make exception, user defined command name not valid
                 }
                 savedCurrentCommand.addChildren(currCommand);
                 currCommand = commandsList.remove(FIRST);
-                currToken = tokensList.remove(FIRST);
                 Command variablesList = currCommand;
                 if (variablesList.getClass() == ListStartCommand.class){
-                    variablesList.addChildren(makeTree(commandsList,tokensList, variablesList));
+                    variablesList.addChildren(makeTree(commandsList, variablesList));
                     savedCurrentCommand.addChildren(variablesList);
                     if (currCommand.getClass() != ListEndCommand.class){
                         //TODO Add error, list is missing the end brace "]"
@@ -78,7 +74,7 @@ public class ParsingTree {
                 }
                 UserDefinedCommand newUserDefinedCommand = new UserDefinedCommand(name, listOfVariableList, null);
                 backendController.addNewUserDefinedCommand(name, newUserDefinedCommand);
-                parent.addChildren(makeTree(commandsList,tokensList,savedCurrentCommand));
+                parent.addChildren(makeTree(commandsList,savedCurrentCommand));
                 savedCurrentCommand.execute(backendController);
 
             }
@@ -88,7 +84,7 @@ public class ParsingTree {
                 if (userDefinedCommand.isPresent()){
                     UserDefinedCommand command = userDefinedCommand.get();
                     savedCurrentCommand.setNumParameters(command.getVariables().size());
-                    parent.addChildren(makeTree(commandsList,tokensList, savedCurrentCommand));
+                    parent.addChildren(makeTree(commandsList, savedCurrentCommand));
 
                 }
                 else {
@@ -105,7 +101,7 @@ public class ParsingTree {
                 return savedCurrentCommand;
             }
             else if (savedCurrentCommand.getClass() == ListStartCommand.class){
-                savedCurrentCommand.addChildren(makeTree(commandsList,tokensList, savedCurrentCommand));
+                savedCurrentCommand.addChildren(makeTree(commandsList, savedCurrentCommand));
                 parent.addChildren(savedCurrentCommand);
                 if (currCommand.getClass() != ListEndCommand.class){
                     //TODO Add error, list is missing the end brace "]"
@@ -113,7 +109,7 @@ public class ParsingTree {
                 }
             }
             else{
-                parent.addChildren(makeTree(commandsList,tokensList, savedCurrentCommand));
+                parent.addChildren(makeTree(commandsList, savedCurrentCommand));
             }
             if (parent.getNumParameters() == parent.getCurrentNumParameters()) {
                 return parent;

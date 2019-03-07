@@ -105,10 +105,10 @@ public class ParsingTree {
                 return savedCurrentCommand;
             }
             else if (savedCurrentCommand.getClass() == ListStartCommand.class){
-                savedCurrentCommand.addChildren(makeTree(commandsList,tokensList, savedCurrentCommand));
-                parent.addChildren(savedCurrentCommand);
+                parent.addChildren(makeTree(commandsList,tokensList, savedCurrentCommand));
                 if (currCommand.getClass() != ListEndCommand.class){
                     //TODO Add error, list is missing the end brace "]"
+                    System.out.println("OH NO!!!");
                 }
             }
             else{

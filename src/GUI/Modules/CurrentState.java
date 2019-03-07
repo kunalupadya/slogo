@@ -9,7 +9,6 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import GUI.FrontendController;
 import javafx.scene.paint.Color;

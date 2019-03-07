@@ -71,7 +71,7 @@ public class FrontendController {
 
         var rightBorderPane = new BorderPane();
         rightBorderPane.setTop(availableVars.getContent());
-        rightBorderPane.setCenter(editor.getVBox());
+        rightBorderPane.setCenter(editor.getContent());
         rightBorderPane.setBottom(userCommands.getContent());
 
         root.setTop(returnButtons());

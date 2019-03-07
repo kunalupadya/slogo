@@ -33,10 +33,6 @@ public class AvailableVars extends Module{
     }
 
     @Override
-    protected void setStyle(){
-    }
-
-    @Override
     protected void setContent() {
         container = new VBox();
 //        content.setContent(container);

@@ -42,15 +42,15 @@ end
 // this part done
 to bounce
 
-  if equal xcor 400
+  if equal? xcor 400
     [ setheading minus heading) ]
 
-  if equal xcor 0
+  if equal? xcor 0
     [ setheading minus heading) ]
 
-  if equal ycor 400
+  if equal? ycor 400
     [ setheading difference 180 heading) ]
 
-  if equal ycor 0
+  if equal? ycor 0
       [ setheading difference 180 heading) ]
 end

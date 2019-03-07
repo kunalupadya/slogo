@@ -187,10 +187,12 @@ public class FrontendController {
         List<ImageView> turtleImages = new ArrayList<>();
         List<Boolean> turtleActives = new ArrayList<>();
         for (Turtle turtle:turtles) {
-            ImageView turtleImage = turtle.getAdjustedTurtleImageView(0,0);
-            Boolean isTurtleActive = turtle.getIsTurtleActive();
-            turtleImages.add(turtleImage);
-            turtleActives.add(isTurtleActive);
+            if (turtle.isTurtleVisible()) {
+                ImageView turtleImage = turtle.getAdjustedTurtleImageView(0,0);
+                Boolean isTurtleActive = turtle.getIsTurtleActive();
+                turtleImages.add(turtleImage);
+                turtleActives.add(isTurtleActive);
+            }
         }
         graphicsArea.setVariables(lines, turtleImages, turtleActives);
     }
@@ -227,12 +229,12 @@ public class FrontendController {
 
     public void getAvailableVars() {
         Set<String> availableVarsList = backendController.getAllVariables();
-        availableVars.setAvailableVars(availableVarsList);
+        availableVars.setList(availableVarsList);
     }
 
     public void getUserCommands() {
         Set<String> userCommandsList = backendController.getAllCommands();
-        userCommands.setUserCommands(userCommandsList);
+        userCommands.setList(userCommandsList);
     }
 
     public void setCurrentState() {

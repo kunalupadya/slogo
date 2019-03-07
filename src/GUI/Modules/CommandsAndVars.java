@@ -1,31 +1,20 @@
 package GUI.Modules;
 
 import GUI.FrontendController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
-/**
- * TODO: get available variables text from a resource file, not hardcoded
- */
-
-public class AvailableVars extends CommandsAndVars{
+public class CommandsAndVars extends ListModule {
     private VBox container;
 
-    public AvailableVars(int width, int height, FrontendController myFrontendController) {
-        super(width, height, "Available Variables", myFrontendController);
+    public CommandsAndVars(int width, int height, String moduleName, FrontendController myFrontendController) {
+        super(width, height, moduleName, myFrontendController);
         setClick();
     }
 
-    @Override
     public void setClick() {
         listDisplay.setCellFactory(lv -> {
             ListCell<String> cell = new ListCell<String>() {
@@ -37,15 +26,19 @@ public class AvailableVars extends CommandsAndVars{
             };
             cell.setOnMouseClicked(e -> {
                 if (!cell.isEmpty()) {
-                    context.addToConsole(":" + cell.getItem());
+                    context.addToConsole(cell.getItem());
                 }
             });
             return cell;
         });
     }
 
-    @Override
-    public void setPlaceholder() {
-        listDisplay.setPlaceholder(new Label("Available Variables"));
+    public void setList(Set<String> myList) {
+        list.clear();
+        listCollection.clear();
+        for (String s: myList) {
+            listCollection.add(s);
+            list.add(s);
+        }
     }
 }

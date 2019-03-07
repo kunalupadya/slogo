@@ -67,7 +67,14 @@ public class Controller extends Application {
         myScene = new Scene(root);
         stage.setScene(myScene);
         stage.setTitle(WINDOW_TITLE);
-        stage.show();
+
+        stage.setResizable(false);
+
+        stage.setMinHeight(430);
+        stage.setMinWidth(400);
+
+        stage.setMaxHeight(585);
+        stage.setMaxWidth(800);
 
         var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
         var animation = new Timeline();
@@ -76,15 +83,8 @@ public class Controller extends Application {
         animation.play();
 
         myScene.getStylesheets().add("ControlStyle.css");
-//
-//        TODO: add step() to GUI.Windows.GraphicsArea?
-//
-//        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
-//        var animation = new Timeline();
-//        animation.setCycleCount(Timeline.INDEFINITE);
-//        animation.getKeyFrames().add(frame);
-//        animation.play();
-//
+
+        stage.show();
     }
 
     private void step(double elapsedTime) {

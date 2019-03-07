@@ -40,10 +40,7 @@ public class ExecuteCommand {
     }
 
     public void traverse(Command node){
-        if (node.getClass() == TextCommand.class){
-
-        }
-        if (node.getChildren().isEmpty()){
+        if (node.getChildren().isEmpty()&node.getClass() != TextCommand.class){
             if (node.getIsConstant()){
                 return;
             }
@@ -55,7 +52,7 @@ public class ExecuteCommand {
             }
             return;
         }
-        if (node.getClass() == MakeUserInstructionCommand.class){
+        if (node.getClass() == MakeUserInstructionCommand.class | node.getClass() == ListEndCommand.class){
             //this is the only class that is executed as it is parsed, so it does not need to be reparsed
             return;
         }
@@ -72,11 +69,18 @@ public class ExecuteCommand {
         for (Command child: node.getChildren()){
             traverse(child);
         }
-
-        if (node.getNumParameters() == node.getChildren().size()){
+        if (node.getClass() == TextCommand.class){
+            node.execute(backendController);
+            System.out.println("hi");
+            for (Command child: node.getChildren()){
+                traverse(child);
+            }
+        }
+        else if (node.getNumParameters() == node.getChildren().size()){
             node.execute(backendController);
             System.out.println(node.getReturnValue());
         }
+
         else if (node.getClass() == RootCommand.class){
             return;
         }

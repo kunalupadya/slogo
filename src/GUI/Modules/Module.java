@@ -4,8 +4,6 @@ import GUI.Controls.Close;
 import GUI.Controls.Control;
 import GUI.FrontendController;
 import Main.TextMaker;
-import javafx.geometry.Insets;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -17,28 +15,27 @@ import javafx.scene.text.Text;
  */
 public abstract class Module {
     public final Pane content;
-    public final VBox vbox;
+    public final VBox module;
     private Pane toolbarPane;
     public int moduleWidth;
     public int moduleHeight;
     public FrontendController context;
-    private double heightProperty;
-    private double weightProperty;
 
     final double toolbarHeight = 20.0;
 
     public Module(int width, int height, String moduleName, FrontendController context) {
-        this.context = context;
-        this.vbox = new VBox();
+        this.content = new Pane();
+        this.module = new VBox();
         this.moduleWidth = width;
         this.moduleHeight = height;
-        vbox.setPrefSize(moduleWidth, moduleHeight);
-        vbox.setId("module");
-        addToolbar(moduleName, 15);
-        this.content = new Pane();
-        content.prefHeightProperty().bind(vbox.heightProperty());
-        content.prefWidthProperty().bind(vbox.widthProperty());
-        vbox.getChildren().addAll(toolbarPane, content);
+        this.context = context;
+        module.setMinSize(moduleWidth, moduleHeight);
+        module.setMaxSize(moduleWidth, moduleHeight);
+        module.setId("module");
+        addToolbar(moduleName, toolbarHeight);
+        content.prefHeightProperty().bind(module.heightProperty());
+        content.prefWidthProperty().bind(module.widthProperty());
+        module.getChildren().addAll(toolbarPane, content);
     }
 
     protected void addToolbar(String moduleName, double height) {
@@ -60,13 +57,9 @@ public abstract class Module {
 
     protected abstract void setContent();
 
-    protected void setStyle(){}
-
     public VBox getContent() {
-        return vbox;
+        return module;
     }
-
-    public VBox getVBox() {return vbox;}
 
     public void close(Class clazz) {context.close(clazz);}
 

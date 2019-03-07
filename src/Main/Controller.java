@@ -68,10 +68,12 @@ public class Controller extends Application {
         stage.setScene(myScene);
         stage.setTitle(WINDOW_TITLE);
 
+        stage.setResizable(false);
+
         stage.setMinHeight(430);
         stage.setMinWidth(400);
 
-        stage.setMaxHeight(550);
+        stage.setMaxHeight(585);
         stage.setMaxWidth(800);
 
         var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));

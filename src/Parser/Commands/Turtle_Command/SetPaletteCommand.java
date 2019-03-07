@@ -33,5 +33,4 @@ public class SetPaletteCommand extends TurtleCommand {
     public Command copy() {
         return new SetPaletteCommand();
     }
-
 }

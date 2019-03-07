@@ -70,15 +70,18 @@ public class ParsingTree {
                     if (command.getClass() == Variable.class){
                         listOfVariableList.add((Variable) command);
                     }
+                    else if (command.getClass() == ListEndCommand.class){
+                        //do nothing
+                    }
                     else{
                         //throw new TODO create exception - variables list containes a non variable command
                     }
                 }
                 UserDefinedCommand newUserDefinedCommand = new UserDefinedCommand(name, listOfVariableList, null);
                 backendController.addNewUserDefinedCommand(name, newUserDefinedCommand);
-                savedCurrentCommand.addChildren(makeTree(commandsList,tokensList,savedCurrentCommand));
+                parent.addChildren(makeTree(commandsList,tokensList,savedCurrentCommand));
                 savedCurrentCommand.execute(backendController);
-                parent.addChildren(savedCurrentCommand);
+//                parent.addChildren(savedCurrentCommand);
             }
             else if(savedCurrentCommand.getClass() == TextCommand.class){
                 String text = savedCurrentCommand.getText();
@@ -87,6 +90,7 @@ public class ParsingTree {
                     UserDefinedCommand command = userDefinedCommand.get();
                     savedCurrentCommand.setNumParameters(command.getVariables().size());
                     parent.addChildren(makeTree(commandsList,tokensList, savedCurrentCommand));
+//                    parent.addChildren(savedCurrentCommand);
                 }
                 else {
                     // throw new TODO create exception, command not defined

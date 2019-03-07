@@ -31,10 +31,6 @@ public class GraphicsArea extends Module {
     }
 
     @Override
-    protected void setStyle(){
-    }
-
-    @Override
     protected void setContent() {
 //        content.setMinWidth(moduleWidth);
 //        content.setMinHeight(moduleHeight);

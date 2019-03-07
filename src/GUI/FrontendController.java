@@ -24,6 +24,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Class will contain the initial layout for the Window
@@ -208,13 +209,13 @@ public class FrontendController {
         console.showError(errorString);
     }
 
-    public void getAvailableVars(List<String> availableVarsList) {
-        //availableVarsList also truly coming from BackEnd though
+    public void getAvailableVars() {
+        Set<String> availableVarsList = backendController.getAllVariables();
         availableVars.setAvailableVars(availableVarsList);
     }
 
-    public void getUserCommands(List<String> userCommandsList) {
-        //userCommandsList also truly coming from BackEnd though
+    public void getUserCommands() {
+        Set<String> userCommandsList = backendController.getAllCommands();
         userCommands.setUserCommands(userCommandsList);
     }
 
@@ -256,6 +257,8 @@ public class FrontendController {
         setGraphicsArea();
         setCurrentState();
         getPalettes();
+        getAvailableVars();
+        getUserCommands();
     }
 
     /**

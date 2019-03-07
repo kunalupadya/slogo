@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * TODO: need to get list of available variables from somewhere along the backend
@@ -27,7 +28,7 @@ public class AvailableVars extends Module{
         super(width, height, "Available Variables", myFrontendController);
         availableVars = new ArrayList<>();
         //availableVars.add("Available Variables");
-        availableVars.add("Bye");
+        //availableVars.add("Bye");
         setContent();
         setClick();
     }
@@ -72,7 +73,12 @@ public class AvailableVars extends Module{
         });
     }
 
-    public void setAvailableVars(List<String> myAvailableVars) {
-        availableVars = myAvailableVars;
+    public void setAvailableVars(Set<String> myAvailableVars) {
+        availableVars.clear();
+        availableVarsCollection.clear();
+        for (String s: myAvailableVars) {
+            availableVarsCollection.add(s);
+            availableVars.add(s);
+        }
     }
 }

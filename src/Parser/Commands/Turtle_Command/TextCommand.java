@@ -35,6 +35,8 @@ public class TextCommand extends Command {
             myChildrenList.clear();
 
             myChildrenList.add(copyOfCommand);
+
+            backendController.addUserDefinedCommandToStack(copyOfCommand);
         }
         else {
             // throw new TODO create exception, command not defined

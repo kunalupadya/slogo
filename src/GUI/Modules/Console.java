@@ -16,7 +16,6 @@ import java.util.List;
  */
 
 public class Console extends Module  {
-    private VBox container;
     private TextArea consoleInfo;
     private TextField consoleInput;
     private List<String> commandHistory;
@@ -25,7 +24,7 @@ public class Console extends Module  {
 
     public Console(int width, int height, FrontendController myFrontendController) {
         super(width, height, "Console", myFrontendController);
-        courier = new Font("Courier", 12);
+        courier = new Font(myResourceBundles.getString("Font"), 12);
         setContent();
     }
 
@@ -42,13 +41,12 @@ public class Console extends Module  {
         consoleInfo.setEditable(false);
         consoleInfo.prefWidthProperty().bind(container.widthProperty());
         consoleInfo.setFont(courier);
-        consoleInfo.setPromptText("Previous commands");
+        consoleInfo.setPromptText(myResourceBundles.getString("ConsoleInfoPromptText"));
         consoleInput = new TextField();
         consoleInput.setFont(courier);
-        consoleInput.setPromptText("Enter command: ");
+        consoleInput.setPromptText(myResourceBundles.getString("ConsoleInputPromptText"));
         consoleInput.prefWidthProperty().bind(container.widthProperty());
         consoleInput.setOnKeyReleased(event -> handleKeyInput(event.getCode()));
-//        container.setVgrow(consoleInput, Priority.ALWAYS);
         container.getChildren().addAll(consoleInfo, consoleInput);
     }
 
@@ -93,17 +91,6 @@ public class Console extends Module  {
             consoleInfo.appendText(errorString);
         }
     }
-
-//    public void addToHistory(String commandString) {
-//        commandHistory.add(0, commandString);
-//        commandPosition = -1;
-//        if (! consoleInfo.getText().equals("")) {
-//            consoleInfo.appendText("\n" + commandString);
-//        }
-//        else {
-//            consoleInfo.appendText(commandString);
-//        }
-//    }
 
     public void addToConsole(String commandString) {
         consoleInput.clear();

@@ -1,41 +1,26 @@
 package GUI.Modules;
 
 import GUI.FrontendController;
-import GraphicsBackend.Grid;
-import javafx.animation.Timeline;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 
 import java.util.List;
 
 /**
- * TODO: Decide whether to have a global step based on a Timeline, or a local one only for the GraphicsArea
- * TODO: How to initialize the grid and get the initial state, and be able to update it as a step
+ *
  */
 
 public class GraphicsArea extends Module {
-    private Grid grid;
-    private double FRAMES_PER_SECOND = 0.5;
-    private double MILLISECOND_IN_A_SECOND = 1000;
-    private double MILLISECOND_DELAY = MILLISECOND_IN_A_SECOND / FRAMES_PER_SECOND;
-    private Timeline animation;
 
     public GraphicsArea(int width, int height, FrontendController myFrontendController) {
         super(width, height, "Turtle Display", myFrontendController);
         toolbarPane.getChildren().remove(close.getButton());
-        setContent();
     }
 
     @Override
     protected void setContent() {
-//        content.setMinWidth(moduleWidth);
-//        content.setMinHeight(moduleHeight);
-//        content.setOnKeyReleased(event -> context.handleKeyInput(event.getCode()));
     }
 
     public void setVariables(List<Line> lines, List<ImageView> turtleImages, List<Boolean> turtleActives) {
@@ -45,10 +30,9 @@ public class GraphicsArea extends Module {
         }
         for (int i = 0; i < turtleImages.size(); i++) {
             ImageView turtle = turtleImages.get(i);
-            Boolean turtleActive = turtleActives.get(i);
             if (turtleActives.get(i)) {
                 //Fix this magic value?
-                turtle.getStyleClass().add("turtle-shadow");
+                turtle.getStyleClass().add(myResourceBundles.getString("TurtleDropShadow"));
             }
             content.getChildren().add(turtle);
             setClick(turtle, i);
@@ -94,10 +78,10 @@ public class GraphicsArea extends Module {
     private void setClick(ImageView turtle, int turtleNumber) {
         turtle.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             if (turtle.getStyleClass().size() > 1) {
-                turtle.getStyleClass().remove("turtle-shadow");
+                turtle.getStyleClass().remove(myResourceBundles.getString("TurtleDropShadow"));
             }
             else {
-                turtle.getStyleClass().add("turtle-shadow");
+                turtle.getStyleClass().add(myResourceBundles.getString("TurtleDropShadow"));
             }
             context.switchTurtleActive(turtleNumber);
             event.consume();

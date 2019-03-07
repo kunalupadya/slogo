@@ -28,52 +28,11 @@ public class ParsingTree {
     }
 
     public Command makeTree(List<Command> commandsList, Command parent){
-        Command savedCurrentCommand = loopWhileListNotEmpty(commandsList, parent);
-        if (savedCurrentCommand != null) return savedCurrentCommand;
-        return parent;
-    }
-
-    private Command loopWhileListNotEmpty(List<Command> commandsList, Command parent) {
         while (!commandsList.isEmpty()) {
             currCommand = commandsList.remove(FIRST);
             Command savedCurrentCommand = currCommand;
             if (savedCurrentCommand.getClass() == MakeUserInstructionCommand.class){
-                currCommand = commandsList.remove(FIRST);
-                String name = currCommand.getText();
-                if (name == null){
-                    //throw new TODO make exception, user defined command name not valid
-                }
-                savedCurrentCommand.addChildren(currCommand);
-                currCommand = commandsList.remove(FIRST);
-                Command variablesList = currCommand;
-                if (variablesList.getClass() == ListStartCommand.class){
-                    variablesList.addChildren(makeTree(commandsList, variablesList));
-                    savedCurrentCommand.addChildren(variablesList);
-                    if (currCommand.getClass() != ListEndCommand.class){
-                        //TODO Add error, list is missing the end brace "]"
-                    } //TODO make this extracted from the list start command class
-                }
-                else {
-                    //throw new TODO add exception missing variables list
-                }
-                List<Variable> listOfVariableList = new LinkedList<>();
-                //create variables list from current children list
-                for (Command command: variablesList.getChildren()){
-                    if (command.getClass() == Variable.class){
-                        listOfVariableList.add((Variable) command);
-                    }
-                    else if (command.getClass() == ListEndCommand.class){
-                        //do nothing
-                    }
-                    else{
-                        //throw new TODO create exception - variables list containes a non variable command
-                    }
-                }
-                UserDefinedCommand newUserDefinedCommand = new UserDefinedCommand(name, listOfVariableList, null);
-                backendController.addNewUserDefinedCommand(name, newUserDefinedCommand);
-                parent.addChildren(makeTree(commandsList,savedCurrentCommand));
-                savedCurrentCommand.execute(backendController);
-
+                makeUserDefinedCommand(commandsList, parent, savedCurrentCommand);
             }
             else if(savedCurrentCommand.getClass() == TextCommand.class){
                 String text = savedCurrentCommand.getText();
@@ -98,12 +57,7 @@ public class ParsingTree {
                 return savedCurrentCommand;
             }
             else if (savedCurrentCommand.getClass() == ListStartCommand.class){
-                savedCurrentCommand.addChildren(makeTree(commandsList, savedCurrentCommand));
-                parent.addChildren(savedCurrentCommand);
-                if (currCommand.getClass() != ListEndCommand.class){
-                    //TODO Add error, list is missing the end brace "]"
-                    System.out.println("OH NO!!!");
-                }
+                commandIsListStart(commandsList, parent, savedCurrentCommand);
             }
             else{
                 parent.addChildren(makeTree(commandsList, savedCurrentCommand));
@@ -112,6 +66,54 @@ public class ParsingTree {
                 return parent;
             }
         }
-        return null;
+        return parent;
+    }
+
+    private void commandIsListStart(List<Command> commandsList, Command parent, Command savedCurrentCommand) {
+        savedCurrentCommand.addChildren(makeTree(commandsList, savedCurrentCommand));
+        parent.addChildren(savedCurrentCommand);
+        if (currCommand.getClass() != ListEndCommand.class){
+            //TODO Add error, list is missing the end brace "]"
+            System.out.println("OH NO!!!");
+        }
+    }
+
+    private void makeUserDefinedCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) {
+        currCommand = commandsList.remove(FIRST);
+        String name = currCommand.getText();
+        if (name == null){
+            //throw new TODO make exception, user defined command name not valid
+        }
+        savedCurrentCommand.addChildren(currCommand);
+        currCommand = commandsList.remove(FIRST);
+        Command variablesList = currCommand;
+        if (variablesList.getClass() == ListStartCommand.class){
+//            commandIsListStart(commandsList, parent, variablesList);
+            variablesList.addChildren(makeTree(commandsList, variablesList));
+            savedCurrentCommand.addChildren(variablesList);
+            if (currCommand.getClass() != ListEndCommand.class){
+                //TODO Add error, list is missing the end brace "]"
+            } //TODO make this extracted from the list start command class
+        }
+        else {
+            //throw new TODO add exception missing variables list
+        }
+        List<Variable> listOfVariableList = new LinkedList<>();
+        //create variables list from current children list
+        for (Command command: variablesList.getChildren()){
+            if (command.getClass() == Variable.class){
+                listOfVariableList.add((Variable) command);
+            }
+            else if (command.getClass() == ListEndCommand.class){
+                //do nothing
+            }
+            else{
+                //throw new TODO create exception - variables list containes a non variable command
+            }
+        }
+        UserDefinedCommand newUserDefinedCommand = new UserDefinedCommand(name, listOfVariableList, null);
+        backendController.addNewUserDefinedCommand(name, newUserDefinedCommand);
+        parent.addChildren(makeTree(commandsList,savedCurrentCommand));
+        savedCurrentCommand.execute(backendController);
     }
 }

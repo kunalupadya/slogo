@@ -14,6 +14,7 @@ import javafx.scene.text.Text;
  * @author Januario Carreiro & David Liu
  */
 public abstract class Module {
+    public VBox container;
     public Pane content;
     public final VBox module;
     Pane toolbarPane;

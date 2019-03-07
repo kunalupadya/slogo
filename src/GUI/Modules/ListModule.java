@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListModule extends Module {
-    private VBox container;
     public List<String> list;
     public ListView<String> listDisplay;
     public ObservableList<String> listCollection;
@@ -28,7 +27,7 @@ public class ListModule extends Module {
         container = new VBox();
         container.prefHeightProperty().bind(content.heightProperty());
         if (list != null) {
-            listCollection = FXCollections.<String>observableArrayList(list);
+            listCollection = FXCollections.observableArrayList(list);
             listDisplay = new ListView<>(listCollection);
             listDisplay.setOrientation(Orientation.VERTICAL);
             listDisplay.prefHeightProperty().bind(container.heightProperty());

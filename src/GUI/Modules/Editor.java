@@ -11,7 +11,6 @@ import javafx.scene.text.Font;
  */
 
 public class Editor extends Module {
-    private VBox container;
     private TextArea editor;
     private String editorText;
 
@@ -23,7 +22,6 @@ public class Editor extends Module {
     @Override
     protected void setContent() {
         container = new VBox();
-//        content.setContent(container);
         container.prefHeightProperty().bind(content.heightProperty());
         editor = new TextArea();
         editor.setWrapText(true);
@@ -36,7 +34,6 @@ public class Editor extends Module {
     }
 
     public void run() {
-        //do a better job of "debugging" the editor text
         editorText = editor.getText();
         if (! editorText.equals("")) {
             editorText = editorText.replace("\n", " ");

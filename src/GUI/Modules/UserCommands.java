@@ -18,7 +18,6 @@ import java.util.Set;
  */
 
 public class UserCommands extends CommandsAndVars {
-    private VBox container;
 
     public UserCommands(int width, int height, FrontendController myFrontendController) {
         super(width, height, "User Commands", myFrontendController);

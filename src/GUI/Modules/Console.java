@@ -16,7 +16,6 @@ import java.util.List;
  */
 
 public class Console extends Module  {
-    private VBox container;
     private TextArea consoleInfo;
     private TextField consoleInput;
     private List<String> commandHistory;

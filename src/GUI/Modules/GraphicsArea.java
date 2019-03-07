@@ -19,23 +19,14 @@ import java.util.List;
  */
 
 public class GraphicsArea extends Module {
-    private Grid grid;
-    private double FRAMES_PER_SECOND = 0.5;
-    private double MILLISECOND_IN_A_SECOND = 1000;
-    private double MILLISECOND_DELAY = MILLISECOND_IN_A_SECOND / FRAMES_PER_SECOND;
-    private Timeline animation;
 
     public GraphicsArea(int width, int height, FrontendController myFrontendController) {
         super(width, height, "Turtle Display", myFrontendController);
         toolbarPane.getChildren().remove(close.getButton());
-        setContent();
     }
 
     @Override
     protected void setContent() {
-//        content.setMinWidth(moduleWidth);
-//        content.setMinHeight(moduleHeight);
-//        content.setOnKeyReleased(event -> context.handleKeyInput(event.getCode()));
     }
 
     public void setVariables(List<Line> lines, List<ImageView> turtleImages, List<Boolean> turtleActives) {
@@ -45,7 +36,6 @@ public class GraphicsArea extends Module {
         }
         for (int i = 0; i < turtleImages.size(); i++) {
             ImageView turtle = turtleImages.get(i);
-            Boolean turtleActive = turtleActives.get(i);
             if (turtleActives.get(i)) {
                 //Fix this magic value?
                 turtle.getStyleClass().add("turtle-shadow");

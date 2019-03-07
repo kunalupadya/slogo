@@ -8,7 +8,6 @@ import javafx.scene.layout.VBox;
 import java.util.Set;
 
 public class CommandsAndVars extends ListModule {
-    private VBox container;
 
     public CommandsAndVars(int width, int height, String moduleName, FrontendController myFrontendController) {
         super(width, height, moduleName, myFrontendController);

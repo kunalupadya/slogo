@@ -70,7 +70,6 @@ public class BackendController {
                 return Optional.of(returnValue);
             }
         }
-
         return Optional.empty();
     }
 
@@ -139,13 +138,10 @@ public class BackendController {
     }
 
     public void undo(){
-
+        for (Turtle turtle: myTurtles){
+            if (turtle.getIsTurtleActive()) {
+                turtle.undo();
+            }
+        }
     }
 }
-
-//    private void executeCommandTree(Expression rootExpr) {
-//    }
-//    public ParseCommand getParser(){
-//        return parser;
-//    }
-

@@ -2,6 +2,7 @@ package GraphicsBackend;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Line;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +24,9 @@ public class Turtle {
     private boolean isTurtleActive;
     //TODO implement turtle shape using int index
     private int myShape;
-    private LinkedList<Point> previousPositions = new LinkedList<>();
+    private LinkedList<TurtleState> previousPositions = new LinkedList<>();
+    private LinkedList<List<Line>> lastLinesPlaced = new LinkedList<>();
+
 
     public Turtle(Grid grid){
         myGrid = grid;
@@ -34,13 +37,7 @@ public class Turtle {
         isTurtleVisible = true;
         isTurtleActive = true;
         turtleImage = new javafx.scene.image.Image(this.getClass().getResourceAsStream(DEFAULT_IMAGE));
-//        turtleImageView = new ImageView();
-//        updateThisTurtleImageview();
     }
-
-//    private void updateThisTurtleImageview() {
-//        updateATurtleImageView(turtleImageView);
-//    }
 
     public void updateATurtleImageView(ImageView turtle){
         turtle.setImage(turtleImage);
@@ -60,23 +57,41 @@ public class Turtle {
     }
 
     public void move(double dist){
-        Point newPosition = myGrid.addMovement(xPos, yPos, myAngle, dist, myPen);
+        previousPositions.add(new TurtleState(new Point(xPos,yPos), myAngle));
+        VectorMovement newPositionAndLines = myGrid.addMovement(xPos, yPos, myAngle, dist, myPen);
+        Point newPosition = newPositionAndLines.getPosition();
+        updateUndoBuffers(newPositionAndLines.getLinesAssociatedWithMovement());
         xPos = newPosition.getMyX();
         yPos = newPosition.getMyY();
-        System.out.println(xPos);
-        System.out.println(yPos);
     }
 
     public void moveTo(Point point){
+        updateUndoBuffers(new LinkedList<>());
         xPos = point.getMyX()+myGrid.getWidth()/ HALF;
         yPos = point.getMyY()+myGrid.getHeight()/ HALF;;
     }
 
+    public void undo(){
+        TurtleState turtleState = previousPositions.removeLast();
+        Point oldPos = turtleState.getPos();
+        myGrid.removeLines(lastLinesPlaced.removeLast());
+        xPos = oldPos.getMyX();
+        yPos = oldPos.getMyY();
+        myAngle = turtleState.getAngle();
+    }
+
     public void turn(double angle){
+        updateUndoBuffers(new LinkedList<>());
         myAngle += angle;
     }
 
+    private void updateUndoBuffers(List<Line> lines) {
+        previousPositions.add(new TurtleState(new Point(xPos,yPos), myAngle));
+        lastLinesPlaced.add(lines);
+    }
+
     public void turnTo(double angle){
+        updateUndoBuffers(new LinkedList<>());
         myAngle = angle;
     }
 

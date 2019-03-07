@@ -7,6 +7,8 @@ import Parser.Commands.TurtleCommand;
 
 public class TurtlesCommand extends TurtleCommand {
 
+    private int turtleListSize;
+
     public TurtlesCommand(){
         isConstant = false;
         numParameters = 0;
@@ -14,11 +16,17 @@ public class TurtlesCommand extends TurtleCommand {
 
     @Override
     protected void performAction(BackendController backendController){
-        returnValue = backendController.getMyTurtles().size();
+        turtleListSize = backendController.getMyTurtles().size();
+        for (Turtle turtle: backendController.getMyTurtles()) {
+            if (turtle.getIsTurtleActive()) {
+                turtleAction(turtle);
+            }
+        }
     }
 
     @Override
     protected void turtleAction(Turtle turtle) {
+        returnValue = turtleListSize;
     }
 
     @Override

@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
@@ -22,6 +23,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.ArrayList;
@@ -168,6 +170,9 @@ public class FrontendController {
         if (chosenFile != null) {
             try {
                 setTurtleImage.setImage(chosenFile);
+                for (Turtle turtle: backendController.getMyTurtles()){
+                    turtle.setTurtleImage(new Image(new FileInputStream(chosenFile.getPath())));
+                }
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Error 404", ButtonType.OK);
                 alert.showAndWait();

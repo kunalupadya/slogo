@@ -105,7 +105,6 @@ public class BackendController {
     }
 
     public void showMessage(String string){
-        System.out.println(string);
         frontendController.consoleShowError(string);
     }
 

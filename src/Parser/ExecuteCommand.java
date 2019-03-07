@@ -23,8 +23,8 @@ public class ExecuteCommand {
     private Command headNode;
     private BackendController backendController;
 
-    public ExecuteCommand(List<Command> commandsList, List<Token> tokenList, BackendController backendController) {
-        ParsingTree parsingTree = new ParsingTree(commandsList, tokenList, backendController);
+    public ExecuteCommand(List<Command> commandsList, BackendController backendController) {
+        ParsingTree parsingTree = new ParsingTree(commandsList, backendController);
         headNode = parsingTree.getRoot();
         this.backendController = backendController;
     }

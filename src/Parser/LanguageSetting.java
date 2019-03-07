@@ -35,8 +35,6 @@ public class LanguageSetting {
         return map;
     }
 
-    //TODO: What do we do if there's an error. We just return semi-translated list? This method should probably throw an error
-    //TODO: must deal with user defined commands
     public String[] translateCommand(String[] listOfWords){
         String[] newList = new String[listOfWords.length];
 

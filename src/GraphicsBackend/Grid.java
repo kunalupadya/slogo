@@ -125,7 +125,6 @@ public class Grid {
                 return intersectOptional;
             }
         }
-        System.out.println("NULL");
         return intersectOptional;
     }
 

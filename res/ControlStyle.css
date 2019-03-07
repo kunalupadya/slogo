@@ -54,12 +54,12 @@
 }
 
 .list-cell{
-    -fx-font-family: Courier;
+    -fx-font-family: "Courier";
     -fx-font-size: 12.0;
 }
 
 .list-view .placeholder{
-    -fx-font-family: Courier;
+    -fx-font-family: "Courier";
     -fx-font-size: 12.0;
 }
 
@@ -91,6 +91,8 @@
 
 #toolbar{
     -fx-background-color: #D4DEE9;
+    -fx-font-family: "Courier";
+    -fx-font-size: 12;
 }
 
 .turtle-shadow {

@@ -21,8 +21,8 @@ public class Editor extends Module {
     private ResourceBundle myResourceBundles;
     private FrontendController context;
 
-    public Editor(int width, int height, FrontendController myFrontendController) {
-        super(width, height, "Editor", myFrontendController);
+    public Editor(int width, int height, String moduleName, FrontendController myFrontendController) {
+        super(width, height, moduleName, myFrontendController);
         content = getPane();
         myResourceBundles = getMyResourceBundles();
         moduleWidth = getModuleWidth();

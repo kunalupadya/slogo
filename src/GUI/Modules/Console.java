@@ -29,8 +29,8 @@ public class Console extends Module  {
     private int moduleHeight;
     private FrontendController context;
 
-    public Console(int width, int height, FrontendController myFrontendController) {
-        super(width, height, "Console", myFrontendController);
+    public Console(int width, int height, String moduleName, FrontendController myFrontendController) {
+        super(width, height, moduleName, myFrontendController);
         myResourceBundles = getMyResourceBundles();
         courier = new Font(myResourceBundles.getString("Font"), 12);
         content = getPane();

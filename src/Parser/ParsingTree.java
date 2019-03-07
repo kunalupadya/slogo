@@ -13,21 +13,12 @@ import java.util.*;
 public class ParsingTree {
 
     public static final int FIRST = 0;
-    private List<Command> children;
-    private String value;
-    Command headNode;
-    Command currCommand;
-    Token currToken;
-    List<Command> commands;
-    List<Token> tokens;
-    BackendController backendController;
-    List<Command> potentialRecursionList = new LinkedList<>();
+    private Command headNode;
+    private Command currCommand;
+    private BackendController backendController;
 
-
-    public ParsingTree(List<Command> commandsList, List<Token> tokensList, BackendController backendController){
+    public ParsingTree(List<Command> commandsList, BackendController backendController){
         headNode = new RootCommand();
-        commands = commandsList;
-        tokens = tokensList;
         this.backendController = backendController;
         headNode = makeTree(commandsList, headNode);
     }
@@ -37,6 +28,12 @@ public class ParsingTree {
     }
 
     public Command makeTree(List<Command> commandsList, Command parent){
+        Command savedCurrentCommand = loopWhileListNotEmpty(commandsList, parent);
+        if (savedCurrentCommand != null) return savedCurrentCommand;
+        return parent;
+    }
+
+    private Command loopWhileListNotEmpty(List<Command> commandsList, Command parent) {
         while (!commandsList.isEmpty()) {
             currCommand = commandsList.remove(FIRST);
             Command savedCurrentCommand = currCommand;
@@ -115,6 +112,6 @@ public class ParsingTree {
                 return parent;
             }
         }
-        return parent;
+        return null;
     }
 }

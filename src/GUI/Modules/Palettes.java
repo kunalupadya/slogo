@@ -1,17 +1,30 @@
 package GUI.Modules;
 
 import GUI.FrontendController;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.paint.Color;
 
+import java.util.List;
+import java.util.ResourceBundle;
+
 public class Palettes extends ListModule {
+    private ResourceBundle myResourceBundles;
+    private List<String> list;
+    private ListView<String> listDisplay;
+    private ObservableList<String> listCollection;
 
     public Palettes(int width, int height, FrontendController myFrontendController) {
         super(width, height, "Palettes", myFrontendController);
+        list = getList();
+        listCollection = getListCollection();
     }
 
     @Override
     public void setPlaceholder() {
+        myResourceBundles = getMyResourceBundles();
+        listDisplay = getListDisplay();
         listDisplay.setPlaceholder(new Label(myResourceBundles.getString("Palettes")));
     }
 

@@ -1,18 +1,30 @@
 package GUI.Modules;
 
+import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import java.util.List;
+import java.util.ResourceBundle;
+
 import GUI.FrontendController;
+import javafx.scene.control.ListView;
 import javafx.scene.paint.Color;
 
 public class CurrentState extends ListModule {
+    private ResourceBundle myResourceBundles;
+    private List<String> list;
+    private ListView<String> listDisplay;
+    private ObservableList<String> listCollection;
 
     public CurrentState(int width, int height, FrontendController myFrontendController) {
         super(width, height, "Current States", myFrontendController);
+        list = getList();
+        listCollection = getListCollection();
     }
 
     @Override
     public void setPlaceholder() {
+        myResourceBundles = getMyResourceBundles();
+        listDisplay = getListDisplay();
         listDisplay.setPlaceholder(new Label(myResourceBundles.getString("TurtleAndPens")));
     }
 

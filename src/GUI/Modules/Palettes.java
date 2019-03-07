@@ -15,8 +15,8 @@ public class Palettes extends ListModule {
     private ListView<String> listDisplay;
     private ObservableList<String> listCollection;
 
-    public Palettes(int width, int height, FrontendController myFrontendController) {
-        super(width, height, "Palettes", myFrontendController);
+    public Palettes(int width, int height, String moduleName, FrontendController myFrontendController) {
+        super(width, height, moduleName, myFrontendController);
         list = getList();
         listCollection = getListCollection();
     }

@@ -13,8 +13,8 @@ public class UserCommands extends CommandsAndVars {
     private ResourceBundle myResourceBundles;
     private ListView<String> listDisplay;
 
-    public UserCommands(int width, int height, FrontendController myFrontendController) {
-        super(width, height, "User Commands", myFrontendController);
+    public UserCommands(int width, int height, String moduleName, FrontendController myFrontendController) {
+        super(width, height, moduleName, myFrontendController);
         setClick();
     }
 

@@ -15,8 +15,8 @@ public class AvailableVars extends CommandsAndVars{
     private ResourceBundle myResourceBundles;
     private ListView<String> listDisplay;
 
-    public AvailableVars(int width, int height, FrontendController myFrontendController) {
-        super(width, height, "Available Variables", myFrontendController);
+    public AvailableVars(int width, int height, String moduleName, FrontendController myFrontendController) {
+        super(width, height, moduleName, myFrontendController);
         context = getContext();
         setClick();
     }

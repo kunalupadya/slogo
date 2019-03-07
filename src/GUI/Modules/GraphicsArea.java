@@ -22,8 +22,8 @@ public class GraphicsArea extends Module {
     private FrontendController context;
     private Pane content;
 
-    public GraphicsArea(int width, int height, FrontendController myFrontendController) {
-        super(width, height, "Turtle Display", myFrontendController);
+    public GraphicsArea(int width, int height, String moduleName, FrontendController myFrontendController) {
+        super(width, height, moduleName, myFrontendController);
         toolbarPane = getToolbarPane();
         close = getClose();
         myResourceBundles = getMyResourceBundles();

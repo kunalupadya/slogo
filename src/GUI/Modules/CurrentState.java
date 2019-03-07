@@ -15,8 +15,8 @@ public class CurrentState extends ListModule {
     private ListView<String> listDisplay;
     private ObservableList<String> listCollection;
 
-    public CurrentState(int width, int height, FrontendController myFrontendController) {
-        super(width, height, "Current States", myFrontendController);
+    public CurrentState(int width, int height, String moduleName, FrontendController myFrontendController) {
+        super(width, height, moduleName, myFrontendController);
         list = getList();
         listCollection = getListCollection();
     }

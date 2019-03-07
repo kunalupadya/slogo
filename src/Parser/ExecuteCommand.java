@@ -41,6 +41,7 @@ public class ExecuteCommand {
 
     public void traverse(Command node){
         if (node.getChildren().isEmpty()&node.getClass() != TextCommand.class){
+            //leaf nodes, should return
             handleEmptyChildrenCommands(node);
             return;
         }
@@ -67,7 +68,7 @@ public class ExecuteCommand {
             node.execute(backendController);
         }
         else if (node.getClass() == RootCommand.class){
-            return;
+            // do nothing, the root command should not throw an error
         }
         else{
             throw new SyntaxError(WRONG_NUMBER_OF_PARAMETERS);//TODO replace with another exception
@@ -87,7 +88,6 @@ public class ExecuteCommand {
 
     private void handleListStartCommand(Command node) {
         traverseChildren(node);
-        return;
     }
 
     private void handleMakeVariableCommand(Command node) {
@@ -97,7 +97,7 @@ public class ExecuteCommand {
 
     private void handleEmptyChildrenCommands(Command node) {
         if (node.getIsConstant()){
-            return;
+            // do nothing, the return value is already present
         }
         else if (node.getNumParameters() == 0){
             node.execute(backendController);

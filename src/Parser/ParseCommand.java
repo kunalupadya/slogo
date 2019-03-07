@@ -31,26 +31,24 @@ public class ParseCommand {
         myLanguage = commandLanguage;
         myTurtleList = turtles;
 
-        //TODO Make handleerror work
-        if(consoleInput.equals(null) || consoleInput.equals("")){
+        if(consoleInput != null && !consoleInput.equals("")) {
+            RemoveComment removeComment = new RemoveComment();
+            String refinedInput = removeComment.deleteComment(consoleInput);
+            String[] listOfWords = refinedInput.split(whiteSpace);
 
+            //translate the input into default language
+            LanguageSetting languageSetting = new LanguageSetting(myLanguage);
+
+            //TODO: try catch block if command is not valid
+            String[] translatedListOfWords = languageSetting.translateCommand(listOfWords);
+            //convert word into tokens and check validity
+            tokensList = addToTokenList(translatedListOfWords);
+            commandsList = stackCommand(translatedListOfWords, tokensList);
+
+            //Execute Command
+            ExecuteCommand executeCommand = new ExecuteCommand(commandsList, backendController);
+            executeCommand.runCommands();
         }
-        RemoveComment removeComment = new RemoveComment();
-        String refinedInput = removeComment.deleteComment(consoleInput);
-        String [] listOfWords = refinedInput.split(whiteSpace);
-
-        //translate the input into default language
-        LanguageSetting languageSetting = new LanguageSetting(myLanguage);
-
-        //TODO: try catch block if command is not valid
-        String[] translatedListOfWords = languageSetting.translateCommand(listOfWords);
-        //convert word into tokens and check validity
-        tokensList = addToTokenList(translatedListOfWords);
-        commandsList = stackCommand(translatedListOfWords, tokensList);
-
-        //Execute Command
-        ExecuteCommand executeCommand = new ExecuteCommand(commandsList, backendController);
-        executeCommand.runCommands();
     }
 
     private List<Token> addToTokenList(String[] translatedListOfWords){
@@ -64,7 +62,7 @@ public class ParseCommand {
 
 
     private ArrayList<Command> stackCommand(String[] listOfWords, List<Token> tokensList) {
-        ArrayList<Command> commandArrayList = new ArrayList<Command>();
+        ArrayList<Command> commandArrayList = new ArrayList<>();
 
         for (int a=0; a< listOfWords.length; a++){
             String word = listOfWords[a];

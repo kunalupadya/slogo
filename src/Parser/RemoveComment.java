@@ -5,12 +5,8 @@ import java.io.StringReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class RemoveComment {
+public class RemoveComment {
 
-    private final static String commentPattern1 = "\"";
-    private final static String commentPattern2 = "(/\\*((.|\n)*?)\\*/)|//.*";
-    private final static String commentPattern3 = "\"";
-    private final static String emptyString = "";
     private String output;
 
     public RemoveComment(String myString){

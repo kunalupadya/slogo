@@ -5,10 +5,12 @@ import GUI.Modules.*;
 import GraphicsBackend.Pen;
 import GraphicsBackend.Turtle;
 import Main.BackendController;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
@@ -21,9 +23,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.lang.reflect.Method;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 /**
  * Class will contain the initial layout for the Window
@@ -32,7 +37,8 @@ import java.util.Optional;
  */
 public class FrontendController {
     private Stage myStage;
-    private BorderPane myContainer;
+    private BorderPane myContainer, leftBorderPane, rightBorderPane;
+    private HBox buttonHandler;
     private Editor editor;
     private AvailableVars availableVars;
     private UserCommands userCommands;
@@ -48,6 +54,8 @@ public class FrontendController {
     private BackendController backendController;
     private String defaultLanguage = "English";
     private List<Turtle> turtles;
+    private List<String> moduleList;
+    private ResourceBundle myModuleContainer, myModulePosition;
 
     /**
      * TODO: add JavaDoc
@@ -57,6 +65,7 @@ public class FrontendController {
     public FrontendController(BorderPane root, Stage stage) {
         this.myStage = stage;
         this.myContainer = root;
+
         this.editor = new Editor(200, 210, this);
         this.availableVars = new AvailableVars(200, 105, this);
         this.userCommands = new UserCommands(200, 105, this);
@@ -65,26 +74,36 @@ public class FrontendController {
         this.palettes = new Palettes(200, 210, this);
         this.currentState = new CurrentState(200, 210, this);
 
-        var leftBorderPane = new BorderPane();
+        this.myModuleContainer = ResourceBundle.getBundle("/buttonProperties/ModuleContainer");
+        this.myModulePosition = ResourceBundle.getBundle("/buttonProperties/ModulePosition");
+        this.moduleList = new ArrayList<>();
+
+        Enumeration<String> itemEnum = myModuleContainer.getKeys();
+
+        while(itemEnum.hasMoreElements()) {
+            moduleList.add(itemEnum.nextElement());
+        }
+
+        leftBorderPane = new BorderPane();
         leftBorderPane.setTop(palettes.getContent());
         leftBorderPane.setCenter(currentState.getContent());
 
-        var rightBorderPane = new BorderPane();
+        rightBorderPane = new BorderPane();
         rightBorderPane.setTop(availableVars.getContent());
-        rightBorderPane.setCenter(editor.getVBox());
+        rightBorderPane.setCenter(editor.getContent());
         rightBorderPane.setBottom(userCommands.getContent());
 
-        root.setTop(returnButtons());
-        root.setBottom(console.getContent());
-        root.setLeft(leftBorderPane);
-        root.setCenter(graphicsArea.getContent());
-        root.setRight(rightBorderPane);
+        myContainer.setTop(returnButtons());
+        myContainer.setBottom(console.getContent());
+        myContainer.setLeft(leftBorderPane);
+        myContainer.setCenter(graphicsArea.getContent());
+        myContainer.setRight(rightBorderPane);
 
         setBackgroundColor(Color.LIGHTBLUE);
     }
 
     private HBox returnButtons() {
-        var buttonHandler = new HBox();
+        buttonHandler = new HBox();
 
         buttonHandler.setId("buttonHandler");
         buttonHandler.setMaxWidth(800);
@@ -151,6 +170,9 @@ public class FrontendController {
         if (chosenFile != null) {
             try {
                 setTurtleImage.setImage(chosenFile);
+                for (Turtle turtle: backendController.getMyTurtles()){
+                    turtle.setTurtleImage(new Image(new FileInputStream(chosenFile.getPath())));
+                }
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Error 404", ButtonType.OK);
                 alert.showAndWait();
@@ -208,13 +230,13 @@ public class FrontendController {
         console.showError(errorString);
     }
 
-    public void getAvailableVars(List<String> availableVarsList) {
-        //availableVarsList also truly coming from BackEnd though
+    public void getAvailableVars() {
+        Set<String> availableVarsList = backendController.getAllVariables();
         availableVars.setAvailableVars(availableVarsList);
     }
 
-    public void getUserCommands(List<String> userCommandsList) {
-        //userCommandsList also truly coming from BackEnd though
+    public void getUserCommands() {
+        Set<String> userCommandsList = backendController.getAllCommands();
         userCommands.setUserCommands(userCommandsList);
     }
 
@@ -256,15 +278,73 @@ public class FrontendController {
         setGraphicsArea();
         setCurrentState();
         getPalettes();
+        getAvailableVars();
+        getUserCommands();
     }
 
     /**
      * TODO: Use a properties file to be able to setNode to null
      * @param clazz
      */
-    public void close(Class clazz) {
-        myContainer.setBottom(null);
-        myStage.setMaxHeight(450);
+    public void close(Class<?> clazz) {
+        String className = clazz.getSimpleName();
+        moduleList.remove(className);
+
+        closeModule(myModuleContainer.getString(className), myModulePosition.getString(className));
+
+        if (clazz.equals(console.getClass())) {
+            myStage.setMaxHeight(485);
+        }
+        else if ((clazz.equals(palettes.getClass()) && (! moduleList.contains("CurrentState")))
+                || (clazz.equals(currentState.getClass()) && (! moduleList.contains("Palettes")))) {
+            myContainer.setLeft(null);
+            buttonHandler.setMinWidth(600);
+            buttonHandler.setMaxWidth(600);
+            console.getContent().setMinWidth(600);
+            console.getContent().setMaxWidth(600);
+            if (myStage.getWidth() != 600) {
+                myStage.setMaxWidth(600);
+            }
+        }
+        else if ((!moduleList.contains("Editor") && !moduleList.contains("AvailableVars") && !moduleList.contains("UserCommands"))) {
+            myContainer.setRight(null);
+            buttonHandler.setMinWidth(600);
+            buttonHandler.setMaxWidth(600);
+            console.getContent().setMinWidth(600);
+            console.getContent().setMaxWidth(600);
+            if (myStage.getWidth() != 600) {
+                myStage.setMaxWidth(600);
+            }
+        }
+    }
+
+    private void closeModule(String modulePane, String modulePosition) {
+        switch(modulePane) {
+            case "myContainer":
+                try {
+                    Method m = myContainer.getClass().getDeclaredMethod(modulePosition, Node.class);
+                    m.invoke(myContainer, (Object) null);
+                } catch (Exception e) {
+                    System.out.println("Error Occurred when Removing Module");
+                }
+                break;
+            case "leftBorderPane":
+                try {
+                    Method m = leftBorderPane.getClass().getMethod(modulePosition, Node.class);
+                    m.invoke(leftBorderPane, (Object) null);
+                } catch (Exception e) {
+                    System.out.println("Error Occurred when Removing Module");
+                }
+                break;
+            case "rightBorderPane":
+                try {
+                    Method m = rightBorderPane.getClass().getMethod(modulePosition, Node.class);
+                    m.invoke(rightBorderPane, (Object) null);
+                } catch (Exception e) {
+                    System.out.println("Error Occurred when Removing Module");
+                }
+                break;
+        }
     }
 
     public void save() {}

@@ -27,11 +27,8 @@ public class GraphicsArea extends Module {
 
     public GraphicsArea(int width, int height, FrontendController myFrontendController) {
         super(width, height, "Turtle Display", myFrontendController);
+        toolbarPane.getChildren().remove(close.getButton());
         setContent();
-    }
-
-    @Override
-    protected void setStyle(){
     }
 
     @Override

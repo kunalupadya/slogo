@@ -352,9 +352,5 @@ public class FrontendController {
         }
     }
 
-    public void undo() {
-//        backendController.undo();
-    }
-
     public void save() {}
 }

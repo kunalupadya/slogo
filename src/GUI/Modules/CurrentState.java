@@ -2,7 +2,6 @@ package GUI.Modules;
 
 import javafx.scene.control.Label;
 import java.util.List;
-
 import GUI.FrontendController;
 import javafx.scene.paint.Color;
 
@@ -14,7 +13,7 @@ public class CurrentState extends ListModule {
 
     @Override
     public void setPlaceholder() {
-        listDisplay.setPlaceholder(new Label("Turtles and Pens"));
+        listDisplay.setPlaceholder(new Label(myResourceBundles.getString("TurtleAndPens")));
     }
 
     public void getTurtleAndPens(List<Integer> ids, List<Double> xPositions, List<Double> yPositions, List<Double> angles,
@@ -24,13 +23,13 @@ public class CurrentState extends ListModule {
         String penDirection;
         for (int i = 0; i < ids.size(); i++) {
             if (penUp.get(i)) {
-                penDirection = "Up";
+                penDirection = myResourceBundles.getString("PenUp");
             }
             else {
-                penDirection = "Down";
+                penDirection = myResourceBundles.getString("PenDown");
             }
-            String turtleAndPen = "Turtle: " + ids.get(i).toString() + " " + xPositions.get(i).toString() + " " +
-                    yPositions.get(i).toString() + " " + angles.get(i).toString() + " Pen: " + penColors.get(i).toString()
+            String turtleAndPen = myResourceBundles.getString("Turtle") + ids.get(i).toString() + " " + xPositions.get(i).toString() + " " +
+                    yPositions.get(i).toString() + " " + angles.get(i).toString() + myResourceBundles.getString("Pen") + penColors.get(i).toString()
                     + " " + penDirection + " " + penSize.get(i).toString();
             list.add(turtleAndPen);
             listCollection.add(turtleAndPen);

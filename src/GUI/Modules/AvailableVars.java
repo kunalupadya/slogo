@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 
 /**
- * TODO: get available variables text from a resource file, not hardcoded
+ *
  */
 
 public class AvailableVars extends CommandsAndVars{
@@ -36,6 +36,7 @@ public class AvailableVars extends CommandsAndVars{
 
     @Override
     public void setPlaceholder() {
-        listDisplay.setPlaceholder(new Label("Available Variables"));
+        String availableVars = myResourceBundles.getString("AvailableVars");
+        listDisplay.setPlaceholder(new Label(availableVars));
     }
 }

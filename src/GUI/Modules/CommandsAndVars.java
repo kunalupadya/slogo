@@ -1,10 +1,7 @@
 package GUI.Modules;
 
 import GUI.FrontendController;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.layout.VBox;
-
 import java.util.Set;
 
 public class CommandsAndVars extends ListModule {
@@ -39,5 +36,8 @@ public class CommandsAndVars extends ListModule {
             listCollection.add(s);
             list.add(s);
         }
+    }
+
+    protected void setPlaceholder() {
     }
 }

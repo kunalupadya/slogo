@@ -6,8 +6,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 /**
- * TODO: Have text read through a resource file, not hard coded
- * TODO: Don't have magic number for setmaxsize, adjust accordingly
+ *
  */
 
 public class Editor extends Module {
@@ -25,17 +24,17 @@ public class Editor extends Module {
         container.prefHeightProperty().bind(content.heightProperty());
         editor = new TextArea();
         editor.setWrapText(true);
-        editor.setFont(new Font("Courier", 12));
+        editor.setFont(new Font(myResourceBundles.getString("Font"), 12));
         editor.prefHeightProperty().bind(container.heightProperty());
         editor.setPrefWidth(moduleWidth);
-        editor.setPromptText("Editor");
+        editor.setPromptText(myResourceBundles.getString("Editor"));
         container.getChildren().add(editor);
         content.getChildren().add(container);
     }
 
     public void run() {
         editorText = editor.getText();
-        if (! editorText.equals("")) {
+        if (! editorText.isEmpty()) {
             editorText = editorText.replace("\n", " ");
         }
         context.sendCommandString(editorText);

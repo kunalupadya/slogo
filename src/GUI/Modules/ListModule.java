@@ -4,14 +4,13 @@ import GUI.FrontendController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListModule extends Module {
+public abstract class ListModule extends Module {
     public List<String> list;
     public ListView<String> listDisplay;
     public ObservableList<String> listCollection;
@@ -38,7 +37,5 @@ public class ListModule extends Module {
         content.getChildren().add(container);
     }
 
-    public void setPlaceholder() {
-        listDisplay.setPlaceholder(new Label("List"));
-    }
+    protected abstract void setPlaceholder();
 }

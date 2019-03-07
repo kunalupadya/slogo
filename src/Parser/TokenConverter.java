@@ -23,8 +23,8 @@ class TokenConverter {
         myRegexMap = makeMap();
     }
 
-    private HashMap<String, Pattern> makeMap() {
-        HashMap<String, Pattern> regexMap = new HashMap<>();
+    private Map<String, Pattern> makeMap() {
+        Map<String, Pattern> regexMap = new HashMap<>();
         ResourceBundle resources = ResourceBundle.getBundle("/languageProperties/Syntax");
         Enumeration<String> iter = resources.getKeys();
         while (iter.hasMoreElements()) {

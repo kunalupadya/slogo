@@ -7,8 +7,6 @@ import Parser.Commands.TurtleCommand;
 
 public class TurtlesCommand extends Command {
 
-    private int turtleListSize;
-
     public TurtlesCommand(){
         isConstant = false;
         numParameters = 0;

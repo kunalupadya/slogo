@@ -20,8 +20,6 @@ public class PenColorCommand extends TurtleCommand {
     protected void performAction(BackendController backendController){
         myColor = backendController.getColor((int)getChildren().get(0).getReturnValue());
         myColorIndex = backendController.getColorPaletteIndex(myColor);
-        System.out.println(myColor);
-        System.out.println(myColorIndex);
         for (Turtle turtle: backendController.getMyTurtles()) {
             if (turtle.getIsTurtleActive()) {
                 turtleAction(turtle);

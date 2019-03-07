@@ -3,15 +3,21 @@ package GUI.Modules;
 import GUI.FrontendController;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import java.util.ResourceBundle;
 
 /**
  *
  */
 
 public class AvailableVars extends CommandsAndVars{
+    private FrontendController context;
+    private ResourceBundle myResourceBundles;
+    private ListView<String> listDisplay;
 
     public AvailableVars(int width, int height, FrontendController myFrontendController) {
         super(width, height, "Available Variables", myFrontendController);
+        context = getContext();
         setClick();
     }
 
@@ -36,6 +42,8 @@ public class AvailableVars extends CommandsAndVars{
 
     @Override
     public void setPlaceholder() {
+        myResourceBundles = getMyResourceBundles();
+        listDisplay = getListDisplay();
         String availableVars = myResourceBundles.getString("AvailableVars");
         listDisplay.setPlaceholder(new Label(availableVars));
     }

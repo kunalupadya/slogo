@@ -68,7 +68,7 @@ public class Controller extends Application {
         stage.setScene(myScene);
         stage.setTitle(WINDOW_TITLE);
 
-        stage.setResizable(false);
+        stage.setResizable(true);
 
         stage.setMinHeight(430);
         stage.setMinWidth(400);

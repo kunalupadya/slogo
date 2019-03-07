@@ -8,12 +8,8 @@ import java.util.List;
 
 public abstract class TurtleCommand extends Command{
 
-    protected List<Turtle> turtleList;
     protected Turtle myTurtle;
 
-//    protected Turtle getTurtle(){
-//        return turtleList.get(0);
-//    }
     protected void performAction(BackendController backendController){
         for (Turtle turtle: backendController.getMyTurtles()) {
             if (turtle.getIsTurtleActive()) {

@@ -51,22 +51,4 @@ public class LanguageSetting {
         return newList;
     }
 
-
-    public Map<String, String> makeReflectionMap() {
-        ResourceBundle englishProperty = ResourceBundle.getBundle("/languageProperties/English");
-        Map<String, String> map = new HashMap<>();
-        Enumeration<String> keys = englishProperty.getKeys();
-        while (keys.hasMoreElements()) {
-            String key = keys.nextElement();
-            if (englishProperty.getString(key).contains("|")) {
-                map.put(englishProperty.getString(key).split("\\|")[0], key);
-                map.put(englishProperty.getString(key).split("\\|")[1], key);
-            }
-            else{
-                map.put(englishProperty.getString(key), key);
-            }
-        }
-        return map;
-
-    }
 }

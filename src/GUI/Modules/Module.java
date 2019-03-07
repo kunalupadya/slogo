@@ -48,7 +48,7 @@ public abstract class Module {
         toolbarPane.setPrefWidth(moduleWidth);
         toolbarPane.setMinHeight(toolbarHeight);
         toolbarPane.setId("toolbar");
-        Text title = TextMaker.makeText(moduleName, new Font("Courier", 12));
+        Text title = TextMaker.makeText(moduleName, new Font(myResourceBundles.getString("Font"), 12));
         title.setLayoutY(10);
         title.setLayoutX(5);
 

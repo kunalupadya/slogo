@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TellCommand extends Command{
 
-    private ArrayList<Turtle> assignedTurtleList = new ArrayList<>();
+    private List<Turtle> assignedTurtleList = new ArrayList<>();
     public TellCommand(){
         isConstant = false;
         numParameters = 1;
@@ -33,7 +33,6 @@ public class TellCommand extends Command{
             }
 
         }
-        System.out.println(assignedTurtleList.size());
         for (Turtle turtle : assignedTurtleList) {
             turtle.setTurtleActive(true);
         }

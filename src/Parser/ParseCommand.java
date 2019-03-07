@@ -25,6 +25,7 @@ public class ParseCommand {
     private List<Turtle> myTurtleList;
     private Map<String, String> commandMap;
 
+
     public ParseCommand(String consoleInput, List<Turtle> turtles,String commandLanguage, BackendController backendController){
 
         myLanguage = commandLanguage;
@@ -34,9 +35,8 @@ public class ParseCommand {
         if(consoleInput.equals(null) || consoleInput.equals("")){
 
         }
-
-        RemoveComment removeComment = new RemoveComment(consoleInput);
-        String refinedInput = removeComment.getOutput();
+        RemoveComment removeComment = new RemoveComment();
+        String refinedInput = removeComment.deleteComment(consoleInput);
         String [] listOfWords = refinedInput.split(whiteSpace);
 
         //translate the input into default language
@@ -44,15 +44,12 @@ public class ParseCommand {
 
         //TODO: try catch block if command is not valid
         String[] translatedListOfWords = languageSetting.translateCommand(listOfWords);
-//        System.out.println("translated list of words" + translatedListOfWords[0] + translatedListOfWords[1]);
-
-        commandMap = languageSetting.makeReflectionMap();
         //convert word into tokens and check validity
         tokensList = addToTokenList(translatedListOfWords);
-        commandsList = stackCommand(translatedListOfWords, myTurtleList, commandMap);
+        commandsList = stackCommand(translatedListOfWords, tokensList);
 
         //Execute Command
-        ExecuteCommand executeCommand = new ExecuteCommand(commandsList, tokensList, backendController);
+        ExecuteCommand executeCommand = new ExecuteCommand(commandsList, backendController);
         executeCommand.runCommands();
     }
 
@@ -66,12 +63,13 @@ public class ParseCommand {
     }
 
 
-    private ArrayList<Command> stackCommand(String[] listOfWords, List<Turtle> turtleList, Map<String, String> commandMap) {
+    private ArrayList<Command> stackCommand(String[] listOfWords, List<Token> tokensList) {
         ArrayList<Command> commandArrayList = new ArrayList<Command>();
 
-        for (String word : listOfWords) {
+        for (int a=0; a< listOfWords.length; a++){
+            String word = listOfWords[a];
+            Token token = tokensList.get(a);
             try {
-                System.out.println("Parser.Commands.Turtle_Command." + word + "Command");
                 Class<?> clazz = Class.forName("Parser.Commands.Turtle_Command." + word + "Command");
                 Object object = clazz.getConstructor().newInstance();
                 Command newCommand = (Command) object;
@@ -79,21 +77,20 @@ public class ParseCommand {
 
             } catch (Exception e) {
 //                    e.printStackTrace();
-                System.out.println("command class not found");
                 Command newCommand;
-                if (word.equals("[")){
+                if (token == Token.LIST_START){
                     newCommand = new ListStartCommand();
                 }
-                else if (word.equals("]")){
+                else if (token == Token.LIST_END){
                     newCommand = (new ListEndCommand());
                 }
-                else if (word.equals("(")){
-                    newCommand = new ListStartCommand();
+                /*else if (token == Token.GROUP_START){
+                    newCommand = new GroupStartCommand();
                 }
-                else if (word.equals(")")){
-                    newCommand = new ListEndCommand();
-                }
-                else if (word.charAt(0) == ':'){
+                else if (token == Token.GROUP_END){
+                    newCommand = new GroupEndCommand();
+                }*/
+                else if (token == Token.VARIABLE){
                     newCommand = new Variable(word.substring(1));
                 }
                 else{
@@ -107,21 +104,6 @@ public class ParseCommand {
                 commandArrayList.add(newCommand);
                 //TODO add userdefined command here
             }
-//            }
-//            else{
-                // DO NOT DELETE
-//                if (word.equals("[")){
-//                    commandArrayList.add(new ListStartCommand());
-//                }
-//                if (word.equals("]")){
-//                    commandArrayList.add(new ListEndCommand());
-//                }
-//                if (word.equals("(")){
-//                    commandArrayList.add(new ListStartCommand());
-//                }
-//                if (word.equals(")")){
-//                    commandArrayList.add(new ListEndCommand());
-//                }
         }
         return commandArrayList;
     }

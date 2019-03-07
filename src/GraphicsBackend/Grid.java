@@ -4,10 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.shape.Line;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class Grid {
     public static final double GRID_OFFSET = 0.001;
@@ -19,6 +16,8 @@ public class Grid {
     private double width;
     //TODO make method so that screen color can be changed by the command
     private int ScreenColor;
+//    private LinkedList<List<Line>> lastLinesPlaced = new LinkedList<>();
+    private List<Line> newLineMovements;
 
     public Grid(double gridHeight, double gridWidth){
         width = gridWidth;
@@ -50,7 +49,14 @@ public class Grid {
         myObjects.clear();
     }
 
-    public Point addMovement(double xPos, double yPos, double angle, double dist, Pen pen){
+    public void removeLines(List<Line> linesToRemove){
+        for (Line l:linesToRemove){
+            myObjects.remove(l);
+        }
+    }
+
+    public VectorMovement addMovement(double xPos, double yPos, double angle, double dist, Pen pen){
+        newLineMovements = new LinkedList<>();
         double newXPos = xPos - dist*Math.cos(Math.toRadians(angle));
         double newYPos = yPos - dist*Math.sin(Math.toRadians(angle));
 
@@ -104,7 +110,7 @@ public class Grid {
             offScreen = offScreenBottom|offScreenLeft|offScreenRight|offScreenTop;
         }
         createLine(pen, xPos, yPos, newXPos, newYPos);
-        return new Point(newXPos, newYPos);
+        return new VectorMovement(new Point(newXPos, newYPos), newLineMovements);
     }
 
     private void createLine(Pen pen, double xPos, double yPos, double newXPos, double newYPos) {
@@ -113,8 +119,8 @@ public class Grid {
             movement.setStroke(pen.getMyPenColor());
             movement.setStrokeWidth(pen.getPenSize());
             myObjects.add(movement);
+            newLineMovements.add(movement);
         }
-
     }
 
     private Optional<Point> calculateIntersectionWithBounds(Point movementStart, Point movementEnd) {

@@ -35,8 +35,6 @@ public class LanguageSetting {
         return map;
     }
 
-    //TODO: What do we do if there's an error. We just return semi-translated list? This method should probably throw an error
-    //TODO: must deal with user defined commands
     public String[] translateCommand(String[] listOfWords){
         String[] newList = new String[listOfWords.length];
 
@@ -51,22 +49,4 @@ public class LanguageSetting {
         return newList;
     }
 
-
-    public Map<String, String> makeReflectionMap() {
-        ResourceBundle englishProperty = ResourceBundle.getBundle("/languageProperties/English");
-        Map<String, String> map = new HashMap<>();
-        Enumeration<String> keys = englishProperty.getKeys();
-        while (keys.hasMoreElements()) {
-            String key = keys.nextElement();
-            if (englishProperty.getString(key).contains("|")) {
-                map.put(englishProperty.getString(key).split("\\|")[0], key);
-                map.put(englishProperty.getString(key).split("\\|")[1], key);
-            }
-            else{
-                map.put(englishProperty.getString(key), key);
-            }
-        }
-        return map;
-
-    }
 }

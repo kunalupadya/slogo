@@ -7,10 +7,6 @@ import java.util.List;
 
 public abstract class Command{
 
-
-
-
-    //in constructor, need to set isConstant, numparameters
     protected List<Command> myChildrenList = new ArrayList<>();
     protected boolean isConstant;
     protected double returnValue;
@@ -27,7 +23,7 @@ public abstract class Command{
         return isConstant;
     }
 
-    public  int getNumParameters(){
+    public int getNumParameters(){
         return numParameters;
     }
 

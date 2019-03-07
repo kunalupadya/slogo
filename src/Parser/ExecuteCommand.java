@@ -23,8 +23,8 @@ public class ExecuteCommand {
     private Command headNode;
     private BackendController backendController;
 
-    public ExecuteCommand(List<Command> commandsList, List<Token> tokenList, BackendController backendController) {
-        ParsingTree parsingTree = new ParsingTree(commandsList, tokenList, backendController);
+    public ExecuteCommand(List<Command> commandsList, BackendController backendController) {
+        ParsingTree parsingTree = new ParsingTree(commandsList, backendController);
         headNode = parsingTree.getRoot();
         this.backendController = backendController;
     }
@@ -41,15 +41,7 @@ public class ExecuteCommand {
 
     public void traverse(Command node){
         if (node.getChildren().isEmpty()&node.getClass() != TextCommand.class){
-            if (node.getIsConstant()){
-                return;
-            }
-            else if (node.getNumParameters() == 0){
-                node.execute(backendController);
-            }
-            else{
-                throw new SyntaxError(PARAMETERS_MISSING);
-            }
+            handleEmptyChildrenCommands(node);
             return;
         }
         if (node.getClass() == MakeUserInstructionCommand.class | node.getClass() == ListEndCommand.class){
@@ -57,35 +49,61 @@ public class ExecuteCommand {
             return;
         }
         if (node.getClass() == MakeVariableCommand.class){
-            traverse(node.getChildren().get(EXPRESSION_INDEX));
-            node.execute(backendController);
+            handleMakeVariableCommand(node);
         }
         if (node.getClass() == ListStartCommand.class){
-            for (Command child: node.getChildren()){
-                traverse(child);
-            }
+            handleListStartCommand(node);
             return;
         }
-        for (Command child: node.getChildren()){
-            traverse(child);
-        }
+        traverseChildren(node);
+        handleAfterGenerationOfChildren(node);
+    }
+
+    private void handleAfterGenerationOfChildren(Command node) {
         if (node.getClass() == TextCommand.class){
-            node.execute(backendController);
-            System.out.println("hi");
-            for (Command child: node.getChildren()){
-                traverse(child);
-            }
+            handleTextCommand(node);
         }
         else if (node.getNumParameters() == node.getChildren().size()){
             node.execute(backendController);
-            System.out.println(node.getReturnValue());
         }
-
         else if (node.getClass() == RootCommand.class){
             return;
         }
         else{
-            throw new SyntaxError(WRONG_NUMBER_OF_PARAMETERS);
+            throw new SyntaxError(WRONG_NUMBER_OF_PARAMETERS);//TODO replace with another exception
+        }
+    }
+
+    private void handleTextCommand(Command node) {
+        node.execute(backendController);
+        traverseChildren(node);
+    }
+
+    private void traverseChildren(Command node) {
+        for (Command child : node.getChildren()) {
+            traverse(child);
+        }
+    }
+
+    private void handleListStartCommand(Command node) {
+        traverseChildren(node);
+        return;
+    }
+
+    private void handleMakeVariableCommand(Command node) {
+        traverse(node.getChildren().get(EXPRESSION_INDEX));
+        node.execute(backendController);
+    }
+
+    private void handleEmptyChildrenCommands(Command node) {
+        if (node.getIsConstant()){
+            return;
+        }
+        else if (node.getNumParameters() == 0){
+            node.execute(backendController);
+        }
+        else{
+            throw new SyntaxError(PARAMETERS_MISSING);
         }
     }
 }

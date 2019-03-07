@@ -65,4 +65,25 @@ public abstract class Module {
 
     public void close(Class clazz) {context.close(clazz);}
 
+    public Pane getPane() {
+        return content;
+    }
+
+    public int getModuleWidth() {
+        return moduleWidth;
+    }
+
+    public ResourceBundle getMyResourceBundles() {
+        return myResourceBundles;
+    }
+
+    public FrontendController getContext() {
+        return context;
+    }
+
+    public int getModuleHeight() { return moduleHeight; }
+
+    public Pane getToolbarPane() { return toolbarPane; }
+
+    public ButtonControl getClose() { return close; }
 }

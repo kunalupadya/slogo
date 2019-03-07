@@ -5,19 +5,25 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ListModule extends Module {
-    public List<String> list;
-    public ListView<String> listDisplay;
-    public ObservableList<String> listCollection;
+    private VBox container;
+    private Pane content;
+    private int moduleWidth;
+    private List<String> list;
+    private ListView<String> listDisplay;
+    private ObservableList<String> listCollection;
 
     public ListModule(int width, int height, String moduleName, FrontendController myFrontendController) {
         super(width, height, moduleName, myFrontendController);
         list = new ArrayList<>();
+        content = getPane();
+        moduleWidth = getModuleWidth();
         setContent();
     }
 
@@ -38,4 +44,16 @@ public abstract class ListModule extends Module {
     }
 
     protected abstract void setPlaceholder();
+
+    public List<String> getList() {
+        return list;
+    }
+
+    public ListView<String> getListDisplay() {
+        return listDisplay;
+    }
+
+    public ObservableList<String> getListCollection() {
+        return listCollection;
+    }
 }

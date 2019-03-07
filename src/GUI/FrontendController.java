@@ -55,7 +55,25 @@ public class FrontendController {
     private String defaultLanguage = "English";
     private List<Turtle> turtles;
     private List<String> moduleList;
-    private ResourceBundle myModuleContainer, myModulePosition;
+    private ResourceBundle myModuleContainer, myModulePosition, myModuleLabels;
+    private int editorWidth = 200;
+    private int editorHeight = 210;
+    private int availableVarsWidth = 200;
+    private int availableVarsHeight = 105;
+    private int userCommandsWidth = 200;
+    private int userCommandsHeight = 105;
+    private int consoleWidth = 800;
+    private int consoleHeight = 100;
+    private int graphicsAreaWidth = 400;
+    private int graphicsAreaHeight = 420;
+    private int palettesWidth = 200;
+    private int palettesHeight = 210;
+    private int currentStateWidth = 200;
+    private int currentStateHeight = 210;
+    private String moduleContainer = "/buttonProperties/ModuleContainer";
+    private String modulePosition = "/buttonProperties/ModulePosition";
+    private String moduleLabels = "/moduleProperties/ModuleLabel";
+
 
     /**
      * TODO: add JavaDoc
@@ -66,16 +84,18 @@ public class FrontendController {
         this.myStage = stage;
         this.myContainer = root;
 
-        this.editor = new Editor(200, 210, this);
-        this.availableVars = new AvailableVars(200, 105, this);
-        this.userCommands = new UserCommands(200, 105, this);
-        this.console = new Console(800, 100, this);
-        this.graphicsArea = new GraphicsArea(400, 420, this);
-        this.palettes = new Palettes(200, 210, this);
-        this.currentState = new CurrentState(200, 210, this);
+        this.myModuleLabels = ResourceBundle.getBundle(moduleLabels);
+        this.myModuleContainer = ResourceBundle.getBundle(moduleContainer);
+        this.myModulePosition = ResourceBundle.getBundle(modulePosition);
 
-        this.myModuleContainer = ResourceBundle.getBundle("/buttonProperties/ModuleContainer");
-        this.myModulePosition = ResourceBundle.getBundle("/buttonProperties/ModulePosition");
+        this.editor = new Editor(editorWidth, editorHeight, myModuleLabels.getString("Editor"), this);
+        this.availableVars = new AvailableVars(availableVarsWidth, availableVarsHeight,  myModuleLabels.getString("AvailableVars"),this);
+        this.userCommands = new UserCommands(userCommandsWidth, userCommandsHeight, myModuleLabels.getString("UserCommands"), this);
+        this.console = new Console(consoleWidth, consoleHeight, myModuleLabels.getString("Console"), this);
+        this.graphicsArea = new GraphicsArea(graphicsAreaWidth, graphicsAreaHeight, myModuleLabels.getString("GraphicsArea"), this);
+        this.palettes = new Palettes(palettesWidth, palettesHeight, myModuleLabels.getString("Palettes"), this);
+        this.currentState = new CurrentState(currentStateWidth, currentStateHeight, myModuleLabels.getString("CurrentState"), this);
+
         this.moduleList = new ArrayList<>();
 
         Enumeration<String> itemEnum = myModuleContainer.getKeys();
@@ -261,7 +281,6 @@ public class FrontendController {
             penColors.add(pen.getMyPenColor());
             penUp.add(pen.getPenUp());
             penSize.add(pen.getPenSize());
-            System.out.println(pen.getPenSize());
             counter++;
         }
         currentState.getTurtleAndPens(ids, xPositions, yPositions, angles, penColors, penUp, penSize);
@@ -320,6 +339,10 @@ public class FrontendController {
         }
     }
 
+    public void undo(){
+        backendController.undo();
+    }
+
     private void closeModule(String modulePane, String modulePosition) {
         switch(modulePane) {
             case "myContainer":
@@ -347,10 +370,6 @@ public class FrontendController {
                 }
                 break;
         }
-    }
-
-    public void undo() {
-//        backendController.undo();
     }
 
     public void save() {}

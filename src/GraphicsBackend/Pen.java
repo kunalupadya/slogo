@@ -48,4 +48,8 @@ public class Pen {
 
     public void setPenSize(int pixelSize){ this.penSize = pixelSize;
     System.out.println("pensize has been changed to" + penSize);}
+
+    public void setPenWidth(double penWidth) {
+        this.penWidth = penWidth;
+    }
 }

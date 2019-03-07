@@ -2,14 +2,12 @@ package Parser;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class RemoveComment {
+class RemoveComment {
 
     private String output;
 
-    public RemoveComment(String myString){
+    RemoveComment(String myString){
         output = deleteComment(myString);
     }
 
@@ -72,7 +70,7 @@ public class RemoveComment {
         return newCode.toString();
     }
 
-    public String getOutput(){
+    String getOutput(){
         return output;
     }
 }

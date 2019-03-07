@@ -108,7 +108,7 @@ public class BackendController {
         frontendController.consoleShowError(string);
     }
 
-    public void setFrontendController(FrontendController frontendController) {
+    void setFrontendController(FrontendController frontendController) {
         this.frontendController = frontendController;
     }
 

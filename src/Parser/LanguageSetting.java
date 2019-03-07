@@ -3,7 +3,7 @@ package Parser;
 import java.util.*;
 
 /**
- * @author: Louis Lee
+ * @author Louis Lee
  */
 
 public class LanguageSetting {
@@ -35,7 +35,7 @@ public class LanguageSetting {
         return map;
     }
 
-    public String[] translateCommand(String[] listOfWords){
+    String[] translateCommand(String[] listOfWords){
         String[] newList = new String[listOfWords.length];
 
         for (int i = 0; i < listOfWords.length; i++) {

@@ -111,7 +111,7 @@ public class Grid {
         Line movement = new Line(xPos, yPos, newXPos, newYPos);
         if (!pen.getPenUp()) {
             movement.setStroke(pen.getMyPenColor());
-            movement.setStrokeWidth(pen.getPenWidth());
+            movement.setStrokeWidth(pen.getPenSize());
             myObjects.add(movement);
         }
 
@@ -125,7 +125,6 @@ public class Grid {
                 return intersectOptional;
             }
         }
-        System.out.println("NULL");
         return intersectOptional;
     }
 

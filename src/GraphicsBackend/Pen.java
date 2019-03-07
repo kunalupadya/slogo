@@ -9,7 +9,6 @@ public class Pen {
     //TODO Need to change pencolor to int
     private Color penColor;
     private boolean penUp = false;
-    private double penWidth = 1;
     private int penSize = 10;
 
     public Pen(){
@@ -20,16 +19,8 @@ public class Pen {
         penColor = color;
     }
 
-    public Color getPenColor() {
-        return penColor;
-    }
-
     public Color getMyPenColor(){
         return this.penColor;
-    }
-
-    public double getPenWidth() {
-        return penWidth;
     }
 
     public boolean getPenUp() {
@@ -46,6 +37,7 @@ public class Pen {
         this.penUp = penUp;
     }
 
-    public void setPenSize(int pixelSize){ this.penSize = pixelSize;
-    System.out.println("pensize has been changed to" + penSize);}
+    public void setPenSize(int pixelSize){
+        this.penSize = pixelSize;
+    }
 }

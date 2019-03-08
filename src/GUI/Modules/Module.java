@@ -13,15 +13,14 @@ import java.util.ResourceBundle;
  * @author Januario Carreiro & David Liu
  */
 public abstract class Module {
-    public ResourceBundle myResourceBundles;
-    public VBox container;
-    public Pane content;
-    public final VBox module;
-    Pane toolbarPane;
-    public int moduleWidth;
-    public int moduleHeight;
-    public FrontendController context;
-    ButtonControl close;
+    private ResourceBundle myResourceBundles;
+    private Pane content;
+    private final VBox module;
+    private Pane toolbarPane;
+    private int moduleWidth;
+    private int moduleHeight;
+    private FrontendController context;
+    private ButtonControl close;
 
     final double toolbarHeight = 20.0;
 

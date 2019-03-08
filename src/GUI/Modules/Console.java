@@ -64,16 +64,18 @@ public class Console extends Module  {
     private void handleKeyInput(KeyCode code) {
         if (code == KeyCode.ENTER) {
             String parameterValue = consoleInput.getText();
-            if (commandHistory.isEmpty()) {
-                consoleInfo.appendText(parameterValue);
+            if (!parameterValue.trim().isEmpty()) {
+                if (consoleInfo.getText().trim().isEmpty()) {
+                    consoleInfo.appendText(parameterValue);
+                }
+                else {
+                    consoleInfo.appendText("\n" + parameterValue);
+                }
+                commandHistory.add(0, parameterValue);
+                commandPosition = -1;
+                consoleInput.clear();
+                context.sendCommandString(parameterValue);
             }
-            else {
-                consoleInfo.appendText("\n" + parameterValue);
-            }
-            commandHistory.add(0, parameterValue);
-            commandPosition = -1;
-            consoleInput.clear();
-            context.sendCommandString(parameterValue);
         }
         if (code == KeyCode.UP) {
             if (!commandHistory.isEmpty() && !(commandPosition >= commandHistory.size() - 1)) {
@@ -97,9 +99,11 @@ public class Console extends Module  {
     public void showError(String errorString) {
         if (! consoleInfo.getText().equals("")) {
             consoleInfo.appendText("\n" + errorString);
+            //consoleInfo.setStyle("-fx-text-inner-color: red;");
         }
         else {
             consoleInfo.appendText(errorString);
+            //consoleInfo.setStyle("-fx-text-inner-color: red;");
         }
     }
 

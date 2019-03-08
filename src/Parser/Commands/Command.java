@@ -12,7 +12,7 @@ public abstract class Command{
     protected double returnValue;
     protected String text;
     protected int numParameters;
-    protected int currentNumParameters = 0;
+    private int currentNumParameters = 0;
 
 
     public int getCurrentNumParameters() {

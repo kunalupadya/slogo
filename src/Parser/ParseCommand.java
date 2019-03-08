@@ -18,8 +18,6 @@ public class ParseCommand {
 
     private final String whiteSpace = "\\s+";
     private String myLanguage;
-    private ArrayList<Command> commandsList;
-    private List<Token> tokensList;
     private List<Turtle> myTurtleList;
     private Map<String, String> commandMap;
 
@@ -30,18 +28,12 @@ public class ParseCommand {
         myTurtleList = turtles;
 
         if(consoleInput != null && !consoleInput.equals("")) {
-
             String[] listOfWords = consoleInput.toLowerCase().split(whiteSpace);
-            //translate the input into default language
             LanguageSetting languageSetting = new LanguageSetting(myLanguage);
             //TODO: try catch block if command is not valid
             String[] translatedListOfWords = languageSetting.translateCommand(listOfWords);
-//            System.out.println(translatedListOfWords[2]);
-            tokensList = addToTokenList(translatedListOfWords);
-//            System.out.println(tokensList);
-            commandsList = stackCommand(translatedListOfWords, tokensList);
-
-            //Execute Command
+            var tokensList = addToTokenList(translatedListOfWords);
+            var commandsList = stackCommand(translatedListOfWords, tokensList);
             ExecuteCommand executeCommand = new ExecuteCommand(commandsList, backendController);
             executeCommand.runCommands();
         }
@@ -57,8 +49,8 @@ public class ParseCommand {
     }
 
 
-    private ArrayList<Command> stackCommand(String[] listOfWords, List<Token> tokensList) {
-        ArrayList<Command> commandArrayList = new ArrayList<>();
+    private List<Command> stackCommand(String[] listOfWords, List<Token> tokensList) {
+        List<Command> commandArrayList = new ArrayList<>();
 
         for (int a=0; a< listOfWords.length; a++){
             String word = listOfWords[a];

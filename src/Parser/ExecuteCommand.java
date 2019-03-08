@@ -1,7 +1,5 @@
 package Parser;
 
-import GraphicsBackend.Turtle;
-
 import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.RootCommand;
@@ -17,9 +15,9 @@ import java.util.List;
 
 public class ExecuteCommand {
 
-    public static final String PARAMETERS_MISSING = "Parameters missing";
-    public static final String WRONG_NUMBER_OF_PARAMETERS = "Wrong number of parameters";
-    public static final int EXPRESSION_INDEX = 1;
+    private static final String PARAMETERS_MISSING = "Parameters missing";
+    private static final String WRONG_NUMBER_OF_PARAMETERS = "Wrong number of parameters";
+    private static final int EXPRESSION_INDEX = 1;
     private Command headNode;
     private BackendController backendController;
 
@@ -29,7 +27,7 @@ public class ExecuteCommand {
         this.backendController = backendController;
     }
 
-    public void runCommands(){
+    void runCommands(){
         //post traversal starting from headNode
         try {
             traverse(headNode);
@@ -39,7 +37,7 @@ public class ExecuteCommand {
         }
     }
 
-    public void traverse(Command node){
+    private void traverse(Command node){
         if (node.getChildren().isEmpty()&node.getClass() != TextCommand.class){
             //leaf nodes, should return
             handleEmptyChildrenCommands(node);
@@ -52,8 +50,8 @@ public class ExecuteCommand {
         if (node.getClass() == MakeVariableCommand.class){
             handleMakeVariableCommand(node);
         }
-        if (node.getClass() == ListStartCommand.class){
-            handleListStartCommand(node);
+        if (node instanceof ControlCommand){
+            handleControlCommand((ControlCommand) node);
             return;
         }
         if (node.getClass() == GroupStartCommand.class){
@@ -62,6 +60,25 @@ public class ExecuteCommand {
         }
         traverseChildren(node);
         handleAfterGenerationOfChildren(node);
+    }
+
+    private void handleControlCommand(ControlCommand node) {
+        List<Command> initExpr = node.getInitialExpressions();
+        for (Command expr: initExpr) {
+            traverse(expr);
+        }
+        node.setUpLoop();
+        while(node.shouldRunAgain()) {
+            node.execute(backendController);
+            if (node.getListToRun() != null) {
+                handleListStartCommand(node.getListToRun());
+                node.setReturnValue(node.getListToRun().getReturnValue());
+            }
+        }
+    }
+
+    private void handleListStartCommand(Command node) {
+        traverseChildren(node);
     }
 
     private void handleAfterGenerationOfChildren(Command node) {
@@ -88,10 +105,6 @@ public class ExecuteCommand {
         for (Command child : node.getChildren()) {
             traverse(child);
         }
-    }
-
-    private void handleListStartCommand(Command node) {
-        traverseChildren(node);
     }
 
     private void handleMakeVariableCommand(Command node) {

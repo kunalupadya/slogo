@@ -31,6 +31,6 @@ public class IfElseCommand extends ControlCommand {
 
     @Override
     public Command copy() {
-        return new IfCommand();
+        return new IfElseCommand();
     }
 }

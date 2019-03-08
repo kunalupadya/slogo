@@ -62,8 +62,8 @@ public class ExecuteCommand {
         node.setInitialExpression();
         if (node.getInitialExpression() != null){
             traverse(node.getInitialExpression());
+            node.setLimit(node.getInitialExpression().getReturnValue());
         }
-        node.setLimit(node.getInitialExpression().getReturnValue());
         while(node.shouldRunAgain()) {
             node.execute(backendController);
             if (node.getListToRun() != null) {

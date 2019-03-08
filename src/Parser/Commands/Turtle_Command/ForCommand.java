@@ -5,7 +5,7 @@ import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.Variable;
 
-public class DoTimesCommand extends ControlCommand {
+public class ForCommand extends ControlCommand {
 
     private ListStartCommand commandListOrig = (ListStartCommand) myChildrenList.get(1);
 
@@ -44,6 +44,6 @@ public class DoTimesCommand extends ControlCommand {
 
     @Override
     public Command copy() {
-        return new DoTimesCommand();
+        return new ForCommand();
     }
 }

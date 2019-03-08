@@ -15,16 +15,20 @@ public class IfCommand extends ControlCommand {
 
     @Override
     protected void performAction(BackendController backendController) {
-        if (initialExpression.getReturnValue() != 0) {
+        if (initialExpressions.get(0).getReturnValue() != 0) {
             setListToRun((ListStartCommand) myChildrenList.get(commandList));
         }
         runAgain = false;
     }
 
     @Override
-    public void setInitialExpression() {
-        initialExpression = myChildrenList.get(0);
+    public void setInitialExpressions() {
+        initialExpressions.add(myChildrenList.get(0));
     }
+
+    @Override
+    public void setUpLoop() { }
+
 
     @Override
     public Command copy() {

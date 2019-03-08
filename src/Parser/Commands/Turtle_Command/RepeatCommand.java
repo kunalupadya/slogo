@@ -17,7 +17,7 @@ public class RepeatCommand extends ControlCommand {
 
     @Override
     protected void performAction(BackendController backendController) {
-        if (currCount < limit) {
+        if (currCount <= limit) {
             setRepCount(backendController);
             setListToRun(copyList(commandListOrig));
             currCount++;
@@ -37,8 +37,13 @@ public class RepeatCommand extends ControlCommand {
     }
 
     @Override
-    public void setInitialExpression() {
-        initialExpression = myChildrenList.get(0);
+    public void setInitialExpressions() {
+        initialExpressions.add(myChildrenList.get(0));
+    }
+
+    @Override
+    public void setUpLoop() {
+        limit = (int) initialExpressions.get(0).getReturnValue();
     }
 
     @Override

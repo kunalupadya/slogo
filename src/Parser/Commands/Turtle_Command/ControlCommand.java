@@ -3,12 +3,15 @@ package Parser.Commands.Turtle_Command;
 
 import Parser.Commands.Command;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class ControlCommand extends Command {
 
     boolean runAgain = true;
     int currCount = 1;
     int limit;
-    Command initialExpression = null;
+    List<Command> initialExpressions = new ArrayList<>();
     ListStartCommand listToRun = null;
 
 
@@ -16,11 +19,11 @@ public abstract class ControlCommand extends Command {
         setReturnValue(0);
     }
 
-    public Command getInitialExpression(){
-        return initialExpression;
+    public List<Command> getInitialExpressions(){
+        return initialExpressions;
     }
 
-    public abstract void setInitialExpression();
+    public abstract void setInitialExpressions();
 
     public void setLimit(double value){
         limit = (int) value;
@@ -41,6 +44,8 @@ public abstract class ControlCommand extends Command {
     public ListStartCommand copyList(ListStartCommand command){
         return (ListStartCommand) traverse(command);
     }
+
+    public abstract void setUpLoop();
 
     private Command traverse(Command command){
 

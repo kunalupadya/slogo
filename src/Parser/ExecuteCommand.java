@@ -59,11 +59,11 @@ public class ExecuteCommand {
     }
 
     private void handleControlCommand(ControlCommand node) {
-        node.setInitialExpression();
-        if (node.getInitialExpression() != null){
-            traverse(node.getInitialExpression());
-            node.setLimit(node.getInitialExpression().getReturnValue());
+        List<Command> initExpr = node.getInitialExpressions();
+        for (Command expr: initExpr) {
+            traverse(expr);
         }
+        node.setUpLoop();
         while(node.shouldRunAgain()) {
             node.execute(backendController);
             if (node.getListToRun() != null) {

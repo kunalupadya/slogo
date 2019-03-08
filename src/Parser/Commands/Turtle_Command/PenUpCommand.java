@@ -14,7 +14,7 @@ public class PenUpCommand extends TurtleCommand {
 
     @Override
     protected void turtleAction(Turtle turtle) {
-        turtle.getMyPen().setPenUp(true);
+        turtle.setPenUp(true);
         returnValue = 0;
     }
 

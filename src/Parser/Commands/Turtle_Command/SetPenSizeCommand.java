@@ -23,7 +23,7 @@ public class SetPenSizeCommand extends TurtleCommand {
 
     @Override
     protected void turtleAction(Turtle turtle) {
-        turtle.getMyPen().setPenSize((int)getChildren().get(0).getReturnValue());
+        turtle.setPenSize((int)getChildren().get(0).getReturnValue());
         returnValue = getChildren().get(0).getReturnValue();
     }
 

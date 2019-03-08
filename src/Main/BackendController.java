@@ -3,6 +3,7 @@ package Main;
 
 import GUI.FrontendController;
 import GraphicsBackend.Grid;
+import GraphicsBackend.ImmutableGrid;
 import GraphicsBackend.Palette;
 import GraphicsBackend.Turtle;
 import Parser.Commands.Command;
@@ -115,7 +116,7 @@ public class BackendController {
         commmandLanguage = language;
     }
 
-    public Grid getMyGrid() {
+    public ImmutableGrid getMyGrid() {
         return myGrid;
     }
 

@@ -2,6 +2,7 @@ package GraphicsBackend;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 import java.util.LinkedList;
@@ -135,6 +136,18 @@ public class Turtle {
         this.turtleImage = turtleImage;
     }
 
+    public void setPenColor(Color color){
+        myPen.setPenColor(color);
+    }
+
+    public void setPenSize(int pixelSize){
+        myPen.setPenSize(pixelSize);
+    }
+
+    public void setPenUp(boolean penUp){
+        myPen.setPenUp(penUp);
+    }
+
     public ImageView getAdjustedTurtleImageView(double xLeftCorner, double yLeftCorner) {
         ImageView returnedTurtle = new ImageView();
         updateATurtleImageView(returnedTurtle);
@@ -143,7 +156,7 @@ public class Turtle {
         return returnedTurtle;
     }
 
-    public Pen getMyPen() {
+    public ImmutablePen getMyPen() {
         return myPen;
     }
 }

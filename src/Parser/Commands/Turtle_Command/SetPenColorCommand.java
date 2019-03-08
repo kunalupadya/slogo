@@ -27,7 +27,7 @@ public class SetPenColorCommand extends TurtleCommand {
 
     @Override
     protected void turtleAction(Turtle turtle) {
-        turtle.getMyPen().setPenColor(myColor);
+        turtle.setPenColor(myColor);
         returnValue = getChildren().get(0).getReturnValue();
     }
 

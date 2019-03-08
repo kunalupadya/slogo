@@ -2,6 +2,7 @@ package GUI;
 
 import GUI.Controls.*;
 import GUI.Modules.*;
+import GraphicsBackend.ImmutablePen;
 import GraphicsBackend.Pen;
 import GraphicsBackend.Turtle;
 import Main.BackendController;
@@ -270,7 +271,7 @@ public class FrontendController {
         List<Boolean> penUp = new ArrayList<>();
         List<Integer> penSize = new ArrayList<>();
         for (Turtle turtle: turtles) {
-            Pen pen = turtle.getMyPen();
+            ImmutablePen pen = turtle.getMyPen();
             ids.add(counter);
             xPositions.add(turtle.getxPos());
             yPositions.add(turtle.getyPos());

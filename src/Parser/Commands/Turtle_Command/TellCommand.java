@@ -1,5 +1,6 @@
 package Parser.Commands.Turtle_Command;
 
+import GraphicsBackend.Grid;
 import GraphicsBackend.Turtle;
 import Main.BackendController;
 import Parser.Commands.Command;
@@ -30,7 +31,7 @@ public class TellCommand extends Command{
             }
             else {
                 while(turtleIndex>turtleList.size()) {
-                    Turtle newTurtle = new Turtle(backendController.getMyGrid());
+                    Turtle newTurtle = new Turtle((Grid) backendController.getMyGrid());
                     turtleList.add(newTurtle);
                     assignedTurtleList.add(newTurtle);
                 }

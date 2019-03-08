@@ -14,7 +14,6 @@ import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
@@ -23,7 +22,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -48,8 +46,8 @@ public class FrontendController {
     private CurrentState currentState;
     private Console console;
     private MenuButtonControl openHelp, moveTurtle, switchLanguages, penThickess;
-    private ButtonControl redo, run, undo, stopExecution, setTurtleImage, save, saveFile, loadFile;
-    private ColorPicker setBackgroundColor, setPenColor;
+    private ButtonControl redo, run, undo, stopExecution, setTurtleImage, save, saveFile, loadFile, penState;
+    private ColorPicker BackgroundColor, PenColor;
     private BackendController backendController;
     private String defaultLanguage = "English";
     private List<Turtle> turtles;
@@ -131,20 +129,23 @@ public class FrontendController {
         openHelp = new OpenHelp(this);
         openHelp.getButton().setTooltip(new Tooltip("Help"));
 
-        setPenColor = new SetPenColor().getColorPicker();
-        setPenColor.setTooltip(new Tooltip("Set Pen Color"));
+        BackgroundColor = new SetBackgroundColor(this).getColorPicker();
+        BackgroundColor.setTooltip(new Tooltip("Set Background Color"));
 
-        setBackgroundColor = new SetBackgroundColor(this).getColorPicker();
-        setBackgroundColor.setTooltip(new Tooltip("Set Background Color"));
+        PenColor = new SetPenColor(this).getColorPicker();
+        PenColor.setTooltip(new Tooltip("Set Pen Color"));
+
+        penThickess = new SetPenThickness(this);
+        penThickess.getButton().setTooltip(new Tooltip("Set Pen Thickness"));
+
+        penState = new SetPenState(this);
+        penState.getButton().setTooltip(new Tooltip("Set Pen State"));
 
         setTurtleImage = new SetTurtleImage(this);
         setTurtleImage.getButton().setTooltip(new Tooltip("Set Turtle Image"));
 
         switchLanguages = new SwitchLanguages(this);
         switchLanguages.getButton().setTooltip(new Tooltip("Switch Languages"));
-
-        penThickess = new SetPenThickness(this);
-        penThickess.getButton().setTooltip(new Tooltip("Set Pen Thickness"));
 
         save = new Save(this);
         save.getButton().setTooltip(new Tooltip("Save"));
@@ -171,7 +172,7 @@ public class FrontendController {
         run.getButton().setTooltip(new Tooltip("Run"));
 
         var leftButtons = new HBox(openHelp.getButton(), switchLanguages.getButton(), saveFile.getButton(),
-                loadFile.getButton(), setBackgroundColor, setPenColor, penThickess.getButton(),
+                loadFile.getButton(), BackgroundColor, PenColor, penThickess.getButton(), penState.getButton(),
                 setTurtleImage.getButton(), save.getButton());
         leftButtons.getStyleClass().add("button-container");
 
@@ -299,6 +300,7 @@ public class FrontendController {
     public void saveToFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("data/scripts"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text doc(*.txt)", "*.txt"));
         File potentialFile = fileChooser.showSaveDialog(myStage);
 
         if (potentialFile != null) {
@@ -471,6 +473,23 @@ public class FrontendController {
         for (Turtle turtle: turtles) {
             Pen pen = turtle.getMyPen();
             pen.setPenSize(pen.getPenSize() + value);
+        }
+    }
+
+    public void setPenState() {
+        turtles = backendController.getMyTurtles();
+        for (Turtle turtle: turtles) {
+            Pen pen = turtle.getMyPen();
+            if (pen.getPenUp()) pen.setPenUp(false);
+            else pen.setPenUp(true);
+        }
+    }
+
+    public void setPenColor(Color color) {
+        turtles = backendController.getMyTurtles();
+        for (Turtle turtle: turtles) {
+            Pen pen = turtle.getMyPen();
+            pen.setPenColor(color);
         }
     }
 

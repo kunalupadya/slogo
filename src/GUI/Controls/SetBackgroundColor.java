@@ -1,9 +1,9 @@
 package GUI.Controls;
 
 import javafx.scene.control.ColorPicker;
+import javafx.scene.paint.Paint;
 
 import GUI.FrontendController;
-import javafx.scene.paint.Paint;
 
 public class SetBackgroundColor {
     private FrontendController context;

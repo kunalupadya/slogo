@@ -18,7 +18,7 @@ public class SetPenThickness extends MenuButtonControl {
      * @param context
      */
     public SetPenThickness(FrontendController context) {
-        super(new Image(FrontendController.class.getResourceAsStream("/images/penSize.png")), "/buttonProperties/PenThickness");
+        super(new Image(FrontendController.class.getResourceAsStream("/images/penThickness.png")), "/buttonProperties/PenThickness");
         this.context = context;
     }
 

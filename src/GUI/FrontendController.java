@@ -3,15 +3,18 @@ package GUI;
 import GUI.Controls.*;
 import GUI.Modules.*;
 import GraphicsBackend.ImmutablePen;
+import GUI.Modules.Console;
 import GraphicsBackend.Turtle;
-import Parser.BackendController;
+import Main.BackendController;
+import javafx.collections.ObservableList;
+import javafx.scene.Cursor;
+import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
@@ -19,11 +22,12 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.*;
 import java.lang.reflect.Method;
 import java.util.*;
 
@@ -36,6 +40,7 @@ public class FrontendController {
     private Stage myStage;
     private BorderPane myContainer, leftBorderPane, rightBorderPane;
     private HBox buttonHandler;
+    private Group helpGroup;
     private Editor editor;
     private AvailableVars availableVars;
     private UserCommands userCommands;
@@ -46,7 +51,7 @@ public class FrontendController {
     private OpenHelp openHelp;
     private MoveTurtle moveTurtle;
     private SwitchLanguages switchLanguages;
-    private Control redo, run, undo, stopExecution, setTurtleImage, save;
+    private ButtonControl redo, run, undo, stopExecution, setTurtleImage, save;
     private ColorPicker setBackgroundColor, setPenColor;
     private BackendController backendController;
     private String defaultLanguage = "English";
@@ -70,7 +75,8 @@ public class FrontendController {
     private String moduleContainer = "/buttonProperties/ModuleContainer";
     private String modulePosition = "/buttonProperties/ModulePosition";
     private String moduleLabels = "/moduleProperties/ModuleLabel";
-
+    private String editorPath = "data/editorFiles/";
+    private Boolean checkSimulation = false;
 
     /**
      * TODO: add JavaDoc
@@ -80,7 +86,6 @@ public class FrontendController {
     public FrontendController(BorderPane root, Stage stage) {
         this.myStage = stage;
         this.myContainer = root;
-
         this.myModuleLabels = ResourceBundle.getBundle(moduleLabels);
         this.myModuleContainer = ResourceBundle.getBundle(moduleContainer);
         this.myModulePosition = ResourceBundle.getBundle(modulePosition);
@@ -127,7 +132,7 @@ public class FrontendController {
         buttonHandler.setMaxHeight(30);
 
         openHelp = new OpenHelp(this);
-        openHelp.getHyperlink().setTooltip(new Tooltip("Help"));
+        openHelp.getButton().setTooltip(new Tooltip("Help"));
 
         setPenColor = new SetPenColor().getColorPicker();
         setPenColor.setTooltip(new Tooltip("Set Pen Color"));
@@ -159,7 +164,7 @@ public class FrontendController {
         run = new Run(editor);
         run.getButton().setTooltip(new Tooltip("Run"));
 
-        var leftButtons = new HBox(openHelp.getHyperlink(), switchLanguages.getButton(),
+        var leftButtons = new HBox(openHelp.getButton(), switchLanguages.getButton(),
                 setBackgroundColor, setPenColor, setTurtleImage.getButton(), save.getButton());
         leftButtons.getStyleClass().add("button-container");
 
@@ -186,7 +191,7 @@ public class FrontendController {
         File chosenFile = fileChooser.showOpenDialog(myStage);
         if (chosenFile != null) {
             try {
-                setTurtleImage.setImage(chosenFile);
+                setTurtleImage.setImage(chosenFile, setTurtleImage.getButton());
                 for (Turtle turtle: backendController.getImmutableTurtles()){
                     turtle.setTurtleImage(new Image(new FileInputStream(chosenFile.getPath())));
                 }
@@ -236,10 +241,6 @@ public class FrontendController {
         }
     }
 
-//    public void addToPrevCommands(String commandString) {
-//        console.addToHistory(commandString);
-//    }
-
     public void addToConsole(String commandString) {
         console.addToConsole(commandString);
     }
@@ -288,8 +289,46 @@ public class FrontendController {
         palettes.setPalettes(paletteIndices);
     }
 
+    public void saveToFile(String filename) {
+        ObservableList<CharSequence> paragraph = editor.getText();
+        Iterator<CharSequence> iter = paragraph.iterator();
+        try
+        {
+            //Replace Editor1 with filename parameter
+            BufferedWriter bf = new BufferedWriter(new FileWriter(new File(editorPath + filename + ".txt")));
+            while (iter.hasNext()) {
+                CharSequence seq = iter.next();
+                bf.append(seq);
+                bf.newLine();
+            }
+            bf.flush();
+            bf.close();
+        }
+        catch (IOException e)
+        {
+            consoleShowError("Cannot write invalid text into a file");
+        }
+    }
+
+    public void loadFile(String filename) {
+        try
+        {
+            Scanner s = new Scanner(new File(editorPath + filename + ".txt"));
+            editor.readText(s);
+        }
+        catch (FileNotFoundException e)
+        {
+            consoleShowError("File " + filename + ".txt does not exist");
+        }
+    }
+
     public void changeLanguage(String language) {
         backendController.setCommandLanguage(language);
+        moveTurtle.setResourceBundle(language);
+    }
+
+    public void runSimulation() {
+        backendController.parseAndRun("go");
     }
 
     public void step() {
@@ -298,6 +337,9 @@ public class FrontendController {
         getPalettes();
         getAvailableVars();
         getUserCommands();
+        if (checkSimulation) {
+            runSimulation();
+        }
     }
 
     /**
@@ -367,6 +409,48 @@ public class FrontendController {
                 }
                 break;
         }
+    }
+
+    public void showHelp(String helpPath) {
+        helpGroup = new Group();
+
+        Rectangle dialogBox = new Rectangle(0, 0, 400, 400);
+        dialogBox.setEffect(new DropShadow(25, 0, 0, Color.web("#333333")));
+        dialogBox.setArcWidth(20);
+        dialogBox.setArcHeight(20);
+        dialogBox.setFill(Color.WHITE);
+
+        TextArea help = new TextArea();
+        help.setEditable(false);
+        help.setLayoutY(50);
+        help.setMaxWidth(400);
+        help.setPrefHeight(350);
+
+        double originY = myStage.getScene().getHeight()/2 - dialogBox.getLayoutBounds().getHeight()/2 - 15;
+        double originX = myStage.getScene().getWidth()/2 - dialogBox.getLayoutBounds().getWidth()/2;
+
+        ButtonControl close = new CloseHelp(this);
+        close.getButton().setLayoutX(dialogBox.getWidth() - 50);
+        close.getButton().setLayoutY(10);
+        close.getButton().setCursor(Cursor.HAND);
+        close.getButton().setTooltip(new Tooltip("Close Menu"));
+
+        Scanner s = new Scanner(this.getClass().getResourceAsStream(helpPath));
+        while (s.hasNextLine()) {
+            help.appendText(s.nextLine() + "\n");
+        }
+
+        helpGroup.getChildren().addAll(dialogBox, close.getButton(), help);
+
+        helpGroup.setLayoutY(originY);
+        helpGroup.setLayoutX(originX);
+
+        myContainer.getChildren().add(helpGroup);
+    }
+
+    public void closeHelp() {
+        myContainer.getChildren().remove(helpGroup);
+        helpGroup = null;
     }
 
     public void save() {}

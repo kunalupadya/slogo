@@ -1,9 +1,11 @@
 package GUI.Controls;
 
 import GUI.FrontendController;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 
-public class Save extends Control{
+public class Save extends ButtonControl {
     FrontendController context;
 
     /**
@@ -17,7 +19,7 @@ public class Save extends Control{
     }
 
     @Override
-    protected void action() {
-        context.save();
+    protected EventHandler<MouseEvent> action() {
+        return event -> context.save();
     }
 }

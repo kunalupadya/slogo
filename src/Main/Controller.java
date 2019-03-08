@@ -5,7 +5,12 @@ import Parser.BackendController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.Event;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -23,10 +28,9 @@ import javafx.util.Duration;
  *
  * Controller class for SLogo.
  *
- * @author Januario Carreiro
+ * @author Januario Carreiro & David Liu
  */
 public class Controller extends Application {
-    private FrontendController frontendController;
     private static final int WINDOW_HEIGHT = 450;
     private static final int WINDOW_WIDTH = 800;
     private static final Paint BACKGROUND = Color.ANTIQUEWHITE;
@@ -34,8 +38,8 @@ public class Controller extends Application {
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private static final String WINDOW_TITLE = "Simple Logo";
-    private static Font Aller_Bd, Aller_Lt, Aller_LtIt;
-    private Scene myScene;
+    public static Font Aller_Bd, Aller_Lt, Aller_LtIt;
+    private static final KeyCombination keyCombinationCommandN = new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN);
 
     /**
      * TODO: add JavaDoc
@@ -60,13 +64,24 @@ public class Controller extends Application {
      */
     public void start (Stage stage) {
         var root = new BorderPane();
-        frontendController = new FrontendController(root, stage);
-        BackendController backendController = new BackendController();
-        frontendController.setBackendController(backendController);
-        backendController.setFrontendController(frontendController);
+        setUpScene(stage, root);
+        root.setOnKeyPressed(event -> handleKeyInput(event));
 
-        myScene = new Scene(root);
-        stage.setScene(myScene);
+        stage.show();
+    }
+
+    private void step(FrontendController front) {
+        front.step();
+    }
+
+    private void setUpScene(Stage stage, BorderPane root) {
+        FrontendController front = new FrontendController(root, stage);
+        BackendController backendController = new BackendController();
+        front.setBackendController(backendController);
+        backendController.setFrontendController(front);
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
         stage.setTitle(WINDOW_TITLE);
 
         stage.setResizable(true);
@@ -77,18 +92,21 @@ public class Controller extends Application {
         stage.setMaxHeight(585);
         stage.setMaxWidth(800);
 
-        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(front));
         var animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
         animation.play();
 
-        myScene.getStylesheets().add("ControlStyle.css");
-
-        stage.show();
+        scene.getStylesheets().add("ControlStyle.css");
     }
 
-    private void step(double elapsedTime) {
-        frontendController.step();
+    private void handleKeyInput(KeyEvent e) {
+        if (keyCombinationCommandN.match(e)) {
+            Stage stage = new Stage();
+            var root = new BorderPane();
+            setUpScene(stage, root);
+            stage.show();
+        }
     }
 }

@@ -1,22 +1,15 @@
 package GUI.Controls;
 
 import javafx.event.EventHandler;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.event.ActionEvent;
-
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.ResourceBundle;
 
 import GUI.FrontendController;
+import javafx.scene.input.MouseEvent;
 
 
-public class SetPenSize extends Control{
+public class SetPenSize extends ButtonControl {
     private FrontendController context;
+
     /**
      * TODO: finish JavaDoc
      *
@@ -27,7 +20,9 @@ public class SetPenSize extends Control{
     }
 
     @Override
-    protected void action() {
-
+    protected EventHandler<MouseEvent> action() {
+        return event -> {
+            // TODO: INTEGRATE
+        };
     }
 }

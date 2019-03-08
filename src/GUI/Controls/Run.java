@@ -1,9 +1,11 @@
 package GUI.Controls;
 
 import GUI.Modules.Editor;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 
-public class Run extends Control {
+public class Run extends ButtonControl {
     private Editor context;
 
     public Run(Editor context) {
@@ -12,7 +14,9 @@ public class Run extends Control {
     }
 
     @Override
-    protected void action() {
-        context.run();
+    protected EventHandler<MouseEvent> action() {
+        return event -> {
+            context.run();
+        };
     }
 }

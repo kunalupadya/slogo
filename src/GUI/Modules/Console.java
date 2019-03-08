@@ -64,16 +64,19 @@ public class Console extends Module  {
     private void handleKeyInput(KeyCode code) {
         if (code == KeyCode.ENTER) {
             String parameterValue = consoleInput.getText();
-            if (commandHistory.isEmpty()) {
-                consoleInfo.appendText(parameterValue);
+            if (!parameterValue.trim().isEmpty()) {
+                if (consoleInfo.getText().trim().isEmpty()) {
+                    consoleInfo.appendText(parameterValue);
+                }
+                else {
+                    consoleInfo.appendText("\n" + parameterValue);
+                }
+                commandHistory.add(0, parameterValue);
+                commandPosition = -1;
+                consoleInput.clear();
+                context.sendCommandString(parameterValue);
+                consoleInfo.getStyleClass().add(myResourceBundles.getString("ConsoleStyleBlack"));
             }
-            else {
-                consoleInfo.appendText("\n" + parameterValue);
-            }
-            commandHistory.add(0, parameterValue);
-            commandPosition = -1;
-            consoleInput.clear();
-            context.sendCommandString(parameterValue);
         }
         if (code == KeyCode.UP) {
             if (!commandHistory.isEmpty() && !(commandPosition >= commandHistory.size() - 1)) {
@@ -101,6 +104,7 @@ public class Console extends Module  {
         else {
             consoleInfo.appendText(errorString);
         }
+        consoleInfo.getStyleClass().add(myResourceBundles.getString("ConsoleStyleRed"));
     }
 
     public void addToConsole(String commandString) {

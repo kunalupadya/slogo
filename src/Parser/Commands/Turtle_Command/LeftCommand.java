@@ -8,14 +8,13 @@ public class LeftCommand extends TurtleCommand {
 
 
     public LeftCommand(){
-        isEvaluated = false;
-        numParameters = 1;
+        setNumParameters(1);
     }
 
     @Override
     protected void turtleAction(Turtle turtle) {
         turtle.turn(-getChildren().get(0).getReturnValue());
-        returnValue = getChildren().get(0).getReturnValue();
+        setReturnValue(getChildren().get(0).getReturnValue());
     }
 
     @Override

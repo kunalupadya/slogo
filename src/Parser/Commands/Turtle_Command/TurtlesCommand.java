@@ -6,13 +6,12 @@ import Parser.Commands.Command;
 public class TurtlesCommand extends Command {
 
     public TurtlesCommand(){
-        isEvaluated = false;
-        numParameters = 0;
+        setNumParameters(0);
     }
 
     @Override
     protected void performAction(BackendController backendController){
-        returnValue = backendController.getMyTurtles().size();
+        setReturnValue(backendController.getMyTurtles().size());
     }
 
     @Override

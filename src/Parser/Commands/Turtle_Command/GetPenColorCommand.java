@@ -11,14 +11,13 @@ public class GetPenColorCommand extends TurtleCommand {
     private Color myColor;
 
     public GetPenColorCommand(){
-        isEvaluated = false;
-        numParameters = 0;
+        setNumParameters(0);
     }
 
 
     @Override
     protected void performAction(BackendController backendController){
-        returnValue = backendController.getColorPaletteIndex(myColor);
+        setReturnValue(backendController.getColorPaletteIndex(myColor));
     }
 
     @Override

@@ -8,13 +8,12 @@ import Parser.Commands.TurtleCommand;
 public class HomeCommand extends TurtleCommand {
 
     public HomeCommand(){
-        isEvaluated = false;
-        numParameters = 0;
+        setNumParameters(0);
     }
 
     @Override
     protected void turtleAction(Turtle turtle) {
-        returnValue = Math.sqrt(Math.pow(turtle.getxPos(), 2) + Math.pow(turtle.getyPos(),2));
+        setReturnValue(Math.sqrt(Math.pow(turtle.getxPos(), 2) + Math.pow(turtle.getyPos(),2)));
         turtle.moveTo(new Point(0,0));
     }
 

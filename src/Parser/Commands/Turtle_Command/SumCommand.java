@@ -6,12 +6,11 @@ import Parser.Commands.Command;
 public class SumCommand extends Command {
 
     public SumCommand(){
-        isEvaluated = false;
-        numParameters = 2;
+        setNumParameters(2);
     }
 
     public void performAction(BackendController backendController){
-        returnValue =  myChildrenList.get(0).getReturnValue() + myChildrenList.get(1).getReturnValue();
+        setReturnValue(getChildren().get(0).getReturnValue() + getChildren().get(1).getReturnValue());
     }
 
     @Override

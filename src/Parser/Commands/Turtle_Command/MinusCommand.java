@@ -9,12 +9,11 @@ import Parser.Commands.Command;
 public class MinusCommand extends Command {
 
     public MinusCommand(){
-        isEvaluated = false;
-        numParameters = 1;
+        setNumParameters(1);
     }
 
     public void performAction(BackendController backendController){
-        returnValue = -myChildrenList.get(0).getReturnValue();
+        setReturnValue(-getChildren().get(0).getReturnValue());
     }
 
     @Override

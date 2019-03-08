@@ -9,18 +9,17 @@ import Parser.Commands.Variable;
  */
 public class MakeVariableCommand extends Command {
     public MakeVariableCommand(){
-        isEvaluated = false;
-        numParameters = 2;
+        setNumParameters(2);
     }
 
     @Override
     protected void performAction(BackendController backendController) {
-        String name = myChildrenList.get(0).getText();
-        Command variable = myChildrenList.get(0);
-        returnValue = myChildrenList.get(1).getReturnValue();
-        variable.setReturnValue(returnValue);
+        String name = getChildren().get(0).getText();
+        Command variable = getChildren().get(0);
+        setReturnValue(getChildren().get(1).getReturnValue());
+        variable.setReturnValue(getReturnValue());
         if (variable.getClass() == Variable.class){
-            backendController.addOrReplaceVariable(name, (Variable) myChildrenList.get(0));
+            backendController.addOrReplaceVariable(name, (Variable) getChildren().get(0));
         }
         else{
             //throw new TODO create an exception here to represent inputting something other than a variable as the first param

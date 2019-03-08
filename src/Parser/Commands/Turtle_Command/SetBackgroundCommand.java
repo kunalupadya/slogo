@@ -6,12 +6,13 @@ import Parser.Commands.Command;
 public class SetBackgroundCommand extends Command {
 
     public SetBackgroundCommand(){
-        isEvaluated = false;
-        numParameters = 1;
+        setIsEvaluated(false);
+        setNumParameters(1);
     }
 
     public void performAction(BackendController backendController){
-        backendController.setBackGroundColor(backendController.getColor((int)getChildren().get(0).getReturnValue()));
+        setReturnValue(getChildren().get(0).getReturnValue());
+        backendController.setBackGroundColor(backendController.getColor((int) getReturnValue()));
 
     }
     @Override

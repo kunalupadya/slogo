@@ -12,8 +12,7 @@ public class IDCommand extends TurtleCommand {
     private int turtleId;
     private ArrayList<Turtle> aliveTurtles;
     public IDCommand(){
-        isEvaluated = false;
-        numParameters = 0;
+        setNumParameters(0);
     }
 
     @Override
@@ -35,7 +34,7 @@ public class IDCommand extends TurtleCommand {
 
     @Override
     protected void turtleAction(Turtle turtle) {
-        returnValue = turtleId;
+        setReturnValue(turtleId);
     }
 
     @Override

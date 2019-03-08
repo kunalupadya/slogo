@@ -6,18 +6,18 @@ import java.util.Optional;
 
 public class Variable extends Command{
     public Variable(String text){
-        isEvaluated = false;
-        numParameters = 0;
-        this.text = text;
+        setIsEvaluated(false);
+        setNumParameters(0);
+        setText(text);
     }
 
     @Override
     protected void performAction(BackendController backendController) {
-        Optional<Double> variableValue= backendController.getVariableIfExists(text);
+        Optional<Double> variableValue= backendController.getVariableIfExists(getText());
 
         if (variableValue.isPresent()){
-            returnValue = variableValue.get();
-            isEvaluated = true;
+            setReturnValue(variableValue.get());
+            setIsEvaluated(false);
         }
         else{
             //throw new TODO make an exception for not having defined the variable
@@ -26,6 +26,6 @@ public class Variable extends Command{
 
     @Override
     public Command copy() {
-        return new Variable(text);
+        return new Variable(getText());
     }
 }

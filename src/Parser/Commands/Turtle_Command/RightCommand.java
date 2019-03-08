@@ -7,14 +7,14 @@ import Parser.Commands.TurtleCommand;
 public class RightCommand extends TurtleCommand {
 
     public RightCommand(){
-        isEvaluated = false;
-        numParameters = 1;
+        setIsEvaluated(false);
+        setNumParameters(1);
     }
 
     @Override
     protected void turtleAction(Turtle turtle) {
         turtle.turn(getChildren().get(0).getReturnValue());
-        returnValue = getChildren().get(0).getReturnValue();
+        setReturnValue(getChildren().get(0).getReturnValue());
     }
 
     @Override

@@ -6,12 +6,11 @@ import Parser.Commands.Command;
 public class CosineCommand extends Command {
 
     public CosineCommand(){
-        isEvaluated = false;
-        numParameters = 1;
+        setNumParameters(1);
     }
 
     public void performAction(BackendController backendController){
-        returnValue =  Math.cos(Math.toRadians(myChildrenList.get(0).getReturnValue()));
+        setReturnValue(Math.cos(Math.toRadians(getChildren().get(0).getReturnValue())));
     }
 
     @Override

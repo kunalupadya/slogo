@@ -10,13 +10,12 @@ import java.util.List;
  */
 public abstract class Command{
 
-    protected List<Command> myChildrenList = new ArrayList<>();
-    protected boolean isEvaluated;
-    protected double returnValue;
-    protected String text;
-    protected int numParameters;
+    private List<Command> myChildrenList = new ArrayList<>();
+    private boolean isEvaluated = false;
+    private double returnValue;
+    private String text;
+    private int numParameters;
     private int currentNumParameters = 0;
-
 
     public int getCurrentNumParameters() {
         return currentNumParameters;
@@ -48,6 +47,10 @@ public abstract class Command{
 
     public String getText() {
         return text;
+    }
+
+    protected void setText(String text) {
+        this.text = text;
     }
 
     public void execute(BackendController backendController) {

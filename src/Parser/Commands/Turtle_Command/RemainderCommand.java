@@ -6,12 +6,12 @@ import Parser.Commands.Command;
 public class RemainderCommand extends Command {
 
     public RemainderCommand(){
-        isEvaluated = false;
-        numParameters = 2;
+        setIsEvaluated(false);
+        setNumParameters(2);
     }
 
     public void performAction(BackendController backendController){
-        returnValue = myChildrenList.get(0).getReturnValue() % myChildrenList.get(1).getReturnValue();
+        setReturnValue(getChildren().get(0).getReturnValue() % getChildren().get(1).getReturnValue());
     }
 
     @Override

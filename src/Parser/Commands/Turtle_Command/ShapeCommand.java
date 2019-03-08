@@ -7,13 +7,13 @@ import Parser.Commands.TurtleCommand;
 public class ShapeCommand extends TurtleCommand {
 
     public ShapeCommand(){
-        isEvaluated = false;
-        numParameters = 0;
+        setIsEvaluated(false);
+        setNumParameters(0);
     }
 
     @Override
     protected void turtleAction(Turtle turtle) {
-        returnValue = turtle.getMyShape();
+        setReturnValue(turtle.getMyShape());
     }
 
     @Override

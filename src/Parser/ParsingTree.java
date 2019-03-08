@@ -68,9 +68,9 @@ class ParsingTree {
 
     private void handleTextCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) {
         String text = savedCurrentCommand.getText();
-        Optional<UserDefinedCommand> userDefinedCommand = backendController.getUserDefinedCommand(text);
+        Optional<ImmutableUserDefinedCommand> userDefinedCommand = backendController.getUserDefinedCommand(text);
         if (userDefinedCommand.isPresent()){
-            UserDefinedCommand command = userDefinedCommand.get();
+            ImmutableUserDefinedCommand command = userDefinedCommand.get();
             savedCurrentCommand.setNumParameters(command.getVariables().size());
             if (savedCurrentCommand.getNumParameters() != 0) {
                 parent.addChildren(makeTree(commandsList, savedCurrentCommand));

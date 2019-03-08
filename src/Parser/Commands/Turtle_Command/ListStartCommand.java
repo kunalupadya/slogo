@@ -8,8 +8,7 @@ import Parser.Commands.Command;
  */
 public class ListStartCommand extends Command {
     public ListStartCommand(){
-        isEvaluated = false;
-        numParameters = (int) Double.POSITIVE_INFINITY;
+        setNumParameters((int) Double.POSITIVE_INFINITY);
     }
 
     @Override
@@ -17,7 +16,7 @@ public class ListStartCommand extends Command {
 //        for (Command c:myChildrenList){
 //            c.execute(backendController);
 //        }
-        returnValue = myChildrenList.size()-1;
+        setReturnValue(getChildren().size()-1);
     }
 
     @Override

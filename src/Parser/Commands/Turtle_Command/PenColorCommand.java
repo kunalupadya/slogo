@@ -12,8 +12,7 @@ public class PenColorCommand extends TurtleCommand {
     private int myColorIndex;
 
     public PenColorCommand(){
-        isEvaluated = false;
-        numParameters = 0;
+        setNumParameters(0);
     }
 
     @Override
@@ -29,7 +28,7 @@ public class PenColorCommand extends TurtleCommand {
 
     @Override
     protected void turtleAction(Turtle turtle) {
-        returnValue = myColorIndex;
+        setReturnValue(myColorIndex);
     }
 
     @Override

@@ -7,13 +7,12 @@ import Parser.Commands.TurtleCommand;
 public class XCoordinateCommand extends TurtleCommand {
 
     public XCoordinateCommand(){
-        isEvaluated = false;
-        numParameters = 0;
+        setNumParameters(0);
     }
 
     @Override
     protected void turtleAction(Turtle turtle) {
-        returnValue =turtle.getxPos();
+        setReturnValue(turtle.getxPos());
     }
 
     @Override

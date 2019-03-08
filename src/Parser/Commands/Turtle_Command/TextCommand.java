@@ -16,28 +16,27 @@ public class TextCommand extends Command {
     public static final int COMMANDS = 3;
 
     public TextCommand(String text){
-        isEvaluated = false;
-        numParameters = 0;
-        this.text = text;
+        setNumParameters(0);
+        setText(text);
     }
 
     @Override
     protected void performAction(BackendController backendController) {
-        Optional<UserDefinedCommand> userDefinedCommand =  backendController.getUserDefinedCommand(text);
+        Optional<ImmutableUserDefinedCommand> userDefinedCommand =  backendController.getUserDefinedCommand(getText());
         if (userDefinedCommand.isPresent()){
 
-            UserDefinedCommand command = userDefinedCommand.get();
+            ImmutableUserDefinedCommand command = userDefinedCommand.get();
             UserDefinedCommand copyOfCommand = (UserDefinedCommand) command.copy();
             List<Variable> variables = copyOfCommand.getVariables();
 
-            for (int k = 0; k<myChildrenList.size(); k++){
+            for (int k = 0; k<getChildren().size(); k++){
                 Variable currentVariable = variables.get(k);
-                currentVariable.setReturnValue(myChildrenList.get(k).getReturnValue());
+                currentVariable.setReturnValue(getChildren().get(k).getReturnValue());
             }
 
-            myChildrenList.clear();
+            getChildren().clear();
 
-            myChildrenList.add(copyOfCommand);
+            getChildren().add(copyOfCommand);
 
             backendController.addUserDefinedCommandToStack(copyOfCommand);
         }
@@ -48,6 +47,6 @@ public class TextCommand extends Command {
 
     @Override
     public Command copy() {
-        return new TextCommand(text);
+        return new TextCommand(getText());
     }
 }

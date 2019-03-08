@@ -9,14 +9,13 @@ public class IfCommand extends Command {
     public static final int LIST_INDEX = 1;
 
     public IfCommand(){
-        numParameters = 2;
-        isEvaluated = false;
+        setNumParameters(2);
     }
 
     @Override
     protected void performAction(BackendController backendController) {
-        if (myChildrenList.get(EXPRESSION_INDEX).getReturnValue() == 0){
-            myChildrenList.get(LIST_INDEX).setIsEvaluated(true);
+        if (getChildren().get(EXPRESSION_INDEX).getReturnValue() == 0){
+            getChildren().get(LIST_INDEX).setIsEvaluated(true);
         }
     }
 

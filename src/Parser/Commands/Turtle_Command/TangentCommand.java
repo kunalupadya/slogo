@@ -6,12 +6,11 @@ import Parser.Commands.Command;
 public class TangentCommand extends Command {
 
     public TangentCommand(){
-        isEvaluated = false;
-        numParameters = 1;
+        setNumParameters(1);
     }
 
     public void performAction(BackendController backendController){
-        returnValue =  Math.tan(Math.toRadians(myChildrenList.get(0).getReturnValue()));
+        setReturnValue(Math.tan(Math.toRadians(getChildren().get(0).getReturnValue())));
     }
 
     @Override

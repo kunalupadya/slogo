@@ -18,15 +18,14 @@ public class MakeUserInstructionCommand extends Command {
     private List< Variable> variables = new ArrayList<>();
 
     public MakeUserInstructionCommand(){
-        isEvaluated = false;
-        numParameters = 3;
+        setNumParameters(3);
     }
 
     @Override
     protected void performAction(BackendController backendController) {
-        returnValue = 0;
-        String name = myChildrenList.get(NAME_NODE).getText();
-        for (Command variable: myChildrenList.get(VARIABLES_LIST_NODE).getChildren()) {
+        setReturnValue(0);
+        String name = getChildren().get(NAME_NODE).getText();
+        for (Command variable: getChildren().get(VARIABLES_LIST_NODE).getChildren()) {
             if (variable.getClass() == Variable.class) {
                 variables.add((Variable) variable);
             }
@@ -38,15 +37,15 @@ public class MakeUserInstructionCommand extends Command {
             }
         }
         
-        if (myChildrenList.get(VARIABLES_LIST_NODE).getClass() != ListStartCommand.class | myChildrenList.get(COMMANDS_LIST_NODE).getClass() != ListStartCommand.class){
+        if (getChildren().get(VARIABLES_LIST_NODE).getClass() != ListStartCommand.class | getChildren().get(COMMANDS_LIST_NODE).getClass() != ListStartCommand.class){
             //throw new exception
             //TODO throw exception if either of the two arent lists
         }
         
-        UserDefinedCommand newUserDefinedCommand = new UserDefinedCommand(name, variables, (ListStartCommand) myChildrenList.get(COMMANDS_LIST_NODE));
+        ImmutableUserDefinedCommand newUserDefinedCommand = new UserDefinedCommand(name, variables, (ListStartCommand) getChildren().get(COMMANDS_LIST_NODE));
         
         backendController.addNewUserDefinedCommand(name, newUserDefinedCommand);
-        returnValue = 1;
+        setReturnValue(1);
     }
 
     public List<Variable> getVariables() {

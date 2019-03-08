@@ -6,12 +6,11 @@ import Parser.Commands.Command;
 public class SineCommand extends Command {
 
     public SineCommand(){
-        isEvaluated = false;
-        numParameters = 1;
+        setNumParameters(1);
     }
 
     public void performAction(BackendController backendController){
-        returnValue =  Math.sin(Math.toRadians(myChildrenList.get(0).getReturnValue()));
+        setReturnValue(Math.sin(Math.toRadians(getChildren().get(0).getReturnValue())));
     }
 
     @Override

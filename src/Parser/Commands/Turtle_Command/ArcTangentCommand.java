@@ -7,12 +7,12 @@ import Parser.Commands.Command;
 public class ArcTangentCommand extends Command {
 
     public ArcTangentCommand(){
-        isEvaluated = false;
-        numParameters = 1;
+        setIsEvaluated(false);
+        setNumParameters(1);
     }
 
     public void performAction(BackendController backendController){
-        returnValue =  Math.atan(Math.toRadians(myChildrenList.get(0).getReturnValue()));
+        setReturnValue(Math.atan(Math.toRadians(getChildren().get(0).getReturnValue())));
     }
 
     @Override

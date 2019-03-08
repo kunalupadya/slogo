@@ -7,8 +7,8 @@ import Parser.Commands.TurtleCommand;
 public class SetShapeCommand extends TurtleCommand {
 
     public SetShapeCommand(){
-        isEvaluated = false;
-        numParameters = 1;
+        setIsEvaluated(false);
+        setNumParameters(1);
     }
 
     @Override

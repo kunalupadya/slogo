@@ -14,8 +14,7 @@ public class TellCommand extends Command{
 
     private List<Turtle> assignedTurtleList = new ArrayList<>();
     public TellCommand(){
-        isEvaluated = false;
-        numParameters = 1;
+        setNumParameters(1);
     }
 
     @Override
@@ -43,7 +42,7 @@ public class TellCommand extends Command{
         for (Turtle turtle : assignedTurtleList) {
             turtle.setTurtleActive(true);
         }
-        returnValue = assignedTurtleList.size();
+        setReturnValue(startCommand.getChildren().get(startCommand.getChildren().size()-2).getReturnValue());
     }
 
 

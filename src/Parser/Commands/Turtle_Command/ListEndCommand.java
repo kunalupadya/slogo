@@ -8,8 +8,7 @@ import Parser.Commands.Command;
  */
 public class ListEndCommand extends Command {
     public ListEndCommand(){
-        isEvaluated = false;
-        numParameters = 0;
+        setNumParameters(0);
     }
 
     @Override

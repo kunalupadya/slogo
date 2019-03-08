@@ -10,13 +10,12 @@ import Parser.Commands.TurtleCommand;
 public class HeadingCommand extends TurtleCommand {
 
     public HeadingCommand(){
-        isEvaluated = false;
-        numParameters = 0;
+        setNumParameters(0);
     }
 
     @Override
     protected void turtleAction(Turtle turtle) {
-        returnValue = turtle.getMyAngle() % 360;
+        setReturnValue(turtle.getMyAngle() % 360);
     }
 
     @Override

@@ -10,8 +10,8 @@ import Parser.Commands.TurtleCommand;
 public class SetTowardsCommand extends TurtleCommand {
 
     public SetTowardsCommand(){
-        isEvaluated = false;
-        numParameters = 2;
+        setIsEvaluated(false);
+        setNumParameters(2);
     }
 
     @Override
@@ -21,7 +21,7 @@ public class SetTowardsCommand extends TurtleCommand {
         double ydiff = getChildren().get(1).getReturnValue() - turtle.getyPos();
         double degrees = Math.toDegrees(Math.atan2(xdiff, ydiff));
         turtle.turnTo(degrees);
-        returnValue = Math.abs(degrees-oldAngle);
+        setReturnValue(Math.abs(degrees-oldAngle));
     }
 
     @Override

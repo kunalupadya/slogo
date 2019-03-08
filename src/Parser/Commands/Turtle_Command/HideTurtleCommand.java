@@ -7,14 +7,13 @@ import Parser.Commands.TurtleCommand;
 public class HideTurtleCommand extends TurtleCommand {
 
     public HideTurtleCommand(){
-        isEvaluated = false;
-        numParameters = 0;
+        setNumParameters(0);
     }
 
     @Override
     protected void turtleAction(Turtle turtle) {
         turtle.setTurtleVisibility(false);
-        returnValue = 0;
+        setReturnValue(0);
     }
 
     @Override

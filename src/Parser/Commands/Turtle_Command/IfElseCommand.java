@@ -10,23 +10,22 @@ public class IfElseCommand extends ControlCommand {
 
     public IfElseCommand() {
         super();
-        isEvaluated = false;
-        numParameters = 3;
+        setNumParameters(3);
     }
 
     @Override
     protected void performAction(BackendController backendController) {
         if (initialExpressions.get(0).getReturnValue() != 0) {
-            setListToRun((ListStartCommand) myChildrenList.get(trueCommandList));
+            setListToRun((ListStartCommand) getChildren().get(trueCommandList));
         } else {
-            setListToRun((ListStartCommand) myChildrenList.get(falseCommandList));
+            setListToRun((ListStartCommand) getChildren().get(falseCommandList));
         }
         runAgain = false;
     }
 
     @Override
     public void setInitialExpressions() {
-        initialExpressions.add(myChildrenList.get(0));
+        initialExpressions.add(getChildren().get(0));
     }
 
     @Override

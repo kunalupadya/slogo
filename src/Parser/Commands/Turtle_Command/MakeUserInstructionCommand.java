@@ -1,15 +1,15 @@
 package Parser.Commands.Turtle_Command;
 
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
-import Parser.Commands.ConstantCommand;
 import Parser.Commands.Variable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+/**
+ * @author kunalupadya
+ */
 public class MakeUserInstructionCommand extends Command {
 
     private static final int NAME_NODE = 0;
@@ -18,7 +18,7 @@ public class MakeUserInstructionCommand extends Command {
     private List< Variable> variables = new ArrayList<>();
 
     public MakeUserInstructionCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 3;
     }
 

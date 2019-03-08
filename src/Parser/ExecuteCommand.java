@@ -1,8 +1,6 @@
 package Parser;
 
-import Main.BackendController;
 import Parser.Commands.Command;
-import Parser.Commands.RootCommand;
 import Parser.Commands.Turtle_Command.*;
 import javafx.scene.control.Alert;
 
@@ -18,6 +16,7 @@ public class ExecuteCommand {
     private static final String PARAMETERS_MISSING = "Parameters missing";
     private static final String WRONG_NUMBER_OF_PARAMETERS = "Wrong number of parameters";
     private static final int EXPRESSION_INDEX = 1;
+    public static final int COMMAND_INDEX = 0;
     private Command headNode;
     private BackendController backendController;
 
@@ -38,7 +37,7 @@ public class ExecuteCommand {
     }
 
     private void traverse(Command node){
-        if (node.getIsConstant()){
+        if (node.getIsEvaluated()){
             return;
         }
         if (node.getClass() == MakeUserInstructionCommand.class || node.getClass() == ListEndCommand.class || node.getClass() == GroupEndCommand.class){
@@ -54,15 +53,36 @@ public class ExecuteCommand {
             return;
         }
         if (node.getClass() == GroupStartCommand.class){
-            node.execute(backendController);
+            handleGroupCommand(node);
             return;
         }
-        if (node.getClass() == IfCommand.class){
+        if (node.getClass() == IfCommand.class||node.getClass() == TellCommand.class){
+            traverse(node.getChildren().get(0));
             node.execute(backendController);
         }
-        // any commands that need to be executed before children are run happen before this point
+        if (node.getClass() == AskCommand.class){
+            handleAskCommand(node);
+            return;
+        }
+        // any commands that need to be executed before/while children are generated happen before this point
         traverseChildren(node);
         handleAfterGenerationOfChildren(node);
+    }
+
+    private void handleAskCommand(Command node) {
+        backendController.recordTurtleTell();
+        traverse(node.getChildren().get(0));
+        node.execute(backendController);
+        traverseChildren(node);
+        backendController.loadTurtleTell();
+        return;
+    }
+
+    private void handleGroupCommand(Command node) {
+        node.getChildren().get(COMMAND_INDEX).setIsEvaluated(true);
+        traverseChildren(node);
+        node.getChildren().get(COMMAND_INDEX).setIsEvaluated(false);
+        node.execute(backendController);
     }
 
     private void handleControlCommand(ControlCommand node) {
@@ -86,6 +106,7 @@ public class ExecuteCommand {
     }
 
     private void handleAfterGenerationOfChildren(Command node) {
+        //used for methods that must execute after children have been generated (such as textcommands
         if (node.getClass() == TextCommand.class){
             handleTextCommand(node);
         }
@@ -100,6 +121,7 @@ public class ExecuteCommand {
             throw new SyntaxError(WRONG_NUMBER_OF_PARAMETERS);//TODO replace with another exception
         }
     }
+
 
     private void handleTextCommand(Command node) {
         node.execute(backendController);
@@ -117,15 +139,4 @@ public class ExecuteCommand {
         node.execute(backendController);
     }
 
-    private void handleEmptyChildrenCommands(Command node) {
-//        if (node.getIsConstant()){
-//            // do nothing, the return value is already present
-//        }
-        if (node.getNumParameters() == 0){
-            node.execute(backendController);
-        }
-        else{
-            throw new SyntaxError(PARAMETERS_MISSING);
-        }
-    }
 }

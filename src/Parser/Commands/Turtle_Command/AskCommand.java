@@ -1,33 +1,43 @@
 package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 
 import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * @author kunalupadya
+ */
 public class AskCommand extends Command{
 
+    public static final int LIST_END_COMMAND_OFFSET = 1;
+    public static final int TURTLES_INDEX = 0;
     private ArrayList<Turtle> assignedTurtleList = new ArrayList<>();
+
     public AskCommand(){
-        isConstant = false;
-        numParameters = 1;
+        isEvaluated = false;
+        numParameters = 2;
     }
 
     @Override
     protected void performAction(BackendController backendController){
-        Command startOfTurtle = getChildren().get(0);
-        Command startOfCommand = getChildren().get(1);
+        Command turtleList = getChildren().get(TURTLES_INDEX);
+//        Command commandsToExecute = getChildren().get(1);
 
-        if(!startOfTurtle.toString().equals("ListStartCommand")){
+        if(turtleList.getClass() != ListStartCommand.class){
             //TODO "Wrong syntax error"
         }
-        for(int a=0; a<startOfTurtle.getChildren().size() -1; a++){
-            assignedTurtleList.add(backendController.getMyTurtles().get((int)startOfTurtle.getChildren().get(0).getReturnValue()));
+        List<Turtle>turtles = backendController.getMyTurtles();
+        for (Turtle t:turtles){
+            t.setTurtleActive(false);
         }
-        for (Turtle turtle: assignedTurtleList) {
-            
 
+
+
+        for(int currentTurtleFromList = 0; currentTurtleFromList<turtleList.getChildren().size() - LIST_END_COMMAND_OFFSET; currentTurtleFromList++){
+            turtles.get((int) turtleList.getChildren().get(currentTurtleFromList).getReturnValue()-1).setTurtleActive(true);
         }
     }
 

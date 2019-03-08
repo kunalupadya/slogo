@@ -2,14 +2,13 @@ package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Point;
 import GraphicsBackend.Turtle;
-import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
 public class ClearScreenCommand extends TurtleCommand {
 
     public ClearScreenCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 0;
     }
 
@@ -17,6 +16,7 @@ public class ClearScreenCommand extends TurtleCommand {
         returnValue = distance(new Point(0,0), turtle.getPos());
         turtle.getGrid().clear();
         turtle.moveTo(new Point(0, 0));
+        turtle.turnTo(0);
     }
 
     @Override

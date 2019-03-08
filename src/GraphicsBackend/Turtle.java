@@ -2,13 +2,17 @@ package GraphicsBackend;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 import java.util.LinkedList;
 import java.util.List;
 
 
-public class Turtle {
+/**
+ * @author kunalupadya
+ */
+public class Turtle implements ImmutableTurtle{
     public static final String DEFAULT_IMAGE = "/images/initialTurtle.png";
     public static final int TURTLE_SIZE = 50;
     public static final int HALF_TURTLE_SIZE = 25;
@@ -24,7 +28,7 @@ public class Turtle {
     private boolean isTurtleActive;
     //TODO implement turtle shape using int index
     private int myShape;
-    private LinkedList<TurtleState> previousPositions = new LinkedList<>();
+    private LinkedList<ImmutableTurtleState> previousPositions = new LinkedList<>();
     private LinkedList<List<Line>> lastLinesPlaced = new LinkedList<>();
 
 
@@ -39,7 +43,7 @@ public class Turtle {
         turtleImage = new javafx.scene.image.Image(this.getClass().getResourceAsStream(DEFAULT_IMAGE));
     }
 
-    public void updateATurtleImageView(ImageView turtle){
+    private void updateATurtleImageView(ImageView turtle){
         turtle.setImage(turtleImage);
         turtle.setX(xPos-HALF_TURTLE_SIZE);
         turtle.setY(yPos-HALF_TURTLE_SIZE);
@@ -68,11 +72,11 @@ public class Turtle {
     public void moveTo(Point point){
         updateUndoBuffers(new LinkedList<>());
         xPos = point.getMyX()+myGrid.getWidth()/ HALF;
-        yPos = point.getMyY()+myGrid.getHeight()/ HALF;;
+        yPos = myGrid.getHeight()/ HALF-point.getMyY();;
     }
 
     public void undo(){
-        TurtleState turtleState = previousPositions.removeLast();
+        ImmutableTurtleState turtleState = previousPositions.removeLast();
         Point oldPos = turtleState.getPos();
         myGrid.removeLines(lastLinesPlaced.removeLast());
         xPos = oldPos.getMyX();
@@ -92,15 +96,11 @@ public class Turtle {
 
     public void turnTo(double angle){
         updateUndoBuffers(new LinkedList<>());
-        myAngle = angle;
+        myAngle = angle+90;
     }
 
     public void setTurtleVisibility(boolean visibility){
         isTurtleVisible = visibility;
-    }
-
-    public boolean getTurtleVisibility(){
-        return isTurtleVisible;
     }
 
     public boolean isTurtleVisible(){
@@ -108,15 +108,15 @@ public class Turtle {
     }
 
     public double getyPos() {
-        return yPos;
+        return yPos - myGrid.getHeight()/ HALF;
     }
 
     public double getxPos() {
-        return xPos;
+        return xPos - myGrid.getWidth()/ HALF;
     }
 
     public Point getPos(){
-        return new Point(xPos,yPos);
+        return new Point(getxPos(),getyPos());
     }
 
     public Grid getGrid() {
@@ -126,13 +126,25 @@ public class Turtle {
     public int getMyShape(){ return myShape;}
 
     public double getMyAngle() {
-        return myAngle;
+        return myAngle-90;
     }
 
     public void setMyShape(int shapeIndex){this.myShape = shapeIndex;}
 
     public void setTurtleImage(Image turtleImage) {
         this.turtleImage = turtleImage;
+    }
+
+    public void setPenColor(Color color){
+        myPen.setPenColor(color);
+    }
+
+    public void setPenSize(int pixelSize){
+        myPen.setPenSize(pixelSize);
+    }
+
+    public void setPenUp(boolean penUp){
+        myPen.setPenUp(penUp);
     }
 
     public ImageView getAdjustedTurtleImageView(double xLeftCorner, double yLeftCorner) {
@@ -143,7 +155,7 @@ public class Turtle {
         return returnedTurtle;
     }
 
-    public Pen getMyPen() {
+    public ImmutablePen getMyPen() {
         return myPen;
     }
 }

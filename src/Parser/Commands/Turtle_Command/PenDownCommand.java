@@ -1,20 +1,19 @@
 package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
-import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
 public class PenDownCommand extends TurtleCommand {
 
     public PenDownCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 0;
     }
 
 //    @Override
     protected void turtleAction(Turtle turtle) {
-        turtle.getMyPen().setPenUp(false);
+        turtle.setPenUp(false);
         returnValue = 1;
     }
 

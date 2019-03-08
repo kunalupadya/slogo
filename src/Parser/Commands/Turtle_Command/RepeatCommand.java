@@ -1,6 +1,6 @@
 package Parser.Commands.Turtle_Command;
 
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.Variable;
@@ -11,7 +11,7 @@ public class RepeatCommand extends ControlCommand {
 
     public RepeatCommand() {
         super();
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 2;
     }
 

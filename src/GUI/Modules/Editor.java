@@ -1,12 +1,14 @@
 package GUI.Modules;
 
 import GUI.FrontendController;
+import javafx.collections.ObservableList;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 /**
  *
@@ -46,10 +48,21 @@ public class Editor extends Module {
 
     public void run() {
         editorText = editor.getText();
-        if (! editorText.isEmpty()) {
+        if (!editorText.trim().isEmpty()) {
             editorText = editorText.replace("\n", " ");
+            context.sendCommandString(editorText);
         }
-        context.sendCommandString(editorText);
         editor.clear();
+    }
+
+    public ObservableList<CharSequence> getText() {
+        return editor.getParagraphs();
+    }
+
+    public void readText(Scanner s) {
+        editor.clear();
+        while (s.hasNext()) {
+            editor.appendText(s.nextLine() + "\n");
+        }
     }
 }

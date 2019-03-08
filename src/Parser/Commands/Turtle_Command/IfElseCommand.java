@@ -1,6 +1,6 @@
 package Parser.Commands.Turtle_Command;
 
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 
 public class IfElseCommand extends ControlCommand {
@@ -10,7 +10,7 @@ public class IfElseCommand extends ControlCommand {
 
     public IfElseCommand() {
         super();
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 3;
     }
 

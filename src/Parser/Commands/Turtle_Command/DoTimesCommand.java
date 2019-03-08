@@ -1,6 +1,6 @@
 package Parser.Commands.Turtle_Command;
 
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.Variable;
@@ -12,7 +12,7 @@ public class DoTimesCommand extends ControlCommand {
 
     public DoTimesCommand() {
         super();
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 2;
     }
 

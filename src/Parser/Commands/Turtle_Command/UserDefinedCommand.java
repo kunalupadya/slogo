@@ -1,13 +1,16 @@
 package Parser.Commands.Turtle_Command;
 
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.Variable;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+
+/**
+ * @author kunalupadya
+ */
 public class UserDefinedCommand extends Command {
     String name;
     private List<Variable> variables;
@@ -18,7 +21,7 @@ public class UserDefinedCommand extends Command {
         this.variables = variables;
         this.headNode = headNode;
         myChildrenList.add(headNode);
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 1;
     }
 

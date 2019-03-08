@@ -1,9 +1,11 @@
 package GUI.Controls;
 
 import GUI.FrontendController;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 
-public class SetTurtleImage extends Control {
+public class SetTurtleImage extends ButtonControl {
     private FrontendController context;
 
     public SetTurtleImage(FrontendController context) {
@@ -12,7 +14,7 @@ public class SetTurtleImage extends Control {
     }
 
     @Override
-    protected void action() {
-        context.handleSetTurtleImage();
+    protected EventHandler<MouseEvent> action() {
+        return event -> context.handleSetTurtleImage();
     }
 }

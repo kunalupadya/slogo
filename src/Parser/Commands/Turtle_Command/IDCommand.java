@@ -1,7 +1,7 @@
 package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
@@ -12,7 +12,7 @@ public class IDCommand extends TurtleCommand {
     private int turtleId;
     private ArrayList<Turtle> aliveTurtles;
     public IDCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 0;
     }
 

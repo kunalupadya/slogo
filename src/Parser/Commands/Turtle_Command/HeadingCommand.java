@@ -1,20 +1,22 @@
 package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
-import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
+/**
+ * @author kunalupadya
+ */
 public class HeadingCommand extends TurtleCommand {
 
     public HeadingCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 0;
     }
 
     @Override
     protected void turtleAction(Turtle turtle) {
-        returnValue = myTurtle.getMyAngle();
+        returnValue = turtle.getMyAngle() % 360;
     }
 
     @Override

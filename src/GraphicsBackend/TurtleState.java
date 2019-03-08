@@ -1,6 +1,9 @@
 package GraphicsBackend;
 
-public class TurtleState {
+/**
+ * @author kunalupadya
+ */
+public class TurtleState implements ImmutableTurtleState{
     Point pos;
     double angle;
 

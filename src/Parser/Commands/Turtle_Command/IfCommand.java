@@ -1,21 +1,22 @@
 package Parser.Commands.Turtle_Command;
 
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 
 public class IfCommand extends Command {
 
     public static final int EXPRESSION_INDEX = 0;
+    public static final int LIST_INDEX = 1;
 
     public IfCommand(){
         numParameters = 2;
-        isConstant = false;
+        isEvaluated = false;
     }
 
     @Override
     protected void performAction(BackendController backendController) {
         if (myChildrenList.get(EXPRESSION_INDEX).getReturnValue() == 0){
-            myChildrenList.get(1).setIsConstant(true);
+            myChildrenList.get(LIST_INDEX).setIsEvaluated(true);
         }
     }
 
@@ -29,7 +30,7 @@ public class IfCommand extends Command {
 //
 //    public IfCommand() {
 //        super();
-//        isConstant = false;
+//        isEvaluated = false;
 //        numParameters = 2;
 //    }
 //

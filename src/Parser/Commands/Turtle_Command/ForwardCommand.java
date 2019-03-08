@@ -2,14 +2,13 @@ package Parser.Commands.Turtle_Command;
 
 
 import GraphicsBackend.Turtle;
-import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
 public class ForwardCommand extends TurtleCommand {
 
     public ForwardCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 1;
     }
 

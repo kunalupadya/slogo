@@ -1,6 +1,6 @@
 package GUI.Modules;
 
-import GUI.Controls.Control;
+import GUI.Controls.ButtonControl;
 import GUI.FrontendController;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 
 public class GraphicsArea extends Module {
     private Pane toolbarPane;
-    private Control close;
+    private ButtonControl close;
     private ResourceBundle myResourceBundles;
     private FrontendController context;
     private Pane content;
@@ -44,7 +44,6 @@ public class GraphicsArea extends Module {
         for (int i = 0; i < turtleImages.size(); i++) {
             ImageView turtle = turtleImages.get(i);
             if (turtleActives.get(i)) {
-                //Fix this magic value?
                 turtle.getStyleClass().add(myResourceBundles.getString("TurtleDropShadow"));
             }
             content.getChildren().add(turtle);

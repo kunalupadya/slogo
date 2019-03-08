@@ -1,6 +1,5 @@
 package Parser;
 
-import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.RootCommand;
@@ -12,7 +11,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-
+/**
+ * @author kunalupadya
+ */
 class ParsingTree {
 
     private static final int FIRST = 0;
@@ -71,8 +72,12 @@ class ParsingTree {
         if (userDefinedCommand.isPresent()){
             UserDefinedCommand command = userDefinedCommand.get();
             savedCurrentCommand.setNumParameters(command.getVariables().size());
-            parent.addChildren(makeTree(commandsList, savedCurrentCommand));
-
+            if (savedCurrentCommand.getNumParameters() != 0) {
+                parent.addChildren(makeTree(commandsList, savedCurrentCommand));
+            }
+            else {
+                parent.addChildren(savedCurrentCommand);
+            }
         }
         else {
             // throw new TODO create exception, command not defined

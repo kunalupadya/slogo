@@ -126,15 +126,4 @@ public class ExecuteCommand {
         node.execute(backendController);
     }
 
-    private void handleEmptyChildrenCommands(Command node) {
-//        if (node.getIsConstant()){
-//            // do nothing, the return value is already present
-//        }
-        if (node.getNumParameters() == 0){
-            node.execute(backendController);
-        }
-        else{
-            throw new SyntaxError(PARAMETERS_MISSING);
-        }
-    }
 }

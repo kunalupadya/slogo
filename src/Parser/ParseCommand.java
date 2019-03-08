@@ -32,17 +32,15 @@ public class ParseCommand {
         myTurtleList = turtles;
 
         if(consoleInput != null && !consoleInput.equals("")) {
-            RemoveComment removeComment = new RemoveComment();
-            String refinedInput = removeComment.deleteComment(consoleInput);
-            String[] listOfWords = refinedInput.split(whiteSpace);
 
+            String[] listOfWords = consoleInput.toLowerCase().split(whiteSpace);
             //translate the input into default language
             LanguageSetting languageSetting = new LanguageSetting(myLanguage);
-
             //TODO: try catch block if command is not valid
             String[] translatedListOfWords = languageSetting.translateCommand(listOfWords);
-            //convert word into tokens and check validity
+            System.out.println(translatedListOfWords[2]);
             tokensList = addToTokenList(translatedListOfWords);
+            System.out.println(tokensList);
             commandsList = stackCommand(translatedListOfWords, tokensList);
 
             //Execute Command

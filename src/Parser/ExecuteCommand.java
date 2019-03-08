@@ -38,9 +38,7 @@ public class ExecuteCommand {
     }
 
     private void traverse(Command node){
-        if (node.getChildren().isEmpty()&node.getClass() != TextCommand.class){
-            //leaf nodes, should return
-            handleEmptyChildrenCommands(node);
+        if (node.getIsConstant()){
             return;
         }
         if (node.getClass() == MakeUserInstructionCommand.class || node.getClass() == ListEndCommand.class || node.getClass() == GroupEndCommand.class){
@@ -49,6 +47,7 @@ public class ExecuteCommand {
         }
         if (node.getClass() == MakeVariableCommand.class){
             handleMakeVariableCommand(node);
+            return;
         }
         if (node instanceof ControlCommand){
             handleControlCommand((ControlCommand) node);
@@ -58,6 +57,10 @@ public class ExecuteCommand {
             node.execute(backendController);
             return;
         }
+        if (node.getClass() == IfCommand.class){
+            node.execute(backendController);
+        }
+        // any commands that need to be executed before children are run happen before this point
         traverseChildren(node);
         handleAfterGenerationOfChildren(node);
     }
@@ -88,7 +91,7 @@ public class ExecuteCommand {
         else if (node.getNumParameters() == node.getChildren().size()){
             node.execute(backendController);
         }
-        else if (node.getClass() == RootCommand.class){
+        else if (node.getNumParameters() == (int) Double.POSITIVE_INFINITY){
             // do nothing, the root command should not throw an error
         }
         else{
@@ -113,10 +116,10 @@ public class ExecuteCommand {
     }
 
     private void handleEmptyChildrenCommands(Command node) {
-        if (node.getIsConstant()){
-            // do nothing, the return value is already present
-        }
-        else if (node.getNumParameters() == 0){
+//        if (node.getIsConstant()){
+//            // do nothing, the return value is already present
+//        }
+        if (node.getNumParameters() == 0){
             node.execute(backendController);
         }
         else{

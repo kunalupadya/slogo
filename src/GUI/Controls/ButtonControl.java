@@ -1,8 +1,9 @@
 package GUI.Controls;
 
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Abstract superclass to serve as template for all buttons/controls
@@ -11,30 +12,25 @@ import javafx.scene.image.ImageView;
  * @author Januario Carreiro
  */
 public abstract class ButtonControl extends Control{
+    Button myButton;
+
     /**
      * TODO: finish JavaDoc
      * @param image
      */
     public ButtonControl(Image image) {
-        this.button = new Button();
+        super(image);
+        this.myButton = new Button();
 
-        img = new ImageView(image);
-        img.setFitHeight(20.0);
-        img.setFitWidth(20.0);
-        this.button.setGraphic(img);
-
-        this.button.setOnMouseClicked(mouseEvent -> action());
+        myButton.setGraphic(myImage);
+        myButton.setOnMouseClicked(action());
     }
 
-    protected abstract void action();
+    @Override
+    protected abstract EventHandler<MouseEvent> action();
 
-    /**
-     * Getter method for the button associated with this class
-     *
-     * @return Button contained by this class
-     */
     public Button getButton() {
-        return (Button) button;
+        return myButton;
     }
 }
 

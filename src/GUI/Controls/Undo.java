@@ -1,7 +1,9 @@
 package GUI.Controls;
 
 import GUI.FrontendController;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 
 public class Undo extends ButtonControl {
     private FrontendController context;
@@ -12,7 +14,7 @@ public class Undo extends ButtonControl {
     }
 
     @Override
-    protected void action() {
-        context.undo();
+    protected EventHandler<MouseEvent> action() {
+        return event -> context.undo();
     }
 }

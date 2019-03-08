@@ -1,69 +1,29 @@
 package GUI.Controls;
 
 import javafx.event.EventHandler;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.event.ActionEvent;
-
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.ResourceBundle;
 
 import GUI.FrontendController;
 
-public class SwitchLanguages {
-    private FrontendController context;
-    private ResourceBundle myLanguageResources;
-    private MenuButton button;
+public class SwitchLanguages extends MenuButtonControl{
+    private FrontendController myContext;
 
     /**
-     * TODO: Refactor so that all the buttons can extend control
-     * TODO: Refactor this class so that all MenuItem objects are initialized in another method
-     * TODO: Add setOnAction() for each MenuItem
+     *
      * @param context
      */
     public SwitchLanguages(FrontendController context) {
-        this.myLanguageResources = ResourceBundle.getBundle("/languageProperties/LanguageSettings");
-        this.context = context;
-        this.button = new MenuButton();
-
-        ImageView img = new ImageView(new Image(FrontendController.class.getResourceAsStream("/images/language.png")));
-        img.setFitHeight(20.0);
-        img.setFitWidth(20.0);
-        button.setGraphic(img);
-        button.getStyleClass().add("button");
-
-        List<MenuItem> itemList = makeMenuItems();
-
-        button.getItems().addAll(itemList);
+        super(new Image(FrontendController.class.getResourceAsStream("/images/language.png")), "/languageProperties/LanguageSettings");
+        this.myContext = context;
     }
 
-    public MenuButton getButton() {
-        return button;
-    }
-
-    private List<MenuItem> makeMenuItems() {
-        EventHandler<ActionEvent> action = changeLanguage();
-        Enumeration<String> itemEnum = myLanguageResources.getKeys();
-        var itemList = new ArrayList<MenuItem>();
-
-        while(itemEnum.hasMoreElements()) {
-            String menuItemLabel = itemEnum.nextElement();
-            MenuItem menuItem = new MenuItem(menuItemLabel);
-            menuItem.setOnAction(action);
-            itemList.add(menuItem);
-        }
-
-        return itemList;
-    }
-
-    private EventHandler<ActionEvent> changeLanguage() {
+    @Override
+    protected EventHandler<ActionEvent> action() {
         return event -> {
             MenuItem mItem = (MenuItem) event.getSource();
-            context.changeLanguage(mItem.getText());
+            myContext.changeLanguage(mItem.getText());
         };
     }
 }

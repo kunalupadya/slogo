@@ -1,6 +1,6 @@
 package Parser.Commands;
 
-import Main.BackendController;
+import Parser.BackendController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,8 +58,10 @@ public abstract class Command{
     public abstract Command copy();
 
     public void addChildren(Command command) {
-        myChildrenList.add(command);
-        currentNumParameters += 1;
+//        if (command != this) {
+            myChildrenList.add(command);
+            currentNumParameters += 1;
+//        }
     }
 
     public List<Command> getChildren(){

@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class Turtle {
+public class Turtle implements ImmutableTurtle{
     public static final String DEFAULT_IMAGE = "/images/initialTurtle.png";
     public static final int TURTLE_SIZE = 50;
     public static final int HALF_TURTLE_SIZE = 25;
@@ -40,7 +40,7 @@ public class Turtle {
         turtleImage = new javafx.scene.image.Image(this.getClass().getResourceAsStream(DEFAULT_IMAGE));
     }
 
-    public void updateATurtleImageView(ImageView turtle){
+    private void updateATurtleImageView(ImageView turtle){
         turtle.setImage(turtleImage);
         turtle.setX(xPos-HALF_TURTLE_SIZE);
         turtle.setY(yPos-HALF_TURTLE_SIZE);
@@ -98,10 +98,6 @@ public class Turtle {
 
     public void setTurtleVisibility(boolean visibility){
         isTurtleVisible = visibility;
-    }
-
-    public boolean getTurtleVisibility(){
-        return isTurtleVisible;
     }
 
     public boolean isTurtleVisible(){

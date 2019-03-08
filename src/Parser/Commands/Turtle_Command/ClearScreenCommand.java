@@ -17,6 +17,7 @@ public class ClearScreenCommand extends TurtleCommand {
         returnValue = distance(new Point(0,0), turtle.getPos());
         turtle.getGrid().clear();
         turtle.moveTo(new Point(0, 0));
+        turtle.turnTo(0);
     }
 
     @Override

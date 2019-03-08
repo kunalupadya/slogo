@@ -14,7 +14,7 @@ public class HeadingCommand extends TurtleCommand {
 
     @Override
     protected void turtleAction(Turtle turtle) {
-        returnValue = myTurtle.getMyAngle();
+        returnValue = turtle.getMyAngle() % 360;
     }
 
     @Override

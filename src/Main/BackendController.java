@@ -63,11 +63,13 @@ public class BackendController {
             Double returnValue = availableVariables.get(variableName).getReturnValue();
             return Optional.of(returnValue);
         }
-        List<Variable> stackVariables = userDefinedCommandStack.get(userDefinedCommandStack.size()-1).getVariables();
-        for (Variable v:stackVariables){
-            if (v.getText().equals(variableName)){
-                Double returnValue = v.getReturnValue();
-                return Optional.of(returnValue);
+        if (userDefinedCommandStack.size() != 0) {
+            List<Variable> stackVariables = userDefinedCommandStack.get(userDefinedCommandStack.size() - 1).getVariables();
+            for (Variable v : stackVariables) {
+                if (v.getText().equals(variableName)) {
+                    Double returnValue = v.getReturnValue();
+                    return Optional.of(returnValue);
+                }
             }
         }
         return Optional.empty();

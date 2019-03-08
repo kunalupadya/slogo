@@ -49,6 +49,7 @@ public class ExecuteCommand {
         }
         if (node.getClass() == MakeVariableCommand.class){
             handleMakeVariableCommand(node);
+            return;
         }
         if (node instanceof ControlCommand){
             handleControlCommand((ControlCommand) node);
@@ -59,6 +60,7 @@ public class ExecuteCommand {
     }
 
     private void handleControlCommand(ControlCommand node) {
+        node.setInitialExpressions();
         List<Command> initExpr = node.getInitialExpressions();
         for (Command expr: initExpr) {
             traverse(expr);
@@ -82,6 +84,7 @@ public class ExecuteCommand {
             handleTextCommand(node);
         }
         else if (node.getNumParameters() == node.getChildren().size()){
+
             node.execute(backendController);
         }
         else if (node.getClass() == RootCommand.class){

@@ -1,15 +1,18 @@
 package GraphicsBackend;
 
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.shape.Line;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+
 
 public class Grid {
-    public static final double GRID_OFFSET = 0.001;
+    public static final double GRID_OFFSET = 0.01;
     public static final double MARGIN_OF_ERROR = 0.001;
-    public static final double WRAPPING_WINDOW = 0.01;
+    public static final double WRAPPING_WINDOW = 0.001;
     private ArrayList<Line> myObjects = new ArrayList<>();
     private ArrayList<Line> bounds = new ArrayList<>();
     private double height;
@@ -60,11 +63,7 @@ public class Grid {
         double newXPos = xPos - dist*Math.cos(Math.toRadians(angle));
         double newYPos = yPos - dist*Math.sin(Math.toRadians(angle));
 
-        boolean offScreenRight = newXPos>width;
-        boolean offScreenLeft = newXPos<0;
-        boolean offScreenTop = newYPos<0;
-        boolean offScreenBottom = newYPos>width;
-        boolean offScreen = offScreenBottom|offScreenLeft|offScreenRight|offScreenTop;
+        boolean offScreen = isOffScreen(newXPos,newYPos);
 
         while(offScreen&dist>0){
             Point movementStart = new Point(xPos,yPos);
@@ -103,14 +102,19 @@ public class Grid {
             }
             newXPos = xPos - dist*Math.cos(Math.toRadians(angle));
             newYPos = yPos - dist*Math.sin(Math.toRadians(angle));
-            offScreenRight = newXPos>width;
-            offScreenLeft = newXPos<0;
-            offScreenTop = newYPos<0;
-            offScreenBottom = newYPos>width;
-            offScreen = offScreenBottom|offScreenLeft|offScreenRight|offScreenTop;
+            offScreen = isOffScreen(newXPos, newYPos);
         }
         createLine(pen, xPos, yPos, newXPos, newYPos);
         return new VectorMovement(new Point(newXPos, newYPos), newLineMovements);
+    }
+
+    private boolean isOffScreen(double newXPos, double newYPos) {
+        boolean offScreenRight = newXPos>width;
+        boolean offScreenLeft = newXPos<0;
+        boolean offScreenTop = newYPos<0;
+        boolean offScreenBottom = newYPos>width;
+        boolean offScreen = offScreenBottom|offScreenLeft|offScreenRight|offScreenTop;
+        return offScreen;
     }
 
     private void createLine(Pen pen, double xPos, double yPos, double newXPos, double newYPos) {
@@ -121,6 +125,7 @@ public class Grid {
             myObjects.add(movement);
             newLineMovements.add(movement);
         }
+        System.out.println("Newline:" + xPos + " " + yPos + " " + newXPos + " " + newYPos + " ");
     }
 
     private Optional<Point> calculateIntersectionWithBounds(Point movementStart, Point movementEnd) {
@@ -159,14 +164,14 @@ public class Grid {
             double x = (b2*c1 - b1*c2)/determinant;
             double y = (a1*c2 - a2*c1)/determinant;
 
-            boolean xBetweenStartAndEndOfMovement = (x>=movementStart.getMyX()-MARGIN_OF_ERROR)&(x<=movementEnd.getMyX()+MARGIN_OF_ERROR);
-            boolean xBetweenEndAndStartOfMovement = (x<=movementStart.getMyX()+MARGIN_OF_ERROR)&(x>=movementEnd.getMyX()-MARGIN_OF_ERROR);
-            boolean yBetweenStartAndEndOfMovement = (y>=movementStart.getMyY()-MARGIN_OF_ERROR)&(y<=movementEnd.getMyY()+MARGIN_OF_ERROR);
-            boolean yBetweenEndAndStartOfMovement = (y<=movementStart.getMyY()+MARGIN_OF_ERROR)&(y>=movementEnd.getMyY()-MARGIN_OF_ERROR);
-            boolean pointOnInitialLine = xBetweenStartAndEndOfMovement|xBetweenEndAndStartOfMovement&yBetweenEndAndStartOfMovement|yBetweenStartAndEndOfMovement;
+            boolean xBetweenStartAndEndOfMovement = (x>=movementStart.getMyX()-MARGIN_OF_ERROR)&&(x<=movementEnd.getMyX()+MARGIN_OF_ERROR);
+            boolean xBetweenEndAndStartOfMovement = (x<=movementStart.getMyX()+MARGIN_OF_ERROR)&&(x>=movementEnd.getMyX()-MARGIN_OF_ERROR);
+            boolean yBetweenStartAndEndOfMovement = (y>=movementStart.getMyY()-MARGIN_OF_ERROR)&&(y<=movementEnd.getMyY()+MARGIN_OF_ERROR);
+            boolean yBetweenEndAndStartOfMovement = (y<=movementStart.getMyY()+MARGIN_OF_ERROR)&&(y>=movementEnd.getMyY()-MARGIN_OF_ERROR);
+            boolean pointOnInitialLine = (xBetweenStartAndEndOfMovement|xBetweenEndAndStartOfMovement)&(yBetweenEndAndStartOfMovement|yBetweenStartAndEndOfMovement);
 
-            boolean withinGridX = (x<=width+WRAPPING_WINDOW & x>=0-WRAPPING_WINDOW);
-            boolean withinGridY = (y<=height+WRAPPING_WINDOW & y>=0-WRAPPING_WINDOW);
+            boolean withinGridX = (x<=width+WRAPPING_WINDOW && x>=0-WRAPPING_WINDOW);
+            boolean withinGridY = (y<=height+WRAPPING_WINDOW && y>=0-WRAPPING_WINDOW);
             boolean withinGrid = withinGridX & withinGridY;
 
             if (pointOnInitialLine&withinGrid){

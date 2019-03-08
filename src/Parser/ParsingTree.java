@@ -4,29 +4,33 @@ import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.RootCommand;
+//import Parser.Commands.Turtle_Command.*;
 import Parser.Commands.Turtle_Command.*;
 import Parser.Commands.Variable;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 
-public class ParsingTree {
 
-    public static final int FIRST = 0;
+class ParsingTree {
+
+    private static final int FIRST = 0;
     private Command headNode;
     private Command currCommand;
     private BackendController backendController;
 
-    public ParsingTree(List<Command> commandsList, BackendController backendController){
+    ParsingTree(List<Command> commandsList, BackendController backendController){
         headNode = new RootCommand();
         this.backendController = backendController;
         headNode = makeTree(commandsList, headNode);
     }
 
-    public Command getRoot(){
+    Command getRoot(){
         return headNode;
     }
 
-    public Command makeTree(List<Command> commandsList, Command parent){
+    private Command makeTree(List<Command> commandsList, Command parent){
         while (!commandsList.isEmpty()) {
             currCommand = commandsList.remove(FIRST);
             Command savedCurrentCommand = currCommand;
@@ -42,11 +46,14 @@ public class ParsingTree {
             else if (savedCurrentCommand.getClass() == Variable.class){
                 parent.addChildren(savedCurrentCommand);
             }
-            else if (savedCurrentCommand.getClass() == ListEndCommand.class){
+            else if (savedCurrentCommand.getClass() == ListEndCommand.class||savedCurrentCommand.getClass() == GroupEndCommand.class){
                 return savedCurrentCommand;
             }
             else if (savedCurrentCommand.getClass() == ListStartCommand.class){
                 handleListStartCommand(commandsList, parent, savedCurrentCommand);
+            }
+            else if (savedCurrentCommand.getClass() == GroupStartCommand.class){
+                handleGroupStartCommand(commandsList, parent, savedCurrentCommand);
             }
             else{
                 parent.addChildren(makeTree(commandsList, savedCurrentCommand));
@@ -72,12 +79,21 @@ public class ParsingTree {
         }
     }
 
+    private void handleGroupStartCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand){
+        currCommand = commandsList.remove(FIRST);
+        savedCurrentCommand.addChildren(currCommand);
+        savedCurrentCommand.addChildren(makeTree(commandsList, savedCurrentCommand));
+        parent.addChildren(savedCurrentCommand);
+        if (currCommand.getClass() != GroupEndCommand.class){
+            //TODO Add error, list is missing the end brace "]"
+        }
+    }
+
     private void handleListStartCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) {
         savedCurrentCommand.addChildren(makeTree(commandsList, savedCurrentCommand));
         parent.addChildren(savedCurrentCommand);
         if (currCommand.getClass() != ListEndCommand.class){
             //TODO Add error, list is missing the end brace "]"
-            System.out.println("OH NO!!!");
         }
     }
 

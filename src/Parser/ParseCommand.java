@@ -4,9 +4,7 @@ import GraphicsBackend.Turtle;
 import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
-import Parser.Commands.Turtle_Command.ListEndCommand;
-import Parser.Commands.Turtle_Command.ListStartCommand;
-import Parser.Commands.Turtle_Command.TextCommand;
+import Parser.Commands.Turtle_Command.*;
 import Parser.Commands.Variable;
 
 import java.util.*;
@@ -20,8 +18,6 @@ public class ParseCommand {
 
     private final String whiteSpace = "\\s+";
     private String myLanguage;
-    private ArrayList<Command> commandsList;
-    private List<Token> tokensList;
     private List<Turtle> myTurtleList;
     private Map<String, String> commandMap;
 
@@ -31,26 +27,16 @@ public class ParseCommand {
         myLanguage = commandLanguage;
         myTurtleList = turtles;
 
-        //TODO Make handleerror work
-        if(consoleInput.equals(null) || consoleInput.equals("")){
-
+        if(consoleInput != null && !consoleInput.equals("")) {
+            String[] listOfWords = consoleInput.toLowerCase().split(whiteSpace);
+            LanguageSetting languageSetting = new LanguageSetting(myLanguage);
+            //TODO: try catch block if command is not valid
+            String[] translatedListOfWords = languageSetting.translateCommand(listOfWords);
+            var tokensList = addToTokenList(translatedListOfWords);
+            var commandsList = stackCommand(translatedListOfWords, tokensList);
+            ExecuteCommand executeCommand = new ExecuteCommand(commandsList, backendController);
+            executeCommand.runCommands();
         }
-        RemoveComment removeComment = new RemoveComment();
-        String refinedInput = removeComment.deleteComment(consoleInput);
-        String [] listOfWords = refinedInput.split(whiteSpace);
-
-        //translate the input into default language
-        LanguageSetting languageSetting = new LanguageSetting(myLanguage);
-
-        //TODO: try catch block if command is not valid
-        String[] translatedListOfWords = languageSetting.translateCommand(listOfWords);
-        //convert word into tokens and check validity
-        tokensList = addToTokenList(translatedListOfWords);
-        commandsList = stackCommand(translatedListOfWords, tokensList);
-
-        //Execute Command
-        ExecuteCommand executeCommand = new ExecuteCommand(commandsList, backendController);
-        executeCommand.runCommands();
     }
 
     private List<Token> addToTokenList(String[] translatedListOfWords){
@@ -63,13 +49,14 @@ public class ParseCommand {
     }
 
 
-    private ArrayList<Command> stackCommand(String[] listOfWords, List<Token> tokensList) {
-        ArrayList<Command> commandArrayList = new ArrayList<Command>();
+    private List<Command> stackCommand(String[] listOfWords, List<Token> tokensList) {
+        List<Command> commandArrayList = new ArrayList<>();
 
         for (int a=0; a< listOfWords.length; a++){
             String word = listOfWords[a];
             Token token = tokensList.get(a);
             try {
+                System.out.println("Parser.Commands.Turtle_Command." + word + "Command");
                 Class<?> clazz = Class.forName("Parser.Commands.Turtle_Command." + word + "Command");
                 Object object = clazz.getConstructor().newInstance();
                 Command newCommand = (Command) object;
@@ -77,6 +64,7 @@ public class ParseCommand {
 
             } catch (Exception e) {
 //                    e.printStackTrace();
+                System.out.println(word);
                 Command newCommand;
                 if (token == Token.LIST_START){
                     newCommand = new ListStartCommand();
@@ -84,12 +72,12 @@ public class ParseCommand {
                 else if (token == Token.LIST_END){
                     newCommand = (new ListEndCommand());
                 }
-                /*else if (token == Token.GROUP_START){
+                else if (token == Token.GROUP_START){
                     newCommand = new GroupStartCommand();
                 }
                 else if (token == Token.GROUP_END){
                     newCommand = new GroupEndCommand();
-                }*/
+                }
                 else if (token == Token.VARIABLE){
                     newCommand = new Variable(word.substring(1));
                 }

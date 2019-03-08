@@ -1,7 +1,5 @@
 package Parser;
 
-import GraphicsBackend.Turtle;
-
 import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.RootCommand;
@@ -17,9 +15,9 @@ import java.util.List;
 
 public class ExecuteCommand {
 
-    public static final String PARAMETERS_MISSING = "Parameters missing";
-    public static final String WRONG_NUMBER_OF_PARAMETERS = "Wrong number of parameters";
-    public static final int EXPRESSION_INDEX = 1;
+    private static final String PARAMETERS_MISSING = "Parameters missing";
+    private static final String WRONG_NUMBER_OF_PARAMETERS = "Wrong number of parameters";
+    private static final int EXPRESSION_INDEX = 1;
     private Command headNode;
     private BackendController backendController;
 
@@ -29,7 +27,7 @@ public class ExecuteCommand {
         this.backendController = backendController;
     }
 
-    public void runCommands(){
+    void runCommands(){
         //post traversal starting from headNode
         try {
             traverse(headNode);
@@ -39,24 +37,62 @@ public class ExecuteCommand {
         }
     }
 
-    public void traverse(Command node){
-        if (node.getChildren().isEmpty()&node.getClass() != TextCommand.class){
-            handleEmptyChildrenCommands(node);
+    private void traverse(Command node){
+        if (node.getIsConstant()){
             return;
         }
-        if (node.getClass() == MakeUserInstructionCommand.class | node.getClass() == ListEndCommand.class){
-            //this is the only class that is executed as it is parsed, so it does not need to be reparsed
+        if (node.getClass() == MakeUserInstructionCommand.class || node.getClass() == ListEndCommand.class || node.getClass() == GroupEndCommand.class){
+            //makeuserinstruction is the only class that is executed as it is parsed, so it does not need to be reparsed
             return;
         }
         if (node.getClass() == MakeVariableCommand.class){
             handleMakeVariableCommand(node);
-        }
-        if (node.getClass() == ListStartCommand.class){
-            handleListStartCommand(node);
             return;
         }
+        if (node instanceof ControlCommand){
+            handleControlCommand((ControlCommand) node);
+            return;
+        }
+        if (node.getClass() == GroupStartCommand.class){
+            node.getChildren().get(0).setIsConstant(true);
+            traverseChildren(node);
+            node.getChildren().get(0).setIsConstant(false);
+            node.execute(backendController);
+            return;
+        }
+        if (node.getClass() == IfCommand.class||node.getClass() == TellCommand.class){
+            traverse(node.getChildren().get(0));
+            node.execute(backendController);
+        }
+        if (node.getClass() == AskCommand.class){
+            traverse(node.getChildren().get(0));
+            node.execute(backendController);
+            traverseChildren(node);
+            backendController.loadTurtleTell();
+            return;
+        }
+        // any commands that need to be executed before children are run happen before this point
         traverseChildren(node);
         handleAfterGenerationOfChildren(node);
+    }
+
+    private void handleControlCommand(ControlCommand node) {
+        List<Command> initExpr = node.getInitialExpressions();
+        for (Command expr: initExpr) {
+            traverse(expr);
+        }
+        node.setUpLoop();
+        while(node.shouldRunAgain()) {
+            node.execute(backendController);
+            if (node.getListToRun() != null) {
+                handleListStartCommand(node.getListToRun());
+                node.setReturnValue(node.getListToRun().getReturnValue());
+            }
+        }
+    }
+
+    private void handleListStartCommand(Command node) {
+        traverseChildren(node);
     }
 
     private void handleAfterGenerationOfChildren(Command node) {
@@ -66,8 +102,8 @@ public class ExecuteCommand {
         else if (node.getNumParameters() == node.getChildren().size()){
             node.execute(backendController);
         }
-        else if (node.getClass() == RootCommand.class){
-            return;
+        else if (node.getNumParameters() == (int) Double.POSITIVE_INFINITY){
+            // do nothing, the root command should not throw an error
         }
         else{
             throw new SyntaxError(WRONG_NUMBER_OF_PARAMETERS);//TODO replace with another exception
@@ -85,21 +121,16 @@ public class ExecuteCommand {
         }
     }
 
-    private void handleListStartCommand(Command node) {
-        traverseChildren(node);
-        return;
-    }
-
     private void handleMakeVariableCommand(Command node) {
         traverse(node.getChildren().get(EXPRESSION_INDEX));
         node.execute(backendController);
     }
 
     private void handleEmptyChildrenCommands(Command node) {
-        if (node.getIsConstant()){
-            return;
-        }
-        else if (node.getNumParameters() == 0){
+//        if (node.getIsConstant()){
+//            // do nothing, the return value is already present
+//        }
+        if (node.getNumParameters() == 0){
             node.execute(backendController);
         }
         else{

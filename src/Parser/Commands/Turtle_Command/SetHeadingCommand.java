@@ -14,8 +14,9 @@ public class SetHeadingCommand extends TurtleCommand{
 
     @Override
     protected void turtleAction(Turtle turtle) {
+        double oldAngle = turtle.getMyAngle();
         turtle.turnTo(getChildren().get(0).getReturnValue());
-        returnValue = Math.abs(getChildren().get(0).getReturnValue());
+        returnValue = Math.abs(getChildren().get(0).getReturnValue()-oldAngle);
     }
 
     @Override

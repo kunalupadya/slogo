@@ -3,20 +3,19 @@ package Parser.Commands.Turtle_Command;
 import Main.BackendController;
 import Parser.Commands.Command;
 
+public class SineCommand extends Command {
 
-public class AtanCommand extends Command {
-
-    public AtanCommand(){
+    public SineCommand(){
         isConstant = false;
         numParameters = 1;
     }
 
     public void performAction(BackendController backendController){
-        returnValue =  Math.atan(myChildrenList.get(0).getReturnValue());
+        returnValue =  Math.sin(Math.toRadians(myChildrenList.get(0).getReturnValue()));
     }
 
     @Override
     public Command copy() {
-        return new AtanCommand();
+        return new SineCommand();
     }
 }

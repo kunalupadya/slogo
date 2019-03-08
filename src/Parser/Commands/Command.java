@@ -12,7 +12,7 @@ public abstract class Command{
     protected double returnValue;
     protected String text;
     protected int numParameters;
-    protected int currentNumParameters = 0;
+    private int currentNumParameters = 0;
 
 
     public int getCurrentNumParameters() {
@@ -21,6 +21,10 @@ public abstract class Command{
 
     public boolean getIsConstant(){
         return isConstant;
+    }
+
+    public void setIsConstant(boolean constant) {
+        isConstant = constant;
     }
 
     public int getNumParameters(){
@@ -45,6 +49,7 @@ public abstract class Command{
 
     public void execute(BackendController backendController) {
         performAction(backendController);
+        System.out.println(returnValue);
         isConstant = true;
     }
 

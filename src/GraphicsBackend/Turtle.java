@@ -24,7 +24,7 @@ public class Turtle {
     private boolean isTurtleActive;
     //TODO implement turtle shape using int index
     private int myShape;
-    private LinkedList<TurtleState> previousPositions = new LinkedList<>();
+    private LinkedList<ImmutableTurtleState> previousPositions = new LinkedList<>();
     private LinkedList<List<Line>> lastLinesPlaced = new LinkedList<>();
 
 
@@ -68,11 +68,11 @@ public class Turtle {
     public void moveTo(Point point){
         updateUndoBuffers(new LinkedList<>());
         xPos = point.getMyX()+myGrid.getWidth()/ HALF;
-        yPos = point.getMyY()+myGrid.getHeight()/ HALF;;
+        yPos = myGrid.getHeight()/ HALF-point.getMyY();;
     }
 
     public void undo(){
-        TurtleState turtleState = previousPositions.removeLast();
+        ImmutableTurtleState turtleState = previousPositions.removeLast();
         Point oldPos = turtleState.getPos();
         myGrid.removeLines(lastLinesPlaced.removeLast());
         xPos = oldPos.getMyX();
@@ -92,7 +92,7 @@ public class Turtle {
 
     public void turnTo(double angle){
         updateUndoBuffers(new LinkedList<>());
-        myAngle = angle;
+        myAngle = angle+90;
     }
 
     public void setTurtleVisibility(boolean visibility){
@@ -108,15 +108,15 @@ public class Turtle {
     }
 
     public double getyPos() {
-        return yPos;
+        return yPos - myGrid.getHeight()/ HALF;
     }
 
     public double getxPos() {
-        return xPos;
+        return xPos - myGrid.getWidth()/ HALF;
     }
 
     public Point getPos(){
-        return new Point(xPos,yPos);
+        return new Point(getxPos(),getyPos());
     }
 
     public Grid getGrid() {
@@ -126,7 +126,7 @@ public class Turtle {
     public int getMyShape(){ return myShape;}
 
     public double getMyAngle() {
-        return myAngle;
+        return myAngle-90;
     }
 
     public void setMyShape(int shapeIndex){this.myShape = shapeIndex;}

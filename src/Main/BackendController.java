@@ -25,21 +25,38 @@ public class BackendController {
     private Map<String, Variable> availableVariables;
     private List<UserDefinedCommand> userDefinedCommandStack = new LinkedList<>();
     private FrontendController frontendController;
+    private List<Boolean> previousTurtleTell;
     private Palette myPalette;
 
     public BackendController(){
         myGrid = new Grid(400,400);
         userDefinedCommands = new HashMap<>();
         availableVariables = new HashMap<>();
+//        myTurtles.add(new Turtle(myGrid));
+//        Turtle turtle2 = new Turtle(myGrid);
+//        turtle2.turn(20);
+//        turtle2.move(50);
+//        turtle2.turn(300);
+//        turtle2.move(100);
+//        myTurtles.add(turtle2);
         myTurtles.add(new Turtle(myGrid));
-        Turtle turtle2 = new Turtle(myGrid);
-        turtle2.turn(20);
-        turtle2.move(50);
-        turtle2.turn(300);
-        turtle2.move(100);
-        myTurtles.add(turtle2);
         myPalette = new Palette();
 
+    }
+
+    public void recordTurtleTell(){
+        previousTurtleTell = new LinkedList<>();
+        for (Turtle t: myTurtles){
+            previousTurtleTell.add(t.getIsTurtleActive());
+        }
+    }
+
+    public void loadTurtleTell(){
+        int ctr = 0;
+        for (Boolean b: previousTurtleTell){
+            myTurtles.get(ctr).setTurtleActive(b);
+            ctr++;
+        }
     }
 
     public void addNewUserDefinedCommand(String commandName, UserDefinedCommand tree){
@@ -63,11 +80,13 @@ public class BackendController {
             Double returnValue = availableVariables.get(variableName).getReturnValue();
             return Optional.of(returnValue);
         }
-        List<Variable> stackVariables = userDefinedCommandStack.get(userDefinedCommandStack.size()-1).getVariables();
-        for (Variable v:stackVariables){
-            if (v.getText().equals(variableName)){
-                Double returnValue = v.getReturnValue();
-                return Optional.of(returnValue);
+        if (userDefinedCommandStack.size() != 0) {
+            List<Variable> stackVariables = userDefinedCommandStack.get(userDefinedCommandStack.size() - 1).getVariables();
+            for (Variable v : stackVariables) {
+                if (v.getText().equals(variableName)) {
+                    Double returnValue = v.getReturnValue();
+                    return Optional.of(returnValue);
+                }
             }
         }
         return Optional.empty();

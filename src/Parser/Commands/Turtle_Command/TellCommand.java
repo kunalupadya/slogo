@@ -23,13 +23,17 @@ public class TellCommand extends Command{
 
         List<Turtle> turtleList= backendController.getMyTurtles();
         for (int a = 0; a < startCommand.getChildren().size() - 1; a++) {
-            System.out.println(startCommand.getChildren().size() -1);
-            if (a < turtleList.size()) {
-                assignedTurtleList.add(turtleList.get((int) startCommand.getChildren().get(0).getReturnValue()));
-            } else {
-                Turtle newOne = new Turtle(backendController.getMyGrid());
-                turtleList.add(newOne);
-                assignedTurtleList.add(newOne);
+//            System.out.println(startCommand.getChildren().size() -1);
+            int turtleIndex = (int) startCommand.getChildren().get(a).getReturnValue();
+            if (turtleIndex < turtleList.size()) {
+                assignedTurtleList.add(turtleList.get(turtleIndex));
+            }
+            else {
+                while(turtleIndex>turtleList.size()) {
+                    Turtle newTurtle = new Turtle(backendController.getMyGrid());
+                    turtleList.add(newTurtle);
+                    assignedTurtleList.add(newTurtle);
+                }
             }
 
         }
@@ -38,6 +42,7 @@ public class TellCommand extends Command{
         }
         returnValue = assignedTurtleList.size();
     }
+
 
     @Override
     public Command copy() {

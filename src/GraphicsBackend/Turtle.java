@@ -76,12 +76,16 @@ public class Turtle implements ImmutableTurtle{
     }
 
     public void undo(){
-        ImmutableTurtleState turtleState = previousPositions.removeLast();
-        Point oldPos = turtleState.getPos();
-        myGrid.removeLines(lastLinesPlaced.removeLast());
-        xPos = oldPos.getMyX();
-        yPos = oldPos.getMyY();
-        myAngle = turtleState.getAngle();
+        if (previousPositions.size() > 0) {
+            ImmutableTurtleState turtleState = previousPositions.removeLast();
+            Point oldPos = turtleState.getPos();
+            if (lastLinesPlaced.size() > 0) {
+                myGrid.removeLines(lastLinesPlaced.removeLast());
+            }
+            xPos = oldPos.getMyX();
+            yPos = oldPos.getMyY();
+            myAngle = turtleState.getAngle();
+        }
     }
 
     public void turn(double angle){

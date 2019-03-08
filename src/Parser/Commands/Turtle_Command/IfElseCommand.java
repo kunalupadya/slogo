@@ -5,8 +5,8 @@ import Parser.Commands.Command;
 
 public class IfElseCommand extends ControlCommand {
 
-    private final int trueCommandList = 1;
-    private final int falseCommandList = 2;
+    private final int TRUE_COMMANDS = 1;
+    private final int FALSE_COMMANDS = 2;
 
     public IfElseCommand() {
         super();
@@ -17,9 +17,9 @@ public class IfElseCommand extends ControlCommand {
     @Override
     protected void performAction(BackendController backendController) {
         if (initialExpressions.get(0).getReturnValue() != 0) {
-            setListToRun((ListStartCommand) myChildrenList.get(trueCommandList));
+            setListToRun((ListStartCommand) myChildrenList.get(TRUE_COMMANDS));
         } else {
-            setListToRun((ListStartCommand) myChildrenList.get(falseCommandList));
+            setListToRun((ListStartCommand) myChildrenList.get(FALSE_COMMANDS));
         }
         runAgain = false;
     }

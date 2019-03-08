@@ -7,11 +7,11 @@ public class MinusCommand extends Command {
 
     public MinusCommand(){
         isConstant = false;
-        numParameters = 2;
+        numParameters = 1;
     }
 
     public void performAction(BackendController backendController){
-        returnValue = myChildrenList.get(0).getReturnValue() - myChildrenList.get(1).getReturnValue();
+        returnValue = -myChildrenList.get(0).getReturnValue();
     }
 
     @Override

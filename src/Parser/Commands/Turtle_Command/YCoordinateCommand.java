@@ -1,13 +1,12 @@
 package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
-import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
-public class YcorCommand extends TurtleCommand {
+public class YCoordinateCommand extends TurtleCommand {
 
-    public YcorCommand(){
+    public YCoordinateCommand(){
         isConstant = false;
         numParameters = 0;
     }
@@ -19,6 +18,6 @@ public class YcorCommand extends TurtleCommand {
 
     @Override
     public Command copy() {
-        return new YcorCommand();
+        return new YCoordinateCommand();
     }
 }

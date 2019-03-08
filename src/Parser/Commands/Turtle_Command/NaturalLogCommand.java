@@ -3,9 +3,9 @@ package Parser.Commands.Turtle_Command;
 import Main.BackendController;
 import Parser.Commands.Command;
 
-public class LogCommand extends Command {
+public class NaturalLogCommand extends Command {
 
-    public LogCommand(){
+    public NaturalLogCommand(){
         isConstant = false;
         numParameters = 1;
     }
@@ -16,6 +16,6 @@ public class LogCommand extends Command {
 
     @Override
     public Command copy() {
-        return new LogCommand();
+        return new NaturalLogCommand();
     }
 }

@@ -2,13 +2,12 @@ package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Point;
 import GraphicsBackend.Turtle;
-import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
-public class SetXYCommand extends TurtleCommand{
+public class SetPositionCommand extends TurtleCommand{
 
-    public SetXYCommand(){
+    public SetPositionCommand(){
         isConstant = false;
         numParameters = 2;
     }
@@ -22,6 +21,6 @@ public class SetXYCommand extends TurtleCommand{
 
     @Override
     public Command copy() {
-        return new SetXYCommand();
+        return new SetPositionCommand();
     }
 }

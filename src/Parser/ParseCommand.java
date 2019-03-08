@@ -64,6 +64,7 @@ public class ParseCommand {
 
             } catch (Exception e) {
 //                    e.printStackTrace();
+                System.out.println(word);
                 Command newCommand;
                 if (token == Token.LIST_START){
                     newCommand = new ListStartCommand();

@@ -58,6 +58,7 @@ public class ExecuteCommand {
             return;
         }
         if (node.getClass() == IfCommand.class){
+            traverse(node.getChildren().get(0));
             node.execute(backendController);
         }
         // any commands that need to be executed before children are run happen before this point

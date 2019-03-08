@@ -31,13 +31,14 @@ public class BackendController {
         myGrid = new Grid(400,400);
         userDefinedCommands = new HashMap<>();
         availableVariables = new HashMap<>();
+//        myTurtles.add(new Turtle(myGrid));
+//        Turtle turtle2 = new Turtle(myGrid);
+//        turtle2.turn(20);
+//        turtle2.move(50);
+//        turtle2.turn(300);
+//        turtle2.move(100);
+//        myTurtles.add(turtle2);
         myTurtles.add(new Turtle(myGrid));
-        Turtle turtle2 = new Turtle(myGrid);
-        turtle2.turn(20);
-        turtle2.move(50);
-        turtle2.turn(300);
-        turtle2.move(100);
-        myTurtles.add(turtle2);
         myPalette = new Palette();
 
     }

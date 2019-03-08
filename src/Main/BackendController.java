@@ -25,6 +25,7 @@ public class BackendController {
     private Map<String, Variable> availableVariables;
     private List<UserDefinedCommand> userDefinedCommandStack = new LinkedList<>();
     private FrontendController frontendController;
+    private List<Boolean> previousTurtleTell;
     private Palette myPalette;
 
     public BackendController(){
@@ -41,6 +42,21 @@ public class BackendController {
         myTurtles.add(new Turtle(myGrid));
         myPalette = new Palette();
 
+    }
+
+    public void recordTurtleTell(){
+        previousTurtleTell = new LinkedList<>();
+        for (Turtle t: myTurtles){
+            previousTurtleTell.add(t.getIsTurtleActive());
+        }
+    }
+
+    public void loadTurtleTell(){
+        int ctr = 0;
+        for (Boolean b: previousTurtleTell){
+            myTurtles.get(ctr).setTurtleActive(b);
+            ctr++;
+        }
     }
 
     public void addNewUserDefinedCommand(String commandName, UserDefinedCommand tree){

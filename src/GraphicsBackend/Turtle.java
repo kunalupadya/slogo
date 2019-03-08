@@ -24,7 +24,7 @@ public class Turtle {
     private boolean isTurtleActive;
     //TODO implement turtle shape using int index
     private int myShape;
-    private LinkedList<TurtleState> previousPositions = new LinkedList<>();
+    private LinkedList<ImmutableTurtleState> previousPositions = new LinkedList<>();
     private LinkedList<List<Line>> lastLinesPlaced = new LinkedList<>();
 
 
@@ -72,7 +72,7 @@ public class Turtle {
     }
 
     public void undo(){
-        TurtleState turtleState = previousPositions.removeLast();
+        ImmutableTurtleState turtleState = previousPositions.removeLast();
         Point oldPos = turtleState.getPos();
         myGrid.removeLines(lastLinesPlaced.removeLast());
         xPos = oldPos.getMyX();

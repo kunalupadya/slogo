@@ -10,9 +10,9 @@ import java.util.Optional;
 
 
 public class Grid {
-    public static final double GRID_OFFSET = 0.001;
+    public static final double GRID_OFFSET = 0.01;
     public static final double MARGIN_OF_ERROR = 0.001;
-    public static final double WRAPPING_WINDOW = 0.01;
+    public static final double WRAPPING_WINDOW = 0.001;
     private ArrayList<Line> myObjects = new ArrayList<>();
     private ArrayList<Line> bounds = new ArrayList<>();
     private double height;
@@ -125,6 +125,7 @@ public class Grid {
             myObjects.add(movement);
             newLineMovements.add(movement);
         }
+        System.out.println("Newline:" + xPos + " " + yPos + " " + newXPos + " " + newYPos + " ");
     }
 
     private Optional<Point> calculateIntersectionWithBounds(Point movementStart, Point movementEnd) {
@@ -167,7 +168,7 @@ public class Grid {
             boolean xBetweenEndAndStartOfMovement = (x<=movementStart.getMyX()+MARGIN_OF_ERROR)&&(x>=movementEnd.getMyX()-MARGIN_OF_ERROR);
             boolean yBetweenStartAndEndOfMovement = (y>=movementStart.getMyY()-MARGIN_OF_ERROR)&&(y<=movementEnd.getMyY()+MARGIN_OF_ERROR);
             boolean yBetweenEndAndStartOfMovement = (y<=movementStart.getMyY()+MARGIN_OF_ERROR)&&(y>=movementEnd.getMyY()-MARGIN_OF_ERROR);
-            boolean pointOnInitialLine = xBetweenStartAndEndOfMovement|xBetweenEndAndStartOfMovement&yBetweenEndAndStartOfMovement|yBetweenStartAndEndOfMovement;
+            boolean pointOnInitialLine = (xBetweenStartAndEndOfMovement|xBetweenEndAndStartOfMovement)&(yBetweenEndAndStartOfMovement|yBetweenStartAndEndOfMovement);
 
             boolean withinGridX = (x<=width+WRAPPING_WINDOW && x>=0-WRAPPING_WINDOW);
             boolean withinGridY = (y<=height+WRAPPING_WINDOW && y>=0-WRAPPING_WINDOW);

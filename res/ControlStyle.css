@@ -21,6 +21,14 @@
             radial-gradient(center 50% 50%, radius 100%, #c9d6ce, #dfe9de);
 }
 
+.button-container > .button:pressed {
+    -fx-background-color:
+            linear-gradient(#7ffa6a, #3e46da),
+            #4E78A0,
+            #9FABB7,
+            radial-gradient(center 50% 50%, radius 100%, #c9d6ce, #dfe9de);
+}
+
 #penColor {
     -fx-background-image: url(images/penColor.png);
     -fx-background-size: 20px 20px;

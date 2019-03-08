@@ -408,7 +408,7 @@ public class FrontendController {
                     Method m = myContainer.getClass().getDeclaredMethod(modulePosition, Node.class);
                     m.invoke(myContainer, (Object) null);
                 } catch (Exception e) {
-                    System.out.println("Error Occurred when Removing Module");
+                    consoleShowError("Error Occurred when Removing Module");
                 }
                 break;
             case "leftBorderPane":
@@ -416,7 +416,7 @@ public class FrontendController {
                     Method m = leftBorderPane.getClass().getMethod(modulePosition, Node.class);
                     m.invoke(leftBorderPane, (Object) null);
                 } catch (Exception e) {
-                    System.out.println("Error Occurred when Removing Module");
+                    consoleShowError("Error Occurred when Removing Module");
                 }
                 break;
             case "rightBorderPane":
@@ -424,7 +424,7 @@ public class FrontendController {
                     Method m = rightBorderPane.getClass().getMethod(modulePosition, Node.class);
                     m.invoke(rightBorderPane, (Object) null);
                 } catch (Exception e) {
-                    System.out.println("Error Occurred when Removing Module");
+                    consoleShowError("Error Occurred when Removing Module");
                 }
                 break;
         }
@@ -497,4 +497,8 @@ public class FrontendController {
     }
 
     public void save() {}
+
+    public void load() {
+
+    }
 }

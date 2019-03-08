@@ -56,6 +56,7 @@ public class ParseCommand {
             String word = listOfWords[a];
             Token token = tokensList.get(a);
             try {
+                System.out.println("Parser.Commands.Turtle_Command." + word + "Command");
                 Class<?> clazz = Class.forName("Parser.Commands.Turtle_Command." + word + "Command");
                 Object object = clazz.getConstructor().newInstance();
                 Command newCommand = (Command) object;

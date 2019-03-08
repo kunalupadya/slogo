@@ -17,7 +17,7 @@ public class MakeUserInstructionCommand extends Command {
     private static final int COMMANDS_LIST_NODE = 2;
     private List< Variable> variables = new ArrayList<>();
 
-    private MakeUserInstructionCommand(){
+    public MakeUserInstructionCommand(){
         isConstant = false;
         numParameters = 3;
     }

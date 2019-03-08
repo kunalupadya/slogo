@@ -61,7 +61,7 @@ public class Editor extends Module {
 
     public void readText(Scanner s) {
         editor.clear();
-        while (s.hasNext()) {
+        while (s.hasNextLine()) {
             editor.appendText(s.nextLine() + "\n");
         }
     }

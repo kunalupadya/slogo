@@ -1,0 +1,4 @@
+hello world
+fd 50
+right 60
+fd 30

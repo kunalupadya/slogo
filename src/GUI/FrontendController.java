@@ -48,7 +48,7 @@ public class FrontendController {
     private CurrentState currentState;
     private Console console;
     private MenuButtonControl openHelp, moveTurtle, switchLanguages, penThickess;
-    private ButtonControl redo, run, undo, stopExecution, setTurtleImage, save;
+    private ButtonControl redo, run, undo, stopExecution, setTurtleImage, save, saveFile, loadFile;
     private ColorPicker setBackgroundColor, setPenColor;
     private BackendController backendController;
     private String defaultLanguage = "English";
@@ -149,6 +149,12 @@ public class FrontendController {
         save = new Save(this);
         save.getButton().setTooltip(new Tooltip("Save"));
 
+        saveFile = new FileSave(this);
+        saveFile.getButton().setTooltip(new Tooltip("Save File"));
+
+        loadFile = new FileLoad(this);
+        loadFile.getButton().setTooltip(new Tooltip("Load File"));
+
         moveTurtle = new MoveTurtle(this);
         moveTurtle.getButton().setTooltip(new Tooltip("Move Turtle"));
 
@@ -164,8 +170,8 @@ public class FrontendController {
         run = new Run(editor);
         run.getButton().setTooltip(new Tooltip("Run"));
 
-        var leftButtons = new HBox(openHelp.getButton(), switchLanguages.getButton(),
-                setBackgroundColor, setPenColor, penThickess.getButton(),
+        var leftButtons = new HBox(openHelp.getButton(), switchLanguages.getButton(), saveFile.getButton(),
+                loadFile.getButton(), setBackgroundColor, setPenColor, penThickess.getButton(),
                 setTurtleImage.getButton(), save.getButton());
         leftButtons.getStyleClass().add("button-container");
 
@@ -290,36 +296,43 @@ public class FrontendController {
         palettes.setPalettes(paletteIndices);
     }
 
-    public void saveToFile(String filename) {
-        ObservableList<CharSequence> paragraph = editor.getText();
-        Iterator<CharSequence> iter = paragraph.iterator();
-        try
-        {
-            //Replace Editor1 with filename parameter
-            BufferedWriter bf = new BufferedWriter(new FileWriter(new File(editorPath + filename + ".txt")));
-            while (iter.hasNext()) {
-                CharSequence seq = iter.next();
-                bf.append(seq);
-                bf.newLine();
+    public void saveToFile() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("data/scripts"));
+        File potentialFile = fileChooser.showSaveDialog(myStage);
+
+        if (potentialFile != null) {
+            ObservableList<CharSequence> paragraph = editor.getText();
+            Iterator<CharSequence> iter = paragraph.iterator();
+            try {
+                PrintWriter initialWriter = new PrintWriter(potentialFile);
+                BufferedWriter bf = new BufferedWriter(initialWriter);
+                while (iter.hasNext()) {
+                    CharSequence seq = iter.next();
+                    bf.append(seq);
+                    bf.newLine();
+                }
+                bf.flush();
+                bf.close();
+            } catch (IOException e) {
+                consoleShowError("Error occurred when writing text to file!");
             }
-            bf.flush();
-            bf.close();
-        }
-        catch (IOException e)
-        {
-            consoleShowError("Cannot write invalid text into a file");
         }
     }
 
-    public void loadFile(String filename) {
+    public void loadFile() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("data/scripts"));
+        File potentialFile = fileChooser.showOpenDialog(myStage);
+
         try
         {
-            Scanner s = new Scanner(new File(editorPath + filename + ".txt"));
+            Scanner s = new Scanner(potentialFile);
             editor.readText(s);
         }
         catch (FileNotFoundException e)
         {
-            consoleShowError("File " + filename + ".txt does not exist");
+            consoleShowError("File " + potentialFile.getName() + ".txt does not exist");
         }
     }
 

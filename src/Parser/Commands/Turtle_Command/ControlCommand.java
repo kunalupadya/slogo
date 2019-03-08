@@ -6,8 +6,8 @@ import Parser.Commands.Command;
 public abstract class ControlCommand extends Command {
 
     boolean runAgain = true;
-    int currCount = 0;
-    int limit = 0;
+    int currCount = 1;
+    int limit;
     Command initialExpression = null;
     ListStartCommand listToRun = null;
 

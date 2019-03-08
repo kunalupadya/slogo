@@ -2,6 +2,8 @@ package Parser.Commands.Turtle_Command;
 
 import Main.BackendController;
 import Parser.Commands.Command;
+import Parser.Commands.ConstantCommand;
+import Parser.Commands.Variable;
 
 public class RepeatCommand extends ControlCommand {
 
@@ -16,6 +18,7 @@ public class RepeatCommand extends ControlCommand {
     @Override
     protected void performAction(BackendController backendController) {
         if (currCount < limit) {
+            setRepCount(backendController);
             setListToRun(copyList(commandListOrig));
             currCount++;
             runAgain = true;
@@ -24,6 +27,13 @@ public class RepeatCommand extends ControlCommand {
             runAgain = false;
         }
 
+    }
+
+    private void setRepCount(BackendController backendController) {
+        var makeRepCountVar = new MakeVariableCommand();
+        makeRepCountVar.addChildren(new Variable("repcount"));
+        makeRepCountVar.addChildren(new ConstantCommand((double) currCount));
+        makeRepCountVar.execute(backendController);
     }
 
     @Override

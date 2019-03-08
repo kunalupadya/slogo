@@ -71,7 +71,6 @@ public class ExecuteCommand {
                 node.setReturnValue(node.getListToRun().getReturnValue());
             }
         }
-
     }
 
     private void handleListStartCommand(Command node) {

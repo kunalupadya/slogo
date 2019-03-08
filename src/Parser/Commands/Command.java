@@ -23,6 +23,10 @@ public abstract class Command{
         return isConstant;
     }
 
+    public void setIsConstant(boolean constant) {
+        isConstant = constant;
+    }
+
     public int getNumParameters(){
         return numParameters;
     }

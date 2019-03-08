@@ -45,8 +45,8 @@ public class ExecuteCommand {
             handleEmptyChildrenCommands(node);
             return;
         }
-        if (node.getClass() == MakeUserInstructionCommand.class | node.getClass() == ListEndCommand.class){
-            //this is the only class that is executed as it is parsed, so it does not need to be reparsed
+        if (node.getClass() == MakeUserInstructionCommand.class || node.getClass() == ListEndCommand.class || node.getClass() == GroupEndCommand.class){
+            //makeuserinstruction is the only class that is executed as it is parsed, so it does not need to be reparsed
             return;
         }
         if (node.getClass() == MakeVariableCommand.class){
@@ -54,6 +54,10 @@ public class ExecuteCommand {
         }
         if (node.getClass() == ListStartCommand.class){
             handleListStartCommand(node);
+            return;
+        }
+        if (node.getClass() == GroupStartCommand.class){
+            node.execute(backendController);
             return;
         }
         traverseChildren(node);

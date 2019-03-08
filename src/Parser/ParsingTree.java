@@ -46,11 +46,14 @@ public class ParsingTree {
             else if (savedCurrentCommand.getClass() == Variable.class){
                 parent.addChildren(savedCurrentCommand);
             }
-            else if (savedCurrentCommand.getClass() == ListEndCommand.class){
+            else if (savedCurrentCommand.getClass() == ListEndCommand.class||savedCurrentCommand.getClass() == GroupEndCommand.class){
                 return savedCurrentCommand;
             }
             else if (savedCurrentCommand.getClass() == ListStartCommand.class){
                 handleListStartCommand(commandsList, parent, savedCurrentCommand);
+            }
+            else if (savedCurrentCommand.getClass() == GroupStartCommand.class){
+                handleGroupStartCommand(commandsList, parent, savedCurrentCommand);
             }
             else{
                 parent.addChildren(makeTree(commandsList, savedCurrentCommand));
@@ -76,12 +79,21 @@ public class ParsingTree {
         }
     }
 
+    private void handleGroupStartCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand){
+        currCommand = commandsList.remove(FIRST);
+        savedCurrentCommand.addChildren(currCommand);
+        savedCurrentCommand.addChildren(makeTree(commandsList, savedCurrentCommand));
+        parent.addChildren(savedCurrentCommand);
+        if (currCommand.getClass() != GroupEndCommand.class){
+            //TODO Add error, list is missing the end brace "]"
+        }
+    }
+
     private void handleListStartCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) {
         savedCurrentCommand.addChildren(makeTree(commandsList, savedCurrentCommand));
         parent.addChildren(savedCurrentCommand);
         if (currCommand.getClass() != ListEndCommand.class){
             //TODO Add error, list is missing the end brace "]"
-            System.out.println("OH NO!!!");
         }
     }
 

@@ -4,9 +4,7 @@ import GraphicsBackend.Turtle;
 import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
-import Parser.Commands.Turtle_Command.ListEndCommand;
-import Parser.Commands.Turtle_Command.ListStartCommand;
-import Parser.Commands.Turtle_Command.TextCommand;
+import Parser.Commands.Turtle_Command.*;
 import Parser.Commands.Variable;
 
 import java.util.*;
@@ -38,9 +36,9 @@ public class ParseCommand {
             LanguageSetting languageSetting = new LanguageSetting(myLanguage);
             //TODO: try catch block if command is not valid
             String[] translatedListOfWords = languageSetting.translateCommand(listOfWords);
-            System.out.println(translatedListOfWords[2]);
+//            System.out.println(translatedListOfWords[2]);
             tokensList = addToTokenList(translatedListOfWords);
-            System.out.println(tokensList);
+//            System.out.println(tokensList);
             commandsList = stackCommand(translatedListOfWords, tokensList);
 
             //Execute Command
@@ -80,12 +78,12 @@ public class ParseCommand {
                 else if (token == Token.LIST_END){
                     newCommand = (new ListEndCommand());
                 }
-                /*else if (token == Token.GROUP_START){
+                else if (token == Token.GROUP_START){
                     newCommand = new GroupStartCommand();
                 }
                 else if (token == Token.GROUP_END){
                     newCommand = new GroupEndCommand();
-                }*/
+                }
                 else if (token == Token.VARIABLE){
                     newCommand = new Variable(word.substring(1));
                 }

@@ -51,12 +51,6 @@ public class UserDefinedCommand extends Command {
 
     @Override
     public Command copy() {
-        //        List<Variable> newVariables;
-//        ListStartCommand newHeadNode;
-//
-//        traverse()
-//
-//        new UserDefinedCommand()
 
         List<Variable> newVariables = new LinkedList<>();
         for (Variable v:variables){

@@ -326,7 +326,6 @@ public class FrontendController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("data/scripts"));
         File potentialFile = fileChooser.showOpenDialog(myStage);
-
         try
         {
             Scanner s = new Scanner(potentialFile);
@@ -335,6 +334,10 @@ public class FrontendController {
         catch (FileNotFoundException e)
         {
             consoleShowError("File " + potentialFile.getName() + ".txt does not exist");
+        }
+        catch (NullPointerException e)
+        {
+            consoleShowError("Did not select a File");
         }
     }
 

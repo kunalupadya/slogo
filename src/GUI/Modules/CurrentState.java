@@ -41,7 +41,7 @@ public class CurrentState extends ListModule {
                 penDirection = myResourceBundles.getString("PenDown");
             }
             String turtleAndPen = myResourceBundles.getString("Turtle") + ids.get(i).toString() + " " + xPositions.get(i).toString() + " " +
-                    yPositions.get(i).toString() + " " + angles.get(i).toString() + myResourceBundles.getString("Pen") + penColors.get(i).toString()
+                    yPositions.get(i).toString() + " " + angles.get(i).toString() + " " + myResourceBundles.getString("Pen") + penColors.get(i).toString()
                     + " " + penDirection + " " + penSize.get(i).toString();
             list.add(turtleAndPen);
             listCollection.add(turtleAndPen);

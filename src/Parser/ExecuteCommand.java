@@ -56,7 +56,7 @@ public class ExecuteCommand {
             handleGroupCommand(node);
             return;
         }
-        if (node.getClass() == IfCommand.class||node.getClass() == TellCommand.class){
+        if (node.getClass() == TellCommand.class){
             traverse(node.getChildren().get(0));
             node.execute(backendController);
         }
@@ -86,6 +86,7 @@ public class ExecuteCommand {
     }
 
     private void handleControlCommand(ControlCommand node) {
+        node.setInitialExpressions();
         List<Command> initExpr = node.getInitialExpressions();
         for (Command expr: initExpr) {
             traverse(expr);

@@ -75,7 +75,6 @@ public class ExecuteCommand {
         node.execute(backendController);
         traverseChildren(node);
         backendController.loadTurtleTell();
-        return;
     }
 
     private void handleGroupCommand(Command node) {

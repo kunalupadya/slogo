@@ -14,10 +14,8 @@ import java.util.ResourceBundle;
 
 import GUI.FrontendController;
 
-public class MoveTurtle {
+public class MoveTurtle extends MenuButtonControl{
     private FrontendController context;
-    private ResourceBundle myDirectionsResources;
-    private MenuButton button;
 
     /**
      * TODO: Refactor so that all the buttons can extend control
@@ -26,45 +24,16 @@ public class MoveTurtle {
      * @param context
      */
     public MoveTurtle(FrontendController context) {
-        this.myDirectionsResources = ResourceBundle.getBundle("/buttonProperties/TurtleMovements");
+        super(new Image(FrontendController.class.getResourceAsStream("/images/moveTurtle.png")), "/buttonProperties/TurtleMovements");
         this.context = context;
-        this.button = new MenuButton();
-
-        ImageView img = new ImageView(new Image(FrontendController.class.getResourceAsStream("/images/moveTurtle.png")));
-        img.setFitHeight(20.0);
-        img.setFitWidth(20.0);
-        button.setGraphic(img);
-        button.getStyleClass().add("button");
-
-        List<MenuItem> itemList = makeMenuItems();
-
-        button.getItems().addAll(itemList);
     }
 
-    private List<MenuItem> makeMenuItems() {
-        EventHandler<ActionEvent> action = move();
-        Enumeration<String> itemEnum = myDirectionsResources.getKeys();
-        var itemList = new ArrayList<MenuItem>();
-
-        while(itemEnum.hasMoreElements()) {
-            String menuItemLabel = itemEnum.nextElement();
-            MenuItem menuItem = new MenuItem(menuItemLabel);
-            menuItem.setOnAction(action);
-            itemList.add(menuItem);
-        }
-
-        return itemList;
-    }
-
-    private EventHandler<ActionEvent> move() {
+    @Override
+    protected EventHandler<ActionEvent> action() {
         return event -> {
             MenuItem mItem = (MenuItem) event.getSource();
-            String command = myDirectionsResources.getString(mItem.getText());
+            String command = myResourceBundle.getString(mItem.getText());
             context.sendCommandString(command);
         };
-    }
-
-    public MenuButton getButton() {
-        return button;
     }
 }

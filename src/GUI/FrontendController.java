@@ -189,7 +189,7 @@ public class FrontendController {
         File chosenFile = fileChooser.showOpenDialog(myStage);
         if (chosenFile != null) {
             try {
-                setTurtleImage.setImage(chosenFile);
+                setTurtleImage.setImage(chosenFile, setTurtleImage.getButton());
                 for (Turtle turtle: backendController.getMyTurtles()){
                     turtle.setTurtleImage(new Image(new FileInputStream(chosenFile.getPath())));
                 }

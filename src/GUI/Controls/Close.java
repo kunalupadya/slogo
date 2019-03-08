@@ -1,11 +1,14 @@
 package GUI.Controls;
 
 import GUI.Modules.Module;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 
 public class Close extends ButtonControl {
     private Module context;
     private Class clazz;
+
     /**
      * TODO: finish JavaDoc
      *
@@ -13,16 +16,16 @@ public class Close extends ButtonControl {
      */
     public Close(Module context, Class clazz) {
         super(new Image(Module.class.getResourceAsStream("/images/close.png")));
-        img.setFitHeight(10.0);
-        img.setFitWidth(10.0);
-        this.button.setGraphic(img);
-        this.button.getStyleClass().add("close-button");
+        myImage.setFitHeight(10.0);
+        myImage.setFitWidth(10.0);
+        this.myButton.setGraphic(myImage);
+        this.myButton.getStyleClass().add("close-button");
         this.context = context;
         this.clazz = clazz;
     }
 
     @Override
-    protected void action() {
-        context.close(clazz);
+    protected EventHandler<MouseEvent> action() {
+        return event -> context.close(clazz);
     }
 }

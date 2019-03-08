@@ -1,7 +1,9 @@
 package GUI.Controls;
 
 import GUI.FrontendController;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 
 public class Redo extends ButtonControl {
     private FrontendController context;
@@ -12,7 +14,9 @@ public class Redo extends ButtonControl {
     }
 
     @Override
-    protected void action() {
-
+    protected EventHandler<MouseEvent> action() {
+        return event -> {
+            // TODO: INTEGRATE
+        };
     }
 }

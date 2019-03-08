@@ -1,7 +1,7 @@
 package GUI.Modules;
 
 import GUI.Controls.Close;
-import GUI.Controls.Control;
+import GUI.Controls.ButtonControl;
 import GUI.FrontendController;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
@@ -13,14 +13,15 @@ import java.util.ResourceBundle;
  * @author Januario Carreiro & David Liu
  */
 public abstract class Module {
-    private ResourceBundle myResourceBundles;
-    private Pane content;
-    private final VBox module;
-    private Pane toolbarPane;
-    private int moduleWidth;
-    private int moduleHeight;
-    private FrontendController context;
-    private Control close;
+    public ResourceBundle myResourceBundles;
+    public VBox container;
+    public Pane content;
+    public final VBox module;
+    Pane toolbarPane;
+    public int moduleWidth;
+    public int moduleHeight;
+    public FrontendController context;
+    ButtonControl close;
 
     final double toolbarHeight = 20.0;
 
@@ -84,5 +85,5 @@ public abstract class Module {
 
     protected Pane getToolbarPane() { return toolbarPane; }
 
-    protected Control getClose() { return close; }
+    public ButtonControl getClose() { return close; }
 }

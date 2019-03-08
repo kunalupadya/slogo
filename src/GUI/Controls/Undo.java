@@ -3,7 +3,7 @@ package GUI.Controls;
 import GUI.FrontendController;
 import javafx.scene.image.Image;
 
-public class Undo extends Control {
+public class Undo extends ButtonControl {
     private FrontendController context;
 
     public Undo(FrontendController context) {

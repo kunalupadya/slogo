@@ -3,7 +3,7 @@ package GUI.Controls;
 import GUI.FrontendController;
 import javafx.scene.image.Image;
 
-public class SetTurtleImage extends Control {
+public class SetTurtleImage extends ButtonControl {
     private FrontendController context;
 
     public SetTurtleImage(FrontendController context) {

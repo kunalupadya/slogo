@@ -3,7 +3,7 @@ package GUI.Controls;
 import GUI.Modules.Editor;
 import javafx.scene.image.Image;
 
-public class Run extends Control {
+public class Run extends ButtonControl {
     private Editor context;
 
     public Run(Editor context) {

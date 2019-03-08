@@ -49,7 +49,7 @@ public class FrontendController {
     private OpenHelp openHelp;
     private MoveTurtle moveTurtle;
     private SwitchLanguages switchLanguages;
-    private Control redo, run, undo, stopExecution, setTurtleImage, save;
+    private ButtonControl redo, run, undo, stopExecution, setTurtleImage, save;
     private ColorPicker setBackgroundColor, setPenColor;
     private BackendController backendController;
     private String defaultLanguage = "English";

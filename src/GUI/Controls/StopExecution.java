@@ -3,7 +3,7 @@ package GUI.Controls;
 import GUI.FrontendController;
 import javafx.scene.image.Image;
 
-public class StopExecution extends Control {
+public class StopExecution extends ButtonControl {
     private FrontendController context;
 
     public StopExecution(FrontendController context) {

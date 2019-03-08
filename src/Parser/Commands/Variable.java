@@ -20,7 +20,6 @@ public class Variable extends Command{
             isConstant = true;
         }
         else{
-            System.out.println("Variable not defined!");
             //throw new TODO make an exception for not having defined the variable
         }
     }

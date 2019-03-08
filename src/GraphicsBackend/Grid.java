@@ -128,7 +128,6 @@ public class Grid implements ImmutableGrid{
             myObjects.add(movement);
             newLineMovements.add(movement);
         }
-        System.out.println("Newline:" + xPos + " " + yPos + " " + newXPos + " " + newYPos + " ");
     }
 
     private Optional<Point> calculateIntersectionWithBounds(Point movementStart, Point movementEnd) {

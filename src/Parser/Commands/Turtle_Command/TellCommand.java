@@ -24,7 +24,6 @@ public class TellCommand extends Command{
 
         List<Turtle> turtleList= backendController.getMyTurtles();
         for (int a = 0; a < startCommand.getChildren().size() - 1; a++) {
-//            System.out.println(startCommand.getChildren().size() -1);
             int turtleIndex = (int) startCommand.getChildren().get(a).getReturnValue();
             if (turtleIndex < turtleList.size()) {
                 assignedTurtleList.add(turtleList.get(turtleIndex));

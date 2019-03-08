@@ -33,7 +33,6 @@ class TokenConverter {
             String regex = resources.getString(key);
             regexMap.put(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE));
         }
-        System.out.println(regexMap);
         return regexMap;
 
     }

@@ -5,7 +5,7 @@ import GUI.Modules.*;
 import GraphicsBackend.ImmutablePen;
 import GUI.Modules.Console;
 import GraphicsBackend.Turtle;
-import Main.BackendController;
+import Parser.BackendController;
 import javafx.collections.ObservableList;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
@@ -389,7 +389,7 @@ public class FrontendController {
                     Method m = myContainer.getClass().getDeclaredMethod(modulePosition, Node.class);
                     m.invoke(myContainer, (Object) null);
                 } catch (Exception e) {
-                    System.out.println("Error Occurred when Removing Module");
+//                    System.out.println("Error Occurred when Removing Module");
                 }
                 break;
             case "leftBorderPane":
@@ -397,7 +397,7 @@ public class FrontendController {
                     Method m = leftBorderPane.getClass().getMethod(modulePosition, Node.class);
                     m.invoke(leftBorderPane, (Object) null);
                 } catch (Exception e) {
-                    System.out.println("Error Occurred when Removing Module");
+//                    System.out.println("Error Occurred when Removing Module");
                 }
                 break;
             case "rightBorderPane":
@@ -405,7 +405,7 @@ public class FrontendController {
                     Method m = rightBorderPane.getClass().getMethod(modulePosition, Node.class);
                     m.invoke(rightBorderPane, (Object) null);
                 } catch (Exception e) {
-                    System.out.println("Error Occurred when Removing Module");
+//                    System.out.println("Error Occurred when Removing Module");
                 }
                 break;
         }

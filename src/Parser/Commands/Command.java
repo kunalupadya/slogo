@@ -49,7 +49,6 @@ public abstract class Command{
 
     public void execute(BackendController backendController) {
         performAction(backendController);
-        System.out.println(returnValue);
         isConstant = true;
     }
 

@@ -1,6 +1,7 @@
 package Parser;
 
 public enum Token {
+    COMMENT,
     CONSTANT,
     VARIABLE,
     COMMAND,

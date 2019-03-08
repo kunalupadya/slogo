@@ -5,6 +5,7 @@ import Parser.Commands.Command;
 
 public class IfElseCommand extends ControlCommand {
 
+    private final int EXPRESSION_INDEX = 0;
     private final int TRUE_COMMANDS = 1;
     private final int FALSE_COMMANDS = 2;
 
@@ -16,7 +17,7 @@ public class IfElseCommand extends ControlCommand {
 
     @Override
     protected void performAction(BackendController backendController) {
-        if (initialExpressions.get(0).getReturnValue() != 0) {
+        if (initialExpressions.get(EXPRESSION_INDEX).getReturnValue() != 0) {
             setListToRun((ListStartCommand) myChildrenList.get(TRUE_COMMANDS));
         } else {
             setListToRun((ListStartCommand) myChildrenList.get(FALSE_COMMANDS));
@@ -26,7 +27,7 @@ public class IfElseCommand extends ControlCommand {
 
     @Override
     public void setInitialExpressions() {
-        initialExpressions.add(myChildrenList.get(0));
+        initialExpressions.add(myChildrenList.get(EXPRESSION_INDEX));
     }
 
     @Override

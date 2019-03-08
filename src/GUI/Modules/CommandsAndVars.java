@@ -23,7 +23,7 @@ public class CommandsAndVars extends ListModule {
         setClick();
     }
 
-    public void setClick() {
+    protected void setClick() {
         listDisplay.setCellFactory(lv -> {
             ListCell<String> cell = new ListCell<String>() {
                 @Override

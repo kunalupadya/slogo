@@ -22,7 +22,7 @@ public class CurrentState extends ListModule {
     }
 
     @Override
-    public void setPlaceholder() {
+    protected void setPlaceholder() {
         myResourceBundles = getMyResourceBundles();
         listDisplay = getListDisplay();
         listDisplay.setPlaceholder(new Label(myResourceBundles.getString("TurtleAndPens")));

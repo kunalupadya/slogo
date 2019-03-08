@@ -22,7 +22,7 @@ public class AvailableVars extends CommandsAndVars{
     }
 
     @Override
-    public void setClick() {
+    protected void setClick() {
         listDisplay.setCellFactory(lv -> {
             ListCell<String> cell = new ListCell<String>() {
                 @Override
@@ -41,7 +41,7 @@ public class AvailableVars extends CommandsAndVars{
     }
 
     @Override
-    public void setPlaceholder() {
+    protected void setPlaceholder() {
         myResourceBundles = getMyResourceBundles();
         listDisplay = getListDisplay();
         String availableVars = myResourceBundles.getString("AvailableVars");

@@ -47,9 +47,7 @@ public class FrontendController {
     private Palettes palettes;
     private CurrentState currentState;
     private Console console;
-    private OpenHelp openHelp;
-    private MoveTurtle moveTurtle;
-    private SwitchLanguages switchLanguages;
+    private MenuButtonControl openHelp, moveTurtle, switchLanguages, penThickess;
     private ButtonControl redo, run, undo, stopExecution, setTurtleImage, save;
     private ColorPicker setBackgroundColor, setPenColor;
     private BackendController backendController;
@@ -145,6 +143,9 @@ public class FrontendController {
         switchLanguages = new SwitchLanguages(this);
         switchLanguages.getButton().setTooltip(new Tooltip("Switch Languages"));
 
+        penThickess = new SetPenThickness(this);
+        penThickess.getButton().setTooltip(new Tooltip("Set Pen Thickness"));
+
         save = new Save(this);
         save.getButton().setTooltip(new Tooltip("Save"));
 
@@ -164,7 +165,8 @@ public class FrontendController {
         run.getButton().setTooltip(new Tooltip("Run"));
 
         var leftButtons = new HBox(openHelp.getButton(), switchLanguages.getButton(),
-                setBackgroundColor, setPenColor, setTurtleImage.getButton(), save.getButton());
+                setBackgroundColor, setPenColor, penThickess.getButton(),
+                setTurtleImage.getButton(), save.getButton());
         leftButtons.getStyleClass().add("button-container");
 
         var padding = new Region();
@@ -432,7 +434,7 @@ public class FrontendController {
         close.getButton().setLayoutX(dialogBox.getWidth() - 50);
         close.getButton().setLayoutY(10);
         close.getButton().setCursor(Cursor.HAND);
-        close.getButton().setTooltip(new Tooltip("Close Menu"));
+        close.getButton().setTooltip(new Tooltip("Close Help"));
 
         Scanner s = new Scanner(this.getClass().getResourceAsStream(helpPath));
         while (s.hasNextLine()) {
@@ -449,6 +451,14 @@ public class FrontendController {
 
     public void closeHelp(Group group) {
         myContainer.getChildren().remove(group);
+    }
+
+    public void setPenThickness(int value) {
+        turtles = backendController.getMyTurtles();
+        for (Turtle turtle: turtles) {
+            Pen pen = turtle.getMyPen();
+            pen.setPenSize(pen.getPenSize() + value);
+        }
     }
 
     public void save() {}

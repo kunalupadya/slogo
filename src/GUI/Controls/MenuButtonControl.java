@@ -52,4 +52,6 @@ public abstract class MenuButtonControl extends Control {
     public MenuButton getButton() {
         return myButton;
     }
+
+    public abstract void setResourceBundle(String resourceBundleName);
 }

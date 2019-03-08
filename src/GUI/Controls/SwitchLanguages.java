@@ -7,6 +7,8 @@ import javafx.event.ActionEvent;
 
 import GUI.FrontendController;
 
+import java.util.ResourceBundle;
+
 public class SwitchLanguages extends MenuButtonControl{
     private FrontendController myContext;
 
@@ -25,5 +27,10 @@ public class SwitchLanguages extends MenuButtonControl{
             MenuItem mItem = (MenuItem) event.getSource();
             myContext.changeLanguage(mItem.getText());
         };
+    }
+
+    @Override
+    public void setResourceBundle(String resourceBundleName) {
+        myResourceBundle = ResourceBundle.getBundle("/languageProperties/" + resourceBundleName);
     }
 }

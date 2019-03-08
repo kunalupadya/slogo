@@ -1,16 +1,10 @@
 package Parser;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+class RemoveComment {
 
-public class RemoveComment {
+    RemoveComment(){}
 
-
-    public RemoveComment(){}
-
-    public String deleteComment(String myString) {
+    String deleteComment(String myString) {
         if (!myString.contains("#")) {
              return myString;
         } else {

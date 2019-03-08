@@ -13,24 +13,24 @@ import java.util.List;
 import java.util.Optional;
 
 
-public class ParsingTree {
+class ParsingTree {
 
-    public static final int FIRST = 0;
+    private static final int FIRST = 0;
     private Command headNode;
     private Command currCommand;
     private BackendController backendController;
 
-    public ParsingTree(List<Command> commandsList, BackendController backendController){
+    ParsingTree(List<Command> commandsList, BackendController backendController){
         headNode = new RootCommand();
         this.backendController = backendController;
         headNode = makeTree(commandsList, headNode);
     }
 
-    public Command getRoot(){
+    Command getRoot(){
         return headNode;
     }
 
-    public Command makeTree(List<Command> commandsList, Command parent){
+    private Command makeTree(List<Command> commandsList, Command parent){
         while (!commandsList.isEmpty()) {
             currCommand = commandsList.remove(FIRST);
             Command savedCurrentCommand = currCommand;

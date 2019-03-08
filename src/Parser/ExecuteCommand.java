@@ -16,7 +16,7 @@ public class ExecuteCommand {
     private static final String PARAMETERS_MISSING = "Parameters missing";
     private static final String WRONG_NUMBER_OF_PARAMETERS = "Wrong number of parameters";
     private static final int EXPRESSION_INDEX = 1;
-    public static final int COMMAND_INDEX = 0;
+    private static final int COMMAND_INDEX = 0;
     private Command headNode;
     private BackendController backendController;
 
@@ -75,7 +75,6 @@ public class ExecuteCommand {
         node.execute(backendController);
         traverseChildren(node);
         backendController.loadTurtleTell();
-        return;
     }
 
     private void handleGroupCommand(Command node) {

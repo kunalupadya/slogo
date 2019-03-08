@@ -3,10 +3,13 @@ package Parser.Commands.Turtle_Command;
 import Parser.BackendController;
 import Parser.Commands.Command;
 
+/**
+ * @author kunalupadya
+ */
 public class NotEqualCommand extends BooleanCommand{
 
     public NotEqualCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 2;
     }
 

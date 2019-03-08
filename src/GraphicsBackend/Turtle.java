@@ -9,6 +9,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 
+/**
+ * @author kunalupadya
+ */
 public class Turtle implements ImmutableTurtle{
     public static final String DEFAULT_IMAGE = "/images/initialTurtle.png";
     public static final int TURTLE_SIZE = 50;

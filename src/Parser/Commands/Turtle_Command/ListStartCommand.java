@@ -3,9 +3,12 @@ package Parser.Commands.Turtle_Command;
 import Parser.BackendController;
 import Parser.Commands.Command;
 
+/**
+ * @author kunalupadya
+ */
 public class ListStartCommand extends Command {
     public ListStartCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = (int) Double.POSITIVE_INFINITY;
     }
 

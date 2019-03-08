@@ -6,7 +6,7 @@ import Parser.Commands.Command;
 public class ProductCommand extends Command {
 
     public ProductCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 2;
     }
 

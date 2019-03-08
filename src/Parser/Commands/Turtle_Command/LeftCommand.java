@@ -8,7 +8,7 @@ public class LeftCommand extends TurtleCommand {
 
 
     public LeftCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 1;
     }
 

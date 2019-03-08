@@ -7,11 +7,14 @@ import Parser.Commands.Command;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author kunalupadya
+ */
 public class TellCommand extends Command{
 
     private List<Turtle> assignedTurtleList = new ArrayList<>();
     public TellCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 1;
     }
 

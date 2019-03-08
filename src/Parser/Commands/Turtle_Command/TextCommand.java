@@ -7,12 +7,16 @@ import Parser.Commands.Variable;
 import java.util.List;
 import java.util.Optional;
 
+
+/**
+ * @author kunalupadya
+ */
 public class TextCommand extends Command {
 
     public static final int COMMANDS = 3;
 
     public TextCommand(String text){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 0;
         this.text = text;
     }

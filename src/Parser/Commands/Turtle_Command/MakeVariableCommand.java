@@ -4,9 +4,12 @@ import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.Variable;
 
+/**
+ * @author kunalupadya
+ */
 public class MakeVariableCommand extends Command {
     public MakeVariableCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 2;
     }
 

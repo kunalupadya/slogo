@@ -11,7 +11,7 @@ public class RepeatCommand extends ControlCommand {
 
     public RepeatCommand() {
         super();
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 2;
     }
 

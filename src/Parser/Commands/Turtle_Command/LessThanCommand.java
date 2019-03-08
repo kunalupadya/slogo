@@ -7,7 +7,7 @@ import Parser.Commands.Command;
 public class LessThanCommand extends BooleanCommand {
 
     public LessThanCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 2;
     }
 

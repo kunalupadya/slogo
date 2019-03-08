@@ -10,7 +10,7 @@ public class IfElseCommand extends ControlCommand {
 
     public IfElseCommand() {
         super();
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 3;
     }
 

@@ -4,6 +4,9 @@ import javafx.scene.shape.Line;
 
 import java.util.List;
 
+/**
+ * @author kunalupadya
+ */
 public class VectorMovement{
     Point position;
     List<Line> linesAssociatedWithMovement;

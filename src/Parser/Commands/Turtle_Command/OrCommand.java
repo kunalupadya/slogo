@@ -6,7 +6,7 @@ import Parser.Commands.Command;
 public class OrCommand extends BooleanCommand {
 
     public OrCommand() {
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 2;
     }
 

@@ -13,6 +13,9 @@ import javafx.scene.paint.Color;
 
 import java.util.*;
 
+/**
+ * @author kunalupadya
+ */
 public class BackendController {
 
     private String commmandLanguage;
@@ -23,6 +26,7 @@ public class BackendController {
     private List<UserDefinedCommand> userDefinedCommandStack = new LinkedList<>();
     private FrontendController frontendController;
     private List<Boolean> previousTurtleTell;
+    private List<Turtle> askWithList;
     private Palette myPalette;
 
     public BackendController(){

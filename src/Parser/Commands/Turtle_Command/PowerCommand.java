@@ -6,7 +6,7 @@ import Parser.Commands.Command;
 public class PowerCommand extends Command {
 
     public PowerCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 2;
     }
 

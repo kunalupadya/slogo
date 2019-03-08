@@ -8,7 +8,7 @@ import Parser.Commands.TurtleCommand;
 public class ClearScreenCommand extends TurtleCommand {
 
     public ClearScreenCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 0;
     }
 

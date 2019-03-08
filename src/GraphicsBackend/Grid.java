@@ -8,7 +8,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-
+/**
+ * @author kunalupadya
+ */
 public class Grid implements ImmutableGrid{
     public static final double GRID_OFFSET = 0.01;
     public static final double MARGIN_OF_ERROR = 0.001;

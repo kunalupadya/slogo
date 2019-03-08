@@ -8,7 +8,7 @@ import Parser.Commands.TurtleCommand;
 public class HomeCommand extends TurtleCommand {
 
     public HomeCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 0;
     }
 

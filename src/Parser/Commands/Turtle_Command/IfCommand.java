@@ -10,13 +10,13 @@ public class IfCommand extends Command {
 
     public IfCommand(){
         numParameters = 2;
-        isConstant = false;
+        isEvaluated = false;
     }
 
     @Override
     protected void performAction(BackendController backendController) {
         if (myChildrenList.get(EXPRESSION_INDEX).getReturnValue() == 0){
-            myChildrenList.get(LIST_INDEX).setIsConstant(true);
+            myChildrenList.get(LIST_INDEX).setIsEvaluated(true);
         }
     }
 
@@ -30,7 +30,7 @@ public class IfCommand extends Command {
 //
 //    public IfCommand() {
 //        super();
-//        isConstant = false;
+//        isEvaluated = false;
 //        numParameters = 2;
 //    }
 //

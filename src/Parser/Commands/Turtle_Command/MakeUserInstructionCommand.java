@@ -12,12 +12,12 @@ import java.util.Map;
 
 public class MakeUserInstructionCommand extends Command {
 
-    public static final int NAME_NODE = 0;
-    public static final int VARIABLES_LIST_NODE = 1;
-    public static final int COMMANDS_LIST_NODE = 2;
+    private static final int NAME_NODE = 0;
+    private static final int VARIABLES_LIST_NODE = 1;
+    private static final int COMMANDS_LIST_NODE = 2;
     private List< Variable> variables = new ArrayList<>();
 
-    public MakeUserInstructionCommand(){
+    private MakeUserInstructionCommand(){
         isConstant = false;
         numParameters = 3;
     }

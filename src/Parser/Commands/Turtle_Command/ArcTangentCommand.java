@@ -7,7 +7,7 @@ import Parser.Commands.Command;
 public class ArcTangentCommand extends Command {
 
     public ArcTangentCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 1;
     }
 

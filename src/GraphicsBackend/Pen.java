@@ -4,6 +4,9 @@ import javafx.scene.paint.Color;
 
 import java.util.Optional;
 
+/**
+ * @author kunalupadya
+ */
 public class Pen implements ImmutablePen{
 
     //TODO Need to change pencolor to int

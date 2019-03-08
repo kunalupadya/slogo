@@ -6,7 +6,7 @@ import Parser.Commands.Command;
 public class GreaterThanCommand extends BooleanCommand {
 
     public GreaterThanCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 2;
     }
 

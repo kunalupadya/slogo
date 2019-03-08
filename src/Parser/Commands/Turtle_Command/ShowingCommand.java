@@ -10,7 +10,7 @@ public class ShowingCommand extends TurtleCommand {
     public static final int HIDDEN = 0;
 
     public ShowingCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 0;
     }
 

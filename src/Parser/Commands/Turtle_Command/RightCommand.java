@@ -7,7 +7,7 @@ import Parser.Commands.TurtleCommand;
 public class RightCommand extends TurtleCommand {
 
     public RightCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 1;
     }
 

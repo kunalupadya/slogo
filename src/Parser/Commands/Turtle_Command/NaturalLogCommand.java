@@ -6,7 +6,7 @@ import Parser.Commands.Command;
 public class NaturalLogCommand extends Command {
 
     public NaturalLogCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 1;
     }
 

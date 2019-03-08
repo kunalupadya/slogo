@@ -1,5 +1,8 @@
 package GraphicsBackend;
 
+/**
+ * @author kunalupadya
+ */
 public class Point {
     private double myX;
     private double myY;

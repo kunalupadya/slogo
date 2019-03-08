@@ -8,7 +8,7 @@ import java.util.Random;
 public class RandomCommand extends Command {
 
     public RandomCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 1;
     }
 

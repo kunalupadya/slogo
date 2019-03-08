@@ -7,7 +7,7 @@ import Parser.Commands.TurtleCommand;
 public class ShapeCommand extends TurtleCommand {
 
     public ShapeCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 0;
     }
 

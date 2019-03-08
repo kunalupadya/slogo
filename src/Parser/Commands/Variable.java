@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public class Variable extends Command{
     public Variable(String text){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 0;
         this.text = text;
     }
@@ -17,10 +17,9 @@ public class Variable extends Command{
 
         if (variableValue.isPresent()){
             returnValue = variableValue.get();
-            isConstant = true;
+            isEvaluated = true;
         }
         else{
-            System.out.println("Variable not defined!");
             //throw new TODO make an exception for not having defined the variable
         }
     }

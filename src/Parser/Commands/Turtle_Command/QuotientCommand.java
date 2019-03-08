@@ -6,7 +6,7 @@ import Parser.Commands.Command;
 public class QuotientCommand extends Command {
 
     public QuotientCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 2;
     }
 

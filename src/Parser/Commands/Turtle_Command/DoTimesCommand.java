@@ -12,7 +12,7 @@ public class DoTimesCommand extends ControlCommand {
 
     public DoTimesCommand() {
         super();
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 2;
     }
 

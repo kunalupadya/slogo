@@ -4,10 +4,13 @@ import GraphicsBackend.Turtle;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
+/**
+ * @author kunalupadya
+ */
 public class SetHeadingCommand extends TurtleCommand{
 
     public SetHeadingCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 1;
     }
 

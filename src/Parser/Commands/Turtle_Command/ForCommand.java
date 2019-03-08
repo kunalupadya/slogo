@@ -13,7 +13,7 @@ public class ForCommand extends ControlCommand {
 
     public ForCommand() {
         super();
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 2;
     }
 

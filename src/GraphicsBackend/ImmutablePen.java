@@ -2,6 +2,9 @@ package GraphicsBackend;
 
 import javafx.scene.paint.Color;
 
+/**
+ * @author kunalupadya
+ */
 public interface ImmutablePen {
 
     public Color getMyPenColor();

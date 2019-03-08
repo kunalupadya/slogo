@@ -12,7 +12,7 @@ public class IDCommand extends TurtleCommand {
     private int turtleId;
     private ArrayList<Turtle> aliveTurtles;
     public IDCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 0;
     }
 

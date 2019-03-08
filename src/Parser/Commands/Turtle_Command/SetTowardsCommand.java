@@ -4,10 +4,13 @@ import GraphicsBackend.Turtle;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
+/**
+ * @author kunalupadya
+ */
 public class SetTowardsCommand extends TurtleCommand {
 
     public SetTowardsCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 2;
     }
 

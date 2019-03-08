@@ -2,11 +2,14 @@ package Parser.Commands;
 
 import Parser.BackendController;
 
+/**
+ * @author kunalupadya
+ */
 public class ConstantCommand extends Command {
 
     public ConstantCommand(Double input){
         returnValue = input;
-        isConstant = true;
+        isEvaluated = true;
         numParameters = 0;
     }
 

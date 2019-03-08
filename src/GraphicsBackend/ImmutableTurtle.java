@@ -2,6 +2,9 @@ package GraphicsBackend;
 
 import javafx.scene.image.ImageView;
 
+/**
+ * @author kunalupadya
+ */
 public interface ImmutableTurtle {
 
     public boolean getIsTurtleActive();

@@ -6,7 +6,7 @@ import Parser.Commands.Command;
 public class SineCommand extends Command {
 
     public SineCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 1;
     }
 

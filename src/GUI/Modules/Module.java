@@ -64,25 +64,25 @@ public abstract class Module {
 
     public void close(Class clazz) {context.close(clazz);}
 
-    public Pane getPane() {
+    protected Pane getPane() {
         return content;
     }
 
-    public int getModuleWidth() {
+    protected int getModuleWidth() {
         return moduleWidth;
     }
 
-    public ResourceBundle getMyResourceBundles() {
+    protected ResourceBundle getMyResourceBundles() {
         return myResourceBundles;
     }
 
-    public FrontendController getContext() {
+    protected FrontendController getContext() {
         return context;
     }
 
-    public int getModuleHeight() { return moduleHeight; }
+    protected int getModuleHeight() { return moduleHeight; }
 
-    public Pane getToolbarPane() { return toolbarPane; }
+    protected Pane getToolbarPane() { return toolbarPane; }
 
-    public Control getClose() { return close; }
+    protected Control getClose() { return close; }
 }

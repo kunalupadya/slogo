@@ -19,7 +19,7 @@ public class UserCommands extends CommandsAndVars {
     }
 
     @Override
-    public void setPlaceholder() {
+    protected void setPlaceholder() {
         myResourceBundles = getMyResourceBundles();
         listDisplay = getListDisplay();
         listDisplay.setPlaceholder(new Label(myResourceBundles.getString("UserCommands")));

@@ -1,7 +1,6 @@
 package GUI.Modules;
 
 import GUI.Controls.ButtonControl;
-import GUI.Controls.Control;
 import GUI.FrontendController;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;

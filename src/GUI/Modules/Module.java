@@ -13,15 +13,14 @@ import java.util.ResourceBundle;
  * @author Januario Carreiro & David Liu
  */
 public abstract class Module {
-    public ResourceBundle myResourceBundles;
-    public VBox container;
-    public Pane content;
-    public final VBox module;
-    Pane toolbarPane;
-    public int moduleWidth;
-    public int moduleHeight;
-    public FrontendController context;
-    ButtonControl close;
+    private ResourceBundle myResourceBundles;
+    private Pane content;
+    private final VBox module;
+    private Pane toolbarPane;
+    private int moduleWidth;
+    private int moduleHeight;
+    private FrontendController context;
+    private ButtonControl close;
 
     final double toolbarHeight = 20.0;
 
@@ -65,25 +64,25 @@ public abstract class Module {
 
     public void close(Class clazz) {context.close(clazz);}
 
-    public Pane getPane() {
+    protected Pane getPane() {
         return content;
     }
 
-    public int getModuleWidth() {
+    protected int getModuleWidth() {
         return moduleWidth;
     }
 
-    public ResourceBundle getMyResourceBundles() {
+    protected ResourceBundle getMyResourceBundles() {
         return myResourceBundles;
     }
 
-    public FrontendController getContext() {
+    protected FrontendController getContext() {
         return context;
     }
 
-    public int getModuleHeight() { return moduleHeight; }
+    protected int getModuleHeight() { return moduleHeight; }
 
-    public Pane getToolbarPane() { return toolbarPane; }
+    protected Pane getToolbarPane() { return toolbarPane; }
 
     public ButtonControl getClose() { return close; }
 }

@@ -2,9 +2,11 @@ package GUI;
 
 import GUI.Controls.*;
 import GUI.Modules.*;
+import GUI.Modules.Console;
 import GraphicsBackend.Pen;
 import GraphicsBackend.Turtle;
 import Main.BackendController;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -12,6 +14,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
@@ -22,8 +25,7 @@ import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.*;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.ArrayList;
@@ -83,7 +85,6 @@ public class FrontendController {
     public FrontendController(BorderPane root, Stage stage) {
         this.myStage = stage;
         this.myContainer = root;
-
         this.myModuleLabels = ResourceBundle.getBundle(moduleLabels);
         this.myModuleContainer = ResourceBundle.getBundle(moduleContainer);
         this.myModulePosition = ResourceBundle.getBundle(modulePosition);
@@ -289,6 +290,39 @@ public class FrontendController {
     public void getPalettes() {
         Color[] paletteIndices = backendController.getColorPalette();
         palettes.setPalettes(paletteIndices);
+    }
+
+    public void saveToFile() {
+        ObservableList<CharSequence> paragraph = editor.getText();
+        Iterator<CharSequence> iter = paragraph.iterator();
+        try
+        {
+            //Replace Editor1 with filename parameter
+            BufferedWriter bf = new BufferedWriter(new FileWriter(new File("data/editorFiles/Editor.txt")));
+            while (iter.hasNext()) {
+                CharSequence seq = iter.next();
+                bf.append(seq);
+                bf.newLine();
+            }
+            bf.flush();
+            bf.close();
+        }
+        catch (IOException e)
+        {
+            consoleShowError("Cannot write invalid text into a file");
+        }
+    }
+
+    public void loadFile() {
+        try
+        {
+            Scanner s = new Scanner(new File("data/editorFiles/Editor.txt"));
+            editor.readText(s);
+        }
+        catch (FileNotFoundException e)
+        {
+            consoleShowError("File + filename + does not exist");
+        }
     }
 
     public void changeLanguage(String language) {

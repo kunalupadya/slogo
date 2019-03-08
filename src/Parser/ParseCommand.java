@@ -4,9 +4,7 @@ import GraphicsBackend.Turtle;
 import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
-import Parser.Commands.Turtle_Command.ListEndCommand;
-import Parser.Commands.Turtle_Command.ListStartCommand;
-import Parser.Commands.Turtle_Command.TextCommand;
+import Parser.Commands.Turtle_Command.*;
 import Parser.Commands.Variable;
 
 import java.util.*;
@@ -72,12 +70,12 @@ public class ParseCommand {
                 else if (token == Token.LIST_END){
                     newCommand = (new ListEndCommand());
                 }
-                /*else if (token == Token.GROUP_START){
+                else if (token == Token.GROUP_START){
                     newCommand = new GroupStartCommand();
                 }
                 else if (token == Token.GROUP_END){
                     newCommand = new GroupEndCommand();
-                }*/
+                }
                 else if (token == Token.VARIABLE){
                     newCommand = new Variable(word.substring(1));
                 }

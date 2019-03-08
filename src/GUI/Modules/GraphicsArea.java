@@ -44,7 +44,6 @@ public class GraphicsArea extends Module {
         for (int i = 0; i < turtleImages.size(); i++) {
             ImageView turtle = turtleImages.get(i);
             if (turtleActives.get(i)) {
-                //Fix this magic value?
                 turtle.getStyleClass().add(myResourceBundles.getString("TurtleDropShadow"));
             }
             content.getChildren().add(turtle);

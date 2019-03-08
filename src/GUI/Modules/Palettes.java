@@ -33,7 +33,7 @@ public class Palettes extends ListModule {
         list.clear();
         for (int i = 0; i < myPalettes.length; i++) {
             if (myPalettes[i] != null) {
-                String index = myResourceBundles.getString("PaletteIndex") + i + myResourceBundles.getString("PaletteColor") + myPalettes[i];
+                String index = myResourceBundles.getString("PaletteIndex") + i + " " + myResourceBundles.getString("PaletteColor") + myPalettes[i];
                 listCollection.add(index);
                 list.add(index);
             }

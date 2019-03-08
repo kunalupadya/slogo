@@ -98,3 +98,11 @@
 .turtle-shadow {
     -fx-effect: dropshadow(three-pass-box, purple, 10, 0, 0, 0);
 }
+
+.console-red{
+    -fx-text-inner-color: red;
+}
+
+.console-black{
+    -fx-text-inner-color: black;
+}

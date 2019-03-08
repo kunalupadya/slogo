@@ -75,7 +75,8 @@ public class FrontendController {
     private String moduleContainer = "/buttonProperties/ModuleContainer";
     private String modulePosition = "/buttonProperties/ModulePosition";
     private String moduleLabels = "/moduleProperties/ModuleLabel";
-
+    private String editorPath = "data/editorFiles/";
+    private Boolean checkSimulation = false;
 
     /**
      * TODO: add JavaDoc
@@ -240,10 +241,6 @@ public class FrontendController {
         }
     }
 
-//    public void addToPrevCommands(String commandString) {
-//        console.addToHistory(commandString);
-//    }
-
     public void addToConsole(String commandString) {
         console.addToConsole(commandString);
     }
@@ -292,13 +289,13 @@ public class FrontendController {
         palettes.setPalettes(paletteIndices);
     }
 
-    public void saveToFile() {
+    public void saveToFile(String filename) {
         ObservableList<CharSequence> paragraph = editor.getText();
         Iterator<CharSequence> iter = paragraph.iterator();
         try
         {
             //Replace Editor1 with filename parameter
-            BufferedWriter bf = new BufferedWriter(new FileWriter(new File("data/editorFiles/Editor.txt")));
+            BufferedWriter bf = new BufferedWriter(new FileWriter(new File(editorPath + filename + ".txt")));
             while (iter.hasNext()) {
                 CharSequence seq = iter.next();
                 bf.append(seq);
@@ -313,20 +310,24 @@ public class FrontendController {
         }
     }
 
-    public void loadFile() {
+    public void loadFile(String filename) {
         try
         {
-            Scanner s = new Scanner(new File("data/editorFiles/Editor.txt"));
+            Scanner s = new Scanner(new File(editorPath + filename + ".txt"));
             editor.readText(s);
         }
         catch (FileNotFoundException e)
         {
-            consoleShowError("File + filename + does not exist");
+            consoleShowError("File " + filename + ".txt does not exist");
         }
     }
 
     public void changeLanguage(String language) {
         backendController.setCommandLanguage(language);
+    }
+
+    public void runSimulation() {
+        backendController.parseAndRun("go");
     }
 
     public void step() {
@@ -335,6 +336,9 @@ public class FrontendController {
         getPalettes();
         getAvailableVars();
         getUserCommands();
+        if (checkSimulation) {
+            runSimulation();
+        }
     }
 
     /**

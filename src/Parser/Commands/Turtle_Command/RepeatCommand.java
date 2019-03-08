@@ -7,7 +7,9 @@ import Parser.Commands.Variable;
 
 public class RepeatCommand extends ControlCommand {
 
-    private ListStartCommand commandListOrig = (ListStartCommand) myChildrenList.get(1);
+    private final int EXPRESSION_INDEX = 0;
+    private final int COMMANDS_INDEX = 1;
+    private ListStartCommand commandListOrig;
 
     public RepeatCommand() {
         super();
@@ -38,12 +40,13 @@ public class RepeatCommand extends ControlCommand {
 
     @Override
     public void setInitialExpressions() {
-        initialExpressions.add(myChildrenList.get(0));
+        initialExpressions.add(myChildrenList.get(EXPRESSION_INDEX));
     }
 
     @Override
     public void setUpLoop() {
-        limit = (int) initialExpressions.get(0).getReturnValue();
+        limit = (int) initialExpressions.get(EXPRESSION_INDEX).getReturnValue();
+        commandListOrig = (ListStartCommand) myChildrenList.get(COMMANDS_INDEX);
     }
 
     @Override

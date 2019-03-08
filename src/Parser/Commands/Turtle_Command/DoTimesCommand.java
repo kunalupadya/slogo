@@ -7,7 +7,9 @@ import Parser.Commands.Variable;
 
 public class DoTimesCommand extends ControlCommand {
 
-    private ListStartCommand commandListOrig = (ListStartCommand) myChildrenList.get(1);
+    private final int VAR_LIMIT_INDEX = 0;
+    private final int COMMANDS_INDEX = 1;
+    private ListStartCommand commandListOrig;
     private Variable loopVar;
 
     public DoTimesCommand() {
@@ -39,15 +41,16 @@ public class DoTimesCommand extends ControlCommand {
 
     @Override
     public void setInitialExpressions() {
-        ListStartCommand loopParam = (ListStartCommand) myChildrenList.get(0);
+        ListStartCommand loopParam = (ListStartCommand) myChildrenList.get(VAR_LIMIT_INDEX);
         initialExpressions.add(loopParam.getChildren().get(1));
     }
 
     @Override
     public void setUpLoop() {
-        ListStartCommand loopParam = (ListStartCommand) myChildrenList.get(0);
+        ListStartCommand loopParam = (ListStartCommand) myChildrenList.get(VAR_LIMIT_INDEX);
         loopVar = (Variable) loopParam.getChildren().get(0);
         limit = (int) initialExpressions.get(0).getReturnValue();
+        commandListOrig = (ListStartCommand) myChildrenList.get(COMMANDS_INDEX);
     }
 
     @Override

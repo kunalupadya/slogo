@@ -30,8 +30,11 @@ public class AskCommand extends Command{
         for (Turtle t:turtles){
             t.setTurtleActive(false);
         }
+
+
+
         for(int currentTurtleFromList = 0; currentTurtleFromList<turtleList.getChildren().size() - LIST_END_COMMAND_OFFSET; currentTurtleFromList++){
-            turtles.get((int) turtleList.getChildren().get(currentTurtleFromList).getReturnValue()).setTurtleActive(true);
+            turtles.get((int) turtleList.getChildren().get(currentTurtleFromList).getReturnValue()-1).setTurtleActive(true);
         }
     }
 

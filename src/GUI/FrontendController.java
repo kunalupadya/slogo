@@ -327,6 +327,7 @@ public class FrontendController {
 
     public void changeLanguage(String language) {
         backendController.setCommandLanguage(language);
+        moveTurtle.setResourceBundle(language);
     }
 
     public void runSimulation() {

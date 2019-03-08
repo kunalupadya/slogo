@@ -16,6 +16,7 @@ import GUI.FrontendController;
 
 public class MoveTurtle extends MenuButtonControl{
     private FrontendController context;
+    private ResourceBundle languageResourceBundle;
 
     /**
      * TODO: Refactor so that all the buttons can extend control
@@ -25,6 +26,7 @@ public class MoveTurtle extends MenuButtonControl{
      */
     public MoveTurtle(FrontendController context) {
         super(new Image(FrontendController.class.getResourceAsStream("/images/moveTurtle.png")), "/buttonProperties/TurtleMovements");
+        languageResourceBundle = ResourceBundle.getBundle("/languageProperties/English");
         this.context = context;
     }
 
@@ -32,8 +34,13 @@ public class MoveTurtle extends MenuButtonControl{
     protected EventHandler<ActionEvent> action() {
         return event -> {
             MenuItem mItem = (MenuItem) event.getSource();
-            String command = myResourceBundle.getString(mItem.getText());
-            context.sendCommandString(command);
+            String command = languageResourceBundle.getString(mItem.getText());
+            String[] commands = command.split("\\|");
+            context.sendCommandString(commands[1] + " 10");
         };
+    }
+
+    public void setResourceBundle(String myLanguage) {
+        languageResourceBundle = ResourceBundle.getBundle("/languageProperties/" + myLanguage);
     }
 }

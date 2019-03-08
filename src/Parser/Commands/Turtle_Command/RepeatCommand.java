@@ -3,11 +3,11 @@ package Parser.Commands.Turtle_Command;
 import Main.BackendController;
 import Parser.Commands.Command;
 
-public class IfCommand extends ControlCommand {
+public class RepeatCommand extends ControlCommand {
 
-    private final int commandList = 1;
+    private ListStartCommand commandListOrig = (ListStartCommand) myChildrenList.get(1);
 
-    public IfCommand() {
+    public RepeatCommand() {
         super();
         isConstant = false;
         numParameters = 2;
@@ -15,10 +15,15 @@ public class IfCommand extends ControlCommand {
 
     @Override
     protected void performAction(BackendController backendController) {
-        if (initialExpression.getReturnValue() != 0) {
-            setListToRun((ListStartCommand) myChildrenList.get(commandList));
+        if (currCount < limit) {
+            setListToRun(copyList(commandListOrig));
+            currCount++;
+            runAgain = true;
         }
-        runAgain = false;
+        else{
+            runAgain = false;
+        }
+
     }
 
     @Override
@@ -28,6 +33,6 @@ public class IfCommand extends ControlCommand {
 
     @Override
     public Command copy() {
-        return new IfCommand();
+        return new RepeatCommand();
     }
 }

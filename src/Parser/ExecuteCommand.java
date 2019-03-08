@@ -63,9 +63,13 @@ public class ExecuteCommand {
         if (node.getInitialExpression() != null){
             traverse(node.getInitialExpression());
         }
-        if (node.getListToRun() != null){
-            handleListStartCommand(node.getListToRun());
-            node.setReturnValue(node.getListToRun().getReturnValue());
+        node.setLimit(node.getInitialExpression().getReturnValue());
+        while(node.shouldRunAgain()) {
+            node.execute(backendController);
+            if (node.getListToRun() != null) {
+                handleListStartCommand(node.getListToRun());
+                node.setReturnValue(node.getListToRun().getReturnValue());
+            }
         }
 
     }

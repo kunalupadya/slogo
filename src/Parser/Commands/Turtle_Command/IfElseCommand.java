@@ -3,20 +3,23 @@ package Parser.Commands.Turtle_Command;
 import Main.BackendController;
 import Parser.Commands.Command;
 
-public class IfCommand extends ControlCommand {
+public class IfElseCommand extends ControlCommand {
 
-    private final int commandList = 1;
+    private final int trueCommandList = 1;
+    private final int falseCommandList = 2  ;
 
-    public IfCommand() {
+    public IfElseCommand() {
         super();
         isConstant = false;
-        numParameters = 2;
+        numParameters = 3;
     }
 
     @Override
     protected void performAction(BackendController backendController) {
         if (initialExpression.getReturnValue() != 0) {
-            setListToRun((ListStartCommand) myChildrenList.get(commandList));
+            setListToRun((ListStartCommand) myChildrenList.get(trueCommandList));
+        } else {
+            setListToRun((ListStartCommand) myChildrenList.get(falseCommandList));
         }
         runAgain = false;
     }

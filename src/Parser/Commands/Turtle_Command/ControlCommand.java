@@ -5,14 +5,15 @@ import Parser.Commands.Command;
 
 public abstract class ControlCommand extends Command {
 
-    boolean runAgain = false;
-    int counter = 0;
+    boolean runAgain = true;
+    int currCount = 0;
+    int limit = 0;
     Command initialExpression = null;
     ListStartCommand listToRun = null;
 
 
     ControlCommand(){
-
+        setReturnValue(0);
     }
 
     public Command getInitialExpression(){
@@ -20,6 +21,14 @@ public abstract class ControlCommand extends Command {
     }
 
     public abstract void setInitialExpression();
+
+    public void setLimit(double value){
+        limit = (int) value;
+    }
+
+    public boolean shouldRunAgain(){
+        return runAgain;
+    }
 
     void setListToRun(ListStartCommand list){
         listToRun = list;

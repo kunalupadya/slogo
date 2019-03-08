@@ -40,7 +40,6 @@ public class FrontendController {
     private Stage myStage;
     private BorderPane myContainer, leftBorderPane, rightBorderPane;
     private HBox buttonHandler;
-    private Group helpGroup;
     private Editor editor;
     private AvailableVars availableVars;
     private UserCommands userCommands;
@@ -412,7 +411,7 @@ public class FrontendController {
     }
 
     public void showHelp(String helpPath) {
-        helpGroup = new Group();
+        Group helpGroup = new Group();
 
         Rectangle dialogBox = new Rectangle(0, 0, 400, 400);
         dialogBox.setEffect(new DropShadow(25, 0, 0, Color.web("#333333")));
@@ -429,7 +428,7 @@ public class FrontendController {
         double originY = myStage.getScene().getHeight()/2 - dialogBox.getLayoutBounds().getHeight()/2 - 15;
         double originX = myStage.getScene().getWidth()/2 - dialogBox.getLayoutBounds().getWidth()/2;
 
-        ButtonControl close = new CloseHelp(this);
+        ButtonControl close = new CloseHelp(this, helpGroup);
         close.getButton().setLayoutX(dialogBox.getWidth() - 50);
         close.getButton().setLayoutY(10);
         close.getButton().setCursor(Cursor.HAND);
@@ -448,9 +447,8 @@ public class FrontendController {
         myContainer.getChildren().add(helpGroup);
     }
 
-    public void closeHelp() {
-        myContainer.getChildren().remove(helpGroup);
-        helpGroup = null;
+    public void closeHelp(Group group) {
+        myContainer.getChildren().remove(group);
     }
 
     public void save() {}

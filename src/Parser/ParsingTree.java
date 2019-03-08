@@ -1,6 +1,5 @@
 package Parser;
 
-import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.RootCommand;
@@ -71,8 +70,12 @@ class ParsingTree {
         if (userDefinedCommand.isPresent()){
             UserDefinedCommand command = userDefinedCommand.get();
             savedCurrentCommand.setNumParameters(command.getVariables().size());
-            parent.addChildren(makeTree(commandsList, savedCurrentCommand));
-
+            if (savedCurrentCommand.getNumParameters() != 0) {
+                parent.addChildren(makeTree(commandsList, savedCurrentCommand));
+            }
+            else {
+                parent.addChildren(savedCurrentCommand);
+            }
         }
         else {
             // throw new TODO create exception, command not defined

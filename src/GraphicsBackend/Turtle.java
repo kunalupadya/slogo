@@ -2,13 +2,14 @@ package GraphicsBackend;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 import java.util.LinkedList;
 import java.util.List;
 
 
-public class Turtle {
+public class Turtle implements ImmutableTurtle{
     public static final String DEFAULT_IMAGE = "/images/initialTurtle.png";
     public static final int TURTLE_SIZE = 50;
     public static final int HALF_TURTLE_SIZE = 25;
@@ -39,7 +40,7 @@ public class Turtle {
         turtleImage = new javafx.scene.image.Image(this.getClass().getResourceAsStream(DEFAULT_IMAGE));
     }
 
-    public void updateATurtleImageView(ImageView turtle){
+    private void updateATurtleImageView(ImageView turtle){
         turtle.setImage(turtleImage);
         turtle.setX(xPos-HALF_TURTLE_SIZE);
         turtle.setY(yPos-HALF_TURTLE_SIZE);
@@ -99,10 +100,6 @@ public class Turtle {
         isTurtleVisible = visibility;
     }
 
-    public boolean getTurtleVisibility(){
-        return isTurtleVisible;
-    }
-
     public boolean isTurtleVisible(){
         return isTurtleVisible;
     }
@@ -135,6 +132,18 @@ public class Turtle {
         this.turtleImage = turtleImage;
     }
 
+    public void setPenColor(Color color){
+        myPen.setPenColor(color);
+    }
+
+    public void setPenSize(int pixelSize){
+        myPen.setPenSize(pixelSize);
+    }
+
+    public void setPenUp(boolean penUp){
+        myPen.setPenUp(penUp);
+    }
+
     public ImageView getAdjustedTurtleImageView(double xLeftCorner, double yLeftCorner) {
         ImageView returnedTurtle = new ImageView();
         updateATurtleImageView(returnedTurtle);
@@ -143,7 +152,7 @@ public class Turtle {
         return returnedTurtle;
     }
 
-    public Pen getMyPen() {
+    public ImmutablePen getMyPen() {
         return myPen;
     }
 }

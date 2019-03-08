@@ -1,10 +1,8 @@
-package Main;
+package Parser;
 
 
 import GUI.FrontendController;
-import GraphicsBackend.Grid;
-import GraphicsBackend.Palette;
-import GraphicsBackend.Turtle;
+import GraphicsBackend.*;
 import Parser.Commands.Command;
 import Parser.Commands.Turtle_Command.ListStartCommand;
 import Parser.Commands.Turtle_Command.MakeUserInstructionCommand;
@@ -16,7 +14,6 @@ import javafx.scene.paint.Color;
 import java.util.*;
 
 public class BackendController {
-
 
     private String commmandLanguage;
     private Grid myGrid;
@@ -115,12 +112,18 @@ public class BackendController {
         commmandLanguage = language;
     }
 
-    public Grid getMyGrid() {
+    public ImmutableGrid getMyGrid() {
         return myGrid;
     }
 
+    //meant for backend access
     public List<Turtle> getMyTurtles() {
         return myTurtles;
+    }
+
+    //meant for frontend access
+    public Collection<Turtle> getImmutableTurtles(){
+        return Collections.unmodifiableCollection(myTurtles);
     }
 
     public void showMessage(String string){

@@ -2,8 +2,8 @@ package GUI;
 
 import GUI.Controls.*;
 import GUI.Modules.*;
+import GraphicsBackend.ImmutablePen;
 import GUI.Modules.Console;
-import GraphicsBackend.Pen;
 import GraphicsBackend.Turtle;
 import Main.BackendController;
 import javafx.collections.ObservableList;
@@ -192,7 +192,7 @@ public class FrontendController {
         if (chosenFile != null) {
             try {
                 setTurtleImage.setImage(chosenFile, setTurtleImage.getButton());
-                for (Turtle turtle: backendController.getMyTurtles()){
+                for (Turtle turtle: backendController.getImmutableTurtles()){
                     turtle.setTurtleImage(new Image(new FileInputStream(chosenFile.getPath())));
                 }
             } catch (Exception e) {
@@ -210,7 +210,7 @@ public class FrontendController {
 
     public void setGraphicsArea(){
         List<Line> lines = backendController.getMyGrid().getAllObjects();
-        turtles = backendController.getMyTurtles();
+        turtles = new LinkedList<>(backendController.getImmutableTurtles());
         List<ImageView> turtleImages = new ArrayList<>();
         List<Boolean> turtleActives = new ArrayList<>();
         for (Turtle turtle:turtles) {
@@ -261,7 +261,7 @@ public class FrontendController {
     }
 
     public void setCurrentState() {
-        turtles = backendController.getMyTurtles();
+        turtles = new LinkedList<>(backendController.getImmutableTurtles());
         int counter = 0;
         List<Integer> ids = new ArrayList<>();
         List<Double> xPositions = new ArrayList<>();
@@ -271,7 +271,7 @@ public class FrontendController {
         List<Boolean> penUp = new ArrayList<>();
         List<Integer> penSize = new ArrayList<>();
         for (Turtle turtle: turtles) {
-            Pen pen = turtle.getMyPen();
+            ImmutablePen pen = turtle.getMyPen();
             ids.add(counter);
             xPositions.add(turtle.getxPos());
             yPositions.add(turtle.getyPos());

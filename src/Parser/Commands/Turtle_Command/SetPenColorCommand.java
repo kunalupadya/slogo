@@ -1,7 +1,7 @@
 package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 import javafx.scene.paint.Color;
@@ -27,7 +27,7 @@ public class SetPenColorCommand extends TurtleCommand {
 
     @Override
     protected void turtleAction(Turtle turtle) {
-        turtle.getMyPen().setPenColor(myColor);
+        turtle.setPenColor(myColor);
         returnValue = getChildren().get(0).getReturnValue();
     }
 

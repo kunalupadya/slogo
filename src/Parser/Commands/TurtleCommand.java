@@ -2,9 +2,7 @@ package Parser.Commands;
 
 import GraphicsBackend.Point;
 import GraphicsBackend.Turtle;
-import Main.BackendController;
-
-import java.util.List;
+import Parser.BackendController;
 
 public abstract class TurtleCommand extends Command{
 

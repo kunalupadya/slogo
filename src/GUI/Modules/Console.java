@@ -75,6 +75,7 @@ public class Console extends Module  {
                 commandPosition = -1;
                 consoleInput.clear();
                 context.sendCommandString(parameterValue);
+                consoleInfo.getStyleClass().add(myResourceBundles.getString("ConsoleStyleBlack"));
             }
         }
         if (code == KeyCode.UP) {
@@ -99,12 +100,11 @@ public class Console extends Module  {
     public void showError(String errorString) {
         if (! consoleInfo.getText().equals("")) {
             consoleInfo.appendText("\n" + errorString);
-            //consoleInfo.setStyle("-fx-text-inner-color: red;");
         }
         else {
             consoleInfo.appendText(errorString);
-            //consoleInfo.setStyle("-fx-text-inner-color: red;");
         }
+        consoleInfo.getStyleClass().add(myResourceBundles.getString("ConsoleStyleRed"));
     }
 
     public void addToConsole(String commandString) {

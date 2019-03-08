@@ -7,11 +7,11 @@ public class NotEqualCommand extends BooleanCommand{
 
     public NotEqualCommand(){
         isConstant = false;
-        numParameters = 1;
+        numParameters = 2;
     }
 
     public void performAction(BackendController backendController){
-        returnValue =  returnValue(myChildrenList.get(0).getReturnValue() !=0);
+        returnValue =  returnValue(myChildrenList.get(0).getReturnValue() !=myChildrenList.get(1).getReturnValue());
     }
 
     @Override

@@ -54,12 +54,22 @@ public class ExecuteCommand {
             return;
         }
         if (node.getClass() == GroupStartCommand.class){
+            node.getChildren().get(0).setIsConstant(true);
+            traverseChildren(node);
+            node.getChildren().get(0).setIsConstant(false);
             node.execute(backendController);
             return;
         }
-        if (node.getClass() == IfCommand.class){
+        if (node.getClass() == IfCommand.class||node.getClass() == TellCommand.class){
             traverse(node.getChildren().get(0));
             node.execute(backendController);
+        }
+        if (node.getClass() == AskCommand.class){
+            traverse(node.getChildren().get(0));
+            node.execute(backendController);
+            traverseChildren(node);
+            backendController.loadTurtleTell();
+            return;
         }
         // any commands that need to be executed before children are run happen before this point
         traverseChildren(node);

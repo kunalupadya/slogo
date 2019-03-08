@@ -52,13 +52,13 @@ public class ExecuteCommand {
         }
         if (node instanceof ControlCommand){
             handleControlCommand((ControlCommand) node);
-            return;
         }
         traverseChildren(node);
         handleAfterGenerationOfChildren(node);
     }
 
     private void handleControlCommand(ControlCommand node) {
+        node.setInitialExpressions();
         List<Command> initExpr = node.getInitialExpressions();
         for (Command expr: initExpr) {
             traverse(expr);

@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 /**
  *
+ * @author David Liu
  */
 
 public class AvailableVars extends CommandsAndVars{

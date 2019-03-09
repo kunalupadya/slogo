@@ -11,6 +11,11 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author David Liu
+ */
+
 public abstract class ListModule extends Module {
     private VBox container;
     private Pane content;

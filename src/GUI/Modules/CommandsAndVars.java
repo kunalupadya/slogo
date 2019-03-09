@@ -8,6 +8,11 @@ import javafx.scene.control.ListView;
 import java.util.List;
 import java.util.Set;
 
+/**
+ *
+ * @author David Liu
+ */
+
 public class CommandsAndVars extends ListModule {
     private FrontendController context;
     private List<String> list;

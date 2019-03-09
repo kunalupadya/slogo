@@ -6,7 +6,8 @@ import javafx.scene.control.ListView;
 import java.util.ResourceBundle;
 
 /**
- * TODO: get user commands text from a resource file, not hardcoded
+ *
+ * @author David Liu
  */
 
 public class UserCommands extends CommandsAndVars {

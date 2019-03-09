@@ -9,6 +9,11 @@ import javafx.scene.paint.Color;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ *
+ * @author David Liu
+ */
+
 public class Palettes extends ListModule {
     private ResourceBundle myResourceBundles;
     private List<String> list;

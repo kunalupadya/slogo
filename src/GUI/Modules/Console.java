@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * TODO: send consoleinput to the backend
- * TODO: get prompt text from a resource file, not hardcoded
+ *
+ * @author David Liu
  */
 
 public class Console extends Module  {
@@ -75,6 +75,7 @@ public class Console extends Module  {
                 commandPosition = -1;
                 consoleInput.clear();
                 context.sendCommandString(parameterValue);
+                consoleInfo.getStyleClass().removeAll(myResourceBundles.getString("ConsoleStyleRed"));
                 consoleInfo.getStyleClass().add(myResourceBundles.getString("ConsoleStyleBlack"));
             }
         }
@@ -104,6 +105,7 @@ public class Console extends Module  {
         else {
             consoleInfo.appendText(errorString);
         }
+        consoleInfo.getStyleClass().removeAll(myResourceBundles.getString("ConsoleStyleBlack"));
         consoleInfo.getStyleClass().add(myResourceBundles.getString("ConsoleStyleRed"));
     }
 

@@ -6,11 +6,12 @@ import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class IDCommand extends TurtleCommand {
 
     private int turtleId;
-    private ArrayList<Turtle> aliveTurtles;
+    private List<Turtle> aliveTurtles = new ArrayList<>();
 
     public IDCommand(){
         isOutputCommand = true;
@@ -26,7 +27,7 @@ public class IDCommand extends TurtleCommand {
                 turtleAction(turtle);
             }
         }
-        turtleId = aliveTurtles.size() -1;
+        turtleId = aliveTurtles.size();
 
         for (Turtle turtle: backendController.getMyTurtles()) {
             if (turtle.getIsTurtleActive()) {
@@ -44,6 +45,4 @@ public class IDCommand extends TurtleCommand {
     public Command copy() {
         return new IDCommand();
     }
-
-
 }

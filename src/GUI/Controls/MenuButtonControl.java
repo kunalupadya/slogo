@@ -1,5 +1,6 @@
 package GUI.Controls;
 
+import GUI.FrontendController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
@@ -11,6 +12,7 @@ import java.util.ResourceBundle;
 
 public abstract class MenuButtonControl extends Control {
     ResourceBundle myResourceBundle;
+    FrontendController myContext;
     private MenuButton myButton;
 
     public MenuButtonControl(Image image, String resourceBundlePath) {

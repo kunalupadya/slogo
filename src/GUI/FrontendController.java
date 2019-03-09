@@ -19,10 +19,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -61,14 +59,24 @@ public class FrontendController {
     private int availableVarsHeight = 105;
     private int userCommandsWidth = 200;
     private int userCommandsHeight = 105;
-    private int consoleWidth = 800;
+    private int stageWidth = 800;
+    private int stageReducedWidth = 600;
+    private int stageReducedHeight = 485;
     private int consoleHeight = 100;
+    private int buttonHandlerHeight = 30;
     private int graphicsAreaWidth = 400;
     private int graphicsAreaHeight = 420;
     private int palettesWidth = 200;
     private int palettesHeight = 210;
     private int currentStateWidth = 200;
     private int currentStateHeight = 210;
+    private int rectangleWidth = 400;
+    private int rectangleHeight = 300;
+    private int textFieldAdjustedY = 30;
+    private int textFieldWidth = 340;
+    private int textFieldLayoutX = 30;
+    private int textFieldlayoutY = 60;
+    private int rectangleArc = 20;
     private String moduleContainer = "/buttonProperties/ModuleContainer";
     private String modulePosition = "/buttonProperties/ModulePosition";
     private String moduleLabels = "/moduleProperties/ModuleLabel";
@@ -94,7 +102,7 @@ public class FrontendController {
         this.editor = new Editor(editorWidth, editorHeight, myModuleLabels.getString("Editor"), this);
         this.availableVars = new AvailableVars(availableVarsWidth, availableVarsHeight,  myModuleLabels.getString("AvailableVars"),this);
         this.userCommands = new UserCommands(userCommandsWidth, userCommandsHeight, myModuleLabels.getString("UserCommands"), this);
-        this.console = new Console(consoleWidth, consoleHeight, myModuleLabels.getString("Console"), this);
+        this.console = new Console(stageWidth, consoleHeight, myModuleLabels.getString("Console"), this);
         this.graphicsArea = new GraphicsArea(graphicsAreaWidth, graphicsAreaHeight, myModuleLabels.getString("GraphicsArea"), this);
         this.palettes = new Palettes(palettesWidth, palettesHeight, myModuleLabels.getString("Palettes"), this);
         this.currentState = new CurrentState(currentStateWidth, currentStateHeight, myModuleLabels.getString("CurrentState"), this);
@@ -129,8 +137,7 @@ public class FrontendController {
         buttonHandler = new HBox();
 
         buttonHandler.setId("buttonHandler");
-        buttonHandler.setMaxWidth(800);
-        buttonHandler.setMaxHeight(30);
+        buttonHandler.setMaxSize(stageWidth, buttonHandlerHeight);
 
         openHelp = new OpenHelp(this);
         openHelp.getButton().setTooltip(new Tooltip("Help"));
@@ -382,28 +389,28 @@ public class FrontendController {
         closeModule(myModuleContainer.getString(className), myModulePosition.getString(className));
 
         if (clazz.equals(console.getClass())) {
-            myStage.setMaxHeight(485);
+            myStage.setMaxHeight(stageReducedHeight);
         }
         else if ((clazz.equals(palettes.getClass()) && (! moduleList.contains("CurrentState")))
                 || (clazz.equals(currentState.getClass()) && (! moduleList.contains("Palettes")))) {
             myContainer.setLeft(null);
-            buttonHandler.setMinWidth(600);
-            buttonHandler.setMaxWidth(600);
-            console.getContent().setMinWidth(600);
-            console.getContent().setMaxWidth(600);
-            console.getToolbarPane().setMaxWidth(600);
-            if (myStage.getWidth() != 600) {
-                myStage.setMaxWidth(600);
+            buttonHandler.setMinWidth(stageReducedWidth);
+            buttonHandler.setMaxWidth(stageReducedWidth);
+            console.getContent().setMinWidth(stageReducedWidth);
+            console.getContent().setMaxWidth(stageReducedWidth);
+            console.getToolbarPane().setMaxWidth(stageReducedWidth);
+            if (myStage.getWidth() != stageReducedWidth) {
+                myStage.setMaxWidth(stageReducedWidth);
             }
         }
         else if ((!moduleList.contains("Editor") && !moduleList.contains("AvailableVars") && !moduleList.contains("UserCommands"))) {
             myContainer.setRight(null);
-            buttonHandler.setMinWidth(600);
-            buttonHandler.setMaxWidth(600);
-            console.getContent().setMinWidth(600);
-            console.getContent().setMaxWidth(600);
-            if (myStage.getWidth() != 600) {
-                myStage.setMaxWidth(600);
+            buttonHandler.setMinWidth(stageReducedWidth);
+            buttonHandler.setMaxWidth(stageReducedWidth);
+            console.getContent().setMinWidth(stageReducedWidth);
+            console.getContent().setMaxWidth(stageReducedWidth);
+            if (myStage.getWidth() != stageReducedWidth) {
+                myStage.setMaxWidth(stageReducedWidth);
             }
         }
     }
@@ -444,10 +451,10 @@ public class FrontendController {
     public void showHelp(String helpPath) {
         Group helpGroup = new Group();
 
-        Rectangle dialogBox = new Rectangle(0, 0, 400, 400);
+        Rectangle dialogBox = new Rectangle(0, 0, rectangleWidth, rectangleWidth);
         dialogBox.setEffect(new DropShadow(25, 0, 0, Color.web("#333333")));
-        dialogBox.setArcWidth(20);
-        dialogBox.setArcHeight(20);
+        dialogBox.setArcWidth(rectangleArc);
+        dialogBox.setArcHeight(rectangleArc);
         dialogBox.setFill(Color.WHITE);
 
         TextArea help = new TextArea();
@@ -510,10 +517,10 @@ public class FrontendController {
     public void save() {
         Group saveGroup = new Group();
 
-        Rectangle dialogBox = new Rectangle(0, 0, 400, 300);
+        Rectangle dialogBox = new Rectangle(0, 0, rectangleWidth, rectangleHeight);
         dialogBox.setEffect(new DropShadow(25, 0, 0, Color.web("#333333")));
-        dialogBox.setArcWidth(20);
-        dialogBox.setArcHeight(20);
+        dialogBox.setArcWidth(rectangleArc);
+        dialogBox.setArcHeight(rectangleArc);
         dialogBox.setFill(Color.WHITE);
 
         double originY = myStage.getScene().getHeight()/2 - dialogBox.getLayoutBounds().getHeight()/2 - 15;
@@ -521,33 +528,33 @@ public class FrontendController {
 
         backgroundColor = new TextField();
         backgroundColor.setPromptText("Enter background color (e.g. blue)");
-        backgroundColor.setLayoutX(30);
-        backgroundColor.setLayoutY(60);
-        backgroundColor.setPrefWidth(340);
+        backgroundColor.setLayoutX(textFieldLayoutX);
+        backgroundColor.setLayoutY(textFieldlayoutY);
+        backgroundColor.setPrefWidth(textFieldWidth);
 
         penColor = new TextField();
         penColor.setPromptText("Enter pen color (e.g. black)");
-        penColor.setLayoutX(30);
-        penColor.setLayoutY(60 + 30);
-        penColor.setPrefWidth(340);
+        penColor.setLayoutX(textFieldLayoutX);
+        penColor.setLayoutY(textFieldlayoutY + textFieldAdjustedY);
+        penColor.setPrefWidth(textFieldWidth);
 
         numTurtles = new TextField();
         numTurtles.setPromptText("Enter number of turtles (e.g. 2)");
-        numTurtles.setLayoutX(30);
-        numTurtles.setLayoutY(60 + 60);
-        numTurtles.setPrefWidth(340);
+        numTurtles.setLayoutX(textFieldLayoutX);
+        numTurtles.setLayoutY(textFieldlayoutY + textFieldAdjustedY * 2);
+        numTurtles.setPrefWidth(textFieldWidth);
 
         language = new TextField();
         language.setPromptText("Enter language (e.g. English)");
-        language.setLayoutX(30);
-        language.setLayoutY(60 + 90);
-        language.setPrefWidth(340);
+        language.setLayoutX(textFieldLayoutX);
+        language.setLayoutY(textFieldlayoutY + textFieldAdjustedY * 3);
+        language.setPrefWidth(textFieldWidth);
 
         fileName = new TextField();
         fileName.setPromptText("Enter file name (e.g. test.txt)");
-        fileName.setLayoutX(30);
-        fileName.setLayoutY(60 + 120);
-        fileName.setPrefWidth(340);
+        fileName.setLayoutX(textFieldLayoutX);
+        fileName.setLayoutY(textFieldlayoutY + textFieldAdjustedY * 4);
+        fileName.setPrefWidth(textFieldWidth);
 
         ButtonControl close = new CloseHelp(this, saveGroup);
         close.getButton().setLayoutX(dialogBox.getWidth() - 50);

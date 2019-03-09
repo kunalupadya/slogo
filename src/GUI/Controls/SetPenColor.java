@@ -1,22 +1,25 @@
 package GUI.Controls;
 
 import javafx.scene.control.ColorPicker;
+import javafx.scene.paint.Color;
 
-/**
- * TODO: add JavaDoc
- */
+import GUI.FrontendController;
+
 public class SetPenColor{
-    final ColorPicker colorPicker;
+    private final ColorPicker colorPicker;
+    FrontendController context;
 
-    public SetPenColor() {
-        colorPicker = new ColorPicker();
+    public SetPenColor(FrontendController context) {
+        this.context = context;
+        this.colorPicker = new ColorPicker();
+
         colorPicker.setId("penColor");
         colorPicker.getStyleClass().add("button");
-        colorPicker.setOnAction(event -> action());
+        colorPicker.setOnAction(event -> action(colorPicker.getValue()));
     }
 
-    protected void action() {
-//        Parser.ExecuteCommand().setPenColor();
+    protected void action(Color color) {
+        context.setPenColor(color);
     }
 
     public ColorPicker getColorPicker() {

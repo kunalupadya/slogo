@@ -5,7 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 
-public class Save extends ButtonControl {
+public class FileSave extends ButtonControl {
     private FrontendController context;
 
     /**
@@ -13,14 +13,13 @@ public class Save extends ButtonControl {
      *
      * @param context
      */
-    public Save(FrontendController context) {
-        super(new Image(FrontendController.class.getResourceAsStream("/images/save.png")));
+    public FileSave(FrontendController context) {
+        super(new Image(FrontendController.class.getResourceAsStream("/images/saveFile.png")));
         this.context = context;
     }
 
     @Override
     protected EventHandler<MouseEvent> action() {
-        return event -> context.savePreferencesFile();
+        return event -> context.saveToFile();
     }
 }
-

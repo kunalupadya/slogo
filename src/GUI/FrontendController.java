@@ -14,16 +14,13 @@ import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -40,7 +37,6 @@ public class FrontendController {
     private Stage myStage;
     private BorderPane myContainer, leftBorderPane, rightBorderPane;
     private HBox buttonHandler;
-    private Group helpGroup;
     private Editor editor;
     private AvailableVars availableVars;
     private UserCommands userCommands;
@@ -48,34 +44,52 @@ public class FrontendController {
     private Palettes palettes;
     private CurrentState currentState;
     private Console console;
-    private OpenHelp openHelp;
-    private MoveTurtle moveTurtle;
-    private SwitchLanguages switchLanguages;
-    private ButtonControl redo, run, undo, stopExecution, setTurtleImage, save;
-    private ColorPicker setBackgroundColor, setPenColor;
+    private MenuButtonControl openHelp, moveTurtle, switchLanguages, penThickess;
+    private ButtonControl redo, run, undo, setTurtleImage, save, load, saveFile, loadFile, penState;
+    private ColorPicker BackgroundColor, PenColor;
+    private TextField backgroundColor, penColor, numTurtles, language, fileName;
     private BackendController backendController;
     private String defaultLanguage = "English";
     private List<Turtle> turtles;
     private List<String> moduleList;
-    private ResourceBundle myModuleContainer, myModulePosition, myModuleLabels;
+    private ResourceBundle myModuleContainer, myModulePosition, myModuleLabels, myPreferences;
     private int editorWidth = 200;
     private int editorHeight = 210;
     private int availableVarsWidth = 200;
     private int availableVarsHeight = 105;
     private int userCommandsWidth = 200;
     private int userCommandsHeight = 105;
-    private int consoleWidth = 800;
+    private int stageWidth = 800;
+    private int stageReducedWidth = 600;
+    private int stageReducedHeight = 485;
     private int consoleHeight = 100;
+    private int buttonHandlerHeight = 30;
     private int graphicsAreaWidth = 400;
     private int graphicsAreaHeight = 420;
     private int palettesWidth = 200;
     private int palettesHeight = 210;
     private int currentStateWidth = 200;
     private int currentStateHeight = 210;
+    private int rectangleWidth = 400;
+    private int rectangleHeight = 300;
+    private int textFieldAdjustedY = 30;
+    private int textFieldWidth = 340;
+    private int textFieldLayoutX = 30;
+    private int textFieldLayoutY = 60;
+    private int helpPrefHeight = 350;
+    private int rectangleArc = 20;
+    private int dropShadowPosition = 25;
+    private int closeButtonLayoutY = 10;
+    private int saveButtonLayoutY = 250;
+    private int positionToCenter = 15;
+    private int positionToArrangeLeft = 50;
+    private int helpLayoutY = 50;
     private String moduleContainer = "/buttonProperties/ModuleContainer";
     private String modulePosition = "/buttonProperties/ModulePosition";
     private String moduleLabels = "/moduleProperties/ModuleLabel";
+    private String preferences = "/moduleProperties/UserPreferences";
     private String editorPath = "data/editorFiles/";
+    private String preferencesPath = "data/saveStates/";
     private Boolean checkSimulation = false;
 
     /**
@@ -86,14 +100,16 @@ public class FrontendController {
     public FrontendController(BorderPane root, Stage stage) {
         this.myStage = stage;
         this.myContainer = root;
+
         this.myModuleLabels = ResourceBundle.getBundle(moduleLabels);
         this.myModuleContainer = ResourceBundle.getBundle(moduleContainer);
         this.myModulePosition = ResourceBundle.getBundle(modulePosition);
+        this.myPreferences = ResourceBundle.getBundle(preferences);
 
         this.editor = new Editor(editorWidth, editorHeight, myModuleLabels.getString("Editor"), this);
         this.availableVars = new AvailableVars(availableVarsWidth, availableVarsHeight,  myModuleLabels.getString("AvailableVars"),this);
         this.userCommands = new UserCommands(userCommandsWidth, userCommandsHeight, myModuleLabels.getString("UserCommands"), this);
-        this.console = new Console(consoleWidth, consoleHeight, myModuleLabels.getString("Console"), this);
+        this.console = new Console(stageWidth, consoleHeight, myModuleLabels.getString("Console"), this);
         this.graphicsArea = new GraphicsArea(graphicsAreaWidth, graphicsAreaHeight, myModuleLabels.getString("GraphicsArea"), this);
         this.palettes = new Palettes(palettesWidth, palettesHeight, myModuleLabels.getString("Palettes"), this);
         this.currentState = new CurrentState(currentStateWidth, currentStateHeight, myModuleLabels.getString("CurrentState"), this);
@@ -128,17 +144,22 @@ public class FrontendController {
         buttonHandler = new HBox();
 
         buttonHandler.setId("buttonHandler");
-        buttonHandler.setMaxWidth(800);
-        buttonHandler.setMaxHeight(30);
+        buttonHandler.setMaxSize(stageWidth, buttonHandlerHeight);
 
         openHelp = new OpenHelp(this);
         openHelp.getButton().setTooltip(new Tooltip("Help"));
 
-        setPenColor = new SetPenColor().getColorPicker();
-        setPenColor.setTooltip(new Tooltip("Set Pen Color"));
+        BackgroundColor = new SetBackgroundColor(this).getColorPicker();
+        BackgroundColor.setTooltip(new Tooltip("Set Background Color"));
 
-        setBackgroundColor = new SetBackgroundColor(this).getColorPicker();
-        setBackgroundColor.setTooltip(new Tooltip("Set Background Color"));
+        PenColor = new SetPenColor(this).getColorPicker();
+        PenColor.setTooltip(new Tooltip("Set Pen Color"));
+
+        penThickess = new SetPenThickness(this);
+        penThickess.getButton().setTooltip(new Tooltip("Set Pen Thickness"));
+
+        penState = new SetPenState(this);
+        penState.getButton().setTooltip(new Tooltip("Set Pen State"));
 
         setTurtleImage = new SetTurtleImage(this);
         setTurtleImage.getButton().setTooltip(new Tooltip("Set Turtle Image"));
@@ -146,8 +167,17 @@ public class FrontendController {
         switchLanguages = new SwitchLanguages(this);
         switchLanguages.getButton().setTooltip(new Tooltip("Switch Languages"));
 
-        save = new Save(this);
-        save.getButton().setTooltip(new Tooltip("Save"));
+        save = new PropertiesSave(this);
+        save.getButton().setTooltip(new Tooltip("Save Properties"));
+
+        load = new PropertiesLoad(this);
+        load.getButton().setTooltip(new Tooltip("Load Properties"));
+
+        saveFile = new FileSave(this);
+        saveFile.getButton().setTooltip(new Tooltip("Save File"));
+
+        loadFile = new FileLoad(this);
+        loadFile.getButton().setTooltip(new Tooltip("Load File"));
 
         moveTurtle = new MoveTurtle(this);
         moveTurtle.getButton().setTooltip(new Tooltip("Move Turtle"));
@@ -158,19 +188,17 @@ public class FrontendController {
         redo = new Redo(this);
         redo.getButton().setTooltip(new Tooltip("Redo"));
 
-        stopExecution = new StopExecution(this);
-        stopExecution.getButton().setTooltip(new Tooltip("Stop Execution"));
-
         run = new Run(editor);
         run.getButton().setTooltip(new Tooltip("Run"));
 
-        var leftButtons = new HBox(openHelp.getButton(), switchLanguages.getButton(),
-                setBackgroundColor, setPenColor, setTurtleImage.getButton(), save.getButton());
+        var leftButtons = new HBox(openHelp.getButton(), switchLanguages.getButton(), saveFile.getButton(),
+                loadFile.getButton(), BackgroundColor, PenColor, penThickess.getButton(), penState.getButton(),
+                setTurtleImage.getButton(), save.getButton(), load.getButton());
         leftButtons.getStyleClass().add("button-container");
 
         var padding = new Region();
 
-        var rightButtons = new HBox(moveTurtle.getButton(), undo.getButton(), redo.getButton(), stopExecution.getButton(), run.getButton());
+        var rightButtons = new HBox(moveTurtle.getButton(), undo.getButton(), redo.getButton(), run.getButton());
         rightButtons.getStyleClass().add("button-container");
 
         buttonHandler.setHgrow(padding, Priority.ALWAYS);
@@ -224,7 +252,7 @@ public class FrontendController {
         graphicsArea.setVariables(lines, turtleImages, turtleActives);
     }
 
-    public void setBackgroundColor(Paint color) {
+    public void setBackgroundColor(Color color) {
         graphicsArea.setColor(color);
     }
 
@@ -293,36 +321,51 @@ public class FrontendController {
         palettes.setPalettes(paletteIndices);
     }
 
-    public void saveToFile(String filename) {
-        ObservableList<CharSequence> paragraph = editor.getText();
-        Iterator<CharSequence> iter = paragraph.iterator();
-        try
-        {
-            //Replace Editor1 with filename parameter
-            BufferedWriter bf = new BufferedWriter(new FileWriter(new File(editorPath + filename + ".txt")));
-            while (iter.hasNext()) {
-                CharSequence seq = iter.next();
-                bf.append(seq);
-                bf.newLine();
+    public void saveToFile() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("data/scripts"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text doc(*.txt)", "*.txt"));
+        File potentialFile = fileChooser.showSaveDialog(myStage);
+
+        if (potentialFile != null) {
+            ObservableList<CharSequence> paragraph = editor.getText();
+            Iterator<CharSequence> iter = paragraph.iterator();
+            try {
+                PrintWriter initialWriter = new PrintWriter(potentialFile);
+                BufferedWriter bf = new BufferedWriter(initialWriter);
+                while (iter.hasNext()) {
+                    CharSequence seq = iter.next();
+                    bf.append(seq);
+                    bf.newLine();
+                }
+                bf.flush();
+                bf.close();
+            } catch (IOException e) {
+                consoleShowError("Error occurred when writing text to file!");
             }
-            bf.flush();
-            bf.close();
-        }
-        catch (IOException e)
-        {
-            consoleShowError("Cannot write invalid text into a file");
         }
     }
 
-    public void loadFile(String filename) {
+    public void loadFile() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("data/scripts"));
+        File potentialFile = fileChooser.showOpenDialog(myStage);
+        loadEditor(potentialFile);
+    }
+
+    public void loadEditor(File file) {
         try
         {
-            Scanner s = new Scanner(new File(editorPath + filename + ".txt"));
+            Scanner s = new Scanner(file);
             editor.readText(s);
         }
         catch (FileNotFoundException e)
         {
-            consoleShowError("File " + filename + ".txt does not exist");
+            consoleShowError("File " + file.getName() + ".txt does not exist");
+        }
+        catch (NullPointerException e)
+        {
+            consoleShowError("Did not select a File");
         }
     }
 
@@ -347,7 +390,7 @@ public class FrontendController {
     }
 
     /**
-     * TODO: Use a properties file to be able to setNode to null
+     *
      * @param clazz
      */
     public void close(Class<?> clazz) {
@@ -357,27 +400,28 @@ public class FrontendController {
         closeModule(myModuleContainer.getString(className), myModulePosition.getString(className));
 
         if (clazz.equals(console.getClass())) {
-            myStage.setMaxHeight(485);
+            myStage.setMaxHeight(stageReducedHeight);
         }
         else if ((clazz.equals(palettes.getClass()) && (! moduleList.contains("CurrentState")))
                 || (clazz.equals(currentState.getClass()) && (! moduleList.contains("Palettes")))) {
             myContainer.setLeft(null);
-            buttonHandler.setMinWidth(600);
-            buttonHandler.setMaxWidth(600);
-            console.getContent().setMinWidth(600);
-            console.getContent().setMaxWidth(600);
-            if (myStage.getWidth() != 600) {
-                myStage.setMaxWidth(600);
+            buttonHandler.setMinWidth(stageReducedWidth);
+            buttonHandler.setMaxWidth(stageReducedWidth);
+            console.getContent().setMinWidth(stageReducedWidth);
+            console.getContent().setMaxWidth(stageReducedWidth);
+            console.getToolbarPane().setMaxWidth(stageReducedWidth);
+            if (myStage.getWidth() != stageReducedWidth) {
+                myStage.setMaxWidth(stageReducedWidth);
             }
         }
         else if ((!moduleList.contains("Editor") && !moduleList.contains("AvailableVars") && !moduleList.contains("UserCommands"))) {
             myContainer.setRight(null);
-            buttonHandler.setMinWidth(600);
-            buttonHandler.setMaxWidth(600);
-            console.getContent().setMinWidth(600);
-            console.getContent().setMaxWidth(600);
-            if (myStage.getWidth() != 600) {
-                myStage.setMaxWidth(600);
+            buttonHandler.setMinWidth(stageReducedWidth);
+            buttonHandler.setMaxWidth(stageReducedWidth);
+            console.getContent().setMinWidth(stageReducedWidth);
+            console.getContent().setMaxWidth(stageReducedWidth);
+            if (myStage.getWidth() != stageReducedWidth) {
+                myStage.setMaxWidth(stageReducedWidth);
             }
         }
     }
@@ -393,7 +437,7 @@ public class FrontendController {
                     Method m = myContainer.getClass().getDeclaredMethod(modulePosition, Node.class);
                     m.invoke(myContainer, (Object) null);
                 } catch (Exception e) {
-//                    System.out.println("Error Occurred when Removing Module");
+                    consoleShowError("Error Occurred when Removing Module");
                 }
                 break;
             case "leftBorderPane":
@@ -401,7 +445,7 @@ public class FrontendController {
                     Method m = leftBorderPane.getClass().getMethod(modulePosition, Node.class);
                     m.invoke(leftBorderPane, (Object) null);
                 } catch (Exception e) {
-//                    System.out.println("Error Occurred when Removing Module");
+                    consoleShowError("Error Occurred when Removing Module");
                 }
                 break;
             case "rightBorderPane":
@@ -409,35 +453,35 @@ public class FrontendController {
                     Method m = rightBorderPane.getClass().getMethod(modulePosition, Node.class);
                     m.invoke(rightBorderPane, (Object) null);
                 } catch (Exception e) {
-//                    System.out.println("Error Occurred when Removing Module");
+                    consoleShowError("Error Occurred when Removing Module");
                 }
                 break;
         }
     }
 
     public void showHelp(String helpPath) {
-        helpGroup = new Group();
+        Group helpGroup = new Group();
 
-        Rectangle dialogBox = new Rectangle(0, 0, 400, 400);
-        dialogBox.setEffect(new DropShadow(25, 0, 0, Color.web("#333333")));
-        dialogBox.setArcWidth(20);
-        dialogBox.setArcHeight(20);
+        Rectangle dialogBox = new Rectangle(0, 0, rectangleWidth, rectangleWidth);
+        dialogBox.setEffect(new DropShadow(dropShadowPosition, 0, 0, Color.web("#333333")));
+        dialogBox.setArcWidth(rectangleArc);
+        dialogBox.setArcHeight(rectangleArc);
         dialogBox.setFill(Color.WHITE);
 
         TextArea help = new TextArea();
         help.setEditable(false);
-        help.setLayoutY(50);
-        help.setMaxWidth(400);
-        help.setPrefHeight(350);
+        help.setLayoutY(helpLayoutY);
+        help.setMaxWidth(rectangleWidth);
+        help.setPrefHeight(helpPrefHeight);
 
-        double originY = myStage.getScene().getHeight()/2 - dialogBox.getLayoutBounds().getHeight()/2 - 15;
+        double originY = myStage.getScene().getHeight()/2 - dialogBox.getLayoutBounds().getHeight()/2 - positionToCenter;
         double originX = myStage.getScene().getWidth()/2 - dialogBox.getLayoutBounds().getWidth()/2;
 
-        ButtonControl close = new CloseHelp(this);
-        close.getButton().setLayoutX(dialogBox.getWidth() - 50);
-        close.getButton().setLayoutY(10);
+        ButtonControl close = new CloseHelp(this, helpGroup);
+        close.getButton().setLayoutX(dialogBox.getWidth() - positionToArrangeLeft);
+        close.getButton().setLayoutY(closeButtonLayoutY);
         close.getButton().setCursor(Cursor.HAND);
-        close.getButton().setTooltip(new Tooltip("Close Menu"));
+        close.getButton().setTooltip(new Tooltip("Close Help"));
 
         Scanner s = new Scanner(this.getClass().getResourceAsStream(helpPath));
         while (s.hasNextLine()) {
@@ -452,10 +496,203 @@ public class FrontendController {
         myContainer.getChildren().add(helpGroup);
     }
 
-    public void closeHelp() {
-        myContainer.getChildren().remove(helpGroup);
-        helpGroup = null;
+    public void closeHelp(Group group) {
+        myContainer.getChildren().remove(group);
     }
 
-    public void save() {}
+    public void setPenThickness(int value) {
+        turtles = backendController.getMyTurtles();
+        for (Turtle turtle: turtles) {
+            Pen pen = turtle.getMyPen();
+            pen.setPenSize(pen.getPenSize() + value);
+        }
+    }
+
+    public void setPenState() {
+        turtles = backendController.getMyTurtles();
+        for (Turtle turtle: turtles) {
+            Pen pen = turtle.getMyPen();
+            if (pen.getPenUp()) pen.setPenUp(false);
+            else pen.setPenUp(true);
+        }
+    }
+
+    public void setPenColor(Color color) {
+        turtles = backendController.getMyTurtles();
+        for (Turtle turtle: turtles) {
+            Pen pen = turtle.getMyPen();
+            pen.setPenColor(color);
+        }
+    }
+
+    public void save() {
+        Group saveGroup = new Group();
+
+        Rectangle dialogBox = new Rectangle(0, 0, rectangleWidth, rectangleHeight);
+        dialogBox.setEffect(new DropShadow(dropShadowPosition, 0, 0, Color.web("#333333")));
+        dialogBox.setArcWidth(rectangleArc);
+        dialogBox.setArcHeight(rectangleArc);
+        dialogBox.setFill(Color.WHITE);
+
+        double originY = myStage.getScene().getHeight()/2 - dialogBox.getLayoutBounds().getHeight()/2 - positionToCenter;
+        double originX = myStage.getScene().getWidth()/2 - dialogBox.getLayoutBounds().getWidth()/2;
+
+        backgroundColor = new TextField();
+        backgroundColor.setPromptText("Enter background color (e.g. blue)");
+        backgroundColor.setLayoutX(textFieldLayoutX);
+        backgroundColor.setLayoutY(textFieldLayoutY);
+        backgroundColor.setPrefWidth(textFieldWidth);
+
+        penColor = new TextField();
+        penColor.setPromptText("Enter pen color (e.g. black)");
+        penColor.setLayoutX(textFieldLayoutX);
+        penColor.setLayoutY(textFieldLayoutY + textFieldAdjustedY);
+        penColor.setPrefWidth(textFieldWidth);
+
+        numTurtles = new TextField();
+        numTurtles.setPromptText("Enter number of turtles (e.g. 2)");
+        numTurtles.setLayoutX(textFieldLayoutX);
+        numTurtles.setLayoutY(textFieldLayoutY + textFieldAdjustedY * 2);
+        numTurtles.setPrefWidth(textFieldWidth);
+
+        language = new TextField();
+        language.setPromptText("Enter language (e.g. English)");
+        language.setLayoutX(textFieldLayoutX);
+        language.setLayoutY(textFieldLayoutY + textFieldAdjustedY * 3);
+        language.setPrefWidth(textFieldWidth);
+
+        fileName = new TextField();
+        fileName.setPromptText("Enter file name (e.g. test.txt)");
+        fileName.setLayoutX(textFieldLayoutX);
+        fileName.setLayoutY(textFieldLayoutY + textFieldAdjustedY * 4);
+        fileName.setPrefWidth(textFieldWidth);
+
+        ButtonControl close = new CloseHelp(this, saveGroup);
+        close.getButton().setLayoutX(dialogBox.getWidth() - positionToArrangeLeft);
+        close.getButton().setLayoutY(closeButtonLayoutY);
+        close.getButton().setTooltip(new Tooltip("Close Save Preferences"));
+
+        ButtonControl savePreferences = new Save(this);
+        savePreferences.getButton().setLayoutX(dialogBox.getWidth()/2 - positionToCenter);
+        savePreferences.getButton().setLayoutY(saveButtonLayoutY);
+        savePreferences.getButton().setTooltip(new Tooltip("Save Preferences"));
+
+        saveGroup.getChildren().addAll(dialogBox, backgroundColor, penColor, numTurtles, language, fileName, close.getButton(), savePreferences.getButton());
+
+        saveGroup.setLayoutY(originY);
+        saveGroup.setLayoutX(originX);
+
+        myContainer.getChildren().add(saveGroup);
+    }
+
+    public void savePreferencesFile() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("data/preferences"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text doc(*.txt)", "*.txt"));
+        File potentialFile = fileChooser.showSaveDialog(myStage);
+
+        if (potentialFile != null) {
+            ObservableList<CharSequence> paragraph = editor.getText();
+            Iterator<CharSequence> iter = paragraph.iterator();
+            try {
+                PrintWriter initialWriter = new PrintWriter(potentialFile);
+                BufferedWriter bf = new BufferedWriter(initialWriter);
+                saveBuffer("backgroundColor", bf);
+                saveBuffer(backgroundColor.getText(), bf);
+                saveBuffer("penColor", bf);
+                saveBuffer(penColor.getText(), bf);
+                saveBuffer("numTurtles", bf);
+                saveBuffer(numTurtles.getText(), bf);
+                saveBuffer("language", bf);
+                saveBuffer(language.getText(), bf);
+                saveBuffer("fileName", bf);
+                saveBuffer(fileName.getText(), bf);
+                bf.flush();
+                bf.close();
+
+            } catch (Exception e) {
+                consoleShowError("Error occurred when writing text to file!");
+            }
+        }
+    }
+
+    private void saveBuffer(String content, BufferedWriter bf) {
+        try {
+            bf.append(content);
+            bf.newLine();
+        } catch (Exception e) {
+            consoleShowError("Error occurred when saving preferences");
+        }
+    }
+
+    public void load() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("data/preferences"));
+        File potentialFile = fileChooser.showOpenDialog(myStage);
+        int counter = 0;
+        try
+        {
+            Scanner s = new Scanner(potentialFile);
+            while(s.hasNextLine()) {
+                String bundleReference = s.nextLine();
+                String methodName = myPreferences.getString(bundleReference);
+                String parameter = s.nextLine();
+                loadPropertyMethod(counter, methodName, parameter);
+                counter++;
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            consoleShowError("File " + potentialFile.getName() + ".txt does not exist");
+        }
+        catch (NullPointerException e)
+        {
+            consoleShowError("Did not select a File");
+        }
+    }
+
+    private void loadPropertyMethod(int counter, String methodName, String parameter) {
+        switch(counter) {
+            case 0:
+                try {
+                    Method method = this.getClass().getDeclaredMethod(methodName, Color.class);
+                    method.invoke(this, Color.valueOf(parameter));
+                } catch (Exception e) {
+                    consoleShowError("Error occurred when setting background color");
+                }
+                break;
+            case 1:
+                try {
+                    Method method = this.getClass().getDeclaredMethod(methodName, Color.class);
+                    method.invoke(this, Color.valueOf(parameter));
+                } catch (Exception e) {
+                    consoleShowError("Error occurred when setting pen color");
+                }
+                break;
+            case 2:
+                try {
+                    Method method = this.getClass().getDeclaredMethod(methodName, String.class);
+                    method.invoke(this, "tell " + parameter);
+                } catch (Exception e) {
+                    consoleShowError("Error occurred when setting number of turtles");
+                }
+                break;
+            case 3:
+                try {
+                    Method method = this.getClass().getDeclaredMethod(methodName, String.class);
+                    method.invoke(this, parameter);
+                } catch (Exception e) {
+                    consoleShowError("Error occurred when setting language");
+                }
+                break;
+            case 4:
+                try {
+                    Method method = this.getClass().getDeclaredMethod(methodName, File.class);
+                    method.invoke(this, new File("data/scripts/" + parameter));
+                } catch (Exception e) {
+                    consoleShowError("Error occurred when loading file");
+                }
+                break;
+        }
+    }
 }

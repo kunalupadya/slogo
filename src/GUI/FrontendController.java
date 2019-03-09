@@ -75,8 +75,15 @@ public class FrontendController {
     private int textFieldAdjustedY = 30;
     private int textFieldWidth = 340;
     private int textFieldLayoutX = 30;
-    private int textFieldlayoutY = 60;
+    private int textFieldLayoutY = 60;
+    private int helpPrefHeight = 350;
     private int rectangleArc = 20;
+    private int dropShadowPosition = 25;
+    private int closeButtonLayoutY = 10;
+    private int saveButtonLayoutY = 250;
+    private int positionToCenter = 15;
+    private int positionToArrangeLeft = 50;
+    private int helpLayoutY = 50;
     private String moduleContainer = "/buttonProperties/ModuleContainer";
     private String modulePosition = "/buttonProperties/ModulePosition";
     private String moduleLabels = "/moduleProperties/ModuleLabel";
@@ -379,7 +386,7 @@ public class FrontendController {
     }
 
     /**
-     * TODO: Use a properties file to be able to setNode to null
+     *
      * @param clazz
      */
     public void close(Class<?> clazz) {
@@ -452,23 +459,23 @@ public class FrontendController {
         Group helpGroup = new Group();
 
         Rectangle dialogBox = new Rectangle(0, 0, rectangleWidth, rectangleWidth);
-        dialogBox.setEffect(new DropShadow(25, 0, 0, Color.web("#333333")));
+        dialogBox.setEffect(new DropShadow(dropShadowPosition, 0, 0, Color.web("#333333")));
         dialogBox.setArcWidth(rectangleArc);
         dialogBox.setArcHeight(rectangleArc);
         dialogBox.setFill(Color.WHITE);
 
         TextArea help = new TextArea();
         help.setEditable(false);
-        help.setLayoutY(50);
-        help.setMaxWidth(400);
-        help.setPrefHeight(350);
+        help.setLayoutY(helpLayoutY);
+        help.setMaxWidth(rectangleWidth);
+        help.setPrefHeight(helpPrefHeight);
 
-        double originY = myStage.getScene().getHeight()/2 - dialogBox.getLayoutBounds().getHeight()/2 - 15;
+        double originY = myStage.getScene().getHeight()/2 - dialogBox.getLayoutBounds().getHeight()/2 - positionToCenter;
         double originX = myStage.getScene().getWidth()/2 - dialogBox.getLayoutBounds().getWidth()/2;
 
         ButtonControl close = new CloseHelp(this, helpGroup);
-        close.getButton().setLayoutX(dialogBox.getWidth() - 50);
-        close.getButton().setLayoutY(10);
+        close.getButton().setLayoutX(dialogBox.getWidth() - positionToArrangeLeft);
+        close.getButton().setLayoutY(closeButtonLayoutY);
         close.getButton().setCursor(Cursor.HAND);
         close.getButton().setTooltip(new Tooltip("Close Help"));
 
@@ -518,52 +525,52 @@ public class FrontendController {
         Group saveGroup = new Group();
 
         Rectangle dialogBox = new Rectangle(0, 0, rectangleWidth, rectangleHeight);
-        dialogBox.setEffect(new DropShadow(25, 0, 0, Color.web("#333333")));
+        dialogBox.setEffect(new DropShadow(dropShadowPosition, 0, 0, Color.web("#333333")));
         dialogBox.setArcWidth(rectangleArc);
         dialogBox.setArcHeight(rectangleArc);
         dialogBox.setFill(Color.WHITE);
 
-        double originY = myStage.getScene().getHeight()/2 - dialogBox.getLayoutBounds().getHeight()/2 - 15;
+        double originY = myStage.getScene().getHeight()/2 - dialogBox.getLayoutBounds().getHeight()/2 - positionToCenter;
         double originX = myStage.getScene().getWidth()/2 - dialogBox.getLayoutBounds().getWidth()/2;
 
         backgroundColor = new TextField();
         backgroundColor.setPromptText("Enter background color (e.g. blue)");
         backgroundColor.setLayoutX(textFieldLayoutX);
-        backgroundColor.setLayoutY(textFieldlayoutY);
+        backgroundColor.setLayoutY(textFieldLayoutY);
         backgroundColor.setPrefWidth(textFieldWidth);
 
         penColor = new TextField();
         penColor.setPromptText("Enter pen color (e.g. black)");
         penColor.setLayoutX(textFieldLayoutX);
-        penColor.setLayoutY(textFieldlayoutY + textFieldAdjustedY);
+        penColor.setLayoutY(textFieldLayoutY + textFieldAdjustedY);
         penColor.setPrefWidth(textFieldWidth);
 
         numTurtles = new TextField();
         numTurtles.setPromptText("Enter number of turtles (e.g. 2)");
         numTurtles.setLayoutX(textFieldLayoutX);
-        numTurtles.setLayoutY(textFieldlayoutY + textFieldAdjustedY * 2);
+        numTurtles.setLayoutY(textFieldLayoutY + textFieldAdjustedY * 2);
         numTurtles.setPrefWidth(textFieldWidth);
 
         language = new TextField();
         language.setPromptText("Enter language (e.g. English)");
         language.setLayoutX(textFieldLayoutX);
-        language.setLayoutY(textFieldlayoutY + textFieldAdjustedY * 3);
+        language.setLayoutY(textFieldLayoutY + textFieldAdjustedY * 3);
         language.setPrefWidth(textFieldWidth);
 
         fileName = new TextField();
         fileName.setPromptText("Enter file name (e.g. test.txt)");
         fileName.setLayoutX(textFieldLayoutX);
-        fileName.setLayoutY(textFieldlayoutY + textFieldAdjustedY * 4);
+        fileName.setLayoutY(textFieldLayoutY + textFieldAdjustedY * 4);
         fileName.setPrefWidth(textFieldWidth);
 
         ButtonControl close = new CloseHelp(this, saveGroup);
-        close.getButton().setLayoutX(dialogBox.getWidth() - 50);
-        close.getButton().setLayoutY(10);
+        close.getButton().setLayoutX(dialogBox.getWidth() - positionToArrangeLeft);
+        close.getButton().setLayoutY(closeButtonLayoutY);
         close.getButton().setTooltip(new Tooltip("Close Save Preferences"));
 
         ButtonControl savePreferences = new Save(this);
-        savePreferences.getButton().setLayoutX(dialogBox.getWidth()/2 - 15);
-        savePreferences.getButton().setLayoutY(250);
+        savePreferences.getButton().setLayoutX(dialogBox.getWidth()/2 - positionToCenter);
+        savePreferences.getButton().setLayoutY(saveButtonLayoutY);
         savePreferences.getButton().setTooltip(new Tooltip("Save Preferences"));
 
         saveGroup.getChildren().addAll(dialogBox, backgroundColor, penColor, numTurtles, language, fileName, close.getButton(), savePreferences.getButton());

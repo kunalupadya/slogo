@@ -5,6 +5,6 @@ red
 numTurtles
 1
 language
-Portuguese
+English
 fileName
 test.txt

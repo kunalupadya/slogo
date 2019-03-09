@@ -47,7 +47,7 @@ public class FrontendController {
     private CurrentState currentState;
     private Console console;
     private MenuButtonControl openHelp, moveTurtle, switchLanguages, penThickess;
-    private ButtonControl redo, run, undo, stopExecution, setTurtleImage, save, load, saveFile, loadFile, penState;
+    private ButtonControl redo, run, undo, setTurtleImage, save, load, saveFile, loadFile, penState;
     private ColorPicker BackgroundColor, PenColor;
     private TextField backgroundColor, penColor, numTurtles, language, fileName;
     private BackendController backendController;
@@ -174,9 +174,6 @@ public class FrontendController {
         redo = new Redo(this);
         redo.getButton().setTooltip(new Tooltip("Redo"));
 
-        stopExecution = new StopExecution(this);
-        stopExecution.getButton().setTooltip(new Tooltip("Stop Execution"));
-
         run = new Run(editor);
         run.getButton().setTooltip(new Tooltip("Run"));
 
@@ -187,7 +184,7 @@ public class FrontendController {
 
         var padding = new Region();
 
-        var rightButtons = new HBox(moveTurtle.getButton(), undo.getButton(), redo.getButton(), stopExecution.getButton(), run.getButton());
+        var rightButtons = new HBox(moveTurtle.getButton(), undo.getButton(), redo.getButton(), run.getButton());
         rightButtons.getStyleClass().add("button-container");
 
         buttonHandler.setHgrow(padding, Priority.ALWAYS);
@@ -555,7 +552,6 @@ public class FrontendController {
         ButtonControl close = new CloseHelp(this, saveGroup);
         close.getButton().setLayoutX(dialogBox.getWidth() - 50);
         close.getButton().setLayoutY(10);
-        close.getButton().setCursor(Cursor.HAND);
         close.getButton().setTooltip(new Tooltip("Close Save Preferences"));
 
         ButtonControl savePreferences = new Save(this);
@@ -610,7 +606,7 @@ public class FrontendController {
             consoleShowError("Error occurred when saving preferences");
         }
     }
-    
+
     public void load() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("data/preferences"));

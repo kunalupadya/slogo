@@ -6,13 +6,13 @@ import Parser.Commands.Command;
 public class PowerCommand extends Command {
 
     public PowerCommand(){
+        setIsEvaluated(false);
+        setNumParameters(2);
         isOutputCommand = true;
-        isEvaluated = false;
-        numParameters = 2;
     }
 
     public void performAction(BackendController backendController){
-        returnValue =  Math.pow(myChildrenList.get(0).getReturnValue(),myChildrenList.get(1).getReturnValue());
+        setReturnValue(Math.pow(getChildren().get(0).getReturnValue(),getChildren().get(1).getReturnValue()));
     }
 
     @Override

@@ -11,12 +11,11 @@ public class EqualCommand extends BooleanCommand{
 
     public EqualCommand(){
         super();
-        isEvaluated = false;
-        numParameters = 2;
+        setNumParameters(2);
     }
 
     public void performAction(BackendController backendController){
-        returnValue =  returnValue(myChildrenList.get(0).getReturnValue() ==  myChildrenList.get(1).getReturnValue());
+        setReturnValue(returnValue(getChildren().get(0).getReturnValue() ==  getChildren().get(1).getReturnValue()));
     }
 
     @Override

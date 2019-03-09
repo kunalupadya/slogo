@@ -17,9 +17,9 @@ public class AskCommand extends Command{
     private ArrayList<Turtle> assignedTurtleList = new ArrayList<>();
 
     public AskCommand(){
+        setIsEvaluated(false);
+        setNumParameters(2);
         isOutputCommand = false;
-        isEvaluated = false;
-        numParameters = 2;
     }
 
     @Override

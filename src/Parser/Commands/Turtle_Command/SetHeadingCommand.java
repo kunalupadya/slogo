@@ -10,16 +10,16 @@ import Parser.Commands.TurtleCommand;
 public class SetHeadingCommand extends TurtleCommand{
 
     public SetHeadingCommand(){
+        setIsEvaluated(false);
+        setNumParameters(1);
         isOutputCommand = false;
-        isEvaluated = false;
-        numParameters = 1;
     }
 
     @Override
     protected void turtleAction(Turtle turtle) {
         double oldAngle = turtle.getMyAngle();
         turtle.turnTo(getChildren().get(0).getReturnValue());
-        returnValue = Math.abs(getChildren().get(0).getReturnValue()-oldAngle);
+        setReturnValue(Math.abs(getChildren().get(0).getReturnValue()-oldAngle));
     }
 
     @Override

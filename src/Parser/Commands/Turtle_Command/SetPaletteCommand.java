@@ -14,9 +14,9 @@ public class SetPaletteCommand extends TurtleCommand {
     public static final int B_VALUE = 3;
 
     public SetPaletteCommand(){
+        setIsEvaluated(false);
+        setNumParameters(4);
         isOutputCommand = false;
-        isEvaluated = false;
-        numParameters = 4;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class SetPaletteCommand extends TurtleCommand {
         int g = (int) getChildren().get(G_VALUE).getReturnValue();
         int b = (int) getChildren().get(B_VALUE).getReturnValue();
         backendController.setMyPalette(index, Color.rgb(r,g,b));
-        returnValue = index;
+        setReturnValue(index);
     }
 
     @Override

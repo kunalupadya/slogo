@@ -8,8 +8,7 @@ public class AskWithCommand extends TurtleCommand {
 
     public AskWithCommand(){
         isOutputCommand = false;
-        numParameters = 2;
-        isEvaluated = false;
+        setNumParameters(2);
     }
 
     @Override

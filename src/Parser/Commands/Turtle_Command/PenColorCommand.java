@@ -8,12 +8,11 @@ import javafx.scene.paint.Color;
 
 import java.util.List;
 
-public class PenColorCommand extends TurtleCommand {
+public class PenColorCommand extends Command {
 
     public PenColorCommand(){
+        setNumParameters(0);
         isOutputCommand = true;
-        isEvaluated = false;
-        numParameters = 0;
     }
 
     @Override
@@ -26,11 +25,9 @@ public class PenColorCommand extends TurtleCommand {
             }
         }
         Turtle lastActive = turtleList.get(lastActiveTurtleIndex);
-        returnValue = backendController.getColorPaletteIndex(lastActive.getMyPen().getMyPenColor());
+        setReturnValue(backendController.getColorPaletteIndex(lastActive.getMyPen().getMyPenColor()));
     }
 
-    @Override
-    protected void turtleAction(Turtle turtle) { }
 
     @Override
     public Command copy() {

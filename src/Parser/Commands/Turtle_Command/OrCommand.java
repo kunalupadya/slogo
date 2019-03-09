@@ -7,12 +7,11 @@ public class OrCommand extends BooleanCommand {
 
     public OrCommand() {
         super();
-        isEvaluated = false;
-        numParameters = 2;
+        setNumParameters(2);
     }
 
     public void performAction(BackendController backendController) {
-        returnValue = returnValue(myChildrenList.get(0).getReturnValue() != 0 || myChildrenList.get(1).getReturnValue() != 0);
+        setReturnValue(returnValue(getChildren().get(0).getReturnValue() != 0 || getChildren().get(1).getReturnValue() != 0));
     }
 
     @Override

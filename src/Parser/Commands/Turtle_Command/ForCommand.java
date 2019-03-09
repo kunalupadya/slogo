@@ -15,8 +15,7 @@ public class ForCommand extends ControlCommand {
 
     public ForCommand() {
         super();
-        isEvaluated = false;
-        numParameters = 2;
+        setNumParameters(2);
     }
 
     @Override
@@ -41,7 +40,7 @@ public class ForCommand extends ControlCommand {
 
     @Override
     public void setInitialExpressions() {
-        ListStartCommand loopParam = (ListStartCommand) myChildrenList.get(VAR_RANGE_INDEX);
+        ListStartCommand loopParam = (ListStartCommand) getChildren().get(VAR_RANGE_INDEX);
         initialExpressions.add(loopParam.getChildren().get(1));
         initialExpressions.add(loopParam.getChildren().get(2));
         initialExpressions.add(loopParam.getChildren().get(3));
@@ -49,12 +48,12 @@ public class ForCommand extends ControlCommand {
 
     @Override
     public void setUpLoop() {
-        ListStartCommand loopParam = (ListStartCommand) myChildrenList.get(0);
+        ListStartCommand loopParam = (ListStartCommand) getChildren().get(0);
         loopVar = (Variable) loopParam.getChildren().get(0);
         currCount = (int) initialExpressions.get(0).getReturnValue();
         limit = (int) initialExpressions.get(1).getReturnValue();
         increment = (int) initialExpressions.get(2).getReturnValue();
-        commandListOrig = (ListStartCommand) myChildrenList.get(COMMANDS_INDEX);
+        commandListOrig = (ListStartCommand) getChildren().get(COMMANDS_INDEX);
     }
 
     @Override

@@ -4,21 +4,21 @@ import GraphicsBackend.Turtle;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
-public class ShapeCommand extends TurtleCommand {
+public class GetShapeCommand extends TurtleCommand {
 
-    public ShapeCommand(){
+    public GetShapeCommand(){
+        setIsEvaluated(false);
+        setNumParameters(0);
         isOutputCommand = true;
-        isEvaluated = false;
-        numParameters = 0;
     }
 
     @Override
     protected void turtleAction(Turtle turtle) {
-        returnValue = turtle.getMyShape();
+        setReturnValue(turtle.getMyShape());
     }
 
     @Override
     public Command copy() {
-        return new ShapeCommand();
+        return new GetShapeCommand();
     }
 }

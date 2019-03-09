@@ -3,12 +3,9 @@ package Parser;
 
 import GUI.FrontendController;
 import GraphicsBackend.*;
-import Parser.Commands.Command;
-import Parser.Commands.Turtle_Command.ListStartCommand;
-import Parser.Commands.Turtle_Command.MakeUserInstructionCommand;
+import Parser.Commands.Turtle_Command.ImmutableUserDefinedCommand;
 import Parser.Commands.Turtle_Command.UserDefinedCommand;
 import Parser.Commands.Variable;
-import Parser.ParseCommand;
 import javafx.scene.paint.Color;
 
 import java.util.*;
@@ -21,7 +18,7 @@ public class BackendController {
     private String commmandLanguage;
     private Grid myGrid;
     private List<Turtle> myTurtles = new ArrayList<>();
-    private Map<String, UserDefinedCommand> userDefinedCommands;
+    private Map<String, ImmutableUserDefinedCommand> userDefinedCommands;
     private Map<String, Variable> availableVariables;
     private List<UserDefinedCommand> userDefinedCommandStack = new LinkedList<>();
     private FrontendController frontendController;
@@ -35,7 +32,6 @@ public class BackendController {
         availableVariables = new HashMap<>();
         myTurtles.add(new Turtle(myGrid));
         myPalette = new Palette();
-
     }
 
     public void recordTurtleTell(){
@@ -53,7 +49,7 @@ public class BackendController {
         }
     }
 
-    public void addNewUserDefinedCommand(String commandName, UserDefinedCommand tree){
+    public void addNewUserDefinedCommand(String commandName, ImmutableUserDefinedCommand tree){
         userDefinedCommands.put(commandName,tree);
     }
 
@@ -86,7 +82,7 @@ public class BackendController {
         return Optional.empty();
     }
 
-    public Optional<UserDefinedCommand> getUserDefinedCommand(String commandName){
+    public Optional<ImmutableUserDefinedCommand> getUserDefinedCommand(String commandName){
         if (userDefinedCommands.containsKey(commandName)){
             return Optional.of(userDefinedCommands.get(commandName));
         }

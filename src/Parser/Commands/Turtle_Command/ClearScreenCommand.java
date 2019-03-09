@@ -8,13 +8,13 @@ import Parser.Commands.TurtleCommand;
 public class ClearScreenCommand extends TurtleCommand {
 
     public ClearScreenCommand(){
+        setIsEvaluated(false);
+        setNumParameters(0);
         isOutputCommand = false;
-        isEvaluated = false;
-        numParameters = 0;
     }
 
     protected void turtleAction(Turtle turtle) {
-        returnValue = distance(new Point(0,0), turtle.getPos());
+        setReturnValue(distance(new Point(0,0), turtle.getPos()));
         turtle.getGrid().clear();
         turtle.moveTo(new Point(0, 0));
         turtle.turnTo(0);

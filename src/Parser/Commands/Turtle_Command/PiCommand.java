@@ -6,13 +6,13 @@ import Parser.Commands.Command;
 public class PiCommand extends Command {
 
     public PiCommand(){
+        setIsEvaluated(false);
+        setNumParameters(0);
         isOutputCommand = true;
-        isEvaluated = false;
-        numParameters = 0;
     }
 
     public void performAction(BackendController backendController){
-        returnValue = Math.PI;
+        setReturnValue(Math.PI);
     }
 
     @Override

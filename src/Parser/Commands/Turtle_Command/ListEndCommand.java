@@ -9,9 +9,8 @@ import Parser.Commands.Command;
 public class ListEndCommand extends Command {
 
     public ListEndCommand(){
+        setNumParameters(0);
         isOutputCommand = false;
-        isEvaluated = false;
-        numParameters = 0;
     }
 
     @Override

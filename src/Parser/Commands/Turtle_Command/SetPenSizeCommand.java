@@ -8,9 +8,9 @@ import Parser.Commands.TurtleCommand;
 public class SetPenSizeCommand extends TurtleCommand {
 
     public SetPenSizeCommand(){
+        setIsEvaluated(false);
+        setNumParameters(1);
         isOutputCommand = false;
-        isEvaluated = false;
-        numParameters = 1;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class SetPenSizeCommand extends TurtleCommand {
     @Override
     protected void turtleAction(Turtle turtle) {
         turtle.setPenSize((int)getChildren().get(0).getReturnValue());
-        returnValue = getChildren().get(0).getReturnValue();
+        setReturnValue(getChildren().get(0).getReturnValue());
     }
 
     @Override

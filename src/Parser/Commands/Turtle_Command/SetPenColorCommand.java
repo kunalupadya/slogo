@@ -11,9 +11,9 @@ public class SetPenColorCommand extends TurtleCommand {
     private Color myColor;
 
     public SetPenColorCommand(){
+        setIsEvaluated(false);
+        setNumParameters(1);
         isOutputCommand = false;
-        isEvaluated = false;
-        numParameters = 1;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class SetPenColorCommand extends TurtleCommand {
     @Override
     protected void turtleAction(Turtle turtle) {
         turtle.setPenColor(myColor);
-        returnValue = getChildren().get(0).getReturnValue();
+        setReturnValue(getChildren().get(0).getReturnValue());
     }
 
     @Override

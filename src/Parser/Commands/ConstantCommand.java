@@ -8,9 +8,9 @@ import Parser.BackendController;
 public class ConstantCommand extends Command {
 
     public ConstantCommand(Double input){
-        returnValue = input;
-        isEvaluated = true;
-        numParameters = 0;
+        setReturnValue(input);
+        setIsEvaluated(true);
+        setNumParameters(0);
         isOutputCommand = false;
     }
 
@@ -19,6 +19,6 @@ public class ConstantCommand extends Command {
 
     @Override
     public Command copy() {
-        return new ConstantCommand(returnValue);
+        return new ConstantCommand(getReturnValue());
     }
 }

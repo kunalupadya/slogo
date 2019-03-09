@@ -8,15 +8,15 @@ import Parser.Commands.TurtleCommand;
 public class SetPositionCommand extends TurtleCommand{
 
     public SetPositionCommand(){
+        setIsEvaluated(false);
+        setNumParameters(2);
         isOutputCommand = false;
-        isEvaluated = false;
-        numParameters = 2;
     }
 
     @Override
     protected void turtleAction(Turtle turtle) {
         Point newPos =  new Point(getChildren().get(0).getReturnValue(), getChildren().get(1).getReturnValue());
-        returnValue =  distance(turtle.getPos(),newPos);
+        setReturnValue(distance(turtle.getPos(),newPos));
         turtle.moveTo(newPos);
     }
 

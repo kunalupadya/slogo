@@ -7,12 +7,11 @@ public class NotCommand extends BooleanCommand{
 
     public NotCommand(){
         super();
-        isEvaluated = false;
-        numParameters = 1;
+        setNumParameters(2);
     }
 
     public void performAction(BackendController backendController){
-        returnValue = returnValue(myChildrenList.get(0).getReturnValue() == 0);
+        setReturnValue(returnValue(getChildren().get(0).getReturnValue() == 0));
     }
 
     @Override

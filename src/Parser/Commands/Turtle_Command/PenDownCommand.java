@@ -7,15 +7,14 @@ import Parser.Commands.TurtleCommand;
 public class PenDownCommand extends TurtleCommand {
 
     public PenDownCommand(){
+        setNumParameters(0);
         isOutputCommand = false;
-        isEvaluated = false;
-        numParameters = 0;
     }
 
 //    @Override
     protected void turtleAction(Turtle turtle) {
         turtle.setPenUp(false);
-        returnValue = 1;
+        setReturnValue(1);
     }
 
     @Override

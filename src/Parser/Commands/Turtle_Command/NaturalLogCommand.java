@@ -6,13 +6,12 @@ import Parser.Commands.Command;
 public class NaturalLogCommand extends Command {
 
     public NaturalLogCommand(){
+        setNumParameters(1);
         isOutputCommand = true;
-        isEvaluated = false;
-        numParameters = 1;
     }
 
     public void performAction(BackendController backendController){
-        returnValue =  Math.log(myChildrenList.get(0).getReturnValue());
+        setReturnValue(Math.log(getChildren().get(0).getReturnValue()));
     }
 
     @Override

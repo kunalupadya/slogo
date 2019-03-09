@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author kunalupadya
  */
-public class UserDefinedCommand extends Command {
+public class UserDefinedCommand extends Command implements ImmutableUserDefinedCommand{
     String name;
     private List<Variable> variables;
     private ListStartCommand headNode;
@@ -21,9 +21,8 @@ public class UserDefinedCommand extends Command {
         this.name = name;
         this.variables = variables;
         this.headNode = headNode;
-        myChildrenList.add(headNode);
-        isEvaluated = false;
-        numParameters = 1;
+        getChildren().add(headNode);
+        setNumParameters(1);
     }
 
     public List<Variable> getVariables() {

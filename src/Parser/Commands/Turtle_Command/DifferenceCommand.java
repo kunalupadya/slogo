@@ -6,13 +6,12 @@ import Parser.Commands.Command;
 public class DifferenceCommand extends Command {
 
     public DifferenceCommand(){
+        setNumParameters(2);
         isOutputCommand = true;
-        isEvaluated = false;
-        numParameters = 2;
     }
 
     public void performAction(BackendController backendController){
-        returnValue =  myChildrenList.get(0).getReturnValue() - myChildrenList.get(1).getReturnValue();
+        setReturnValue(myChildrenList.get(0).getReturnValue() - myChildrenList.get(1).getReturnValue());
     }
 
     @Override

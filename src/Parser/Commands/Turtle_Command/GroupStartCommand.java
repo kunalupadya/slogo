@@ -13,14 +13,13 @@ public class GroupStartCommand extends Command {
     public static final int COMMAND_INDEX = 0;
 
     public GroupStartCommand(){
+        setNumParameters((int) Double.POSITIVE_INFINITY);
         isOutputCommand = false;
-        isEvaluated = false;
-        numParameters = (int) Double.POSITIVE_INFINITY;
     }
 
     @Override
     protected void performAction(BackendController backendController) {
-        Command command = myChildrenList.get(COMMAND_INDEX);
+        Command command = getChildren().get(COMMAND_INDEX);
         int numParameters = command.getNumParameters();
         while (true){
             List<Command> commandList = command.getChildren();
@@ -29,8 +28,8 @@ public class GroupStartCommand extends Command {
                 command.execute(backendController);
                 command.getChildren().clear();
             }
-            if (myChildrenList.size()>2){//2 comes from the command and the groupendcommand
-                commandList.add(myChildrenList.remove(1));
+            if (getChildren().size()>2){//2 comes from the command and the groupendcommand
+                commandList.add(getChildren().remove(1));
             }
             else{
                 if (!commandList.isEmpty()){
@@ -40,7 +39,7 @@ public class GroupStartCommand extends Command {
             }
 
         }
-        returnValue = command.getReturnValue();
+        setReturnValue(command.getReturnValue());
     }
 
     @Override

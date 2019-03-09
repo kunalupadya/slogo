@@ -10,14 +10,13 @@ public class IsShowingCommand extends TurtleCommand {
     private static final int HIDDEN = 0;
 
     public IsShowingCommand(){
+        setNumParameters(0);
         isOutputCommand = true;
-        isEvaluated = false;
-        numParameters = 0;
     }
 
     @Override
     protected void turtleAction(Turtle turtle) {
-        returnValue = turtle.isTurtleVisible() ? SHOWING : HIDDEN;
+        setReturnValue(turtle.isTurtleVisible() ? SHOWING : HIDDEN);
     }
 
     @Override

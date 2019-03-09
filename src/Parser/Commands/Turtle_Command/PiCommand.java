@@ -6,6 +6,7 @@ import Parser.Commands.Command;
 public class PiCommand extends Command {
 
     public PiCommand(){
+        isOutputCommand = true;
         isEvaluated = false;
         numParameters = 0;
     }

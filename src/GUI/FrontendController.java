@@ -250,6 +250,10 @@ public class FrontendController {
         console.showError(errorString);
     }
 
+    public void consoleShowCommandOutput(String commandOutput){
+        console.showCommandOutput(commandOutput);
+    }
+
     public void getAvailableVars() {
         Set<String> availableVarsList = backendController.getAllVariables();
         availableVars.setList(availableVarsList);

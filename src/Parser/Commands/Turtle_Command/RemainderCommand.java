@@ -6,6 +6,7 @@ import Parser.Commands.Command;
 public class RemainderCommand extends Command {
 
     public RemainderCommand(){
+        isOutputCommand = true;
         isEvaluated = false;
         numParameters = 2;
     }

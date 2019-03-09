@@ -8,7 +8,9 @@ import Parser.Commands.Variable;
  * @author kunalupadya
  */
 public class MakeVariableCommand extends Command {
+
     public MakeVariableCommand(){
+        isOutputCommand = false;
         isEvaluated = false;
         numParameters = 2;
     }

@@ -16,6 +16,7 @@ public abstract class ControlCommand extends Command {
 
 
     ControlCommand(){
+        isOutputCommand = false;
         setReturnValue(0);
     }
 

@@ -106,3 +106,7 @@
 .console-black{
     -fx-text-inner-color: black;
 }
+
+.console-blue{
+    -fx-text-inner-color: blue;
+}

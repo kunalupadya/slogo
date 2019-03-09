@@ -14,6 +14,7 @@ public class TellCommand extends Command{
 
     private List<Turtle> assignedTurtleList = new ArrayList<>();
     public TellCommand(){
+        isOutputCommand = false;
         isEvaluated = false;
         numParameters = 1;
     }

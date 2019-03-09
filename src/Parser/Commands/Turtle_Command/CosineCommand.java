@@ -6,6 +6,7 @@ import Parser.Commands.Command;
 public class CosineCommand extends Command {
 
     public CosineCommand(){
+        isOutputCommand = true;
         isEvaluated = false;
         numParameters = 1;
     }

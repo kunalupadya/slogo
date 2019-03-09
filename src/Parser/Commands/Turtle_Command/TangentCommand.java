@@ -6,6 +6,7 @@ import Parser.Commands.Command;
 public class TangentCommand extends Command {
 
     public TangentCommand(){
+        isOutputCommand = true;
         isEvaluated = false;
         numParameters = 1;
     }

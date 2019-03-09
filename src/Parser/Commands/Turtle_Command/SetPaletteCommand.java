@@ -14,6 +14,7 @@ public class SetPaletteCommand extends TurtleCommand {
     public static final int B_VALUE = 3;
 
     public SetPaletteCommand(){
+        isOutputCommand = false;
         isEvaluated = false;
         numParameters = 4;
     }

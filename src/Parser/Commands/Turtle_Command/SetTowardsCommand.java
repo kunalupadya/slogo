@@ -10,6 +10,7 @@ import Parser.Commands.TurtleCommand;
 public class SetTowardsCommand extends TurtleCommand {
 
     public SetTowardsCommand(){
+        isOutputCommand = false;
         isEvaluated = false;
         numParameters = 2;
     }

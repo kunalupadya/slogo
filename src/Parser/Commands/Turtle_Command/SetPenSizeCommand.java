@@ -8,6 +8,7 @@ import Parser.Commands.TurtleCommand;
 public class SetPenSizeCommand extends TurtleCommand {
 
     public SetPenSizeCommand(){
+        isOutputCommand = false;
         isEvaluated = false;
         numParameters = 1;
     }

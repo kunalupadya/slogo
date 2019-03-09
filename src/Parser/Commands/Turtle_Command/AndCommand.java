@@ -6,6 +6,7 @@ import Parser.Commands.Command;
 public class AndCommand extends BooleanCommand{
 
     public AndCommand(){
+        super();
         isEvaluated = false;
         numParameters = 2;
     }

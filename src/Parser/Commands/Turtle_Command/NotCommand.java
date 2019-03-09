@@ -6,6 +6,7 @@ import Parser.Commands.Command;
 public class NotCommand extends BooleanCommand{
 
     public NotCommand(){
+        super();
         isEvaluated = false;
         numParameters = 2;
     }

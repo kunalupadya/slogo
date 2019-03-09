@@ -16,7 +16,11 @@ public abstract class Command{
     protected String text;
     protected int numParameters;
     private int currentNumParameters = 0;
+    protected boolean isOutputCommand;
 
+    public boolean getIsOutputCommand(){
+        return isOutputCommand;
+    }
 
     public int getCurrentNumParameters() {
         return currentNumParameters;

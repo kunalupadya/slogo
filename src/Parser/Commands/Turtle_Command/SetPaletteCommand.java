@@ -16,11 +16,7 @@ public class SetPaletteCommand extends TurtleCommand {
     public SetPaletteCommand(){
         setIsEvaluated(false);
         setNumParameters(4);
-=======
         isOutputCommand = false;
-        isEvaluated = false;
-        numParameters = 4;
->>>>>>> a1a6c60437162d2d87d90f7a1b81c253f7208a10
     }
 
     @Override

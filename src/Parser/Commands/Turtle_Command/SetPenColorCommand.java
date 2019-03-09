@@ -11,14 +11,9 @@ public class SetPenColorCommand extends TurtleCommand {
     private Color myColor;
 
     public SetPenColorCommand(){
-<<<<<<< HEAD
         setIsEvaluated(false);
         setNumParameters(1);
-=======
         isOutputCommand = false;
-        isEvaluated = false;
-        numParameters = 1;
->>>>>>> a1a6c60437162d2d87d90f7a1b81c253f7208a10
     }
 
     @Override

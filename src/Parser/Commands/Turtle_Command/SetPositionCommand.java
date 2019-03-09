@@ -8,14 +8,9 @@ import Parser.Commands.TurtleCommand;
 public class SetPositionCommand extends TurtleCommand{
 
     public SetPositionCommand(){
-<<<<<<< HEAD
         setIsEvaluated(false);
         setNumParameters(2);
-=======
         isOutputCommand = false;
-        isEvaluated = false;
-        numParameters = 2;
->>>>>>> a1a6c60437162d2d87d90f7a1b81c253f7208a10
     }
 
     @Override

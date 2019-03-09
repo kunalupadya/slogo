@@ -6,6 +6,8 @@ import Parser.Commands.Variable;
 import java.util.List;
 
 public interface ImmutableUserDefinedCommand {
+    public boolean getIsOutputCommand();
+
     public int getCurrentNumParameters();
 
     public boolean getIsEvaluated();

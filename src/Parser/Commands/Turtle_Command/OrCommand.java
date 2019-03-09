@@ -1,12 +1,13 @@
 package Parser.Commands.Turtle_Command;
 
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 
 public class OrCommand extends BooleanCommand {
 
     public OrCommand() {
-        isConstant = false;
+        super();
+        isEvaluated = false;
         numParameters = 2;
     }
 

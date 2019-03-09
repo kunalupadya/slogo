@@ -1,25 +1,29 @@
 package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author kunalupadya
+ */
 public class AskCommand extends Command{
 
     public static final int LIST_END_COMMAND_OFFSET = 1;
     public static final int TURTLES_INDEX = 0;
     private ArrayList<Turtle> assignedTurtleList = new ArrayList<>();
+
     public AskCommand(){
-        isConstant = false;
+        isOutputCommand = false;
+        isEvaluated = false;
         numParameters = 2;
     }
 
     @Override
     protected void performAction(BackendController backendController){
-        backendController.recordTurtleTell();
         Command turtleList = getChildren().get(TURTLES_INDEX);
 //        Command commandsToExecute = getChildren().get(1);
 

@@ -1,17 +1,20 @@
 package Parser.Commands.Turtle_Command;
 
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
-import javafx.scene.Group;
 
 import java.util.List;
 
+/**
+ * @author kunalupadya
+ */
 public class GroupStartCommand extends Command {
 
     public static final int COMMAND_INDEX = 0;
 
     public GroupStartCommand(){
-        isConstant = false;
+        isOutputCommand = false;
+        isEvaluated = false;
         numParameters = (int) Double.POSITIVE_INFINITY;
     }
 
@@ -22,7 +25,7 @@ public class GroupStartCommand extends Command {
         while (true){
             List<Command> commandList = command.getChildren();
             if (commandList.size() == numParameters && numParameters != 0){
-                command.setIsConstant(false); //allows you to rerun the same program
+                command.setIsEvaluated(false); //allows you to rerun the same program
                 command.execute(backendController);
                 command.getChildren().clear();
             }

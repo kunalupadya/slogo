@@ -4,14 +4,11 @@ import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.event.ActionEvent;
+import java.util.ResourceBundle;
 
 import GUI.FrontendController;
 
-import java.util.ResourceBundle;
-
 public class SwitchLanguages extends MenuButtonControl{
-    private FrontendController myContext;
-
     /**
      *
      * @param context

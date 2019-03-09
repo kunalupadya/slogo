@@ -1,12 +1,16 @@
 package Parser.Commands;
 
-import Main.BackendController;
+import Parser.BackendController;
 
+/**
+ * @author kunalupadya
+ */
 public class RootCommand extends Command{
 
     public RootCommand(){
-        isConstant = false;
+        isEvaluated = false;
         numParameters = (int) Double.POSITIVE_INFINITY;
+        isOutputCommand = false;
     }
 
     public void performAction(BackendController backendController){

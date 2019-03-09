@@ -10,8 +10,6 @@ import GUI.FrontendController;
 import java.util.ResourceBundle;
 
 public class SetPenThickness extends MenuButtonControl {
-    private FrontendController context;
-
     /**
      * TODO: finish JavaDoc
      *
@@ -19,7 +17,7 @@ public class SetPenThickness extends MenuButtonControl {
      */
     public SetPenThickness(FrontendController context) {
         super(new Image(FrontendController.class.getResourceAsStream("/images/penThickness.png")), "/buttonProperties/PenThickness");
-        this.context = context;
+        this.myContext = context;
     }
 
     @Override
@@ -27,7 +25,7 @@ public class SetPenThickness extends MenuButtonControl {
         return event -> {
             MenuItem mItem = (MenuItem) event.getSource();
             String command = myResourceBundle.getString(mItem.getText());
-            context.setPenThickness(Integer.parseInt(command));
+            myContext.setPenThickness(Integer.parseInt(command));
         };
     }
 

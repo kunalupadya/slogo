@@ -1,7 +1,7 @@
 package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 import javafx.scene.paint.Color;
@@ -14,7 +14,8 @@ public class SetPaletteCommand extends TurtleCommand {
     public static final int B_VALUE = 3;
 
     public SetPaletteCommand(){
-        isConstant = false;
+        isOutputCommand = false;
+        isEvaluated = false;
         numParameters = 4;
     }
 

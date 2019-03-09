@@ -1,14 +1,15 @@
 package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
 public class SetPenSizeCommand extends TurtleCommand {
 
     public SetPenSizeCommand(){
-        isConstant = false;
+        isOutputCommand = false;
+        isEvaluated = false;
         numParameters = 1;
     }
 
@@ -23,7 +24,7 @@ public class SetPenSizeCommand extends TurtleCommand {
 
     @Override
     protected void turtleAction(Turtle turtle) {
-        turtle.getMyPen().setPenSize((int)getChildren().get(0).getReturnValue());
+        turtle.setPenSize((int)getChildren().get(0).getReturnValue());
         returnValue = getChildren().get(0).getReturnValue();
     }
 

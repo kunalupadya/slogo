@@ -8,8 +8,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-
-public class Grid {
+/**
+ * @author kunalupadya
+ */
+public class Grid implements ImmutableGrid{
     public static final double GRID_OFFSET = 0.01;
     public static final double MARGIN_OF_ERROR = 0.001;
     public static final double WRAPPING_WINDOW = 0.001;
@@ -40,11 +42,11 @@ public class Grid {
         bounds.add(line);
     }
 
-    public double getHeight() {
+    protected double getHeight() {
         return height;
     }
 
-    public double getWidth() {
+    protected double getWidth() {
         return width;
     }
 
@@ -52,13 +54,13 @@ public class Grid {
         myObjects.clear();
     }
 
-    public void removeLines(List<Line> linesToRemove){
+    protected void removeLines(List<Line> linesToRemove){
         for (Line l:linesToRemove){
             myObjects.remove(l);
         }
     }
 
-    public VectorMovement addMovement(double xPos, double yPos, double angle, double dist, Pen pen){
+    protected VectorMovement addMovement(double xPos, double yPos, double angle, double dist, Pen pen){
         newLineMovements = new LinkedList<>();
         double newXPos = xPos - dist*Math.cos(Math.toRadians(angle));
         double newYPos = yPos - dist*Math.sin(Math.toRadians(angle));
@@ -77,9 +79,11 @@ public class Grid {
                 new Alert(Alert.AlertType.ERROR, "Internal miscalculation - turtle is offscreen").showAndWait();
                 break;
             }
+
             createLine(pen, xPos, yPos, intersection.getMyX(), intersection.getMyY());
             double distanceTravelled = Math.sqrt(Math.pow(xPos-intersection.getMyX(),2)+Math.pow(yPos-intersection.getMyY(),2));
             dist -= distanceTravelled;
+
             if (intersection.getMyX() == 0){
                 //offscreenleft
                 xPos = width-GRID_OFFSET;
@@ -100,6 +104,7 @@ public class Grid {
                 xPos = intersection.getMyX();
                 yPos = 0+GRID_OFFSET;
             }
+
             newXPos = xPos - dist*Math.cos(Math.toRadians(angle));
             newYPos = yPos - dist*Math.sin(Math.toRadians(angle));
             offScreen = isOffScreen(newXPos, newYPos);
@@ -125,7 +130,6 @@ public class Grid {
             myObjects.add(movement);
             newLineMovements.add(movement);
         }
-        System.out.println("Newline:" + xPos + " " + yPos + " " + newXPos + " " + newYPos + " ");
     }
 
     private Optional<Point> calculateIntersectionWithBounds(Point movementStart, Point movementEnd) {
@@ -176,11 +180,8 @@ public class Grid {
 
             if (pointOnInitialLine&withinGrid){
                 returnedPoint = Optional.of(new Point(x, y));
-                return returnedPoint;
             }
-            else{
-                return returnedPoint;
-            }
+            return returnedPoint;
         }
     }
 

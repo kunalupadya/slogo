@@ -46,12 +46,12 @@ public abstract class Module {
         toolbarPane.setMinHeight(toolbarHeight);
         toolbarPane.setId("toolbar");
         Text title = new Text(moduleName);
-        title.setLayoutY(10);
-        title.setLayoutX(5);
+        title.setLayoutY(13);
+        title.setLayoutX(25);
 
         close = new Close(this, this.getClass());
-        close.getButton().setLayoutX(moduleWidth - 25);
-        close.getButton().setLayoutY(-6);
+        close.getButton().setLayoutX(0);
+        close.getButton().setLayoutY(-2);
 
         toolbarPane.getChildren().addAll(title, close.getButton());
     }

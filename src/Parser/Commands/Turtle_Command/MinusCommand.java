@@ -1,12 +1,16 @@
 package Parser.Commands.Turtle_Command;
 
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 
+/**
+ * @author kunalupadya
+ */
 public class MinusCommand extends Command {
 
     public MinusCommand(){
-        isConstant = false;
+        isOutputCommand = true;
+        isEvaluated = false;
         numParameters = 1;
     }
 

@@ -1,12 +1,13 @@
 package Parser.Commands.Turtle_Command;
 
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 
 public class NotCommand extends BooleanCommand{
 
     public NotCommand(){
-        isConstant = false;
+        super();
+        isEvaluated = false;
         numParameters = 2;
     }
 

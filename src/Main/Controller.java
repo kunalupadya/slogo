@@ -1,6 +1,7 @@
 package Main;
 
 import GUI.FrontendController;
+import Parser.BackendController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;

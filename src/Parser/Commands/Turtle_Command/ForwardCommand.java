@@ -8,6 +8,7 @@ import Parser.Commands.TurtleCommand;
 public class ForwardCommand extends TurtleCommand {
 
     public ForwardCommand(){
+        isOutputCommand = false;
         isEvaluated = false;
         numParameters = 1;
     }

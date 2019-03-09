@@ -11,6 +11,7 @@ public class ConstantCommand extends Command {
         returnValue = input;
         isEvaluated = true;
         numParameters = 0;
+        isOutputCommand = false;
     }
 
     public void performAction(BackendController backendController){

@@ -7,6 +7,7 @@ import Parser.Commands.TurtleCommand;
 public class BackwardCommand extends TurtleCommand {
 
     public BackwardCommand(){
+        isOutputCommand = false;
         isEvaluated = false;
         numParameters = 1;
     }

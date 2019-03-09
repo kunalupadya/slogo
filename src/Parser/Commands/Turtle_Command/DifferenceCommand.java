@@ -6,6 +6,7 @@ import Parser.Commands.Command;
 public class DifferenceCommand extends Command {
 
     public DifferenceCommand(){
+        isOutputCommand = true;
         isEvaluated = false;
         numParameters = 2;
     }

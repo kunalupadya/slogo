@@ -9,6 +9,7 @@ import Parser.Commands.Command;
 public class MinusCommand extends Command {
 
     public MinusCommand(){
+        isOutputCommand = true;
         isEvaluated = false;
         numParameters = 1;
     }

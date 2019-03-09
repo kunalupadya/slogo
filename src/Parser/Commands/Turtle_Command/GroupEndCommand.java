@@ -8,6 +8,7 @@ import Parser.Commands.Command;
  */
 public class GroupEndCommand extends Command {
     public GroupEndCommand(){
+        isOutputCommand = false;
         isEvaluated = false;
         numParameters = 0;
     }

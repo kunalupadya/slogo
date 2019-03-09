@@ -7,7 +7,9 @@ import Parser.Commands.Command;
  * @author kunalupadya
  */
 public class ListStartCommand extends Command {
+
     public ListStartCommand(){
+        isOutputCommand = false;
         isEvaluated = false;
         numParameters = (int) Double.POSITIVE_INFINITY;
     }

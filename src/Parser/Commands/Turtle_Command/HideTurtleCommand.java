@@ -7,6 +7,7 @@ import Parser.Commands.TurtleCommand;
 public class HideTurtleCommand extends TurtleCommand {
 
     public HideTurtleCommand(){
+        isOutputCommand = false;
         isEvaluated = false;
         numParameters = 0;
     }

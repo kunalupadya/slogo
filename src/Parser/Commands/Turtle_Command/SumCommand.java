@@ -6,6 +6,7 @@ import Parser.Commands.Command;
 public class SumCommand extends Command {
 
     public SumCommand(){
+        isOutputCommand = true;
         isEvaluated = false;
         numParameters = 2;
     }

@@ -6,8 +6,8 @@ import Parser.Commands.TurtleCommand;
 
 public class LeftCommand extends TurtleCommand {
 
-
     public LeftCommand(){
+        isOutputCommand = false;
         isEvaluated = false;
         numParameters = 1;
     }

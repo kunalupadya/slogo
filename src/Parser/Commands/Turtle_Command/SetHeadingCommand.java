@@ -10,6 +10,7 @@ import Parser.Commands.TurtleCommand;
 public class SetHeadingCommand extends TurtleCommand{
 
     public SetHeadingCommand(){
+        isOutputCommand = false;
         isEvaluated = false;
         numParameters = 1;
     }

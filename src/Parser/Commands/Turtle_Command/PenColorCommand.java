@@ -12,6 +12,7 @@ public class PenColorCommand extends TurtleCommand {
     private int myColorIndex;
 
     public PenColorCommand(){
+        isOutputCommand = true;
         isEvaluated = false;
         numParameters = 0;
     }

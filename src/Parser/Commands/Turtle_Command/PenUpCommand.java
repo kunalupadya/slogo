@@ -7,6 +7,7 @@ import Parser.Commands.TurtleCommand;
 public class PenUpCommand extends TurtleCommand {
 
     public PenUpCommand(){
+        isOutputCommand = false;
         isEvaluated = false;
         numParameters = 0;
     }

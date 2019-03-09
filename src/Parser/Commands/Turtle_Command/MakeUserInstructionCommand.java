@@ -18,6 +18,7 @@ public class MakeUserInstructionCommand extends Command {
     private List< Variable> variables = new ArrayList<>();
 
     public MakeUserInstructionCommand(){
+        isOutputCommand = false;
         isEvaluated = false;
         numParameters = 3;
     }

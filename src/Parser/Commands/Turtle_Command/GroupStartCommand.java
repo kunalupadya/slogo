@@ -13,6 +13,7 @@ public class GroupStartCommand extends Command {
     public static final int COMMAND_INDEX = 0;
 
     public GroupStartCommand(){
+        isOutputCommand = false;
         isEvaluated = false;
         numParameters = (int) Double.POSITIVE_INFINITY;
     }

@@ -9,6 +9,7 @@ public class Variable extends Command{
         isEvaluated = false;
         numParameters = 0;
         this.text = text;
+        isOutputCommand = true;
     }
 
     @Override

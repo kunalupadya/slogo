@@ -6,6 +6,7 @@ import Parser.Commands.Command;
 public class SetBackgroundCommand extends Command {
 
     public SetBackgroundCommand(){
+        isOutputCommand = false;
         isEvaluated = false;
         numParameters = 1;
     }

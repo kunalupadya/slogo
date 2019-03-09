@@ -16,6 +16,7 @@ public class TextCommand extends Command {
     public static final int COMMANDS = 3;
 
     public TextCommand(String text){
+        isOutputCommand = false;
         isEvaluated = false;
         numParameters = 0;
         this.text = text;

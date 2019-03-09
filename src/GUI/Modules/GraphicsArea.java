@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 
 /**
  *
+ * @author David Liu
  */
 
 public class GraphicsArea extends Module {

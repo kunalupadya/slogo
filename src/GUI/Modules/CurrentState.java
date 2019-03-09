@@ -9,6 +9,11 @@ import GUI.FrontendController;
 import javafx.scene.control.ListView;
 import javafx.scene.paint.Color;
 
+/**
+ *
+ * @author David Liu
+ */
+
 public class CurrentState extends ListModule {
     private ResourceBundle myResourceBundles;
     private List<String> list;

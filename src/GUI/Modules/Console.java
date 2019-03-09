@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * TODO: send consoleinput to the backend
- * TODO: get prompt text from a resource file, not hardcoded
+ *
+ * @author David Liu
  */
 
 public class Console extends Module  {
@@ -118,7 +118,6 @@ public class Console extends Module  {
         }
         consoleInfo.getStyleClass().set(consoleInfo.getStyleClass().size() - 1,
                 myResourceBundles.getString("ConsoleStyleBlue"));
-
     }
 
     public void addToConsole(String commandString) {

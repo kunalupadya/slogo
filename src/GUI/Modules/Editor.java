@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 /**
  *
+ * @author David Liu
  */
 
 public class Editor extends Module {

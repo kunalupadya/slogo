@@ -2,13 +2,17 @@ package GraphicsBackend;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 import java.util.LinkedList;
 import java.util.List;
 
 
-public class Turtle {
+/**
+ * @author kunalupadya
+ */
+public class Turtle implements ImmutableTurtle{
     public static final String DEFAULT_IMAGE = "/images/initialTurtle.png";
     public static final int TURTLE_SIZE = 50;
     public static final int HALF_TURTLE_SIZE = 25;
@@ -39,7 +43,7 @@ public class Turtle {
         turtleImage = new javafx.scene.image.Image(this.getClass().getResourceAsStream(DEFAULT_IMAGE));
     }
 
-    public void updateATurtleImageView(ImageView turtle){
+    private void updateATurtleImageView(ImageView turtle){
         turtle.setImage(turtleImage);
         turtle.setX(xPos-HALF_TURTLE_SIZE);
         turtle.setY(yPos-HALF_TURTLE_SIZE);
@@ -72,12 +76,16 @@ public class Turtle {
     }
 
     public void undo(){
-        ImmutableTurtleState turtleState = previousPositions.removeLast();
-        Point oldPos = turtleState.getPos();
-        myGrid.removeLines(lastLinesPlaced.removeLast());
-        xPos = oldPos.getMyX();
-        yPos = oldPos.getMyY();
-        myAngle = turtleState.getAngle();
+        if (previousPositions.size() > 0) {
+            ImmutableTurtleState turtleState = previousPositions.removeLast();
+            Point oldPos = turtleState.getPos();
+            if (lastLinesPlaced.size() > 0) {
+                myGrid.removeLines(lastLinesPlaced.removeLast());
+            }
+            xPos = oldPos.getMyX();
+            yPos = oldPos.getMyY();
+            myAngle = turtleState.getAngle();
+        }
     }
 
     public void turn(double angle){
@@ -97,10 +105,6 @@ public class Turtle {
 
     public void setTurtleVisibility(boolean visibility){
         isTurtleVisible = visibility;
-    }
-
-    public boolean getTurtleVisibility(){
-        return isTurtleVisible;
     }
 
     public boolean isTurtleVisible(){
@@ -135,6 +139,18 @@ public class Turtle {
         this.turtleImage = turtleImage;
     }
 
+    public void setPenColor(Color color){
+        myPen.setPenColor(color);
+    }
+
+    public void setPenSize(int pixelSize){
+        myPen.setPenSize(pixelSize);
+    }
+
+    public void setPenUp(boolean penUp){
+        myPen.setPenUp(penUp);
+    }
+
     public ImageView getAdjustedTurtleImageView(double xLeftCorner, double yLeftCorner) {
         ImageView returnedTurtle = new ImageView();
         updateATurtleImageView(returnedTurtle);
@@ -143,7 +159,7 @@ public class Turtle {
         return returnedTurtle;
     }
 
-    public Pen getMyPen() {
+    public ImmutablePen getMyPen() {
         return myPen;
     }
 }

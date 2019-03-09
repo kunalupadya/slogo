@@ -1,14 +1,17 @@
 package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
-import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
+/**
+ * @author kunalupadya
+ */
 public class SetHeadingCommand extends TurtleCommand{
 
     public SetHeadingCommand(){
-        isConstant = false;
+        isOutputCommand = false;
+        isEvaluated = false;
         numParameters = 1;
     }
 

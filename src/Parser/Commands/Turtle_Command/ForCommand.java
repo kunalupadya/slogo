@@ -1,19 +1,21 @@
 package Parser.Commands.Turtle_Command;
 
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.Variable;
 
 public class ForCommand extends ControlCommand {
 
-    private ListStartCommand commandListOrig = (ListStartCommand) myChildrenList.get(1);
+    private final int VAR_RANGE_INDEX = 0;
+    private final int COMMANDS_INDEX = 1;
+    private ListStartCommand commandListOrig;
     private int increment;
     private Variable loopVar;
 
     public ForCommand() {
         super();
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 2;
     }
 
@@ -39,7 +41,7 @@ public class ForCommand extends ControlCommand {
 
     @Override
     public void setInitialExpressions() {
-        ListStartCommand loopParam = (ListStartCommand) myChildrenList.get(0);
+        ListStartCommand loopParam = (ListStartCommand) myChildrenList.get(VAR_RANGE_INDEX);
         initialExpressions.add(loopParam.getChildren().get(1));
         initialExpressions.add(loopParam.getChildren().get(2));
         initialExpressions.add(loopParam.getChildren().get(3));
@@ -52,6 +54,7 @@ public class ForCommand extends ControlCommand {
         currCount = (int) initialExpressions.get(0).getReturnValue();
         limit = (int) initialExpressions.get(1).getReturnValue();
         increment = (int) initialExpressions.get(2).getReturnValue();
+        commandListOrig = (ListStartCommand) myChildrenList.get(COMMANDS_INDEX);
     }
 
     @Override

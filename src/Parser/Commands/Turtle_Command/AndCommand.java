@@ -1,12 +1,13 @@
 package Parser.Commands.Turtle_Command;
 
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 
 public class AndCommand extends BooleanCommand{
 
     public AndCommand(){
-        isConstant = false;
+        super();
+        isEvaluated = false;
         numParameters = 2;
     }
 

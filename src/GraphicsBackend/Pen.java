@@ -4,7 +4,10 @@ import javafx.scene.paint.Color;
 
 import java.util.Optional;
 
-public class Pen {
+/**
+ * @author kunalupadya
+ */
+public class Pen implements ImmutablePen{
 
     //TODO Need to change pencolor to int
     private Color penColor;
@@ -29,15 +32,15 @@ public class Pen {
 
     public int getPenSize(){ return penSize;}
 
-    public void setPenColor(Color color) {
+    protected void setPenColor(Color color) {
         this.penColor = color;
     }
 
-    public void setPenUp(boolean penUp) {
+    protected void setPenUp(boolean penUp) {
         this.penUp = penUp;
     }
 
-    public void setPenSize(int pixelSize){
+    protected void setPenSize(int pixelSize){
         this.penSize = pixelSize;
     }
 }

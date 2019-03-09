@@ -1,12 +1,13 @@
 package Parser.Commands.Turtle_Command;
 
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 
 public class ProductCommand extends Command {
 
     public ProductCommand(){
-        isConstant = false;
+        isOutputCommand = true;
+        isEvaluated = false;
         numParameters = 2;
     }
 

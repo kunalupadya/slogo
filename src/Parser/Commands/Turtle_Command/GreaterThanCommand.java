@@ -1,12 +1,13 @@
 package Parser.Commands.Turtle_Command;
 
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 
 public class GreaterThanCommand extends BooleanCommand {
 
     public GreaterThanCommand(){
-        isConstant = false;
+        super();
+        isEvaluated = false;
         numParameters = 2;
     }
 

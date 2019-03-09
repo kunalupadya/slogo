@@ -1,30 +1,37 @@
 package Parser.Commands;
 
-import Main.BackendController;
+import Parser.BackendController;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author kunalupadya
+ */
 public abstract class Command{
 
     protected List<Command> myChildrenList = new ArrayList<>();
-    protected boolean isConstant;
+    protected boolean isEvaluated;
     protected double returnValue;
     protected String text;
     protected int numParameters;
     private int currentNumParameters = 0;
+    protected boolean isOutputCommand;
 
+    public boolean getIsOutputCommand(){
+        return isOutputCommand;
+    }
 
     public int getCurrentNumParameters() {
         return currentNumParameters;
     }
 
-    public boolean getIsConstant(){
-        return isConstant;
+    public boolean getIsEvaluated(){
+        return isEvaluated;
     }
 
-    public void setIsConstant(boolean constant) {
-        isConstant = constant;
+    public void setIsEvaluated(boolean constant) {
+        isEvaluated = constant;
     }
 
     public int getNumParameters(){
@@ -49,8 +56,7 @@ public abstract class Command{
 
     public void execute(BackendController backendController) {
         performAction(backendController);
-        System.out.println(returnValue);
-        isConstant = true;
+        isEvaluated = true;
     }
 
     protected abstract void performAction(BackendController backendController);
@@ -58,8 +64,10 @@ public abstract class Command{
     public abstract Command copy();
 
     public void addChildren(Command command) {
-        myChildrenList.add(command);
-        currentNumParameters += 1;
+//        if (command != this) {
+            myChildrenList.add(command);
+            currentNumParameters += 1;
+//        }
     }
 
     public List<Command> getChildren(){

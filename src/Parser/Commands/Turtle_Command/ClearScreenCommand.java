@@ -2,14 +2,14 @@ package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Point;
 import GraphicsBackend.Turtle;
-import Main.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
 public class ClearScreenCommand extends TurtleCommand {
 
     public ClearScreenCommand(){
-        isConstant = false;
+        isOutputCommand = false;
+        isEvaluated = false;
         numParameters = 0;
     }
 

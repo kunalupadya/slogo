@@ -1,12 +1,13 @@
 package Parser.Commands.Turtle_Command;
 
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 
 public class PiCommand extends Command {
 
     public PiCommand(){
-        isConstant = false;
+        isOutputCommand = true;
+        isEvaluated = false;
         numParameters = 0;
     }
 

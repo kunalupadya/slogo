@@ -1,16 +1,21 @@
 package Parser.Commands.Turtle_Command;
 
+import GraphicsBackend.Grid;
 import GraphicsBackend.Turtle;
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author kunalupadya
+ */
 public class TellCommand extends Command{
 
     private List<Turtle> assignedTurtleList = new ArrayList<>();
     public TellCommand(){
-        isConstant = false;
+        isOutputCommand = false;
+        isEvaluated = false;
         numParameters = 1;
     }
 
@@ -23,14 +28,13 @@ public class TellCommand extends Command{
 
         List<Turtle> turtleList= backendController.getMyTurtles();
         for (int a = 0; a < startCommand.getChildren().size() - 1; a++) {
-//            System.out.println(startCommand.getChildren().size() -1);
             int turtleIndex = (int) startCommand.getChildren().get(a).getReturnValue();
             if (turtleIndex < turtleList.size()) {
                 assignedTurtleList.add(turtleList.get(turtleIndex));
             }
             else {
                 while(turtleIndex>turtleList.size()) {
-                    Turtle newTurtle = new Turtle(backendController.getMyGrid());
+                    Turtle newTurtle = new Turtle((Grid) backendController.getMyGrid());
                     turtleList.add(newTurtle);
                     assignedTurtleList.add(newTurtle);
                 }

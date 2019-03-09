@@ -7,7 +7,8 @@ import Parser.Commands.TurtleCommand;
 public class YCoordinateCommand extends TurtleCommand {
 
     public YCoordinateCommand(){
-        isConstant = false;
+        isOutputCommand = true;
+        isEvaluated = false;
         numParameters = 0;
     }
 

@@ -1,4 +1,24 @@
 package Parser.Commands.Turtle_Command;
 
-public class AskWithCommand {
+import GraphicsBackend.Turtle;
+import Parser.Commands.Command;
+import Parser.Commands.TurtleCommand;
+
+public class AskWithCommand extends TurtleCommand {
+
+    public AskWithCommand(){
+        isOutputCommand = false;
+        numParameters = 2;
+        isEvaluated = false;
+    }
+
+    @Override
+    protected void turtleAction(Turtle turtle) {
+
+    }
+
+    @Override
+    public Command copy() {
+        return new AskWithCommand();
+    }
 }

@@ -1,24 +1,28 @@
 package Parser.Commands.Turtle_Command;
 
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.Variable;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+
+/**
+ * @author kunalupadya
+ */
 public class UserDefinedCommand extends Command {
     String name;
     private List<Variable> variables;
     private ListStartCommand headNode;
 
     public UserDefinedCommand(String name, List<Variable> variables, ListStartCommand headNode){
+        isOutputCommand = false;
         this.name = name;
         this.variables = variables;
         this.headNode = headNode;
         myChildrenList.add(headNode);
-        isConstant = false;
+        isEvaluated = false;
         numParameters = 1;
     }
 

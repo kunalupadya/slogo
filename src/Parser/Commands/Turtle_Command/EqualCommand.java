@@ -1,13 +1,17 @@
 package Parser.Commands.Turtle_Command;
 
 
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 
+/**
+ * @author kunalupadya
+ */
 public class EqualCommand extends BooleanCommand{
 
     public EqualCommand(){
-        isConstant = false;
+        super();
+        isEvaluated = false;
         numParameters = 2;
     }
 

@@ -1,11 +1,16 @@
 package Parser.Commands.Turtle_Command;
 
-import Main.BackendController;
+import Parser.BackendController;
 import Parser.Commands.Command;
 
+/**
+ * @author kunalupadya
+ */
 public class ListEndCommand extends Command {
+
     public ListEndCommand(){
-        isConstant = false;
+        isOutputCommand = false;
+        isEvaluated = false;
         numParameters = 0;
     }
 

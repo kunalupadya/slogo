@@ -1,10 +1,8 @@
-package Main;
+package Parser;
 
 
 import GUI.FrontendController;
-import GraphicsBackend.Grid;
-import GraphicsBackend.Palette;
-import GraphicsBackend.Turtle;
+import GraphicsBackend.*;
 import Parser.Commands.Command;
 import Parser.Commands.Turtle_Command.ListStartCommand;
 import Parser.Commands.Turtle_Command.MakeUserInstructionCommand;
@@ -15,8 +13,10 @@ import javafx.scene.paint.Color;
 
 import java.util.*;
 
+/**
+ * @author kunalupadya
+ */
 public class BackendController {
-
 
     private String commmandLanguage;
     private Grid myGrid;
@@ -26,19 +26,13 @@ public class BackendController {
     private List<UserDefinedCommand> userDefinedCommandStack = new LinkedList<>();
     private FrontendController frontendController;
     private List<Boolean> previousTurtleTell;
+    private List<Turtle> askWithList;
     private Palette myPalette;
 
     public BackendController(){
         myGrid = new Grid(400,400);
         userDefinedCommands = new HashMap<>();
         availableVariables = new HashMap<>();
-//        myTurtles.add(new Turtle(myGrid));
-//        Turtle turtle2 = new Turtle(myGrid);
-//        turtle2.turn(20);
-//        turtle2.move(50);
-//        turtle2.turn(300);
-//        turtle2.move(100);
-//        myTurtles.add(turtle2);
         myTurtles.add(new Turtle(myGrid));
         myPalette = new Palette();
 
@@ -115,12 +109,18 @@ public class BackendController {
         commmandLanguage = language;
     }
 
-    public Grid getMyGrid() {
+    public ImmutableGrid getMyGrid() {
         return myGrid;
     }
 
+    //meant for backend access
     public List<Turtle> getMyTurtles() {
         return myTurtles;
+    }
+
+    //meant for frontend access
+    public Collection<Turtle> getImmutableTurtles(){
+        return Collections.unmodifiableCollection(myTurtles);
     }
 
     public void showMessage(String string){
@@ -161,5 +161,9 @@ public class BackendController {
                 turtle.undo();
             }
         }
+    }
+
+    public void outputResultToConsole(String commandOutput) {
+        frontendController.consoleShowCommandOutput(commandOutput);
     }
 }

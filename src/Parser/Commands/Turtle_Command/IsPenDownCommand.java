@@ -11,13 +11,12 @@ public class IsPenDownCommand extends TurtleCommand {
 
     public IsPenDownCommand(){
         isOutputCommand = true;
-        isEvaluated = false;
-        numParameters = 0;
+        setNumParameters(0);
     }
 
     @Override
     protected void turtleAction(Turtle turtle) {
-        returnValue = turtle.getMyPen().getPenUp() ? PEN_UP : PEN_DOWN;
+        setReturnValue(turtle.getMyPen().getPenUp() ? PEN_UP : PEN_DOWN);
     }
 
     @Override

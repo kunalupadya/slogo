@@ -39,7 +39,6 @@ public class BackendController {
 //        myTurtles.add(turtle2);
         myTurtles.add(new Turtle(myGrid));
         myPalette = new Palette();
-
     }
 
     public void recordTurtleTell(){

@@ -1,1 +1,0 @@
-[fd 50, right 50, fd 40, right 50, fd 30, right 50, fd 20]

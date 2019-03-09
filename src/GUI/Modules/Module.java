@@ -82,7 +82,7 @@ public abstract class Module {
 
     protected int getModuleHeight() { return moduleHeight; }
 
-    protected Pane getToolbarPane() { return toolbarPane; }
+    public Pane getToolbarPane() { return toolbarPane; }
 
     public ButtonControl getClose() { return close; }
 }

@@ -22,6 +22,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -46,13 +47,14 @@ public class FrontendController {
     private CurrentState currentState;
     private Console console;
     private MenuButtonControl openHelp, moveTurtle, switchLanguages, penThickess;
-    private ButtonControl redo, run, undo, stopExecution, setTurtleImage, save, saveFile, loadFile, penState;
+    private ButtonControl redo, run, undo, stopExecution, setTurtleImage, save, load, saveFile, loadFile, penState;
     private ColorPicker BackgroundColor, PenColor;
+    private TextField backgroundColor, penColor, numTurtles, language, fileName;
     private BackendController backendController;
     private String defaultLanguage = "English";
     private List<Turtle> turtles;
     private List<String> moduleList;
-    private ResourceBundle myModuleContainer, myModulePosition, myModuleLabels;
+    private ResourceBundle myModuleContainer, myModulePosition, myModuleLabels, myPreferences;
     private int editorWidth = 200;
     private int editorHeight = 210;
     private int availableVarsWidth = 200;
@@ -70,7 +72,9 @@ public class FrontendController {
     private String moduleContainer = "/buttonProperties/ModuleContainer";
     private String modulePosition = "/buttonProperties/ModulePosition";
     private String moduleLabels = "/moduleProperties/ModuleLabel";
+    private String preferences = "/moduleProperties/UserPreferences";
     private String editorPath = "data/editorFiles/";
+    private String preferencesPath = "data/saveStates/";
     private Boolean checkSimulation = false;
 
     /**
@@ -81,9 +85,11 @@ public class FrontendController {
     public FrontendController(BorderPane root, Stage stage) {
         this.myStage = stage;
         this.myContainer = root;
+
         this.myModuleLabels = ResourceBundle.getBundle(moduleLabels);
         this.myModuleContainer = ResourceBundle.getBundle(moduleContainer);
         this.myModulePosition = ResourceBundle.getBundle(modulePosition);
+        this.myPreferences = ResourceBundle.getBundle(preferences);
 
         this.editor = new Editor(editorWidth, editorHeight, myModuleLabels.getString("Editor"), this);
         this.availableVars = new AvailableVars(availableVarsWidth, availableVarsHeight,  myModuleLabels.getString("AvailableVars"),this);
@@ -147,8 +153,11 @@ public class FrontendController {
         switchLanguages = new SwitchLanguages(this);
         switchLanguages.getButton().setTooltip(new Tooltip("Switch Languages"));
 
-        save = new Save(this);
-        save.getButton().setTooltip(new Tooltip("Save"));
+        save = new PropertiesSave(this);
+        save.getButton().setTooltip(new Tooltip("Save Properties"));
+
+        load = new PropertiesLoad(this);
+        load.getButton().setTooltip(new Tooltip("Load Properties"));
 
         saveFile = new FileSave(this);
         saveFile.getButton().setTooltip(new Tooltip("Save File"));
@@ -173,7 +182,7 @@ public class FrontendController {
 
         var leftButtons = new HBox(openHelp.getButton(), switchLanguages.getButton(), saveFile.getButton(),
                 loadFile.getButton(), BackgroundColor, PenColor, penThickess.getButton(), penState.getButton(),
-                setTurtleImage.getButton(), save.getButton());
+                setTurtleImage.getButton(), save.getButton(), load.getButton());
         leftButtons.getStyleClass().add("button-container");
 
         var padding = new Region();
@@ -232,7 +241,7 @@ public class FrontendController {
         graphicsArea.setVariables(lines, turtleImages, turtleActives);
     }
 
-    public void setBackgroundColor(Paint color) {
+    public void setBackgroundColor(Color color) {
         graphicsArea.setColor(color);
     }
 
@@ -326,14 +335,18 @@ public class FrontendController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("data/scripts"));
         File potentialFile = fileChooser.showOpenDialog(myStage);
+        loadEditor(potentialFile);
+    }
+
+    public void loadEditor(File file) {
         try
         {
-            Scanner s = new Scanner(potentialFile);
+            Scanner s = new Scanner(file);
             editor.readText(s);
         }
         catch (FileNotFoundException e)
         {
-            consoleShowError("File " + potentialFile.getName() + ".txt does not exist");
+            consoleShowError("File " + file.getName() + ".txt does not exist");
         }
         catch (NullPointerException e)
         {
@@ -381,6 +394,7 @@ public class FrontendController {
             buttonHandler.setMaxWidth(600);
             console.getContent().setMinWidth(600);
             console.getContent().setMaxWidth(600);
+            console.getToolbarPane().setMaxWidth(600);
             if (myStage.getWidth() != 600) {
                 myStage.setMaxWidth(600);
             }
@@ -496,9 +510,175 @@ public class FrontendController {
         }
     }
 
-    public void save() {}
+    public void save() {
+        Group saveGroup = new Group();
 
+        Rectangle dialogBox = new Rectangle(0, 0, 400, 300);
+        dialogBox.setEffect(new DropShadow(25, 0, 0, Color.web("#333333")));
+        dialogBox.setArcWidth(20);
+        dialogBox.setArcHeight(20);
+        dialogBox.setFill(Color.WHITE);
+
+        double originY = myStage.getScene().getHeight()/2 - dialogBox.getLayoutBounds().getHeight()/2 - 15;
+        double originX = myStage.getScene().getWidth()/2 - dialogBox.getLayoutBounds().getWidth()/2;
+
+        backgroundColor = new TextField();
+        backgroundColor.setPromptText("Enter background color (e.g. blue)");
+        backgroundColor.setLayoutX(30);
+        backgroundColor.setLayoutY(60);
+        backgroundColor.setPrefWidth(340);
+
+        penColor = new TextField();
+        penColor.setPromptText("Enter pen color (e.g. black)");
+        penColor.setLayoutX(30);
+        penColor.setLayoutY(60 + 30);
+        penColor.setPrefWidth(340);
+
+        numTurtles = new TextField();
+        numTurtles.setPromptText("Enter number of turtles (e.g. 2)");
+        numTurtles.setLayoutX(30);
+        numTurtles.setLayoutY(60 + 60);
+        numTurtles.setPrefWidth(340);
+
+        language = new TextField();
+        language.setPromptText("Enter language (e.g. English)");
+        language.setLayoutX(30);
+        language.setLayoutY(60 + 90);
+        language.setPrefWidth(340);
+
+        fileName = new TextField();
+        fileName.setPromptText("Enter file name (e.g. test.txt)");
+        fileName.setLayoutX(30);
+        fileName.setLayoutY(60 + 120);
+        fileName.setPrefWidth(340);
+
+        ButtonControl close = new CloseHelp(this, saveGroup);
+        close.getButton().setLayoutX(dialogBox.getWidth() - 50);
+        close.getButton().setLayoutY(10);
+        close.getButton().setCursor(Cursor.HAND);
+        close.getButton().setTooltip(new Tooltip("Close Save Preferences"));
+
+        ButtonControl savePreferences = new Save(this);
+        savePreferences.getButton().setLayoutX(dialogBox.getWidth()/2 - 15);
+        savePreferences.getButton().setLayoutY(250);
+        savePreferences.getButton().setTooltip(new Tooltip("Save Preferences"));
+
+        saveGroup.getChildren().addAll(dialogBox, backgroundColor, penColor, numTurtles, language, fileName, close.getButton(), savePreferences.getButton());
+
+        saveGroup.setLayoutY(originY);
+        saveGroup.setLayoutX(originX);
+
+        myContainer.getChildren().add(saveGroup);
+    }
+
+    public void savePreferencesFile() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("data/preferences"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text doc(*.txt)", "*.txt"));
+        File potentialFile = fileChooser.showSaveDialog(myStage);
+
+        if (potentialFile != null) {
+            ObservableList<CharSequence> paragraph = editor.getText();
+            Iterator<CharSequence> iter = paragraph.iterator();
+            try {
+                PrintWriter initialWriter = new PrintWriter(potentialFile);
+                BufferedWriter bf = new BufferedWriter(initialWriter);
+                saveBuffer("backgroundColor", bf);
+                saveBuffer(backgroundColor.getText(), bf);
+                saveBuffer("penColor", bf);
+                saveBuffer(penColor.getText(), bf);
+                saveBuffer("numTurtles", bf);
+                saveBuffer(numTurtles.getText(), bf);
+                saveBuffer("language", bf);
+                saveBuffer(language.getText(), bf);
+                saveBuffer("fileName", bf);
+                saveBuffer(fileName.getText(), bf);
+                bf.flush();
+                bf.close();
+
+            } catch (Exception e) {
+                consoleShowError("Error occurred when writing text to file!");
+            }
+        }
+    }
+
+    private void saveBuffer(String content, BufferedWriter bf) {
+        try {
+            bf.append(content);
+            bf.newLine();
+        } catch (Exception e) {
+            consoleShowError("Error occurred when saving preferences");
+        }
+    }
+    
     public void load() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("data/preferences"));
+        File potentialFile = fileChooser.showOpenDialog(myStage);
+        int counter = 0;
+        try
+        {
+            Scanner s = new Scanner(potentialFile);
+            while(s.hasNextLine()) {
+                String bundleReference = s.nextLine();
+                String methodName = myPreferences.getString(bundleReference);
+                String parameter = s.nextLine();
+                loadPropertyMethod(counter, methodName, parameter);
+                counter++;
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            consoleShowError("File " + potentialFile.getName() + ".txt does not exist");
+        }
+        catch (NullPointerException e)
+        {
+            consoleShowError("Did not select a File");
+        }
+    }
 
+    private void loadPropertyMethod(int counter, String methodName, String parameter) {
+        switch(counter) {
+            case 0:
+                try {
+                    Method method = this.getClass().getDeclaredMethod(methodName, Color.class);
+                    method.invoke(this, Color.valueOf(parameter));
+                } catch (Exception e) {
+                    consoleShowError("Error occurred when setting background color");
+                }
+                break;
+            case 1:
+                try {
+                    Method method = this.getClass().getDeclaredMethod(methodName, Color.class);
+                    method.invoke(this, Color.valueOf(parameter));
+                } catch (Exception e) {
+                    consoleShowError("Error occurred when setting pen color");
+                }
+                break;
+            case 2:
+                try {
+                    Method method = this.getClass().getDeclaredMethod(methodName, String.class);
+                    method.invoke(this, "tell " + parameter);
+                } catch (Exception e) {
+                    consoleShowError("Error occurred when setting number of turtles");
+                }
+                break;
+            case 3:
+                try {
+                    Method method = this.getClass().getDeclaredMethod(methodName, String.class);
+                    method.invoke(this, parameter);
+                } catch (Exception e) {
+                    consoleShowError("Error occurred when setting language");
+                }
+                break;
+            case 4:
+                try {
+                    Method method = this.getClass().getDeclaredMethod(methodName, File.class);
+                    method.invoke(this, new File("data/scripts/" + parameter));
+                } catch (Exception e) {
+                    consoleShowError("Error occurred when loading file");
+                }
+                break;
+        }
     }
 }

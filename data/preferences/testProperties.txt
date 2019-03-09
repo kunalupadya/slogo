@@ -1,0 +1,10 @@
+backgroundColor
+green
+penColor
+orange
+numTurtles
+1
+language
+Portuguese
+fileName
+test.txt

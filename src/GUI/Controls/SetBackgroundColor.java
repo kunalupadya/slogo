@@ -1,7 +1,7 @@
 package GUI.Controls;
 
 import javafx.scene.control.ColorPicker;
-import javafx.scene.paint.Paint;
+import javafx.scene.paint.Color;
 
 import GUI.FrontendController;
 
@@ -18,7 +18,7 @@ public class SetBackgroundColor {
         colorPicker.setOnAction(event -> action(colorPicker.getValue()));
     }
 
-    public void action(Paint color) {
+    public void action(Color color) {
         context.setBackgroundColor(color);
     }
 

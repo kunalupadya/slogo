@@ -21,19 +21,27 @@ public class IDCommand extends TurtleCommand {
 
     @Override
     protected void performAction(BackendController backendController){
-        for (Turtle turtle: backendController.getMyTurtles()) {
-            if (turtle.getIsTurtleActive()) {
-                aliveTurtles.add(turtle);
-                turtleAction(turtle);
+        List<Turtle> turtleList = backendController.getMyTurtles();
+        for (int i = 0; i < turtleList.size(); i++) {
+            if (turtleList.get(i).getIsTurtleActive()) {
+                returnValue = i + 1;
+                break;
             }
         }
-        turtleId = aliveTurtles.size();
 
-        for (Turtle turtle: backendController.getMyTurtles()) {
-            if (turtle.getIsTurtleActive()) {
-                turtleAction(turtle);
-            }
-        }
+//        for (Turtle turtle: backendController.getMyTurtles()) {
+//            if (turtle.getIsTurtleActive()) {
+//                aliveTurtles.add(turtle);
+//                turtleAction(turtle);
+//            }
+//        }
+//        returnValue = aliveTurtles.size();
+//
+//        for (Turtle turtle: backendController.getMyTurtles()) {
+//            if (turtle.getIsTurtleActive()) {
+//                turtleAction(turtle);
+//            }
+//        }
     }
 
     @Override

@@ -18,6 +18,9 @@ public abstract class Command{
     private int currentNumParameters = 0;
     protected boolean isOutputCommand;
 
+    public boolean getIsOutputCommand(){
+        return isOutputCommand;
+    }
 
     public int getCurrentNumParameters() {
         return currentNumParameters;

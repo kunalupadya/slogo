@@ -27,12 +27,32 @@ public class ExecuteCommand {
     }
 
     void runCommands(){
+        boolean outputToConsole = false;
+        if (headNode.getChildren().size() == 1 && headNode.getChildren().get(0).getIsOutputCommand()){
+            outputToConsole = true;
+        }
         //post traversal starting from headNode
         try {
             traverse(headNode);
-        }
-        catch (SyntaxError e){
+        } catch (SyntaxError e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
+        }
+        if (outputToConsole){
+            Command outputCommand = headNode.getChildren().get(0);
+            String output = "Result: ";
+            if (outputCommand instanceof BooleanCommand || outputCommand instanceof IsPenDownCommand ||
+                    outputCommand instanceof IsShowingCommand){
+                if (outputCommand.getReturnValue() == 1){
+                    output += "TRUE";
+                }
+                else{
+                    output += "FALSE";
+                }
+            }
+            else{
+                output += String.valueOf(outputCommand.getReturnValue());
+            }
+            backendController.outputResultToConsole(output);
         }
     }
 

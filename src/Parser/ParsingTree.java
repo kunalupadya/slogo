@@ -3,7 +3,6 @@ package Parser;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.RootCommand;
-//import Parser.Commands.Turtle_Command.*;
 import Parser.Commands.Turtle_Command.*;
 import Parser.Commands.Variable;
 
@@ -32,6 +31,7 @@ class ParsingTree {
     }
 
     private Command makeTree(List<Command> commandsList, Command parent){
+        //System.out.println(parent.getClass());
         while (!commandsList.isEmpty()) {
             currCommand = commandsList.remove(FIRST);
             Command savedCurrentCommand = currCommand;
@@ -57,7 +57,12 @@ class ParsingTree {
                 handleGroupStartCommand(commandsList, parent, savedCurrentCommand);
             }
             else{
-                parent.addChildren(makeTree(commandsList, savedCurrentCommand));
+                if (savedCurrentCommand.getNumParameters() == savedCurrentCommand.getCurrentNumParameters()) {
+                    parent.addChildren(savedCurrentCommand);
+                }
+                else {
+                    parent.addChildren(makeTree(commandsList, savedCurrentCommand));
+                }
             }
             if (parent.getNumParameters() == parent.getCurrentNumParameters()) {
                 return parent;

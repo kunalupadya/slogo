@@ -6,8 +6,8 @@ import Parser.Commands.Command;
 public class DifferenceCommand extends Command {
 
     public DifferenceCommand(){
-        setIsEvaluated(false);
         setNumParameters(2);
+        isOutputCommand = true;
     }
 
     public void performAction(BackendController backendController){

@@ -10,6 +10,7 @@ public class ClearScreenCommand extends TurtleCommand {
     public ClearScreenCommand(){
         setIsEvaluated(false);
         setNumParameters(0);
+        isOutputCommand = false;
     }
 
     protected void turtleAction(Turtle turtle) {

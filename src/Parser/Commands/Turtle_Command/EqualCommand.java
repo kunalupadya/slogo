@@ -10,6 +10,7 @@ import Parser.Commands.Command;
 public class EqualCommand extends BooleanCommand{
 
     public EqualCommand(){
+        super();
         setNumParameters(2);
     }
 

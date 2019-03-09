@@ -12,6 +12,7 @@ public class GetPenColorCommand extends TurtleCommand {
 
     public GetPenColorCommand(){
         setNumParameters(0);
+        isOutputCommand = true;
     }
 
 

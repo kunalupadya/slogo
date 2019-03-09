@@ -8,6 +8,7 @@ public class BackwardCommand extends TurtleCommand {
 
     public BackwardCommand(){
         setNumParameters(1);
+        isOutputCommand = false;
     }
 
     protected void turtleAction(Turtle turtle){

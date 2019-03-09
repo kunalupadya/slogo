@@ -11,8 +11,10 @@ public class IDCommand extends TurtleCommand {
 
     private int turtleId;
     private ArrayList<Turtle> aliveTurtles;
+
     public IDCommand(){
         setNumParameters(0);
+        isOutputCommand = true;
     }
 
     @Override

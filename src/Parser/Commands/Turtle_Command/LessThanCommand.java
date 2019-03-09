@@ -7,6 +7,7 @@ import Parser.Commands.Command;
 public class LessThanCommand extends BooleanCommand {
 
     public LessThanCommand(){
+        super();
         setNumParameters(2);
     }
 

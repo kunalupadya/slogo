@@ -17,6 +17,7 @@ public class UserDefinedCommand extends Command implements ImmutableUserDefinedC
     private ListStartCommand headNode;
 
     public UserDefinedCommand(String name, List<Variable> variables, ListStartCommand headNode){
+        isOutputCommand = false;
         this.name = name;
         this.variables = variables;
         this.headNode = headNode;

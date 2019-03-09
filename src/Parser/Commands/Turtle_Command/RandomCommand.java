@@ -10,6 +10,7 @@ public class RandomCommand extends Command {
     public RandomCommand(){
         setIsEvaluated(false);
         setNumParameters(1);
+        isOutputCommand = true;
     }
 
     public void performAction(BackendController backendController){

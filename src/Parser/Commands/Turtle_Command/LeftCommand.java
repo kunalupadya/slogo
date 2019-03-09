@@ -6,9 +6,9 @@ import Parser.Commands.TurtleCommand;
 
 public class LeftCommand extends TurtleCommand {
 
-
     public LeftCommand(){
         setNumParameters(1);
+        isOutputCommand = false;
     }
 
     @Override

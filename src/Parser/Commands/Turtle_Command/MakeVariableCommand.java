@@ -8,8 +8,10 @@ import Parser.Commands.Variable;
  * @author kunalupadya
  */
 public class MakeVariableCommand extends Command {
+
     public MakeVariableCommand(){
         setNumParameters(2);
+        isOutputCommand = false;
     }
 
     @Override

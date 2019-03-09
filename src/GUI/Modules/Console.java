@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * TODO: send consoleinput to the backend
- * TODO: get prompt text from a resource file, not hardcoded
+ *
+ * @author David Liu
  */
 
 public class Console extends Module  {
@@ -52,6 +52,7 @@ public class Console extends Module  {
         consoleInfo.prefWidthProperty().bind(container.widthProperty());
         consoleInfo.setFont(courier);
         consoleInfo.setPromptText(myResourceBundles.getString("ConsoleInfoPromptText"));
+        consoleInfo.getStyleClass().add(myResourceBundles.getString("ConsoleStyleBlack"));
         consoleInput = new TextField();
         consoleInput.setFont(courier);
         consoleInput.setPromptText(myResourceBundles.getString("ConsoleInputPromptText"));
@@ -70,11 +71,12 @@ public class Console extends Module  {
                 else {
                     consoleInfo.appendText("\n" + parameterValue);
                 }
+                consoleInfo.getStyleClass().set(consoleInfo.getStyleClass().size() - 1,
+                        myResourceBundles.getString("ConsoleStyleBlack"));
                 commandHistory.add(0, parameterValue);
                 commandPosition = -1;
                 consoleInput.clear();
                 context.sendCommandString(parameterValue);
-                consoleInfo.getStyleClass().add(myResourceBundles.getString("ConsoleStyleBlack"));
             }
         }
         if (code == KeyCode.UP) {
@@ -97,13 +99,25 @@ public class Console extends Module  {
     }
 
     public void showError(String errorString) {
-        if (! consoleInfo.getText().equals("")) {
+        if (!consoleInfo.getText().equals("")) {
             consoleInfo.appendText("\n" + errorString);
         }
         else {
             consoleInfo.appendText(errorString);
         }
-        consoleInfo.getStyleClass().add(myResourceBundles.getString("ConsoleStyleRed"));
+        consoleInfo.getStyleClass().set(consoleInfo.getStyleClass().size() - 1,
+                myResourceBundles.getString("ConsoleStyleRed"));
+    }
+
+    public void showCommandOutput(String commandOutput){
+        if (!consoleInfo.getText().equals("")) {
+            consoleInfo.appendText("\n" + commandOutput);
+        }
+        else {
+            consoleInfo.appendText(commandOutput);
+        }
+        consoleInfo.getStyleClass().set(consoleInfo.getStyleClass().size() - 1,
+                myResourceBundles.getString("ConsoleStyleBlue"));
     }
 
     public void addToConsole(String commandString) {

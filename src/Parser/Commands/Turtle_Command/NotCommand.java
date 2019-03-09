@@ -6,11 +6,12 @@ import Parser.Commands.Command;
 public class NotCommand extends BooleanCommand{
 
     public NotCommand(){
+        super();
         setNumParameters(2);
     }
 
     public void performAction(BackendController backendController){
-        setReturnValue(returnValue(getChildren().get(0).getReturnValue() ==getChildren().get(1).getReturnValue()));
+        setReturnValue(returnValue(getChildren().get(0).getReturnValue() == 0));
     }
 
     @Override

@@ -4,13 +4,14 @@ import GraphicsBackend.Turtle;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
-public class ShowingCommand extends TurtleCommand {
+public class IsShowingCommand extends TurtleCommand {
 
-    public static final int SHOWING = 1;
-    public static final int HIDDEN = 0;
+    private static final int SHOWING = 1;
+    private static final int HIDDEN = 0;
 
-    public ShowingCommand(){
+    public IsShowingCommand(){
         setNumParameters(0);
+        isOutputCommand = true;
     }
 
     @Override
@@ -20,6 +21,6 @@ public class ShowingCommand extends TurtleCommand {
 
     @Override
     public Command copy() {
-        return new ShowingCommand();
+        return new IsShowingCommand();
     }
 }

@@ -9,6 +9,7 @@ public class ForwardCommand extends TurtleCommand {
 
     public ForwardCommand(){
         setNumParameters(1);
+        isOutputCommand = false;
     }
 
     @Override

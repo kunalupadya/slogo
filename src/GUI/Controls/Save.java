@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 
 public class Save extends ButtonControl {
-    FrontendController context;
+    private FrontendController context;
 
     /**
      * TODO: finish JavaDoc
@@ -20,6 +20,7 @@ public class Save extends ButtonControl {
 
     @Override
     protected EventHandler<MouseEvent> action() {
-        return event -> context.save();
+        return event -> context.savePreferencesFile();
     }
 }
+

@@ -10,6 +10,7 @@ public class MinusCommand extends Command {
 
     public MinusCommand(){
         setNumParameters(1);
+        isOutputCommand = true;
     }
 
     public void performAction(BackendController backendController){

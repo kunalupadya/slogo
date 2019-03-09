@@ -11,6 +11,7 @@ public class HeadingCommand extends TurtleCommand {
 
     public HeadingCommand(){
         setNumParameters(0);
+        isOutputCommand = true;
     }
 
     @Override

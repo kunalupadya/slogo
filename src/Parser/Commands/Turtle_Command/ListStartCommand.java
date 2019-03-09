@@ -7,8 +7,10 @@ import Parser.Commands.Command;
  * @author kunalupadya
  */
 public class ListStartCommand extends Command {
+
     public ListStartCommand(){
         setNumParameters((int) Double.POSITIVE_INFINITY);
+        isOutputCommand = false;
     }
 
     @Override

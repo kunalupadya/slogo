@@ -8,6 +8,7 @@ public class PiCommand extends Command {
     public PiCommand(){
         setIsEvaluated(false);
         setNumParameters(0);
+        isOutputCommand = true;
     }
 
     public void performAction(BackendController backendController){

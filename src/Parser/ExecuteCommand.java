@@ -16,7 +16,7 @@ public class ExecuteCommand {
     private static final String PARAMETERS_MISSING = "Parameters missing";
     private static final String WRONG_NUMBER_OF_PARAMETERS = "Wrong number of parameters";
     private static final int EXPRESSION_INDEX = 1;
-    public static final int COMMAND_INDEX = 0;
+    private static final int COMMAND_INDEX = 0;
     private Command headNode;
     private BackendController backendController;
 
@@ -27,12 +27,32 @@ public class ExecuteCommand {
     }
 
     void runCommands(){
+        boolean outputToConsole = false;
+        if (headNode.getChildren().size() == 1 && headNode.getChildren().get(0).getIsOutputCommand()){
+            outputToConsole = true;
+        }
         //post traversal starting from headNode
         try {
             traverse(headNode);
-        }
-        catch (SyntaxError e){
+        } catch (SyntaxError e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
+        }
+        if (outputToConsole){
+            Command outputCommand = headNode.getChildren().get(0);
+            String output = "Result: ";
+            if (outputCommand instanceof BooleanCommand || outputCommand instanceof IsPenDownCommand ||
+                    outputCommand instanceof IsShowingCommand){
+                if (outputCommand.getReturnValue() == 1){
+                    output += "TRUE";
+                }
+                else{
+                    output += "FALSE";
+                }
+            }
+            else{
+                output += String.valueOf(outputCommand.getReturnValue());
+            }
+            backendController.outputResultToConsole(output);
         }
     }
 
@@ -56,7 +76,7 @@ public class ExecuteCommand {
             handleGroupCommand(node);
             return;
         }
-        if (node.getClass() == IfCommand.class||node.getClass() == TellCommand.class){
+        if (node.getClass() == TellCommand.class){
             traverse(node.getChildren().get(0));
             node.execute(backendController);
         }
@@ -75,7 +95,6 @@ public class ExecuteCommand {
         node.execute(backendController);
         traverseChildren(node);
         backendController.loadTurtleTell();
-        return;
     }
 
     private void handleGroupCommand(Command node) {
@@ -86,6 +105,7 @@ public class ExecuteCommand {
     }
 
     private void handleControlCommand(ControlCommand node) {
+        node.setInitialExpressions();
         List<Command> initExpr = node.getInitialExpressions();
         for (Command expr: initExpr) {
             traverse(expr);

@@ -9,6 +9,7 @@ public class RightCommand extends TurtleCommand {
     public RightCommand(){
         setIsEvaluated(false);
         setNumParameters(1);
+        isOutputCommand = false;
     }
 
     @Override

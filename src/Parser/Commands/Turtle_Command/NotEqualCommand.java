@@ -9,6 +9,7 @@ import Parser.Commands.Command;
 public class NotEqualCommand extends BooleanCommand{
 
     public NotEqualCommand(){
+        super();
         setNumParameters(2);
     }
 

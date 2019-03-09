@@ -8,6 +8,7 @@ public class ProductCommand extends Command {
     public ProductCommand(){
         setIsEvaluated(false);
         setNumParameters(2);
+        isOutputCommand = true;
     }
 
     public void performAction(BackendController backendController){

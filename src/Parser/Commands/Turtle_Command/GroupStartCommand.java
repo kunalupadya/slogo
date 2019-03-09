@@ -14,6 +14,7 @@ public class GroupStartCommand extends Command {
 
     public GroupStartCommand(){
         setNumParameters((int) Double.POSITIVE_INFINITY);
+        isOutputCommand = false;
     }
 
     @Override

@@ -8,6 +8,7 @@ public class HideTurtleCommand extends TurtleCommand {
 
     public HideTurtleCommand(){
         setNumParameters(0);
+        isOutputCommand = false;
     }
 
     @Override

@@ -19,6 +19,7 @@ public class AskCommand extends Command{
     public AskCommand(){
         setIsEvaluated(false);
         setNumParameters(2);
+        isOutputCommand = false;
     }
 
     @Override

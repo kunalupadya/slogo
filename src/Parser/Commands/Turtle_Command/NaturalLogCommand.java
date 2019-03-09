@@ -7,6 +7,7 @@ public class NaturalLogCommand extends Command {
 
     public NaturalLogCommand(){
         setNumParameters(1);
+        isOutputCommand = true;
     }
 
     public void performAction(BackendController backendController){

@@ -6,6 +6,7 @@ import Parser.Commands.Command;
 public class OrCommand extends BooleanCommand {
 
     public OrCommand() {
+        super();
         setNumParameters(2);
     }
 

@@ -8,10 +8,12 @@ public class SetBackgroundCommand extends Command {
     public SetBackgroundCommand(){
         setIsEvaluated(false);
         setNumParameters(1);
+        isOutputCommand = false;
     }
 
     public void performAction(BackendController backendController){
         setReturnValue(getChildren().get(0).getReturnValue());
+        //TODO: handle nullpointer for if index doesn't exist in Palette
         backendController.setBackGroundColor(backendController.getColor((int) getReturnValue()));
 
     }

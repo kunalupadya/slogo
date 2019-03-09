@@ -9,6 +9,7 @@ public class ArcTangentCommand extends Command {
     public ArcTangentCommand(){
         setIsEvaluated(false);
         setNumParameters(1);
+        isOutputCommand = true;
     }
 
     public void performAction(BackendController backendController){

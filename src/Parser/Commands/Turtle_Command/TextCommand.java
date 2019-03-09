@@ -16,8 +16,15 @@ public class TextCommand extends Command {
     public static final int COMMANDS = 3;
 
     public TextCommand(String text){
+<<<<<<< HEAD
         setNumParameters(0);
         setText(text);
+=======
+        isOutputCommand = false;
+        isEvaluated = false;
+        numParameters = 0;
+        this.text = text;
+>>>>>>> a1a6c60437162d2d87d90f7a1b81c253f7208a10
     }
 
     @Override

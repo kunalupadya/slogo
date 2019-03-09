@@ -8,6 +8,7 @@ public class PowerCommand extends Command {
     public PowerCommand(){
         setIsEvaluated(false);
         setNumParameters(2);
+        isOutputCommand = true;
     }
 
     public void performAction(BackendController backendController){

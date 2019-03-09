@@ -19,6 +19,7 @@ public class MakeUserInstructionCommand extends Command {
 
     public MakeUserInstructionCommand(){
         setNumParameters(3);
+        isOutputCommand = false;
     }
 
     @Override

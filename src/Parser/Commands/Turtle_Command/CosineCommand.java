@@ -7,6 +7,7 @@ public class CosineCommand extends Command {
 
     public CosineCommand(){
         setNumParameters(1);
+        isOutputCommand = true;
     }
 
     public void performAction(BackendController backendController){

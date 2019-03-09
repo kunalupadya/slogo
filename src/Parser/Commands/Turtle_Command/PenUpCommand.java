@@ -9,6 +9,7 @@ public class PenUpCommand extends TurtleCommand {
     public PenUpCommand(){
         setIsEvaluated(false);
         setNumParameters(0);
+        isOutputCommand = false;
     }
 
     @Override

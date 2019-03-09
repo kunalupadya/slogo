@@ -7,8 +7,10 @@ import Parser.Commands.Command;
  * @author kunalupadya
  */
 public class ListEndCommand extends Command {
+
     public ListEndCommand(){
         setNumParameters(0);
+        isOutputCommand = false;
     }
 
     @Override

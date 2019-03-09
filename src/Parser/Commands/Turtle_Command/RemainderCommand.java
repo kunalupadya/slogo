@@ -8,6 +8,7 @@ public class RemainderCommand extends Command {
     public RemainderCommand(){
         setIsEvaluated(false);
         setNumParameters(2);
+        isOutputCommand = true;
     }
 
     public void performAction(BackendController backendController){

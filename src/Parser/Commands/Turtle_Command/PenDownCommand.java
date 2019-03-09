@@ -7,8 +7,8 @@ import Parser.Commands.TurtleCommand;
 public class PenDownCommand extends TurtleCommand {
 
     public PenDownCommand(){
-        setIsEvaluated(false);
         setNumParameters(0);
+        isOutputCommand = false;
     }
 
 //    @Override

@@ -9,6 +9,7 @@ import Parser.Commands.Command;
 public class GroupEndCommand extends Command {
     public GroupEndCommand(){
         setNumParameters(0);
+        isOutputCommand = false;
     }
 
     @Override

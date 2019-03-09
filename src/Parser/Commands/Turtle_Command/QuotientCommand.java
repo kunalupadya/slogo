@@ -8,6 +8,7 @@ public class QuotientCommand extends Command {
     public QuotientCommand(){
         setIsEvaluated(false);
         setNumParameters(2);
+        isOutputCommand = true;
     }
 
     public void performAction(BackendController backendController){

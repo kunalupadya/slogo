@@ -4,7 +4,6 @@ import GUI.Controls.*;
 import GUI.Modules.*;
 import GraphicsBackend.ImmutablePen;
 import GUI.Modules.Console;
-import GraphicsBackend.Pen;
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import javafx.collections.ObservableList;
@@ -504,22 +503,25 @@ public class FrontendController {
     public void setPenThickness(int value) {
         turtles = backendController.getMyTurtles();
         for (Turtle turtle: turtles) {
-            turtle.setPenSize(turtle.getPenSize() + value);
+            Pen pen = turtle.getMyPen();
+            pen.setPenSize(pen.getPenSize() + value);
         }
     }
 
     public void setPenState() {
         turtles = backendController.getMyTurtles();
         for (Turtle turtle: turtles) {
-            if (turtle.getPenUp()) turtle.setPenUp(false);
-            else turtle.setPenUp(true);
+            Pen pen = turtle.getMyPen();
+            if (pen.getPenUp()) pen.setPenUp(false);
+            else pen.setPenUp(true);
         }
     }
 
     public void setPenColor(Color color) {
         turtles = backendController.getMyTurtles();
         for (Turtle turtle: turtles) {
-            turtle.setPenColor(color);
+            Pen pen = turtle.getMyPen();
+            pen.setPenColor(color);
         }
     }
 

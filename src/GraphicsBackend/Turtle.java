@@ -111,10 +111,6 @@ public class Turtle implements ImmutableTurtle{
         return isTurtleVisible;
     }
 
-    public int getPenSize() {return myPen.getPenSize();}
-
-    public boolean getPenUp() {return myPen.getPenUp();}
-
     public double getyPos() {
         return yPos - myGrid.getHeight()/ HALF;
     }

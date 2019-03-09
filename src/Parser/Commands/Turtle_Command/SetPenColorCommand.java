@@ -18,6 +18,7 @@ public class SetPenColorCommand extends TurtleCommand {
 
     @Override
     protected void performAction(BackendController backendController){
+        //TODO: handle nullpointer for if index doesn't exist in Palette
         myColor = backendController.getColor((int)getChildren().get(0).getReturnValue());
         for (Turtle turtle: backendController.getMyTurtles()) {
             if (turtle.getIsTurtleActive()) {

@@ -12,6 +12,7 @@ public class SetBackgroundCommand extends Command {
     }
 
     public void performAction(BackendController backendController){
+        //TODO: handle nullpointer for if index doesn't exist in Palette
         backendController.setBackGroundColor(backendController.getColor((int)getChildren().get(0).getReturnValue()));
 
     }

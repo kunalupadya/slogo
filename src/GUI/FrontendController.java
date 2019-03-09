@@ -503,25 +503,21 @@ public class FrontendController {
     public void setPenThickness(int value) {
         turtles = backendController.getMyTurtles();
         for (Turtle turtle: turtles) {
-            Pen pen = turtle.getMyPen();
-            pen.setPenSize(pen.getPenSize() + value);
+            turtle.setPenSize(turtle.getMyPen().getPenSize() + value);
         }
     }
 
     public void setPenState() {
         turtles = backendController.getMyTurtles();
         for (Turtle turtle: turtles) {
-            Pen pen = turtle.getMyPen();
-            if (pen.getPenUp()) pen.setPenUp(false);
-            else pen.setPenUp(true);
+            turtle.setPenUp(!turtle.getMyPen().getPenUp());
         }
     }
 
     public void setPenColor(Color color) {
         turtles = backendController.getMyTurtles();
         for (Turtle turtle: turtles) {
-            Pen pen = turtle.getMyPen();
-            pen.setPenColor(color);
+            turtle.setPenColor(color);
         }
     }
 

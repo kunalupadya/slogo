@@ -1,5 +1,6 @@
 package Parser.Commands.Turtle_Command;
 
+import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.Variable;
@@ -7,12 +8,11 @@ import Parser.Commands.Variable;
 import java.util.LinkedList;
 import java.util.List;
 
-
 /**
  * @author kunalupadya
  */
 public class UserDefinedCommand extends Command implements ImmutableUserDefinedCommand{
-    String name;
+    private String name;
     private List<Variable> variables;
     private ListStartCommand headNode;
 
@@ -33,9 +33,7 @@ public class UserDefinedCommand extends Command implements ImmutableUserDefinedC
         return headNode;
     }
 
-
     private Command traverse(Command command){
-
         Command newHeadNode;
         newHeadNode = command.copy();
         for (Command c: command.getChildren()){
@@ -45,21 +43,14 @@ public class UserDefinedCommand extends Command implements ImmutableUserDefinedC
     }
 
     @Override
-    protected void performAction(BackendController backendController) {
+    protected void performAction(BackendController backendController, Turtle turtle) {
         backendController.removeUserDefinedCommandFromStack(this);
     }
 
     @Override
     public Command copy() {
-        //        List<Variable> newVariables;
-//        ListStartCommand newHeadNode;
-//
-//        traverse()
-//
-//        new UserDefinedCommand()
-
         List<Variable> newVariables = new LinkedList<>();
-        for (Variable v:variables){
+        for (Variable v: variables){
             newVariables.add((Variable) v.copy());
         }
         ListStartCommand newHeadNode = (ListStartCommand) traverse(headNode);

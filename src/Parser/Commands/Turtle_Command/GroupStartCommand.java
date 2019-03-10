@@ -1,5 +1,6 @@
 package Parser.Commands.Turtle_Command;
 
+import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
 
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public class GroupStartCommand extends Command {
 
-    public static final int COMMAND_INDEX = 0;
+    private static final int COMMAND_INDEX = 0;
 
     public GroupStartCommand(){
         setNumParameters((int) Double.POSITIVE_INFINITY);
@@ -18,17 +19,17 @@ public class GroupStartCommand extends Command {
     }
 
     @Override
-    protected void performAction(BackendController backendController) {
+    protected void performAction(BackendController backendController, Turtle turtle) {
         Command command = getChildren().get(COMMAND_INDEX);
         int numParameters = command.getNumParameters();
         while (true){
             List<Command> commandList = command.getChildren();
             if (commandList.size() == numParameters && numParameters != 0){
                 command.setIsEvaluated(false); //allows you to rerun the same program
-                command.execute(backendController);
+                command.execute(backendController, turtle);
                 command.getChildren().clear();
             }
-            if (getChildren().size()>2){//2 comes from the command and the groupendcommand
+            if (getChildren().size() > 2){//2 comes from the command and the groupendcommand
                 commandList.add(getChildren().remove(1));
             }
             else{
@@ -37,7 +38,6 @@ public class GroupStartCommand extends Command {
                 }
                 break;
             }
-
         }
         setReturnValue(command.getReturnValue());
     }

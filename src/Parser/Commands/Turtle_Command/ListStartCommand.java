@@ -1,5 +1,6 @@
 package Parser.Commands.Turtle_Command;
 
+import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
 
@@ -14,11 +15,8 @@ public class ListStartCommand extends Command {
     }
 
     @Override
-    protected void performAction(BackendController backendController) {
-//        for (Command c:myChildrenList){
-//            c.execute(backendController);
-//        }
-        setReturnValue(getChildren().size()-1);
+    protected void performAction(BackendController backendController, Turtle turtle) {
+        setReturnValue(getChildren().size() - 1);
     }
 
     @Override

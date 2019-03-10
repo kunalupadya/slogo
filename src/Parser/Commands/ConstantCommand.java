@@ -1,5 +1,6 @@
 package Parser.Commands;
 
+import GraphicsBackend.Turtle;
 import Parser.BackendController;
 
 /**
@@ -14,7 +15,9 @@ public class ConstantCommand extends Command {
         isOutputCommand = false;
     }
 
-    public void performAction(BackendController backendController){
+    @Override
+    protected void performAction(BackendController backendController, Turtle turtle) {
+
     }
 
     @Override

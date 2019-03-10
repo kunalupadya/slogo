@@ -1,5 +1,6 @@
 package Parser.Commands.Turtle_Command;
 
+import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
 
@@ -13,7 +14,8 @@ public class GroupEndCommand extends Command {
     }
 
     @Override
-    protected void performAction(BackendController backendController) {
+    protected void performAction(BackendController backendController, Turtle turtle) {
+
     }
 
     @Override

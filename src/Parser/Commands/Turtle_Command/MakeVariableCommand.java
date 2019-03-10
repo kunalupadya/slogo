@@ -1,5 +1,6 @@
 package Parser.Commands.Turtle_Command;
 
+import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.Variable;
@@ -15,7 +16,7 @@ public class MakeVariableCommand extends Command {
     }
 
     @Override
-    protected void performAction(BackendController backendController) {
+    protected void performAction(BackendController backendController, Turtle turtle) {
         String name = getChildren().get(0).getText();
         Command variable = getChildren().get(0);
         setReturnValue(getChildren().get(1).getReturnValue());

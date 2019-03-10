@@ -34,7 +34,7 @@ public class ParseCommand {
             var tokensList = addToTokenList(translatedListOfWords);
             var commandsList = stackCommand(translatedListOfWords, tokensList);
             ExecuteCommand executeCommand = new ExecuteCommand(commandsList, backendController);
-            executeCommand.runCommands();
+            executeCommand.executeAllTurtles();
         }
     }
 

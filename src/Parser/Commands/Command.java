@@ -1,5 +1,7 @@
 package Parser.Commands;
 
+import GraphicsBackend.Point;
+import GraphicsBackend.Turtle;
 import Parser.BackendController;
 
 import java.util.ArrayList;
@@ -58,12 +60,12 @@ public abstract class Command{
         this.text = text;
     }
 
-    public void execute(BackendController backendController) {
-        performAction(backendController);
+    public void execute(BackendController backendController, Turtle currTurtle) {
+        performAction(backendController, currTurtle);
         isEvaluated = true;
     }
 
-    protected abstract void performAction(BackendController backendController);
+    protected abstract void performAction(BackendController backendController, Turtle currTurtle);
 
     public abstract Command copy();
 
@@ -76,5 +78,9 @@ public abstract class Command{
 
     public List<Command> getChildren(){
         return myChildrenList;
+    }
+
+    protected double distance(Point point1, Point point2) {
+        return Math.sqrt(Math.pow(point1.getMyX() - point2.getMyX(), 2) + Math.pow(point1.getMyY() - point2.getMyY(), 2));
     }
 }

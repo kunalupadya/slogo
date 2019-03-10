@@ -3,10 +3,6 @@ package Parser.Commands.Turtle_Command;
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
-import Parser.Commands.TurtleCommand;
-import javafx.scene.paint.Color;
-
-import java.util.List;
 
 public class PenColorCommand extends Command {
 
@@ -16,18 +12,9 @@ public class PenColorCommand extends Command {
     }
 
     @Override
-    protected void performAction(BackendController backendController){
-        int lastActiveTurtleIndex = 0;
-        List<Turtle> turtleList = backendController.getMyTurtles();
-        for (int i = 0; i < turtleList.size(); i++){
-            if (turtleList.get(i).getIsTurtleActive()){
-                lastActiveTurtleIndex = i;
-            }
-        }
-        Turtle lastActive = turtleList.get(lastActiveTurtleIndex);
-        setReturnValue(backendController.getColorPaletteIndex(lastActive.getMyPen().getMyPenColor()));
+    protected void performAction(BackendController backendController, Turtle turtle) {
+        setReturnValue(backendController.getColorPaletteIndex(turtle.getMyPen().getMyPenColor()));
     }
-
 
     @Override
     public Command copy() {

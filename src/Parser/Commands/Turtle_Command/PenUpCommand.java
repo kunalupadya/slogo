@@ -1,10 +1,10 @@
 package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
+import Parser.BackendController;
 import Parser.Commands.Command;
-import Parser.Commands.TurtleCommand;
 
-public class PenUpCommand extends TurtleCommand {
+public class PenUpCommand extends Command {
 
     public PenUpCommand(){
         setIsEvaluated(false);
@@ -13,8 +13,10 @@ public class PenUpCommand extends TurtleCommand {
     }
 
     @Override
-    protected void turtleAction(Turtle turtle) {
-        turtle.setPenUp(true);
+    protected void performAction(BackendController backendController, Turtle turtle) {
+        if (turtle.getIsTurtleActive()) {
+            turtle.setPenUp(true);
+        }
         setReturnValue(0);
     }
 

@@ -1,5 +1,6 @@
 package Parser.Commands.Turtle_Command;
 
+import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
@@ -18,25 +19,11 @@ public class RepeatCommand extends ControlCommand {
         setNumParameters(2);
     }
 
-    @Override
-    protected void performAction(BackendController backendController) {
-        if (currCount <= limit) {
-            setRepCount(backendController);
-            setListToRun(copyList(commandListOrig));
-            currCount++;
-            runAgain = true;
-        }
-        else{
-            runAgain = false;
-        }
-
-    }
-
-    private void setRepCount(BackendController backendController) {
+    private void setRepCount(BackendController backendController, Turtle t) {
         var makeRepCountVar = new MakeVariableCommand();
         makeRepCountVar.addChildren(new Variable("repcount"));
         makeRepCountVar.addChildren(new ConstantCommand((double) currCount));
-        makeRepCountVar.execute(backendController);
+        makeRepCountVar.execute(backendController, t);
     }
 
     @Override
@@ -48,6 +35,19 @@ public class RepeatCommand extends ControlCommand {
     public void setUpLoop() {
         limit = (int) initialExpressions.get(EXPRESSION_INDEX).getReturnValue();
         commandListOrig = (ListStartCommand) getChildren().get(COMMANDS_INDEX);
+    }
+
+    @Override
+    protected void performAction(BackendController backendController, Turtle turtle) {
+        if (currCount <= limit) {
+            setRepCount(backendController, turtle);
+            setListToRun(copyList(commandListOrig));
+            currCount++;
+            runAgain = true;
+        }
+        else{
+            runAgain = false;
+        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package Parser.Commands.Turtle_Command;
 
+import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
 
@@ -13,7 +14,8 @@ public class MinusCommand extends Command {
         isOutputCommand = true;
     }
 
-    public void performAction(BackendController backendController){
+    @Override
+    protected void performAction(BackendController backendController, Turtle turtle) {
         setReturnValue(-getChildren().get(0).getReturnValue());
     }
 

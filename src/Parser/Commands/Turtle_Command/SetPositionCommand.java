@@ -2,10 +2,10 @@ package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Point;
 import GraphicsBackend.Turtle;
+import Parser.BackendController;
 import Parser.Commands.Command;
-import Parser.Commands.TurtleCommand;
 
-public class SetPositionCommand extends TurtleCommand{
+public class SetPositionCommand extends Command{
 
     public SetPositionCommand(){
         setIsEvaluated(false);
@@ -14,10 +14,12 @@ public class SetPositionCommand extends TurtleCommand{
     }
 
     @Override
-    protected void turtleAction(Turtle turtle) {
+    protected void performAction(BackendController backendController, Turtle turtle) {
         Point newPos =  new Point(getChildren().get(0).getReturnValue(), getChildren().get(1).getReturnValue());
         setReturnValue(distance(turtle.getPos(),newPos));
-        turtle.moveTo(newPos);
+        if (turtle.getIsTurtleActive()) {
+            turtle.moveTo(newPos);
+        }
     }
 
     @Override

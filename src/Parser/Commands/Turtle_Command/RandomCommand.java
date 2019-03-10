@@ -1,5 +1,6 @@
 package Parser.Commands.Turtle_Command;
 
+import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
 
@@ -13,8 +14,9 @@ public class RandomCommand extends Command {
         isOutputCommand = true;
     }
 
-    public void performAction(BackendController backendController){
-        setNumParameters(new Random().nextInt((int)getChildren().get(0).getReturnValue()));
+    @Override
+    protected void performAction(BackendController backendController, Turtle turtle) {
+        setReturnValue(new Random().nextInt((int)getChildren().get(0).getReturnValue()));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package Parser.Commands.Turtle_Command;
 
+import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
@@ -20,8 +21,8 @@ public class DoTimesCommand extends ControlCommand {
     }
 
     @Override
-    protected void performAction(BackendController backendController) {
-        updateLoopVar(backendController);
+    protected void performAction(BackendController backendController, Turtle turtle) {
+        updateLoopVar(backendController, turtle);
         if (currCount <= limit) {
             setListToRun(copyList(commandListOrig));
             currCount++;
@@ -30,19 +31,17 @@ public class DoTimesCommand extends ControlCommand {
         else{
             runAgain = false;
         }
-
     }
 
-    private void updateLoopVar(BackendController backendController) {
+    private void updateLoopVar(BackendController backendController, Turtle turtle) {
         var makeLoopVar = new MakeVariableCommand();
         makeLoopVar.addChildren(loopVar);
         makeLoopVar.addChildren(new ConstantCommand((double) currCount));
-        makeLoopVar.execute(backendController);
+        makeLoopVar.execute(backendController, turtle);
     }
 
     @Override
     public void setInitialExpressions() {
-
         ListStartCommand loopParam = (ListStartCommand) getChildren().get(VAR_LIMIT_INDEX);
         initialExpressions.add(loopParam.getChildren().get(1));
     }

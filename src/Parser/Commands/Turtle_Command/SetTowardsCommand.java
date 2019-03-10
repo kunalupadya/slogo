@@ -1,13 +1,13 @@
 package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
+import Parser.BackendController;
 import Parser.Commands.Command;
-import Parser.Commands.TurtleCommand;
 
 /**
  * @author kunalupadya
  */
-public class SetTowardsCommand extends TurtleCommand {
+public class SetTowardsCommand extends Command {
 
     public SetTowardsCommand(){
         setIsEvaluated(false);
@@ -16,13 +16,15 @@ public class SetTowardsCommand extends TurtleCommand {
     }
 
     @Override
-    protected void turtleAction(Turtle turtle) {
+    protected void performAction(BackendController backendController, Turtle turtle) {
         double oldAngle = turtle.getMyAngle();
         double xdiff = getChildren().get(0).getReturnValue() - turtle.getxPos();
         double ydiff = getChildren().get(1).getReturnValue() - turtle.getyPos();
         double degrees = Math.toDegrees(Math.atan2(xdiff, ydiff));
-        turtle.turnTo(degrees);
         setReturnValue(Math.abs(degrees-oldAngle));
+        if (turtle.getIsTurtleActive()) {
+            turtle.turnTo(degrees);
+        }
     }
 
     @Override

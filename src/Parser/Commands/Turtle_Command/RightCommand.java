@@ -1,10 +1,10 @@
 package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
+import Parser.BackendController;
 import Parser.Commands.Command;
-import Parser.Commands.TurtleCommand;
 
-public class RightCommand extends TurtleCommand {
+public class RightCommand extends Command {
 
     public RightCommand(){
         setIsEvaluated(false);
@@ -13,8 +13,10 @@ public class RightCommand extends TurtleCommand {
     }
 
     @Override
-    protected void turtleAction(Turtle turtle) {
-        turtle.turn(getChildren().get(0).getReturnValue());
+    protected void performAction(BackendController backendController, Turtle turtle) {
+        if (turtle.getIsTurtleActive()) {
+            turtle.turn(getChildren().get(0).getReturnValue());
+        }
         setReturnValue(getChildren().get(0).getReturnValue());
     }
 

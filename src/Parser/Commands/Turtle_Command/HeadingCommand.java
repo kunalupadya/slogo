@@ -1,13 +1,13 @@
 package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
+import Parser.BackendController;
 import Parser.Commands.Command;
-import Parser.Commands.TurtleCommand;
 
 /**
  * @author kunalupadya
  */
-public class HeadingCommand extends TurtleCommand {
+public class HeadingCommand extends Command {
 
     public HeadingCommand(){
         setNumParameters(0);
@@ -15,7 +15,7 @@ public class HeadingCommand extends TurtleCommand {
     }
 
     @Override
-    protected void turtleAction(Turtle turtle) {
+    protected void performAction(BackendController backendController, Turtle turtle) {
         setReturnValue(turtle.getMyAngle() % 360);
     }
 

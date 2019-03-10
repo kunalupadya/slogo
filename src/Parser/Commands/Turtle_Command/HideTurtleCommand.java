@@ -1,10 +1,10 @@
 package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
+import Parser.BackendController;
 import Parser.Commands.Command;
-import Parser.Commands.TurtleCommand;
 
-public class HideTurtleCommand extends TurtleCommand {
+public class HideTurtleCommand extends Command {
 
     public HideTurtleCommand(){
         setNumParameters(0);
@@ -12,8 +12,10 @@ public class HideTurtleCommand extends TurtleCommand {
     }
 
     @Override
-    protected void turtleAction(Turtle turtle) {
-        turtle.setTurtleVisibility(false);
+    protected void performAction(BackendController backendController, Turtle turtle) {
+        if (turtle.getIsTurtleActive()) {
+            turtle.setTurtleVisibility(false);
+        }
         setReturnValue(0);
     }
 

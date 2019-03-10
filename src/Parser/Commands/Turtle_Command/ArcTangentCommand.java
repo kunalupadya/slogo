@@ -1,5 +1,6 @@
 package Parser.Commands.Turtle_Command;
 
+import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
 
@@ -12,7 +13,7 @@ public class ArcTangentCommand extends Command {
         isOutputCommand = true;
     }
 
-    public void performAction(BackendController backendController){
+    public void performAction(BackendController backendController, Turtle turtle){
         setReturnValue(Math.atan(Math.toRadians(getChildren().get(0).getReturnValue())));
     }
 

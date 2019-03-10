@@ -19,6 +19,7 @@ public abstract class Command{
     private int numParameters;
     private int currentNumParameters = 0;
     protected boolean isOutputCommand;
+    private final double NOT_EVALUATED = Double.NEGATIVE_INFINITY;
 
     public boolean getIsOutputCommand(){
         return isOutputCommand;
@@ -65,15 +66,13 @@ public abstract class Command{
         isEvaluated = true;
     }
 
-    protected abstract void performAction(BackendController backendController, Turtle currTurtle);
+    protected abstract void performAction(BackendController backendController, Turtle turtle);
 
     public abstract Command copy();
 
     public void addChildren(Command command) {
-//        if (command != this) {
             myChildrenList.add(command);
             currentNumParameters += 1;
-//        }
     }
 
     public List<Command> getChildren(){

@@ -3,11 +3,11 @@ package Parser.Commands.Turtle_Command;
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
-import Parser.Commands.TurtleCommand;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class IDCommand extends TurtleCommand {
+public class IDCommand extends Command {
 
     private int turtleId;
     private ArrayList<Turtle> aliveTurtles;
@@ -18,25 +18,14 @@ public class IDCommand extends TurtleCommand {
     }
 
     @Override
-    protected void performAction(BackendController backendController){
-        for (Turtle turtle: backendController.getMyTurtles()) {
-            if (turtle.getIsTurtleActive()) {
-                aliveTurtles.add(turtle);
-                turtleAction(turtle);
+    protected void performAction(BackendController backendController, Turtle turtle) {
+        List<Turtle> turtleList = backendController.getMyTurtles();
+        for (int i = 0; i < turtleList.size(); i++){
+            if (turtle.equals(turtleList.get(i))){
+                setReturnValue(i + 1);
+                break;
             }
         }
-        turtleId = aliveTurtles.size() -1;
-
-        for (Turtle turtle: backendController.getMyTurtles()) {
-            if (turtle.getIsTurtleActive()) {
-                turtleAction(turtle);
-            }
-        }
-    }
-
-    @Override
-    protected void turtleAction(Turtle turtle) {
-        setReturnValue(turtleId);
     }
 
     @Override

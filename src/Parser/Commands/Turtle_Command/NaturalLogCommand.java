@@ -1,5 +1,6 @@
 package Parser.Commands.Turtle_Command;
 
+import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
 
@@ -10,7 +11,8 @@ public class NaturalLogCommand extends Command {
         isOutputCommand = true;
     }
 
-    public void performAction(BackendController backendController){
+    @Override
+    protected void performAction(BackendController backendController, Turtle turtle) {
         setReturnValue(Math.log(getChildren().get(0).getReturnValue()));
     }
 

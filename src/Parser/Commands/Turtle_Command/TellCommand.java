@@ -12,40 +12,37 @@ import java.util.List;
  */
 public class TellCommand extends Command{
 
-    private List<Turtle> assignedTurtleList = new ArrayList<>();
+    private List<Turtle> activeTurtles = new ArrayList<>();
+
     public TellCommand(){
         setNumParameters(1);
         isOutputCommand = false;
     }
 
     @Override
-    protected void performAction(BackendController backendController) {
-        Command startCommand = getChildren().get(0);
-        if (!startCommand.toString().equals("ListStartCommand")) {
+    protected void performAction(BackendController backendController, Turtle turtle) {
+        Command listCommand = getChildren().get(0);
+        if (!(listCommand instanceof ListStartCommand)) {
             //TODO "Wrong syntax error"
         }
-
-        List<Turtle> turtleList= backendController.getMyTurtles();
-        for (int a = 0; a < startCommand.getChildren().size() - 1; a++) {
-            int turtleIndex = (int) startCommand.getChildren().get(a).getReturnValue();
-            if (turtleIndex < turtleList.size()) {
-                assignedTurtleList.add(turtleList.get(turtleIndex));
+        for (int a = 0; a < listCommand.getChildren().size() - 1; a++) {
+            List<Turtle> turtleList= backendController.getMyTurtles();
+            int turtleIndex = (int) listCommand.getChildren().get(a).getReturnValue();
+            //TODO catch error for TELL to turtle 0
+            if (turtleIndex <= turtleList.size()) {
+                activeTurtles.add(turtleList.get(turtleIndex));
             }
             else {
-                while(turtleIndex>turtleList.size()) {
+                while(turtleIndex > turtleList.size()) {
                     Turtle newTurtle = new Turtle((Grid) backendController.getMyGrid());
                     turtleList.add(newTurtle);
-                    assignedTurtleList.add(newTurtle);
+                    activeTurtles.add(newTurtle);
                 }
             }
-
         }
-        for (Turtle turtle : assignedTurtleList) {
-            turtle.setTurtleActive(true);
-        }
-        setReturnValue(startCommand.getChildren().get(startCommand.getChildren().size()-2).getReturnValue());
+        turtle.setTurtleActive(activeTurtles.contains(turtle));
+        setReturnValue(listCommand.getChildren().get(listCommand.getChildren().size() - 2).getReturnValue());
     }
-
 
     @Override
     public Command copy() {

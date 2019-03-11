@@ -1,5 +1,6 @@
 package Parser;
 
+import GraphicsBackend.Turtle;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.RootCommand;
@@ -126,7 +127,9 @@ class ParsingTree {
         parent.addChildren(makeTree(commandsList,savedCurrentCommand));
 
         //create the actual userdefined command including the command tree
-        savedCurrentCommand.execute(backendController);
+        //makeuserdefinedcommand needs a turtle because of the method signature, but doesn't actually use it to execute
+        Turtle t = backendController.getMyTurtles().get(0);
+        savedCurrentCommand.execute(backendController, t);
     }
 
     private List<Variable> getVariables(List<Command> commandsList, Command savedCurrentCommand) {

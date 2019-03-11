@@ -1,12 +1,11 @@
 package Parser.Commands;
 
-import GraphicsBackend.Turtle;
 import Parser.BackendController;
 
 /**
  * @author kunalupadya
  */
-public class ConstantCommand extends Command {
+public class ConstantCommand extends BasicCommand {
 
     public ConstantCommand(Double input){
         setReturnValue(input);
@@ -16,7 +15,7 @@ public class ConstantCommand extends Command {
     }
 
     @Override
-    protected void performAction(BackendController backendController, Turtle turtle) {
+    protected void performAction(BackendController backendController) {
 
     }
 

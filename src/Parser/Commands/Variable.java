@@ -4,7 +4,7 @@ import Parser.BackendController;
 
 import java.util.Optional;
 
-public class Variable extends Command{
+public class Variable extends BasicCommand{
     public Variable(String text){
         setIsEvaluated(false);
         setNumParameters(0);
@@ -15,7 +15,6 @@ public class Variable extends Command{
     @Override
     protected void performAction(BackendController backendController) {
         Optional<Double> variableValue= backendController.getVariableIfExists(getText());
-
         if (variableValue.isPresent()){
             setReturnValue(variableValue.get());
             setIsEvaluated(false);

@@ -13,13 +13,12 @@ import java.util.List;
 public abstract class Command{
 
     private List<Command> myChildrenList = new ArrayList<>();
-    private boolean isEvaluated = false;
+    boolean isEvaluated = false;
     private double returnValue;
     private String text;
     private int numParameters;
     private int currentNumParameters = 0;
     protected boolean isOutputCommand;
-    private final double NOT_EVALUATED = Double.NEGATIVE_INFINITY;
 
     public boolean getIsOutputCommand(){
         return isOutputCommand;
@@ -60,13 +59,6 @@ public abstract class Command{
     protected void setText(String text) {
         this.text = text;
     }
-
-    public void execute(BackendController backendController, Turtle currTurtle) {
-        performAction(backendController, currTurtle);
-        isEvaluated = true;
-    }
-
-    protected abstract void performAction(BackendController backendController, Turtle turtle);
 
     public abstract Command copy();
 

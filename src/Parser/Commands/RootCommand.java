@@ -5,7 +5,7 @@ import Parser.BackendController;
 /**
  * @author kunalupadya
  */
-public class RootCommand extends Command{
+public class RootCommand extends BasicCommand{
 
     public RootCommand(){
         setIsEvaluated(false);
@@ -13,6 +13,7 @@ public class RootCommand extends Command{
         isOutputCommand = false;
     }
 
+    @Override
     public void performAction(BackendController backendController){
     }
 

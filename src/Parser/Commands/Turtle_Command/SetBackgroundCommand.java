@@ -1,10 +1,10 @@
 package Parser.Commands.Turtle_Command;
 
-import GraphicsBackend.Turtle;
 import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 
-public class SetBackgroundCommand extends Command {
+public class SetBackgroundCommand extends BasicCommand {
 
     public SetBackgroundCommand(){
         setIsEvaluated(false);
@@ -13,12 +13,10 @@ public class SetBackgroundCommand extends Command {
     }
 
     @Override
-    protected void performAction(BackendController backendController, Turtle turtle) {
+    protected void performAction(BackendController backendController) {
         setReturnValue(getChildren().get(0).getReturnValue());
         //TODO: handle nullpointer for if index doesn't exist in Palette
-        if (turtle.getIsTurtleActive()) {
-            backendController.setBackGroundColor(backendController.getColor((int) getReturnValue()));
-        }
+        backendController.setBackGroundColor(backendController.getColor((int) getReturnValue()));
     }
 
     @Override

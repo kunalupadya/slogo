@@ -4,8 +4,9 @@ package Parser.Commands.Turtle_Command;
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
+import Parser.Commands.TurtleCommand;
 
-public class ForwardCommand extends Command {
+public class ForwardCommand extends TurtleCommand {
 
     public ForwardCommand(){
         setNumParameters(1);
@@ -14,9 +15,7 @@ public class ForwardCommand extends Command {
 
     @Override
     protected void performAction(BackendController backendController, Turtle turtle) {
-        if (turtle.getIsTurtleActive()) {
-            turtle.move(getChildren().get(0).getReturnValue());
-        }
+        turtle.move(getChildren().get(0).getReturnValue());
         setReturnValue(getChildren().get(0).getReturnValue());
     }
 

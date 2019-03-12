@@ -3,9 +3,10 @@ package Parser.Commands.Turtle_Command;
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
+import Parser.Commands.TurtleCommand;
 import javafx.scene.paint.Color;
 
-public class SetPenColorCommand extends Command {
+public class SetPenColorCommand extends TurtleCommand {
 
     private Color myColor;
 

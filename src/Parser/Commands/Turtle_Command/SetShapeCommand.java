@@ -3,8 +3,9 @@ package Parser.Commands.Turtle_Command;
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
+import Parser.Commands.TurtleCommand;
 
-public class SetShapeCommand extends Command {
+public class SetShapeCommand extends TurtleCommand {
 
     public SetShapeCommand(){
         setIsEvaluated(false);
@@ -14,7 +15,7 @@ public class SetShapeCommand extends Command {
 
     @Override
     protected void performAction(BackendController backendController, Turtle turtle) {
-        turtle.setMyShape((int)getChildren().get(0).getReturnValue());
+        turtle.setMyShape((int) getChildren().get(0).getReturnValue());
     }
 
     @Override

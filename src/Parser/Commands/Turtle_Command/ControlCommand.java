@@ -1,12 +1,13 @@
 package Parser.Commands.Turtle_Command;
 
 
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ControlCommand extends Command {
+public abstract class ControlCommand extends BasicCommand {
 
     boolean runAgain = true;
     int currCount = 1;
@@ -25,10 +26,6 @@ public abstract class ControlCommand extends Command {
     }
 
     public abstract void setInitialExpressions();
-
-    public void setLimit(double value){
-        limit = (int) value;
-    }
 
     public boolean shouldRunAgain(){
         return runAgain;

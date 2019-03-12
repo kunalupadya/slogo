@@ -1,22 +1,25 @@
 package Parser.Commands.Turtle_Command;
 
-import GraphicsBackend.Turtle;
 import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 import Parser.Commands.Variable;
 
 /**
  * @author kunalupadya
  */
-public class MakeVariableCommand extends Command {
+public class MakeVariableCommand extends BasicCommand {
 
     public MakeVariableCommand(){
         setNumParameters(2);
         isOutputCommand = false;
     }
 
+    //TODO FIX HANDLE VARIABLE IN EXECUTE COMMAND
+//    # note, variable set to 0 first time seen
+//    set :dist + :dist 1
     @Override
-    protected void performAction(BackendController backendController, Turtle turtle) {
+    protected void performAction(BackendController backendController) {
         String name = getChildren().get(0).getText();
         Command variable = getChildren().get(0);
         setReturnValue(getChildren().get(1).getReturnValue());

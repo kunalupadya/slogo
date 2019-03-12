@@ -3,8 +3,9 @@ package Parser.Commands.Turtle_Command;
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
+import Parser.Commands.TurtleCommand;
 
-public class IsPenDownCommand extends Command {
+public class IsPenDownCommand extends TurtleCommand {
 
     private static final int PEN_DOWN = 1;
     private static final int PEN_UP = 0;
@@ -12,6 +13,7 @@ public class IsPenDownCommand extends Command {
     public IsPenDownCommand(){
         isOutputCommand = true;
         setNumParameters(0);
+        turtleQuery = true;
     }
 
     @Override

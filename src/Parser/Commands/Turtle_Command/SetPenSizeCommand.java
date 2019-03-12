@@ -3,8 +3,9 @@ package Parser.Commands.Turtle_Command;
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
+import Parser.Commands.TurtleCommand;
 
-public class SetPenSizeCommand extends Command {
+public class SetPenSizeCommand extends TurtleCommand {
 
     public SetPenSizeCommand(){
         setIsEvaluated(false);

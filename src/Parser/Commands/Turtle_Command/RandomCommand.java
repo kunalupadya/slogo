@@ -1,12 +1,12 @@
 package Parser.Commands.Turtle_Command;
 
-import GraphicsBackend.Turtle;
 import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 
 import java.util.Random;
 
-public class RandomCommand extends Command {
+public class RandomCommand extends BasicCommand {
 
     public RandomCommand(){
         setIsEvaluated(false);
@@ -15,7 +15,7 @@ public class RandomCommand extends Command {
     }
 
     @Override
-    protected void performAction(BackendController backendController, Turtle turtle) {
+    protected void performAction(BackendController backendController) {
         setReturnValue(new Random().nextInt((int)getChildren().get(0).getReturnValue()));
     }
 

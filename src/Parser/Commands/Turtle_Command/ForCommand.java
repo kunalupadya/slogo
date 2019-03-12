@@ -1,6 +1,5 @@
 package Parser.Commands.Turtle_Command;
 
-import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
@@ -20,8 +19,8 @@ public class ForCommand extends ControlCommand {
     }
 
     @Override
-    protected void performAction(BackendController backendController, Turtle turtle) {
-        updateLoopVar(backendController, turtle);
+    protected void performAction(BackendController backendController) {
+        updateLoopVar(backendController);
         if (currCount <= limit) {
             setListToRun(copyList(commandListOrig));
             currCount += increment;
@@ -33,11 +32,11 @@ public class ForCommand extends ControlCommand {
 
     }
 
-    private void updateLoopVar(BackendController backendController, Turtle t) {
+    private void updateLoopVar(BackendController backendController) {
         var makeLoopVar = new MakeVariableCommand();
         makeLoopVar.addChildren(loopVar);
         makeLoopVar.addChildren(new ConstantCommand((double) currCount));
-        makeLoopVar.execute(backendController, t);
+        makeLoopVar.execute(backendController);
     }
 
     @Override

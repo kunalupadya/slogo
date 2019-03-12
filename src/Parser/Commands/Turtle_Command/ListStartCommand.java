@@ -1,13 +1,13 @@
 package Parser.Commands.Turtle_Command;
 
-import GraphicsBackend.Turtle;
 import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 
 /**
  * @author kunalupadya
  */
-public class ListStartCommand extends Command {
+public class ListStartCommand extends BasicCommand {
 
     public ListStartCommand(){
         setNumParameters((int) Double.POSITIVE_INFINITY);
@@ -15,7 +15,7 @@ public class ListStartCommand extends Command {
     }
 
     @Override
-    protected void performAction(BackendController backendController, Turtle turtle) {
+    protected void performAction(BackendController backendController) {
         setReturnValue(getChildren().size() - 1);
     }
 

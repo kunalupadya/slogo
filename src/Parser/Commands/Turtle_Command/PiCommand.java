@@ -1,10 +1,10 @@
 package Parser.Commands.Turtle_Command;
 
-import GraphicsBackend.Turtle;
 import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 
-public class PiCommand extends Command {
+public class PiCommand extends BasicCommand {
 
     public PiCommand(){
         setIsEvaluated(false);
@@ -13,7 +13,7 @@ public class PiCommand extends Command {
     }
 
     @Override
-    protected void performAction(BackendController backendController, Turtle turtle) {
+    protected void performAction(BackendController backendController) {
         setReturnValue(Math.PI);
     }
 

@@ -15,7 +15,7 @@ public class NotEqualCommand extends BooleanCommand{
     }
 
     @Override
-    protected void performAction(BackendController backendController, Turtle turtle) {
+    protected void performAction(BackendController backendController) {
         setReturnValue(returnValue(getChildren().get(0).getReturnValue() != getChildren().get(1).getReturnValue()));
     }
 

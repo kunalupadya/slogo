@@ -1,8 +1,8 @@
 package Parser.Commands.Turtle_Command;
 
-import Parser.Commands.Command;
+import Parser.Commands.BasicCommand;
 
-public abstract class BooleanCommand extends Command{
+public abstract class BooleanCommand extends BasicCommand{
 
     BooleanCommand(){
         isOutputCommand = true;

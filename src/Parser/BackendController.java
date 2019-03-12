@@ -15,7 +15,7 @@ import java.util.*;
  */
 public class BackendController {
 
-    private String commmandLanguage;
+    private String commandLanguage;
     private Grid myGrid;
     private List<Turtle> myTurtles = new ArrayList<>();
     private Map<String, ImmutableUserDefinedCommand> userDefinedCommands;
@@ -98,11 +98,11 @@ public class BackendController {
     }
 
     public String getCommandLanguage(){
-         return commmandLanguage;
+         return commandLanguage;
     }
 
     public void setCommandLanguage(String language){
-        commmandLanguage = language;
+        commandLanguage = language;
     }
 
     public ImmutableGrid getMyGrid() {
@@ -128,7 +128,7 @@ public class BackendController {
     }
 
     public void parseAndRun(String userInput){
-        ParseCommand parser = new ParseCommand(userInput, myTurtles, commmandLanguage, this);
+        ParseCommand parser = new ParseCommand(userInput, myTurtles, commandLanguage, this);
     }
 
     public int getColorPaletteIndex(Color color){
@@ -159,7 +159,7 @@ public class BackendController {
         }
     }
 
-    public void outputResultToConsole(String commandOutput) {
+    void outputResultToConsole(String commandOutput) {
         frontendController.consoleShowCommandOutput(commandOutput);
     }
 }

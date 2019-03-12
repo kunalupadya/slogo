@@ -1,10 +1,10 @@
 package Parser.Commands.Turtle_Command;
 
-import GraphicsBackend.Turtle;
 import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 
-public class DifferenceCommand extends Command {
+public class DifferenceCommand extends BasicCommand {
 
     public DifferenceCommand(){
         setNumParameters(2);
@@ -12,7 +12,7 @@ public class DifferenceCommand extends Command {
     }
 
     @Override
-    protected void performAction(BackendController backendController, Turtle turtle) {
+    protected void performAction(BackendController backendController) {
         setReturnValue(getChildren().get(0).getReturnValue() - getChildren().get(1).getReturnValue());
     }
 

@@ -11,7 +11,7 @@ public class AndCommand extends BooleanCommand{
         setNumParameters(2);
     }
 
-    public void performAction(BackendController backendController, Turtle turtle){
+    public void performAction(BackendController backendController){
         setReturnValue(returnValue(getChildren().get(0).getReturnValue() != 0 &&
                 getChildren().get(1).getReturnValue() != 0));
     }

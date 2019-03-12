@@ -105,8 +105,8 @@ public class ExecuteCommand {
             return;
         }
         if (node.getClass() == TellCommand.class){
-            traverse(node.getChildren().get(0));
-            node.execute(backendController, currTurtle);
+            handleTellCommand(node);
+            return;
         }
         if (node.getClass() == AskCommand.class){
             handleAskCommand(node);
@@ -117,12 +117,20 @@ public class ExecuteCommand {
         handleAfterGenerationOfChildren(node);
     }
 
-    private void handleAskCommand(Command node) {
-        backendController.recordTurtleTell();
+    private void handleTellCommand(Command node) {
         traverse(node.getChildren().get(0));
         node.execute(backendController, currTurtle);
-        traverseChildren(node);
-        backendController.loadTurtleTell();
+    }
+
+    private void handleAskCommand(Command node) {
+        boolean prevTurtleState = currTurtle.getIsTurtleActive();
+        traverse(node.getChildren().get(0));
+        node.execute(backendController, currTurtle);
+        if(node.getChildren().get(1).getClass() != ListStartCommand.class){
+            //TODO "Wrong syntax error"
+        }
+        traverse(node.getChildren().get(1));
+        currTurtle.setTurtleActive(prevTurtleState);
     }
 
     private void handleGroupCommand(Command node) {

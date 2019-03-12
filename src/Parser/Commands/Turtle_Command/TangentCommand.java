@@ -1,10 +1,10 @@
 package Parser.Commands.Turtle_Command;
 
-import GraphicsBackend.Turtle;
 import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 
-public class TangentCommand extends Command {
+public class TangentCommand extends BasicCommand {
 
     public TangentCommand(){
         setNumParameters(1);
@@ -12,7 +12,7 @@ public class TangentCommand extends Command {
     }
 
     @Override
-    protected void performAction(BackendController backendController, Turtle turtle) {
+    protected void performAction(BackendController backendController) {
         setReturnValue(Math.tan(Math.toRadians(getChildren().get(0).getReturnValue())));
     }
 

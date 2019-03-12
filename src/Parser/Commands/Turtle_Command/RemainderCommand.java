@@ -1,10 +1,10 @@
 package Parser.Commands.Turtle_Command;
 
-import GraphicsBackend.Turtle;
 import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 
-public class RemainderCommand extends Command {
+public class RemainderCommand extends BasicCommand {
 
     public RemainderCommand(){
         setIsEvaluated(false);
@@ -13,7 +13,7 @@ public class RemainderCommand extends Command {
     }
 
     @Override
-    protected void performAction(BackendController backendController, Turtle turtle) {
+    protected void performAction(BackendController backendController) {
         setReturnValue(getChildren().get(0).getReturnValue() % getChildren().get(1).getReturnValue());
     }
 

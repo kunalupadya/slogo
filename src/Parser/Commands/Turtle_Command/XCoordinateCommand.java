@@ -3,12 +3,14 @@ package Parser.Commands.Turtle_Command;
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
+import Parser.Commands.TurtleCommand;
 
-public class XCoordinateCommand extends Command {
+public class XCoordinateCommand extends TurtleCommand {
 
     public XCoordinateCommand(){
         setNumParameters(0);
         isOutputCommand = true;
+        turtleQuery = true;
     }
 
     @Override

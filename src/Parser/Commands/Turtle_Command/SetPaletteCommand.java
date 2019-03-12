@@ -1,11 +1,11 @@
 package Parser.Commands.Turtle_Command;
 
-import GraphicsBackend.Turtle;
 import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 import javafx.scene.paint.Color;
 
-public class SetPaletteCommand extends Command {
+public class SetPaletteCommand extends BasicCommand {
 
     private static final int INDEX = 0;
     private static final int R_VALUE = 1;
@@ -19,14 +19,12 @@ public class SetPaletteCommand extends Command {
     }
 
     @Override
-    protected void performAction(BackendController backendController, Turtle turtle) {
+    protected void performAction(BackendController backendController) {
         int index = (int) getChildren().get(INDEX).getReturnValue();
         int r = (int) getChildren().get(R_VALUE).getReturnValue();
         int g = (int) getChildren().get(G_VALUE).getReturnValue();
         int b = (int) getChildren().get(B_VALUE).getReturnValue();
-        if (turtle.getIsTurtleActive()) {
-            backendController.setMyPalette(index, Color.rgb(r, g, b));
-        }
+        backendController.setMyPalette(index, Color.rgb(r, g, b));
         setReturnValue(index);
     }
 

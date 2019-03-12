@@ -1,13 +1,13 @@
 package Parser.Commands.Turtle_Command;
 
-import GraphicsBackend.Turtle;
 import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 
 /**
  * @author kunalupadya
  */
-public class ListEndCommand extends Command {
+public class ListEndCommand extends BasicCommand {
 
     public ListEndCommand(){
         setNumParameters(0);
@@ -15,7 +15,7 @@ public class ListEndCommand extends Command {
     }
 
     @Override
-    protected void performAction(BackendController backendController, Turtle turtle) {
+    protected void performAction(BackendController backendController) {
 
     }
 

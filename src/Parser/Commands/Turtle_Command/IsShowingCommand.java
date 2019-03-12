@@ -3,8 +3,9 @@ package Parser.Commands.Turtle_Command;
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
+import Parser.Commands.TurtleCommand;
 
-public class IsShowingCommand extends Command {
+public class IsShowingCommand extends TurtleCommand {
 
     private static final int SHOWING = 1;
     private static final int HIDDEN = 0;
@@ -12,6 +13,7 @@ public class IsShowingCommand extends Command {
     public IsShowingCommand(){
         setNumParameters(0);
         isOutputCommand = true;
+        turtleQuery = true;
     }
 
     @Override

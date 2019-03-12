@@ -1,10 +1,10 @@
 package Parser.Commands.Turtle_Command;
 
-import GraphicsBackend.Turtle;
 import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 
-public class CosineCommand extends Command {
+public class CosineCommand extends BasicCommand {
 
     public CosineCommand(){
         setNumParameters(1);
@@ -12,7 +12,7 @@ public class CosineCommand extends Command {
     }
 
     @Override
-    protected void performAction(BackendController backendController, Turtle turtle) {
+    protected void performAction(BackendController backendController) {
         setReturnValue(Math.cos(Math.toRadians(getChildren().get(0).getReturnValue())));
     }
 

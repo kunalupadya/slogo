@@ -3,11 +3,12 @@ package Parser.Commands.Turtle_Command;
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
+import Parser.Commands.TurtleCommand;
 
 /**
  * @author kunalupadya
  */
-public class SetHeadingCommand extends Command{
+public class SetHeadingCommand extends TurtleCommand {
 
     public SetHeadingCommand(){
         setIsEvaluated(false);
@@ -19,9 +20,7 @@ public class SetHeadingCommand extends Command{
     protected void performAction(BackendController backendController, Turtle turtle) {
         double oldAngle = turtle.getMyAngle();
         setReturnValue(Math.abs(getChildren().get(0).getReturnValue()-oldAngle));
-        if (turtle.getIsTurtleActive()) {
-            turtle.turnTo(getChildren().get(0).getReturnValue());
-        }
+        turtle.turnTo(getChildren().get(0).getReturnValue());
     }
 
     @Override

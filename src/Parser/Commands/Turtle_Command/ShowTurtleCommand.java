@@ -3,8 +3,9 @@ package Parser.Commands.Turtle_Command;
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
+import Parser.Commands.TurtleCommand;
 
-public class ShowTurtleCommand extends Command {
+public class ShowTurtleCommand extends TurtleCommand {
 
     public ShowTurtleCommand(){
         setNumParameters(0);
@@ -13,9 +14,7 @@ public class ShowTurtleCommand extends Command {
 
     @Override
     protected void performAction(BackendController backendController, Turtle turtle) {
-        if (turtle.getIsTurtleActive()) {
-            turtle.setTurtleVisibility(true);
-        }
+        turtle.setTurtleVisibility(true);
         setReturnValue(1);
     }
 

@@ -1,17 +1,16 @@
 package Parser.Commands.Turtle_Command;
 
-import GraphicsBackend.Turtle;
 import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 import Parser.Commands.Variable;
-
 import java.util.List;
 import java.util.Optional;
 
 /**
  * @author kunalupadya
  */
-public class TextCommand extends Command {
+public class TextCommand extends BasicCommand {
 
     public TextCommand(String text){
         setNumParameters(0);
@@ -20,7 +19,7 @@ public class TextCommand extends Command {
     }
 
     @Override
-    protected void performAction(BackendController backendController, Turtle turtle) {
+    protected void performAction(BackendController backendController) {
         Optional<ImmutableUserDefinedCommand> userDefinedCommand =  backendController.getUserDefinedCommand(getText());
         if (userDefinedCommand.isPresent()){
             ImmutableUserDefinedCommand command = userDefinedCommand.get();
@@ -35,6 +34,7 @@ public class TextCommand extends Command {
             getChildren().clear();
             getChildren().add(copyOfCommand);
             backendController.addUserDefinedCommandToStack(copyOfCommand);
+            setReturnValue(0);
         }
         else {
             // throw new TODO create exception, command not defined

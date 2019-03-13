@@ -15,9 +15,6 @@ public class MakeVariableCommand extends BasicCommand {
         isOutputCommand = false;
     }
 
-    //TODO FIX HANDLE VARIABLE IN EXECUTE COMMAND
-//    # note, variable set to 0 first time seen
-//    set :dist + :dist 1
     @Override
     protected void performAction(BackendController backendController) {
         String name = getChildren().get(0).getText();

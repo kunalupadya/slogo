@@ -50,6 +50,7 @@ public abstract class Command{
 
     public void setReturnValue(double returnValue) {
         this.returnValue = returnValue;
+        isEvaluated = true;
     }
 
     public String getText() {

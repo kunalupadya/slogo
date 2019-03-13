@@ -14,8 +14,7 @@ public class SwitchLanguages extends MenuButtonControl{
      * @param context
      */
     public SwitchLanguages(FrontendController context) {
-        super(new Image(FrontendController.class.getResourceAsStream("/images/language.png")), "/languageProperties/LanguageSettings");
-        this.myContext = context;
+        super(new Image(FrontendController.class.getResourceAsStream("/images/language.png")), context,"/languageProperties/LanguageSettings");
     }
 
     @Override

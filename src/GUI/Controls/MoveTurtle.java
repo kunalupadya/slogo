@@ -15,9 +15,8 @@ public class MoveTurtle extends MenuButtonControl{
      * @param context
      */
     public MoveTurtle(FrontendController context) {
-        super(new Image(FrontendController.class.getResourceAsStream("/images/moveTurtle.png")), "/buttonProperties/TurtleMovements");
+        super(new Image(FrontendController.class.getResourceAsStream("/images/moveTurtle.png")), context,"/buttonProperties/TurtleMovements");
         languageResourceBundle = ResourceBundle.getBundle("/languageProperties/English");
-        this.myContext = context;
     }
 
     @Override

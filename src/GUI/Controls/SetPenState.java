@@ -6,14 +6,11 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 
 public class SetPenState extends ButtonControl{
-    FrontendController context;
-
     public SetPenState(FrontendController context) {
-        super(new Image(FrontendController.class.getResourceAsStream("/images/upDown.png")));
-        this.context = context;
+        super(new Image(FrontendController.class.getResourceAsStream("/images/upDown.png")), context);
     }
     @Override
     protected EventHandler<MouseEvent> action() {
-        return event -> context.setPenState();
+        return event -> myContext.setPenState();
     }
 }

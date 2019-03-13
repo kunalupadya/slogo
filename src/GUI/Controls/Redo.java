@@ -6,11 +6,8 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 
 public class Redo extends ButtonControl {
-    private FrontendController context;
-
     public Redo(FrontendController context) {
-        super(new Image(FrontendController.class.getResourceAsStream("/images/redo.png")));
-        this.context = context;
+        super(new Image(FrontendController.class.getResourceAsStream("/images/redo.png")), context);
     }
 
     @Override

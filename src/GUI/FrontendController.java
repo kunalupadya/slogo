@@ -188,7 +188,7 @@ public class FrontendController {
         redo = new Redo(this);
         redo.getButton().setTooltip(new Tooltip("Redo"));
 
-        run = new Run(editor);
+        run = new Run(this);
         run.getButton().setTooltip(new Tooltip("Run"));
 
         var leftButtons = new HBox(openHelp.getButton(), switchLanguages.getButton(), saveFile.getButton(),
@@ -208,6 +208,10 @@ public class FrontendController {
 
     public BorderPane getContainer() {
         return myContainer;
+    }
+
+    public void run() {
+        editor.run();
     }
 
     /**

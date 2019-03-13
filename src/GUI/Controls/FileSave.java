@@ -6,20 +6,17 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 
 public class FileSave extends ButtonControl {
-    private FrontendController context;
-
     /**
      * TODO: finish JavaDoc
      *
      * @param context
      */
     public FileSave(FrontendController context) {
-        super(new Image(FrontendController.class.getResourceAsStream("/images/saveFile.png")));
-        this.context = context;
+        super(new Image(FrontendController.class.getResourceAsStream("/images/saveFile.png")), context);
     }
 
     @Override
     protected EventHandler<MouseEvent> action() {
-        return event -> context.saveToFile();
+        return event -> myContext.saveToFile();
     }
 }

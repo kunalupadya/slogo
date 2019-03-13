@@ -1,5 +1,6 @@
 package GUI.Controls;
 
+import GUI.FrontendController;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -18,8 +19,8 @@ public abstract class ButtonControl extends Control{
      * TODO: finish JavaDoc
      * @param image
      */
-    public ButtonControl(Image image) {
-        super(image);
+    public ButtonControl(Image image, FrontendController context) {
+        super(image, context);
         this.myButton = new Button();
 
         myButton.setGraphic(myImage);

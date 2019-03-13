@@ -9,7 +9,7 @@ public class SetTurtleImage extends ButtonControl {
     private FrontendController context;
 
     public SetTurtleImage(FrontendController context) {
-        super(new Image(FrontendController.class.getResourceAsStream("/images/initialTurtle.png")));
+        super(new Image(FrontendController.class.getResourceAsStream("/images/initialTurtle.png")), context);
         this.context = context;
     }
 

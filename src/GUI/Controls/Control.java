@@ -1,8 +1,7 @@
 package GUI.Controls;
 
-import javafx.scene.control.Alert;
+import GUI.FrontendController;
 import javafx.scene.control.ButtonBase;
-import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.event.EventHandler;
@@ -12,11 +11,15 @@ import java.io.FileNotFoundException;
 
 public abstract class Control {
     ImageView myImage;
+    FrontendController myContext;
+    private final double imageSize = 20.0;
 
-    public Control(Image image) {
-        myImage = new ImageView(image);
-        myImage.setFitHeight(20.0);
-        myImage.setFitWidth(20.0);
+    public Control(Image image, FrontendController context) {
+        this.myImage = new ImageView(image);
+        this.myContext = context;
+
+        myImage.setFitHeight(imageSize);
+        myImage.setFitWidth(imageSize);
     }
 
     abstract EventHandler<?> action();
@@ -30,12 +33,11 @@ public abstract class Control {
     public void setImage(File file, ButtonBase button) {
         try {
             myImage = new ImageView(new Image(new FileInputStream(file.getPath())));
-            myImage.setFitHeight(20.0);
-            myImage.setFitWidth(20.0);
+            myImage.setFitHeight(imageSize);
+            myImage.setFitWidth(imageSize);
             button.setGraphic(myImage);
         } catch (FileNotFoundException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "File not found.", ButtonType.OK);
-            alert.showAndWait();
+            myContext.consoleShowError("Error occurred when changing button image");
         }
     }
 }

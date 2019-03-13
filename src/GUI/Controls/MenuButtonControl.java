@@ -12,11 +12,10 @@ import java.util.ResourceBundle;
 
 public abstract class MenuButtonControl extends Control {
     ResourceBundle myResourceBundle;
-    FrontendController myContext;
     private MenuButton myButton;
 
-    public MenuButtonControl(Image image, String resourceBundlePath) {
-        super(image);
+    public MenuButtonControl(Image image, FrontendController context,String resourceBundlePath) {
+        super(image, context);
         this.myButton = new MenuButton();
         this.myResourceBundle = ResourceBundle.getBundle(resourceBundlePath);
 

@@ -9,7 +9,7 @@ public class StopExecution extends ButtonControl {
     private FrontendController context;
 
     public StopExecution(FrontendController context) {
-        super(new Image(FrontendController.class.getResourceAsStream("/images/stop.png")));
+        super(new Image(FrontendController.class.getResourceAsStream("/images/stop.png")), context);
         this.context = context;
     }
 

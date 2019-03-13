@@ -10,8 +10,7 @@ import java.util.ResourceBundle;
 
 public class OpenHelp extends MenuButtonControl{
     public OpenHelp(FrontendController context) {
-        super(new Image(FrontendController.class.getResourceAsStream("/images/help.png")), "/buttonProperties/HelpButtonLinks");
-        this.myContext = context;
+        super(new Image(FrontendController.class.getResourceAsStream("/images/help.png")), context, "/buttonProperties/HelpButtonLinks");
     }
 
     @Override

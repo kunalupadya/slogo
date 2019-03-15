@@ -8,7 +8,6 @@ import Parser.Commands.Command;
 public class ArcTangentCommand extends BasicCommand {
 
     public ArcTangentCommand(){
-        setIsEvaluated(false);
         setNumParameters(1);
         isOutputCommand = true;
     }

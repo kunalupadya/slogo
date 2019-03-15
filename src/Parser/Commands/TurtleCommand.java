@@ -9,7 +9,7 @@ public abstract class TurtleCommand extends Command{
 
     public void execute(BackendController backendController, Turtle currTurtle) {
         performAction(backendController, currTurtle);
-        isEvaluated = true;
+        setIsEvaluated(true);
     }
 
     public boolean isTurtleQuery(){

@@ -13,7 +13,7 @@ import java.util.List;
 public abstract class Command{
 
     private List<Command> myChildrenList = new ArrayList<>();
-    boolean isEvaluated = false;
+    private boolean isEvaluated = false;
     private double returnValue;
     private String text;
     private int numParameters;

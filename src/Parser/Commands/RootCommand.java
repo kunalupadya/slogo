@@ -8,7 +8,6 @@ import Parser.BackendController;
 public class RootCommand extends BasicCommand{
 
     public RootCommand(){
-        setIsEvaluated(false);
         setNumParameters((int) Double.POSITIVE_INFINITY);
         isOutputCommand = false;
     }

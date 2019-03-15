@@ -7,7 +7,6 @@ import Parser.Commands.Variable;
 
 public class DoTimesCommand extends ControlCommand {
 
-
     private final int VAR_LIMIT_INDEX = 0;
     private final int COMMANDS_INDEX = 1;
     private ListStartCommand commandListOrig;
@@ -15,7 +14,6 @@ public class DoTimesCommand extends ControlCommand {
 
     public DoTimesCommand() {
         super();
-        setIsEvaluated(false);
         setNumParameters(2);
     }
 

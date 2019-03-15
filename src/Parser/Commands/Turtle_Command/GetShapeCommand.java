@@ -8,7 +8,6 @@ import Parser.Commands.TurtleCommand;
 public class GetShapeCommand extends TurtleCommand {
 
     public GetShapeCommand(){
-        setIsEvaluated(false);
         setNumParameters(0);
         isOutputCommand = true;
         turtleQuery = true;

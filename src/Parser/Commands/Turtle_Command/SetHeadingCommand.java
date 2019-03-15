@@ -11,7 +11,6 @@ import Parser.Commands.TurtleCommand;
 public class SetHeadingCommand extends TurtleCommand {
 
     public SetHeadingCommand(){
-        setIsEvaluated(false);
         setNumParameters(1);
         isOutputCommand = false;
     }

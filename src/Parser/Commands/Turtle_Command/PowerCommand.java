@@ -7,7 +7,6 @@ import Parser.Commands.Command;
 public class PowerCommand extends BasicCommand {
 
     public PowerCommand(){
-        setIsEvaluated(false);
         setNumParameters(2);
         isOutputCommand = true;
     }

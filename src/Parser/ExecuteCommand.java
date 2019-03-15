@@ -29,6 +29,7 @@ public class ExecuteCommand {
         ParsingTree parsingTree = new ParsingTree(commandsList, backendController);
         headNode = (RootCommand) parsingTree.getRoot();
         this.backendController = backendController;
+        currTurtle = backendController.getMyTurtles().get(0);
     }
 
     void runCommands() {
@@ -78,13 +79,14 @@ public class ExecuteCommand {
             return;
         }
         if (node instanceof ControlCommand){
+            System.out.println(true);
             handleControlCommand(node);
             return;
         }
-        if (node.getClass() == GroupStartCommand.class){
-            handleGroupCommand(node);
-            return;
-        }
+//        if (node.getClass() == GroupStartCommand.class){
+//            handleGroupCommand(node);
+//            return;
+//        }
         if (node.getClass() == TellCommand.class){
             handleTellCommand(node);
             return;
@@ -202,14 +204,15 @@ public class ExecuteCommand {
         isASubTurtleCommand = prevState;
     }
 
-    private void handleGroupCommand(Command node) {
-        node.getChildren().get(COMMAND_INDEX).setIsEvaluated(true);
-        traverseChildren(node);
-        node.getChildren().get(COMMAND_INDEX).setIsEvaluated(false);
-        node.execute(backendController, currTurtle);
-    }
+//    private void handleGroupCommand(Command node) {
+//        node.getChildren().get(COMMAND_INDEX).setIsEvaluated(true);
+//        traverseChildren(node);
+//        node.getChildren().get(COMMAND_INDEX).setIsEvaluated(false);
+//        node.execute(backendController, currTurtle);
+//    }
 
     private void handleControlCommand(Command node) {
+        System.out.println("dumb pussy");
         if (node instanceof IfCommand || node instanceof IfElseCommand) {
             handleIfCommands(node);
             return;

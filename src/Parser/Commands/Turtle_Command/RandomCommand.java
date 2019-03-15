@@ -9,7 +9,6 @@ import java.util.Random;
 public class RandomCommand extends BasicCommand {
 
     public RandomCommand(){
-        setIsEvaluated(false);
         setNumParameters(1);
         isOutputCommand = true;
     }

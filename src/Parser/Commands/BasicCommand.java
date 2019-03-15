@@ -6,7 +6,7 @@ public abstract class BasicCommand extends Command{
 
     public void execute(BackendController backendController) {
         performAction(backendController);
-        isEvaluated = true;
+        setIsEvaluated(true);
     }
 
     protected abstract void performAction(BackendController backendController);

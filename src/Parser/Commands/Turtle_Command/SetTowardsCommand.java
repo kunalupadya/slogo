@@ -11,7 +11,6 @@ import Parser.Commands.TurtleCommand;
 public class SetTowardsCommand extends TurtleCommand {
 
     public SetTowardsCommand(){
-        setIsEvaluated(false);
         setNumParameters(2);
         isOutputCommand = false;
     }

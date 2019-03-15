@@ -8,7 +8,6 @@ import Parser.Commands.TurtleCommand;
 public class SetShapeCommand extends TurtleCommand {
 
     public SetShapeCommand(){
-        setIsEvaluated(false);
         setNumParameters(1);
         isOutputCommand = false;
     }

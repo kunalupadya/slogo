@@ -12,7 +12,6 @@ public class AskCommand extends BasicCommand {
     private static final int TURTLES_INDEX = 0;
 
     public AskCommand(){
-        setIsEvaluated(false);
         setNumParameters(2);
         isOutputCommand = false;
     }

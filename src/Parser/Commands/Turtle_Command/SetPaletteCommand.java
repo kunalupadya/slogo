@@ -13,7 +13,6 @@ public class SetPaletteCommand extends BasicCommand {
     private static final int B_VALUE = 3;
 
     public SetPaletteCommand(){
-        setIsEvaluated(false);
         setNumParameters(4);
         isOutputCommand = false;
     }

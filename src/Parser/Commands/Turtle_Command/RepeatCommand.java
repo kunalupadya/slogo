@@ -7,7 +7,6 @@ import Parser.Commands.Variable;
 
 public class RepeatCommand extends ControlCommand {
 
-
     private final int EXPRESSION_INDEX = 0;
     private final int COMMANDS_INDEX = 1;
     private ListStartCommand commandListOrig;

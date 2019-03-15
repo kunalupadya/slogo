@@ -13,8 +13,7 @@ public abstract class ControlCommand extends BasicCommand {
     int currCount = 1;
     int limit;
     List<Command> initialExpressions = new ArrayList<>();
-    ListStartCommand listToRun = null;
-
+    private ListStartCommand listToRun = null;
 
     ControlCommand(){
         isOutputCommand = false;
@@ -39,7 +38,7 @@ public abstract class ControlCommand extends BasicCommand {
         return listToRun;
     }
 
-    public ListStartCommand copyList(ListStartCommand command){
+    ListStartCommand copyList(ListStartCommand command){
         return (ListStartCommand) traverse(command);
     }
 

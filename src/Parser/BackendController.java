@@ -22,8 +22,6 @@ public class BackendController {
     private Map<String, Variable> availableVariables;
     private List<UserDefinedCommand> userDefinedCommandStack = new LinkedList<>();
     private FrontendController frontendController;
-    private List<Boolean> previousTurtleTell;
-    private List<Turtle> askWithList;
     private Palette myPalette;
 
     public BackendController(){
@@ -32,21 +30,6 @@ public class BackendController {
         availableVariables = new HashMap<>();
         myTurtles.add(new Turtle(myGrid));
         myPalette = new Palette();
-    }
-
-    public void recordTurtleTell(){
-        previousTurtleTell = new LinkedList<>();
-        for (Turtle t: myTurtles){
-            previousTurtleTell.add(t.getIsTurtleActive());
-        }
-    }
-
-    public void loadTurtleTell(){
-        int ctr = 0;
-        for (Boolean b: previousTurtleTell){
-            myTurtles.get(ctr).setTurtleActive(b);
-            ctr++;
-        }
     }
 
     public void addNewUserDefinedCommand(String commandName, ImmutableUserDefinedCommand tree){
@@ -95,10 +78,6 @@ public class BackendController {
 
     public Set<String> getAllVariables() {
         return availableVariables.keySet();
-    }
-
-    public String getCommandLanguage(){
-         return commandLanguage;
     }
 
     public void setCommandLanguage(String language){

@@ -6,7 +6,6 @@ import java.util.Optional;
 
 public class Variable extends BasicCommand{
     public Variable(String text){
-        setIsEvaluated(false);
         setNumParameters(0);
         setText(text);
         isOutputCommand = true;
@@ -17,7 +16,6 @@ public class Variable extends BasicCommand{
         Optional<Double> variableValue= backendController.getVariableIfExists(getText());
         if (variableValue.isPresent()){
             setReturnValue(variableValue.get());
-            setIsEvaluated(false);
         }
         else{
             //throw new TODO make an exception for not having defined the variable

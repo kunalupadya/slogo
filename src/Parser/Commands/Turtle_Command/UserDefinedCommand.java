@@ -1,7 +1,7 @@
 package Parser.Commands.Turtle_Command;
 
-import GraphicsBackend.Turtle;
 import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 import Parser.Commands.Variable;
 
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author kunalupadya
  */
-public class UserDefinedCommand extends Command implements ImmutableUserDefinedCommand{
+public class UserDefinedCommand extends BasicCommand implements ImmutableUserDefinedCommand{
     private String name;
     private List<Variable> variables;
     private ListStartCommand headNode;
@@ -43,7 +43,7 @@ public class UserDefinedCommand extends Command implements ImmutableUserDefinedC
     }
 
     @Override
-    protected void performAction(BackendController backendController, Turtle turtle) {
+    protected void performAction(BackendController backendController) {
         backendController.removeUserDefinedCommandFromStack(this);
     }
 

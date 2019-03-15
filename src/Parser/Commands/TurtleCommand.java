@@ -12,7 +12,7 @@ public abstract class TurtleCommand extends Command{
         isEvaluated = true;
     }
 
-    protected boolean isTurtleQuery(){
+    public boolean isTurtleQuery(){
         return turtleQuery;
     }
 

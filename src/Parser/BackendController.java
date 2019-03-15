@@ -128,7 +128,7 @@ public class BackendController {
     }
 
     public void parseAndRun(String userInput){
-        ParseCommand parser = new ParseCommand(userInput, myTurtles, commandLanguage, this);
+        ParseCommand parser = new ParseCommand(userInput, commandLanguage, this);
     }
 
     public int getColorPaletteIndex(Color color){

@@ -13,9 +13,11 @@ import java.util.*;
 
 public class ParseCommand {
 
-    public ParseCommand(String consoleInput,String commandLanguage, BackendController backendController){
+    public ParseCommand(String consoleInput, String commandLanguage, BackendController backendController){
         if(consoleInput != null && !consoleInput.equals("")) {
-            String[] listOfWords = consoleInput.toLowerCase().split("\\s+");
+            String refinedInput = removeComments(consoleInput);
+            refinedInput = refinedInput.replace("\n", " ");
+            String[] listOfWords = refinedInput.toLowerCase().split("\\s+");
             LanguageSetting languageSetting = new LanguageSetting(commandLanguage);
             String[] translatedListOfWords = languageSetting.translateCommand(listOfWords);
             var tokensList = addToTokenList(translatedListOfWords);
@@ -23,6 +25,21 @@ public class ParseCommand {
             ExecuteCommand executeCommand = new ExecuteCommand(commandsList, backendController);
             executeCommand.runCommands();
         }
+    }
+
+    private String removeComments(String input){
+        int curIndex = 0;
+        StringBuilder refinedInput = new StringBuilder();
+        while(true){
+            int commentStart = input.indexOf("#", curIndex);
+            if (commentStart == -1){
+                break;
+            }
+            refinedInput.append(input.substring(curIndex, commentStart));
+            curIndex = input.indexOf("\n", commentStart) + 1;
+        }
+        refinedInput.append(input.substring(curIndex));
+        return refinedInput.toString();
     }
 
     private List<Token> addToTokenList(String[] translatedListOfWords){

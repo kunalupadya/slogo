@@ -24,6 +24,9 @@ public class TellCommand extends BasicCommand {
             //TODO "Wrong syntax error"
         }
         var childrenSize = listCommand.getChildren().size();
+        for (Turtle t: backendController.getMyTurtles()){
+            t.setTurtleActive(false);
+        }
         for (int a = 0; a < childrenSize - 1; a++) {
             List<Turtle> turtleList= backendController.getMyTurtles();
             int turtleId = (int) listCommand.getChildren().get(a).getReturnValue();

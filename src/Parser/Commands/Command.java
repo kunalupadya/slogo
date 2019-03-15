@@ -32,7 +32,7 @@ public abstract class Command{
         return isEvaluated;
     }
 
-    public void setIsEvaluated(boolean constant) {
+    protected void setIsEvaluated(boolean constant) {
         isEvaluated = constant;
     }
 

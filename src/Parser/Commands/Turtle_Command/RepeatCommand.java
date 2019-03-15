@@ -13,7 +13,6 @@ public class RepeatCommand extends ControlCommand {
 
     public RepeatCommand() {
         super();
-        setIsEvaluated(false);
         setNumParameters(2);
     }
 

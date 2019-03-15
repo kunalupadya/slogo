@@ -79,7 +79,6 @@ public class ExecuteCommand {
             return;
         }
         if (node instanceof ControlCommand){
-            System.out.println(true);
             handleControlCommand(node);
             return;
         }
@@ -161,8 +160,7 @@ public class ExecuteCommand {
         }
         handleListStartCommand(askCom.getChildren().get(1));
         resetTurtleStates(prevTurtleStates);
-        List<Command> commandList = askCom.getChildren().get(1).getChildren();
-        askCom.setReturnValue(commandList.get(commandList.size() - 2).getReturnValue());
+        askCom.setReturnValue(askCom.getChildren().get(1).getReturnValue());
         currTurtle = getPrevTurtle(prevCurrTurtleIndex);
     }
 
@@ -212,7 +210,6 @@ public class ExecuteCommand {
 //    }
 
     private void handleControlCommand(Command node) {
-        System.out.println("dumb pussy");
         if (node instanceof IfCommand || node instanceof IfElseCommand) {
             handleIfCommands(node);
             return;
@@ -221,7 +218,7 @@ public class ExecuteCommand {
         controlCom.setInitialExpressions();
         List<Command> initExpr = controlCom.getInitialExpressions();
         boolean prevState = isASubTurtleCommand;
-        isASubTurtleCommand = false;
+        isASubTurtleCommand = true;
         for (Command expr: initExpr) {
             traverse(expr);
         }
@@ -263,6 +260,8 @@ public class ExecuteCommand {
 
     private void handleListStartCommand(Command node) {
         traverseChildren(node);
+        var childrenList = node.getChildren();
+        node.setReturnValue(childrenList.get(childrenList.size() - 2).getReturnValue());
     }
 
     private void handleAfterGenerationOfChildren(Command node) {

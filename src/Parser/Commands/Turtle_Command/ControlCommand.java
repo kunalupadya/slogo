@@ -1,9 +1,7 @@
 package Parser.Commands.Turtle_Command;
 
-
 import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +16,7 @@ public abstract class ControlCommand extends BasicCommand {
     ControlCommand(){
         isOutputCommand = false;
         setReturnValue(0);
+        setIsEvaluated(false);
     }
 
     public List<Command> getInitialExpressions(){

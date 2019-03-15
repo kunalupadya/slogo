@@ -10,7 +10,7 @@ people to think differently about how to teach geometry and social science to pr
 SLogo is a simpler version of Logo where users can learn basic programming skills. SLogo shares similar 
 commands and concepts with Logo and can be extend to simulate Cell Automaton. 
 
-// Add a screenshot of the SLogo here 
+![SLogo Application Example](doc/SLogoApplication.png?raw=true "SLogo")
 
 # Members 
 

@@ -135,6 +135,12 @@ public class ExecuteCommand {
         BasicCommand tellComm = (BasicCommand) node;
         traverse(tellComm.getChildren().get(0));
         tellComm.execute(backendController);
+        for (Turtle t: backendController.getMyTurtles()){
+            if (t.getIsTurtleActive()){
+                currTurtle = t;
+                break;
+            }
+        }
     }
 
     private void handleAskCommands(Command node) {
@@ -217,8 +223,6 @@ public class ExecuteCommand {
         ControlCommand controlCom = (ControlCommand) node;
         controlCom.setInitialExpressions();
         List<Command> initExpr = controlCom.getInitialExpressions();
-        boolean prevState = isASubTurtleCommand;
-        isASubTurtleCommand = true;
         for (Command expr: initExpr) {
             traverse(expr);
         }
@@ -230,7 +234,6 @@ public class ExecuteCommand {
                 node.setReturnValue(controlCom.getListToRun().getReturnValue());
             }
         }
-        isASubTurtleCommand = prevState;
     }
 
     private void handleIfCommands(Command node) {
@@ -292,9 +295,9 @@ public class ExecuteCommand {
     private void handleTextCommand(Command node) {
         TextCommand textCom = (TextCommand) node;
         textCom.execute(backendController);
-        traverseChildren(textCom);
-        List<Command> childrenList = textCom.getChildren();
-        textCom.setReturnValue(childrenList.get(childrenList.size() - 1).getReturnValue());
+        UserDefinedCommand userCom = (UserDefinedCommand) textCom.getChildren().get(0);
+        handleListStartCommand(userCom.getHeadNode());
+        textCom.setReturnValue(userCom.getHeadNode().getReturnValue());
     }
 
     private void traverseChildren(Command node) {

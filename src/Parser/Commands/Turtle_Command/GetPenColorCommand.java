@@ -15,7 +15,7 @@ public class GetPenColorCommand extends TurtleCommand {
 
     @Override
     protected void performAction(BackendController backendController, Turtle turtle) {
-        setReturnValue(backendController.getColorPaletteIndex(turtle.getMyPen().getMyPenColor()));
+        setReturnValue(backendController.getColorPaletteIndex(turtle.getMyPen().getMyPenColor()) + 1);
     }
 
     @Override

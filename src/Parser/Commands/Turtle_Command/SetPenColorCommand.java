@@ -14,9 +14,10 @@ public class SetPenColorCommand extends TurtleCommand {
 
     @Override
     protected void performAction(BackendController backendController, Turtle turtle) {
+        //TODO: no values below 1; 1 based indexing
         setReturnValue(getChildren().get(0).getReturnValue());
         //TODO: handle nullpointer for if index doesn't exist in Palette
-        turtle.setPenColor(backendController.getColor((int) getReturnValue()));
+        turtle.setPenColor(backendController.getColor((int) getReturnValue() - 1));
     }
 
     @Override

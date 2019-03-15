@@ -21,7 +21,7 @@ public class UserDefinedCommand extends BasicCommand implements ImmutableUserDef
         this.variables = variables;
         this.headNode = headNode;
         getChildren().add(headNode);
-        setNumParameters(1);
+        setNumParameters(variables.size());
     }
 
     public List<Variable> getVariables() {

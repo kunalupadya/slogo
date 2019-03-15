@@ -28,7 +28,10 @@ public class TextCommand extends BasicCommand {
 
             for (int k = 0; k < getChildren().size(); k++){
                 Variable currentVariable = variables.get(k);
-                currentVariable.setReturnValue(getChildren().get(k).getReturnValue());
+                var setParam = new MakeVariableCommand();
+                setParam.addChildren(currentVariable);
+                setParam.addChildren(getChildren().get(k));
+                setParam.execute(backendController);
             }
 
             getChildren().clear();

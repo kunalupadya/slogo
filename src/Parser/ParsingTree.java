@@ -29,7 +29,6 @@ class ParsingTree {
     }
 
     private Command makeTree(List<Command> commandsList, Command parent){
-        //System.out.println(parent.getClass());
         while (!commandsList.isEmpty()) {
             currCommand = commandsList.remove(FIRST);
             Command savedCurrentCommand = currCommand;

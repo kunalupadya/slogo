@@ -19,7 +19,7 @@ public interface ImmutableUserDefinedCommand {
 
     List<Variable> getVariables();
 
-    //ListStartCommand getHeadNode();
+    ListStartCommand getHeadNode();
 
     Command copy();
 }

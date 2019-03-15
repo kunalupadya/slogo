@@ -294,7 +294,7 @@ public class FrontendController {
 
     public void setCurrentState() {
         turtles = new LinkedList<>(backendController.getImmutableTurtles());
-        int counter = 0;
+        int counter = 1;
         List<Integer> ids = new ArrayList<>();
         List<Double> xPositions = new ArrayList<>();
         List<Double> yPositions = new ArrayList<>();

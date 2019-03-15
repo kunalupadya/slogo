@@ -13,9 +13,10 @@ public class SetBackgroundCommand extends BasicCommand {
 
     @Override
     protected void performAction(BackendController backendController) {
+        //TODO no values below 1; 1 based indexing
         setReturnValue(getChildren().get(0).getReturnValue());
         //TODO: handle nullpointer for if index doesn't exist in Palette
-        backendController.setBackGroundColor(backendController.getColor((int) getReturnValue()));
+        backendController.setBackGroundColor(backendController.getColor((int) getReturnValue() - 1));
     }
 
     @Override

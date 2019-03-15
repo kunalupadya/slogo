@@ -42,7 +42,7 @@ Louis Lee (dl199@duke.edu) : Palette, ParseCommand, Token, TokenConverter, Langu
 
 David Liu (dwl23@duke.edu) : All Modules within GUI Package, FrontendController, Controller, a little bit in Controls
 
-Dhanush Madabusi (dm322@duke.edu) : Control Structure Commands, Errorhandling 
+Dhanush Madabusi (dm322@duke.edu) : ExecuteCommand, All Command classes, ParseCommand, Errorhandling 
 
 # Resources Used 
 
@@ -130,14 +130,11 @@ pixel dimensions on a computer screen.
 4. Turtle and pen lines can get out of the Turtle Display area by a few pixels
 
 - Backend : 
-1. Due to the fact that ask command executes commands first and applies the result to the turtles, 
-all the turtles would do the same action. This is usually not a problem since ask command 
-is mostly used to make set of turtles execute same action; however, when users want to 
-apply different result of the command(ex - random), users would have to use the for loop to wrap 
-the ask command 
 
-2. The position of turtles may not be accurate due to the fact that for some reason, grid in the backend 
-and the grid in the frontend do not match exactly. 
+1. The position of turtles may not be accurate due to the fact that for some reason, grid in the backend 
+and the grid in the frontend do not match exactly.
+
+2. Recursion is functional, but program crashes when procedure has multiple recursive calls 
 
 # Any extra features included in the project
 

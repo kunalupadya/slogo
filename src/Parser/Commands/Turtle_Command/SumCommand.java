@@ -9,6 +9,7 @@ public class SumCommand extends BasicCommand {
     public SumCommand(){
         setNumParameters(2);
         isOutputCommand = true;
+        unlimitedParameters = true;
     }
 
     @Override

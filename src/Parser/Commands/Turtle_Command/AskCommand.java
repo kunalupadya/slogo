@@ -5,7 +5,7 @@ import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 
 /**
- * @author kunalupadya
+ * @author Dhanush Madabusi
  */
 public class AskCommand extends BasicCommand {
 

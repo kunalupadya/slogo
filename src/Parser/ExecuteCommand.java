@@ -82,10 +82,10 @@ public class ExecuteCommand {
             handleControlCommand(node);
             return;
         }
-//        if (node.getClass() == GroupStartCommand.class){
-//            handleGroupCommand(node);
-//            return;
-//        }
+        if (node.getClass() == GroupStartCommand.class){
+            handleGroupCommand(node);
+            return;
+        }
         if (node.getClass() == TellCommand.class){
             handleTellCommand(node);
             return;
@@ -208,12 +208,20 @@ public class ExecuteCommand {
         isASubTurtleCommand = prevState;
     }
 
-//    private void handleGroupCommand(Command node) {
-//        node.getChildren().get(COMMAND_INDEX).setIsEvaluated(true);
-//        traverseChildren(node);
-//        node.getChildren().get(COMMAND_INDEX).setIsEvaluated(false);
-//        node.execute(backendController, currTurtle);
-//    }
+    private void handleGroupCommand(Command node) {
+        if (node.getChildren().get(COMMAND_INDEX).getNumParameters() == 0 && node.getChildren().size() > 2){
+            //TODO throw error for too many parameters
+        }
+        GroupStartCommand groupCom = (GroupStartCommand) node;
+        groupCom.setUpGroupMainCom();
+        while(groupCom.areMoreParametersLeft()){
+            groupCom.setIsEvaluated(false);
+            groupCom.execute(backendController);
+            Command com = groupCom.getCommandToRun();
+            traverse(com);
+            groupCom.setReturnValue(com.getReturnValue());
+        }
+    }
 
     private void handleControlCommand(Command node) {
         if (node instanceof IfCommand || node instanceof IfElseCommand) {

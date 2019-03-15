@@ -19,7 +19,7 @@ public class SetPaletteCommand extends BasicCommand {
 
     @Override
     protected void performAction(BackendController backendController) {
-        int index = (int) getChildren().get(INDEX).getReturnValue();
+        int index = (int) getChildren().get(INDEX).getReturnValue() - 1;
         int r = (int) getChildren().get(R_VALUE).getReturnValue();
         int g = (int) getChildren().get(G_VALUE).getReturnValue();
         int b = (int) getChildren().get(B_VALUE).getReturnValue();

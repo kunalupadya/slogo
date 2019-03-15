@@ -9,6 +9,7 @@ public class DifferenceCommand extends BasicCommand {
     public DifferenceCommand(){
         setNumParameters(2);
         isOutputCommand = true;
+        unlimitedParameters = true;
     }
 
     @Override

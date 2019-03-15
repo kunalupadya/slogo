@@ -9,6 +9,7 @@ public class PowerCommand extends BasicCommand {
     public PowerCommand(){
         setNumParameters(2);
         isOutputCommand = true;
+        unlimitedParameters = true;
     }
 
     @Override

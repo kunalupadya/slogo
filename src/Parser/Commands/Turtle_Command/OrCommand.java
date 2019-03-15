@@ -1,6 +1,5 @@
 package Parser.Commands.Turtle_Command;
 
-import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
 
@@ -9,6 +8,7 @@ public class OrCommand extends BooleanCommand {
     public OrCommand() {
         super();
         setNumParameters(2);
+        unlimitedParameters = true;
     }
 
     @Override

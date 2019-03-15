@@ -9,6 +9,7 @@ public class RemainderCommand extends BasicCommand {
     public RemainderCommand(){
         setNumParameters(2);
         isOutputCommand = true;
+        unlimitedParameters = true;
     }
 
     @Override

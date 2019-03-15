@@ -1,8 +1,6 @@
 package Parser.Commands;
 
 import GraphicsBackend.Point;
-import GraphicsBackend.Turtle;
-import Parser.BackendController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +17,12 @@ public abstract class Command{
     private int numParameters;
     private int currentNumParameters = 0;
     protected boolean isOutputCommand;
+    //arithmetic commands with two parameters, And, and Or commands can truly have unlimited parameters
+    protected boolean unlimitedParameters = false;
+
+    public boolean canHaveUnlimitedParameters(){
+        return unlimitedParameters;
+    }
 
     public boolean getIsOutputCommand(){
         return isOutputCommand;
@@ -32,7 +36,7 @@ public abstract class Command{
         return isEvaluated;
     }
 
-    protected void setIsEvaluated(boolean constant) {
+    public void setIsEvaluated(boolean constant) {
         isEvaluated = constant;
     }
 

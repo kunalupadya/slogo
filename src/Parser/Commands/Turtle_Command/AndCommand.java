@@ -1,6 +1,5 @@
 package Parser.Commands.Turtle_Command;
 
-import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
 
@@ -9,6 +8,7 @@ public class AndCommand extends BooleanCommand{
     public AndCommand(){
         super();
         setNumParameters(2);
+        unlimitedParameters = true;
     }
 
     public void performAction(BackendController backendController){

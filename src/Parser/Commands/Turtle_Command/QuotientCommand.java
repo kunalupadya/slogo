@@ -9,6 +9,7 @@ public class QuotientCommand extends BasicCommand {
     public QuotientCommand(){
         setNumParameters(2);
         isOutputCommand = true;
+        unlimitedParameters = true;
     }
 
     @Override

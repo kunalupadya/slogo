@@ -9,6 +9,7 @@ public class ProductCommand extends BasicCommand {
     public ProductCommand(){
         setNumParameters(2);
         isOutputCommand = true;
+        unlimitedParameters = true;
     }
 
     @Override

@@ -3,17 +3,18 @@ package Parser.Commands.Turtle_Command;
 import Parser.BackendController;
 import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
+import Parser.Commands.ConstantCommand;
 
-import java.util.List;
-
-
-//TODO NEEDS FIX
 /**
- * @author kunalupadya
+ * @author Dhanush Madabusi
  */
 public class GroupStartCommand extends BasicCommand {
 
     private static final int COMMAND_INDEX = 0;
+    private Command groupMainCom;
+    private int groupIndex = 1;
+    private Command commandToRun;
+    private boolean moreParametersLeft = true;
 
     public GroupStartCommand(){
         setNumParameters((int) Double.POSITIVE_INFINITY);
@@ -22,26 +23,38 @@ public class GroupStartCommand extends BasicCommand {
 
     @Override
     protected void performAction(BackendController backendController) {
-//        Command command = getChildren().get(COMMAND_INDEX);
-//        int numParameters = command.getNumParameters();
-//        while (true){
-//            List<Command> commandList = command.getChildren();
-//            if (commandList.size() == numParameters && numParameters != 0){
-//                command.setIsEvaluated(false); //allows you to rerun the same program
-//                command.execute(backendController);
-//                command.getChildren().clear();
-//            }
-//            if (getChildren().size() > 2){//2 comes from the command and the groupendcommand
-//                commandList.add(getChildren().remove(1));
-//            }
-//            else{
-//                if (!commandList.isEmpty()){
-//                    //TODO throw new error, improper number of parameters
-//                }
-//                break;
-//            }
-//        }
-//        setReturnValue(command.getReturnValue());
+        if (commandToRun != null && groupMainCom.canHaveUnlimitedParameters()){
+            ConstantCommand firstParam = new ConstantCommand(commandToRun.getReturnValue());
+            commandToRun = groupMainCom.copy();
+            commandToRun.addChildren(firstParam);
+        }
+        else {
+            commandToRun = groupMainCom.copy();
+        }
+        int numParameters = commandToRun.getNumParameters();
+        while(commandToRun.getCurrentNumParameters() < numParameters){
+            Command nextChild = getChildren().get(groupIndex);
+            if (nextChild.getClass() == GroupEndCommand.class){
+                //TODO throw error; missing parameters
+            }
+            commandToRun.addChildren(nextChild);
+            groupIndex++;
+        }
+        if (getChildren().get(groupIndex).getClass() == GroupEndCommand.class){
+            moreParametersLeft = false;
+        }
+    }
+
+    public void setUpGroupMainCom(){
+        groupMainCom = getChildren().get(COMMAND_INDEX);
+    }
+
+    public Command getCommandToRun(){
+        return commandToRun;
+    }
+
+    public boolean areMoreParametersLeft(){
+        return moreParametersLeft;
     }
 
     @Override

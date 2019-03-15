@@ -44,7 +44,7 @@ class ParsingTree {
             else if (savedCurrentCommand.getClass() == Variable.class){
                 parent.addChildren(savedCurrentCommand);
             }
-            else if (savedCurrentCommand.getClass() == ListEndCommand.class||savedCurrentCommand.getClass() == GroupEndCommand.class){
+            else if (savedCurrentCommand.getClass() == ListEndCommand.class || savedCurrentCommand.getClass() == GroupEndCommand.class){
                 return savedCurrentCommand;
             }
             else if (savedCurrentCommand.getClass() == ListStartCommand.class){
@@ -88,11 +88,14 @@ class ParsingTree {
 
     private void handleGroupStartCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand){
         currCommand = commandsList.remove(FIRST);
+        if (currCommand instanceof MakeUserInstructionCommand){
+            //TODO throw error, group command cannot have make userdefined command
+        }
         savedCurrentCommand.addChildren(currCommand);
         savedCurrentCommand.addChildren(makeTree(commandsList, savedCurrentCommand));
         parent.addChildren(savedCurrentCommand);
         if (currCommand.getClass() != GroupEndCommand.class){
-            //TODO Add error, list is missing the end brace "]"
+            //TODO Add error, list is missing the end parenthesis ")"
         }
     }
 

@@ -3,16 +3,15 @@ package Parser.Commands.Turtle_Command;
 import GraphicsBackend.Grid;
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author kunalupadya
  */
-public class TellCommand extends Command{
+public class TellCommand extends BasicCommand {
 
-    private List<Turtle> assignedTurtleList = new ArrayList<>();
     public TellCommand(){
         setNumParameters(1);
         isOutputCommand = false;
@@ -20,32 +19,30 @@ public class TellCommand extends Command{
 
     @Override
     protected void performAction(BackendController backendController) {
-        Command startCommand = getChildren().get(0);
-        if (!startCommand.toString().equals("ListStartCommand")) {
+        Command listCommand = getChildren().get(0);
+        if (!(listCommand instanceof ListStartCommand)) {
             //TODO "Wrong syntax error"
         }
-
-        List<Turtle> turtleList= backendController.getMyTurtles();
-        for (int a = 0; a < startCommand.getChildren().size() - 1; a++) {
-            int turtleIndex = (int) startCommand.getChildren().get(a).getReturnValue();
-            if (turtleIndex < turtleList.size()) {
-                assignedTurtleList.add(turtleList.get(turtleIndex));
+        var childrenSize = listCommand.getChildren().size();
+        for (Turtle t: backendController.getMyTurtles()){
+            t.setTurtleActive(false);
+        }
+        for (int a = 0; a < childrenSize - 1; a++) {
+            List<Turtle> turtleList= backendController.getMyTurtles();
+            int turtleId = (int) listCommand.getChildren().get(a).getReturnValue();
+            //TODO catch error for TELL to turtle 0
+            if (turtleId <= turtleList.size()) {
+                turtleList.get(turtleId - 1).setTurtleActive(true);
             }
             else {
-                while(turtleIndex>turtleList.size()) {
+                while(turtleId > turtleList.size()) {
                     Turtle newTurtle = new Turtle((Grid) backendController.getMyGrid());
                     turtleList.add(newTurtle);
-                    assignedTurtleList.add(newTurtle);
                 }
             }
-
         }
-        for (Turtle turtle : assignedTurtleList) {
-            turtle.setTurtleActive(true);
-        }
-        setReturnValue(startCommand.getChildren().get(startCommand.getChildren().size()-2).getReturnValue());
+        setReturnValue(listCommand.getChildren().get(childrenSize - 2).getReturnValue());
     }
-
 
     @Override
     public Command copy() {

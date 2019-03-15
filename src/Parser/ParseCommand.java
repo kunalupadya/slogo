@@ -1,41 +1,45 @@
 package Parser;
 
-import GraphicsBackend.Turtle;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.Turtle_Command.*;
 import Parser.Commands.Variable;
-
 import java.util.*;
 
 /**
  * @author Louis Lee
- * @co-author Dhanush Madabusi
+ * @author Dhanush Madabusi
  */
 
 public class ParseCommand {
 
-    private final String whiteSpace = "\\s+";
-    private String myLanguage;
-    private List<Turtle> myTurtleList;
-    private Map<String, String> commandMap;
-
-
-    public ParseCommand(String consoleInput, List<Turtle> turtles,String commandLanguage, BackendController backendController){
-
-        myLanguage = commandLanguage;
-        myTurtleList = turtles;
-
+    public ParseCommand(String consoleInput, String commandLanguage, BackendController backendController){
         if(consoleInput != null && !consoleInput.equals("")) {
-            String[] listOfWords = consoleInput.toLowerCase().split(whiteSpace);
-            LanguageSetting languageSetting = new LanguageSetting(myLanguage);
-            //TODO: try catch block if command is not valid
+            String refinedInput = removeComments(consoleInput);
+            refinedInput = refinedInput.replace("\n", " ");
+            String[] listOfWords = refinedInput.toLowerCase().split("\\s+");
+            LanguageSetting languageSetting = new LanguageSetting(commandLanguage);
             String[] translatedListOfWords = languageSetting.translateCommand(listOfWords);
             var tokensList = addToTokenList(translatedListOfWords);
             var commandsList = stackCommand(translatedListOfWords, tokensList);
             ExecuteCommand executeCommand = new ExecuteCommand(commandsList, backendController);
             executeCommand.runCommands();
         }
+    }
+
+    private String removeComments(String input){
+        int curIndex = 0;
+        StringBuilder refinedInput = new StringBuilder();
+        while(true){
+            int commentStart = input.indexOf("#", curIndex);
+            if (commentStart == -1){
+                break;
+            }
+            refinedInput.append(input.substring(curIndex, commentStart));
+            curIndex = input.indexOf("\n", commentStart) + 1;
+        }
+        refinedInput.append(input.substring(curIndex));
+        return refinedInput.toString();
     }
 
     private List<Token> addToTokenList(String[] translatedListOfWords){
@@ -86,7 +90,6 @@ public class ParseCommand {
                     }
                 }
                 commandArrayList.add(newCommand);
-                //TODO add userdefined command here
             }
         }
         return commandArrayList;

@@ -1,10 +1,16 @@
 package Parser.Commands.Turtle_Command;
 
-import GraphicsBackend.Turtle;
+import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
-import Parser.Commands.TurtleCommand;
 
-public class AskWithCommand extends TurtleCommand {
+/**
+ * @author Dhanush Madabusi
+ */
+public class AskWithCommand extends BasicCommand {
+
+    private final int CONDITION_INDEX = 0;
+    private final int COMMANDS_INDEX = 1;
 
     public AskWithCommand(){
         isOutputCommand = false;
@@ -12,7 +18,13 @@ public class AskWithCommand extends TurtleCommand {
     }
 
     @Override
-    protected void turtleAction(Turtle turtle) {
+    protected void performAction(BackendController backendController) {
+        if (getChildren().get(COMMANDS_INDEX).getClass() != ListStartCommand.class){
+            //TODO throw error
+        }
+        if (getChildren().get(CONDITION_INDEX).getChildren().size() > 2){
+            //TODO throw error; can only have one condition
+        }
 
     }
 

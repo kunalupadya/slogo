@@ -1,10 +1,8 @@
 package Parser;
 
-import Parser.Commands.Command;
-import Parser.Commands.ConstantCommand;
-import Parser.Commands.RootCommand;
+import GraphicsBackend.Turtle;
+import Parser.Commands.*;
 import Parser.Commands.Turtle_Command.*;
-import Parser.Commands.Variable;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,7 +29,6 @@ class ParsingTree {
     }
 
     private Command makeTree(List<Command> commandsList, Command parent){
-        //System.out.println(parent.getClass());
         while (!commandsList.isEmpty()) {
             currCommand = commandsList.remove(FIRST);
             Command savedCurrentCommand = currCommand;
@@ -47,7 +44,7 @@ class ParsingTree {
             else if (savedCurrentCommand.getClass() == Variable.class){
                 parent.addChildren(savedCurrentCommand);
             }
-            else if (savedCurrentCommand.getClass() == ListEndCommand.class||savedCurrentCommand.getClass() == GroupEndCommand.class){
+            else if (savedCurrentCommand.getClass() == ListEndCommand.class || savedCurrentCommand.getClass() == GroupEndCommand.class){
                 return savedCurrentCommand;
             }
             else if (savedCurrentCommand.getClass() == ListStartCommand.class){
@@ -91,11 +88,14 @@ class ParsingTree {
 
     private void handleGroupStartCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand){
         currCommand = commandsList.remove(FIRST);
+        if (currCommand instanceof MakeUserInstructionCommand){
+            //TODO throw error, group command cannot have make userdefined command
+        }
         savedCurrentCommand.addChildren(currCommand);
         savedCurrentCommand.addChildren(makeTree(commandsList, savedCurrentCommand));
         parent.addChildren(savedCurrentCommand);
         if (currCommand.getClass() != GroupEndCommand.class){
-            //TODO Add error, list is missing the end brace "]"
+            //TODO Add error, list is missing the end parenthesis ")"
         }
     }
 
@@ -126,7 +126,7 @@ class ParsingTree {
         parent.addChildren(makeTree(commandsList,savedCurrentCommand));
 
         //create the actual userdefined command including the command tree
-        savedCurrentCommand.execute(backendController);
+        ((BasicCommand)savedCurrentCommand).execute(backendController);
     }
 
     private List<Variable> getVariables(List<Command> commandsList, Command savedCurrentCommand) {

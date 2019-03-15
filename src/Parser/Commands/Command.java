@@ -1,6 +1,6 @@
 package Parser.Commands;
 
-import Parser.BackendController;
+import GraphicsBackend.Point;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,12 @@ public abstract class Command{
     private int numParameters;
     private int currentNumParameters = 0;
     protected boolean isOutputCommand;
+    //arithmetic commands with two parameters, And, and Or commands can truly have unlimited parameters
+    protected boolean unlimitedParameters = false;
+
+    public boolean canHaveUnlimitedParameters(){
+        return unlimitedParameters;
+    }
 
     public boolean getIsOutputCommand(){
         return isOutputCommand;
@@ -48,6 +54,7 @@ public abstract class Command{
 
     public void setReturnValue(double returnValue) {
         this.returnValue = returnValue;
+        isEvaluated = true;
     }
 
     public String getText() {
@@ -58,23 +65,18 @@ public abstract class Command{
         this.text = text;
     }
 
-    public void execute(BackendController backendController) {
-        performAction(backendController);
-        isEvaluated = true;
-    }
-
-    protected abstract void performAction(BackendController backendController);
-
     public abstract Command copy();
 
     public void addChildren(Command command) {
-//        if (command != this) {
             myChildrenList.add(command);
             currentNumParameters += 1;
-//        }
     }
 
     public List<Command> getChildren(){
         return myChildrenList;
+    }
+
+    protected double distance(Point point1, Point point2) {
+        return Math.sqrt(Math.pow(point1.getMyX() - point2.getMyX(), 2) + Math.pow(point1.getMyY() - point2.getMyY(), 2));
     }
 }

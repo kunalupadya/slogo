@@ -20,8 +20,8 @@ public class ForCommand extends ControlCommand {
 
     @Override
     protected void performAction(BackendController backendController) {
-        updateLoopVar(backendController);
         if (currCount <= limit) {
+            updateLoopVar(backendController);
             setListToRun(copyList(commandListOrig));
             currCount += increment;
             runAgain = true;
@@ -29,6 +29,7 @@ public class ForCommand extends ControlCommand {
         else{
             runAgain = false;
         }
+
     }
 
     private void updateLoopVar(BackendController backendController) {

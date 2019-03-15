@@ -1,9 +1,10 @@
 package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 
-public class TurtlesCommand extends Command {
+public class TurtlesCommand extends BasicCommand {
 
     public TurtlesCommand(){
         setNumParameters(0);
@@ -11,7 +12,7 @@ public class TurtlesCommand extends Command {
     }
 
     @Override
-    protected void performAction(BackendController backendController){
+    protected void performAction(BackendController backendController) {
         setReturnValue(backendController.getMyTurtles().size());
     }
 

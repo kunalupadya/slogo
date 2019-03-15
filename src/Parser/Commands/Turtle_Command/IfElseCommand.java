@@ -15,6 +15,14 @@ public class IfElseCommand extends ControlCommand {
     }
 
     @Override
+    public void setInitialExpressions() {
+        initialExpressions.add(getChildren().get(EXPRESSION_INDEX));
+    }
+
+    @Override
+    public void setUpLoop() { }
+
+    @Override
     protected void performAction(BackendController backendController) {
         if (initialExpressions.get(EXPRESSION_INDEX).getReturnValue() != 0) {
             setListToRun((ListStartCommand) getChildren().get(TRUE_COMMANDS));
@@ -23,14 +31,6 @@ public class IfElseCommand extends ControlCommand {
         }
         runAgain = false;
     }
-
-    @Override
-    public void setInitialExpressions() {
-        initialExpressions.add(getChildren().get(EXPRESSION_INDEX));
-    }
-
-    @Override
-    public void setUpLoop() { }
 
     @Override
     public Command copy() {

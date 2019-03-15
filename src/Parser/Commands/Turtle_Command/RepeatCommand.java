@@ -7,29 +7,13 @@ import Parser.Commands.Variable;
 
 public class RepeatCommand extends ControlCommand {
 
-
     private final int EXPRESSION_INDEX = 0;
     private final int COMMANDS_INDEX = 1;
     private ListStartCommand commandListOrig;
 
     public RepeatCommand() {
         super();
-        setIsEvaluated(false);
         setNumParameters(2);
-    }
-
-    @Override
-    protected void performAction(BackendController backendController) {
-        if (currCount <= limit) {
-            setRepCount(backendController);
-            setListToRun(copyList(commandListOrig));
-            currCount++;
-            runAgain = true;
-        }
-        else{
-            runAgain = false;
-        }
-
     }
 
     private void setRepCount(BackendController backendController) {
@@ -48,6 +32,19 @@ public class RepeatCommand extends ControlCommand {
     public void setUpLoop() {
         limit = (int) initialExpressions.get(EXPRESSION_INDEX).getReturnValue();
         commandListOrig = (ListStartCommand) getChildren().get(COMMANDS_INDEX);
+    }
+
+    @Override
+    protected void performAction(BackendController backendController) {
+        if (currCount <= limit) {
+            setRepCount(backendController);
+            setListToRun(copyList(commandListOrig));
+            currCount++;
+            runAgain = true;
+        }
+        else{
+            runAgain = false;
+        }
     }
 
     @Override

@@ -1,23 +1,25 @@
 package Parser.Commands.Turtle_Command;
 
-
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ControlCommand extends Command {
+/**
+ * @author Dhanush Madabusi
+ */
+public abstract class ControlCommand extends BasicCommand {
 
     boolean runAgain = true;
     int currCount = 1;
     int limit;
     List<Command> initialExpressions = new ArrayList<>();
-    ListStartCommand listToRun = null;
-
+    private ListStartCommand listToRun = null;
 
     ControlCommand(){
         isOutputCommand = false;
         setReturnValue(0);
+        setIsEvaluated(false);
     }
 
     public List<Command> getInitialExpressions(){
@@ -25,10 +27,6 @@ public abstract class ControlCommand extends Command {
     }
 
     public abstract void setInitialExpressions();
-
-    public void setLimit(double value){
-        limit = (int) value;
-    }
 
     public boolean shouldRunAgain(){
         return runAgain;
@@ -42,7 +40,7 @@ public abstract class ControlCommand extends Command {
         return listToRun;
     }
 
-    public ListStartCommand copyList(ListStartCommand command){
+    ListStartCommand copyList(ListStartCommand command){
         return (ListStartCommand) traverse(command);
     }
 

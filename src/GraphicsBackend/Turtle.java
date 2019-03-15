@@ -13,10 +13,10 @@ import java.util.List;
  * @author kunalupadya
  */
 public class Turtle implements ImmutableTurtle{
-    public static final String DEFAULT_IMAGE = "/images/initialTurtle.png";
-    public static final int TURTLE_SIZE = 50;
-    public static final int HALF_TURTLE_SIZE = 25;
-    public static final double HALF = 2.0;
+    private static final String DEFAULT_IMAGE = "/images/initialTurtle.png";
+    private static final int TURTLE_SIZE = 50;
+    private static final int HALF_TURTLE_SIZE = 25;
+    private static final double HALF = 2.0;
 
     private double xPos;
     private double yPos;

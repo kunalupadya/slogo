@@ -1,6 +1,7 @@
 package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
+import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
@@ -12,7 +13,7 @@ public class ShowTurtleCommand extends TurtleCommand {
     }
 
     @Override
-    protected void turtleAction(Turtle turtle) {
+    protected void performAction(BackendController backendController, Turtle turtle) {
         turtle.setTurtleVisibility(true);
         setReturnValue(1);
     }

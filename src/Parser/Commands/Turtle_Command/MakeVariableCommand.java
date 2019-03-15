@@ -1,13 +1,14 @@
 package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 import Parser.Commands.Variable;
 
 /**
  * @author kunalupadya
  */
-public class MakeVariableCommand extends Command {
+public class MakeVariableCommand extends BasicCommand {
 
     public MakeVariableCommand(){
         setNumParameters(2);

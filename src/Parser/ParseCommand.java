@@ -1,40 +1,27 @@
 package Parser;
 
-import GraphicsBackend.Turtle;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.Turtle_Command.*;
 import Parser.Commands.Variable;
-
 import java.util.*;
 
 /**
  * @author Louis Lee
- * @co-author Dhanush Madabusi
+ * @author Dhanush Madabusi
  */
 
 public class ParseCommand {
 
-    private final String whiteSpace = "\\s+";
-    private String myLanguage;
-    private List<Turtle> myTurtleList;
-    private Map<String, String> commandMap;
-
-
-    public ParseCommand(String consoleInput, List<Turtle> turtles,String commandLanguage, BackendController backendController){
-
-        myLanguage = commandLanguage;
-        myTurtleList = turtles;
-
+    public ParseCommand(String consoleInput,String commandLanguage, BackendController backendController){
         if(consoleInput != null && !consoleInput.equals("")) {
-            String[] listOfWords = consoleInput.toLowerCase().split(whiteSpace);
-            LanguageSetting languageSetting = new LanguageSetting(myLanguage);
-            //TODO: try catch block if command is not valid
+            String[] listOfWords = consoleInput.toLowerCase().split("\\s+");
+            LanguageSetting languageSetting = new LanguageSetting(commandLanguage);
             String[] translatedListOfWords = languageSetting.translateCommand(listOfWords);
             var tokensList = addToTokenList(translatedListOfWords);
             var commandsList = stackCommand(translatedListOfWords, tokensList);
             ExecuteCommand executeCommand = new ExecuteCommand(commandsList, backendController);
-            executeCommand.executeAllTurtles();
+            executeCommand.runCommands();
         }
     }
 
@@ -86,7 +73,6 @@ public class ParseCommand {
                     }
                 }
                 commandArrayList.add(newCommand);
-                //TODO add userdefined command here
             }
         }
         return commandArrayList;

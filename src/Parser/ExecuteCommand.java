@@ -23,7 +23,7 @@ public class ExecuteCommand {
     private RootCommand lastExecutedCopy;
     private BackendController backendController;
     private Turtle currTurtle;
-    private boolean isASubCommand = false;
+    private boolean isASubTurtleCommand = false;
 
     public ExecuteCommand(List<Command> commandsList, BackendController backendController) {
         ParsingTree parsingTree = new ParsingTree(commandsList, backendController);
@@ -112,7 +112,7 @@ public class ExecuteCommand {
             handleAskCommand(node);
             return;
         }
-        if (node instanceof TurtleCommand && !isASubCommand){
+        if (node instanceof TurtleCommand && !isASubTurtleCommand){
             handleTurtleCommand(node);
             return;
         }
@@ -126,19 +126,20 @@ public class ExecuteCommand {
         for (Turtle t: turtleList){
             if (t.getIsTurtleActive()){
                 currTurtle = t;
-                isASubCommand = true;
+                isASubTurtleCommand = true;
                 TurtleCommand commandCopy = (TurtleCommand) copyRecurse(node);
                 traverseChildren(commandCopy);
                 commandCopy.execute(backendController, t);
-                isASubCommand = false;
+                isASubTurtleCommand = false;
                 node.setReturnValue(commandCopy.getReturnValue());
             }
         }
     }
 
     private void handleTellCommand(Command node) {
-        traverse(node.getChildren().get(0));
-        node.execute(backendController, currTurtle);
+        BasicCommand tellComm = (BasicCommand) node;
+        traverse(tellComm.getChildren().get(0));
+        tellComm.execute(backendController);
     }
 
     private void handleAskCommand(Command node) {
@@ -167,8 +168,8 @@ public class ExecuteCommand {
         ControlCommand controlCom = (ControlCommand) node;
         controlCom.setInitialExpressions();
         List<Command> initExpr = controlCom.getInitialExpressions();
-        boolean prevState = isASubCommand;
-        isASubCommand = false;
+        boolean prevState = isASubTurtleCommand;
+        isASubTurtleCommand = false;
         for (Command expr: initExpr) {
             traverse(expr);
         }
@@ -180,13 +181,13 @@ public class ExecuteCommand {
                 node.setReturnValue(controlCom.getListToRun().getReturnValue());
             }
         }
-        isASubCommand = prevState;
+        isASubTurtleCommand = prevState;
     }
 
     private void handleIfCommands(Command node) {
         List<Turtle> turtleList = new ArrayList<>(backendController.getMyTurtles());
-        boolean prevState = isASubCommand;
-        isASubCommand = true;
+        boolean prevState = isASubTurtleCommand;
+        isASubTurtleCommand = true;
         for (Turtle t: turtleList){
             if (t.getIsTurtleActive()){
                 currTurtle = t;
@@ -203,11 +204,14 @@ public class ExecuteCommand {
                 }
             }
         }
-        isASubCommand = prevState;
+        isASubTurtleCommand = prevState;
     }
 
     private void handleListStartCommand(Command node) {
+        var prevState = isASubTurtleCommand;
+        isASubTurtleCommand = false;
         traverseChildren(node);
+        isASubTurtleCommand = prevState;
     }
 
     private void handleAfterGenerationOfChildren(Command node) {

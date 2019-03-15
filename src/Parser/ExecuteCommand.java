@@ -89,8 +89,8 @@ public class ExecuteCommand {
             handleTellCommand(node);
             return;
         }
-        if (node.getClass() == AskCommand.class){
-            handleAskCommand(node);
+        if (node.getClass() == AskCommand.class || node.getClass() == AskWithCommand.class){
+            handleAskCommands(node);
             return;
         }
         if (node instanceof TurtleCommand) {
@@ -136,21 +136,31 @@ public class ExecuteCommand {
         tellComm.execute(backendController);
     }
 
-    private void handleAskCommand(Command node) {
+    private void handleAskCommands(Command node) {
+        boolean isAskCommand = (node.getClass() == AskCommand.class);
         var prevCurrTurtleIndex = findCurrTurtleIndex(currTurtle);
         BasicCommand askCom = (BasicCommand) node;
         if (askCom.getChildren().get(0).getClass() != ListStartCommand.class){
             //TODO throw error
         }
-        boolean prevState = isASubTurtleCommand;
-        isASubTurtleCommand = false;
-        handleListStartCommand(askCom.getChildren().get(0));
-        isASubTurtleCommand = prevState;
+        if (isAskCommand) {
+            boolean prevState = isASubTurtleCommand;
+            isASubTurtleCommand = false;
+            handleListStartCommand(askCom.getChildren().get(0));
+            isASubTurtleCommand = prevState;
+        }
         askCom.execute(backendController);
         List<Boolean> prevTurtleStates = getCurrentTurtleStates();
-        setNewTurtleStates(askCom.getChildren().get(0));
+        if (isAskCommand) {
+            setNewTurtleStates(askCom.getChildren().get(0));
+        }
+        else{
+            findNewActiveTurtles(askCom.getChildren().get(0));
+        }
         handleListStartCommand(askCom.getChildren().get(1));
         resetTurtleStates(prevTurtleStates);
+        List<Command> commandList = askCom.getChildren().get(1).getChildren();
+        askCom.setReturnValue(commandList.get(commandList.size() - 2).getReturnValue());
         currTurtle = getPrevTurtle(prevCurrTurtleIndex);
     }
 
@@ -180,6 +190,17 @@ public class ExecuteCommand {
         return turtleStates;
     }
 
+    private void findNewActiveTurtles(Command command) {
+        boolean prevState = isASubTurtleCommand;
+        isASubTurtleCommand = true;
+        for (Turtle t: backendController.getMyTurtles()){
+            Command conditionCopy = copyRecurse(command.getChildren().get(0));
+            currTurtle = t;
+            traverse(conditionCopy);
+            t.setTurtleActive(conditionCopy.getReturnValue() != 0);
+        }
+        isASubTurtleCommand = prevState;
+    }
 
     private void handleGroupCommand(Command node) {
         node.getChildren().get(COMMAND_INDEX).setIsEvaluated(true);

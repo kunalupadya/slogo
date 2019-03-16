@@ -42,7 +42,8 @@ Louis Lee (dl199@duke.edu) : Palette, ParseCommand, Token, TokenConverter, Langu
 
 David Liu (dwl23@duke.edu) : All Modules within GUI Package, FrontendController, Controller, a little bit in Controls
 
-Dhanush Madabusi (dm322@duke.edu) : ExecuteCommand, All Command classes, ParseCommand, Errorhandling 
+Dhanush Madabusi (dm322@duke.edu) : ExecuteCommand, All Basic and Extended Command classes, ParseCommand, Exception Classes, 
+Error Handling, a little bit in ParsingTree
 
 # Resources Used 
 
@@ -71,7 +72,7 @@ be sent with new inputted parameters or a new value.
 4. You have to click the run button, rightward facing triangle, in order to run editor code
 
 - Backend : 
-1. all comments should start with # and must not have a space between the first character and #
+1. all comments should start with #
 
 2. running the command might take some time to display on the screen because screen is only updated 
 every second. 
@@ -94,25 +95,22 @@ which partly would not make sense anyways since those parts do not need translat
 
 - Backend : 
 
-1. The way we execute the command and how we set up the parsingtree, we could not add askwith command 
-because we would have to redesign the tree. 
-
-2. We decided not to implement shape feature because we always use images which means that changing shape would
+1. We decided not to implement shape feature because we always use images which means that changing shape would
 not make any difference to the image on the screen. If necessary(user wants to have a triangle ball), user can 
 add the png file of a triangular ball and change the image using GUI buttons. 
 
-3. We added Microsoft paint button feature which lets users change pen color; however, because
+2. We added Microsoft paint button feature which lets users change pen color; however, because
 the requirement for pencolor command(user can set index for rgb colors), we did not integrate
 these two features. Calling pencolor command after changing pen color using microsoft button
 will just return the last pencolor user set by command. 
 
-4. Group returns the command return value (of its last repeat)
+3. Group returns the command return value (of its last repeat)
 
-5. List returns the final value
+4. List returns the final value
 
-6. Undo undoes the last action of every active turtle
+5. Undo undoes the last action of every active turtle
 
-7. Ask and Askwith can be called within each other
+6. Ask and Askwith can be called within each other
 
 # Known bugs
 

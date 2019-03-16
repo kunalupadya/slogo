@@ -2,12 +2,13 @@ package Parser.Commands;
 
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
+import Parser.SLogoException;
 
 public abstract class TurtleCommand extends Command{
 
     protected boolean turtleQuery = false;
 
-    public void execute(BackendController backendController, Turtle currTurtle) {
+    public void execute(BackendController backendController, Turtle currTurtle) throws SLogoException {
         performAction(backendController, currTurtle);
         setIsEvaluated(true);
     }
@@ -16,5 +17,5 @@ public abstract class TurtleCommand extends Command{
         return turtleQuery;
     }
 
-    protected abstract void performAction(BackendController backendController, Turtle turtle);
+    protected abstract void performAction(BackendController backendController, Turtle turtle) throws SLogoException;
 }

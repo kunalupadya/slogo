@@ -3,6 +3,8 @@ package Parser.Commands.Turtle_Command;
 import Parser.BackendController;
 import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
+import Parser.ExecutionException;
+import Parser.SLogoException;
 
 /**
  * @author Dhanush Madabusi
@@ -10,6 +12,7 @@ import Parser.Commands.Command;
 public class AskCommand extends BasicCommand {
 
     private static final int TURTLES_INDEX = 0;
+    private static final int COMMANDS_INDEX = 1;
 
     public AskCommand(){
         setNumParameters(2);
@@ -17,21 +20,21 @@ public class AskCommand extends BasicCommand {
     }
 
     @Override
-    protected void performAction(BackendController backendController) {
+    protected void performAction(BackendController backendController) throws SLogoException {
         int numTurtles = backendController.getMyTurtles().size();
         for (Command com: getChildren().get(TURTLES_INDEX).getChildren()){
             if (com instanceof ListEndCommand){
                 break;
             }
             else if (com.getReturnValue() > numTurtles){
-                //TODO turtle does not exist
+                throw new ExecutionException("Turtle does not exist");
             }
             else if (com.getReturnValue() < 1){
-                //TODO invalid input
+                throw new ExecutionException("Invalid Turtle Id");
             }
         }
-        if (getChildren().get(1).getClass() != ListStartCommand.class){
-            //TODO throw error
+        if (getChildren().get(COMMANDS_INDEX).getClass() != ListStartCommand.class){
+            throw new ExecutionException("AskWith Command is missing a List of Commands");
         }
     }
 

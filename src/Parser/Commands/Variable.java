@@ -1,6 +1,8 @@
 package Parser.Commands;
 
 import Parser.BackendController;
+import Parser.ExecutionException;
+import Parser.SLogoException;
 
 import java.util.Optional;
 
@@ -12,13 +14,13 @@ public class Variable extends BasicCommand{
     }
 
     @Override
-    protected void performAction(BackendController backendController) {
+    protected void performAction(BackendController backendController) throws SLogoException {
         Optional<Double> variableValue= backendController.getVariableIfExists(getText());
         if (variableValue.isPresent()){
             setReturnValue(variableValue.get());
         }
         else{
-            //throw new TODO make an exception for not having defined the variable
+            throw new ExecutionException(getText() + " has not been defined");
         }
     }
 

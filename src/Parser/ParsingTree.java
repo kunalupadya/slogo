@@ -16,7 +16,7 @@ class ParsingTree {
     private Command currCommand;
     private BackendController backendController;
 
-    ParsingTree(List<Command> commandsList, BackendController backendController) throws ParserException{
+    ParsingTree(List<Command> commandsList, BackendController backendController) throws SLogoException{
         headNode = new RootCommand();
         this.backendController = backendController;
         headNode = makeTree(commandsList, headNode);
@@ -26,7 +26,7 @@ class ParsingTree {
         return headNode;
     }
 
-    private Command makeTree(List<Command> commandsList, Command parent) throws ParserException{
+    private Command makeTree(List<Command> commandsList, Command parent) throws SLogoException{
         while (!commandsList.isEmpty()) {
             currCommand = commandsList.remove(FIRST);
             Command savedCurrentCommand = currCommand;
@@ -72,7 +72,7 @@ class ParsingTree {
         return parent;
     }
 
-    private void handleTextCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) throws ParserException{
+    private void handleTextCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) throws SLogoException{
         String text = savedCurrentCommand.getText();
         Optional<ImmutableUserDefinedCommand> userDefinedCommand = backendController.getUserDefinedCommand(text);
         if (userDefinedCommand.isPresent()){
@@ -90,7 +90,7 @@ class ParsingTree {
         }
     }
 
-    private void handleGroupStartCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) throws ParserException{
+    private void handleGroupStartCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) throws SLogoException{
         currCommand = commandsList.remove(FIRST);
         if (currCommand instanceof MakeUserInstructionCommand){
             throw new ParserException("Group commands cannot make User Defined Commands");
@@ -103,7 +103,7 @@ class ParsingTree {
         }
     }
 
-    private void handleListStartCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) throws ParserException{
+    private void handleListStartCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) throws SLogoException{
         savedCurrentCommand.addChildren(makeTree(commandsList, savedCurrentCommand));
         parent.addChildren(savedCurrentCommand);
         if (currCommand.getClass() != ListEndCommand.class){
@@ -111,7 +111,7 @@ class ParsingTree {
         }
     }
 
-    private void handleUserDefinedCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) throws ParserException{
+    private void handleUserDefinedCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) throws SLogoException{
         currCommand = commandsList.remove(FIRST);
         String name = currCommand.getText();
         if (name == null){
@@ -133,7 +133,7 @@ class ParsingTree {
         ((BasicCommand)savedCurrentCommand).execute(backendController);
     }
 
-    private List<Variable> getVariables(List<Command> commandsList, Command savedCurrentCommand) throws ParserException{
+    private List<Variable> getVariables(List<Command> commandsList, Command savedCurrentCommand) throws SLogoException{
         Command variablesList = handleVariablesList(commandsList, savedCurrentCommand);
         List<Variable> listOfVariableList = new LinkedList<>();
         //create variables list from current children list
@@ -152,7 +152,7 @@ class ParsingTree {
         return listOfVariableList;
     }
 
-    private Command handleVariablesList(List<Command> commandsList, Command savedCurrentCommand) throws ParserException{
+    private Command handleVariablesList(List<Command> commandsList, Command savedCurrentCommand) throws SLogoException{
         Command variablesList = currCommand;
         if (variablesList.getClass() == ListStartCommand.class){
             handleListStartCommand(commandsList, savedCurrentCommand, variablesList);

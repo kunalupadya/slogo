@@ -5,9 +5,9 @@ import Parser.Commands.Command;
 
 public class IfElseCommand extends ControlCommand {
 
-    private final int EXPRESSION_INDEX = 0;
-    private final int TRUE_COMMANDS = 1;
-    private final int FALSE_COMMANDS = 2;
+    private static final int EXPRESSION_INDEX = 0;
+    private static final int TRUE_COMMANDS = 1;
+    private static final int FALSE_COMMANDS = 2;
 
     public IfElseCommand() {
         super();

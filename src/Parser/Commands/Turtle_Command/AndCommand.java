@@ -11,7 +11,8 @@ public class AndCommand extends BooleanCommand{
         unlimitedParameters = true;
     }
 
-    public void performAction(BackendController backendController){
+    @Override
+    public void performAction(BackendController backendController) {
         setReturnValue(returnValue(getChildren().get(0).getReturnValue() != 0 &&
                 getChildren().get(1).getReturnValue() != 0));
     }

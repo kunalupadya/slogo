@@ -1,13 +1,14 @@
 package Parser.Commands;
 
 import Parser.BackendController;
+import Parser.SLogoException;
 
 public abstract class BasicCommand extends Command{
 
-    public void execute(BackendController backendController) {
+    public void execute(BackendController backendController) throws SLogoException {
         performAction(backendController);
         setIsEvaluated(true);
     }
 
-    protected abstract void performAction(BackendController backendController);
+    protected abstract void performAction(BackendController backendController) throws SLogoException;
 }

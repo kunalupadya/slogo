@@ -98,7 +98,7 @@ public class BackendController {
         return Collections.unmodifiableCollection(myTurtles);
     }
 
-    public void showErrorMessage(String string){
+    void showErrorMessage(String string){
         frontendController.consoleShowError(string);
     }
 

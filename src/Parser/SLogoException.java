@@ -14,9 +14,7 @@ public abstract class SLogoException extends Exception{
 
     }
 
-    public String getErrorType(){
+    String getErrorType(){
         return errorType;
     }
-
-    //getMessage() gets error
 }

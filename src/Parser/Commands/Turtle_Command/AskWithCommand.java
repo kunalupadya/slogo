@@ -3,14 +3,16 @@ package Parser.Commands.Turtle_Command;
 import Parser.BackendController;
 import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
+import Parser.ExecutionException;
+import Parser.SLogoException;
 
 /**
  * @author Dhanush Madabusi
  */
 public class AskWithCommand extends BasicCommand {
 
-    private final int CONDITION_INDEX = 0;
-    private final int COMMANDS_INDEX = 1;
+    private static final int CONDITION_INDEX = 0;
+    private static final int COMMANDS_INDEX = 1;
 
     public AskWithCommand(){
         isOutputCommand = false;
@@ -18,12 +20,12 @@ public class AskWithCommand extends BasicCommand {
     }
 
     @Override
-    protected void performAction(BackendController backendController) {
+    protected void performAction(BackendController backendController) throws SLogoException {
         if (getChildren().get(COMMANDS_INDEX).getClass() != ListStartCommand.class){
-            //TODO throw error
+            throw new ExecutionException("AskWith Command is missing a List of Commands");
         }
         if (getChildren().get(CONDITION_INDEX).getChildren().size() > 2){
-            //TODO throw error; can only have one condition
+            throw new ExecutionException("AskWith Command can only have one condition");
         }
 
     }

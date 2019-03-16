@@ -4,6 +4,8 @@ import Parser.BackendController;
 import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 import Parser.Commands.Variable;
+import Parser.ParserException;
+import Parser.SLogoException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,23 +29,22 @@ public class MakeUserInstructionCommand extends BasicCommand {
     }
 
     @Override
-    protected void performAction(BackendController backendController) {
+    protected void performAction(BackendController backendController) throws SLogoException {
         setReturnValue(0);
         String name = getChildren().get(NAME_NODE).getText();
+        if (getChildren().get(VARIABLES_LIST_NODE).getClass() != ListStartCommand.class | getChildren().get(COMMANDS_LIST_NODE).getClass() != ListStartCommand.class){
+            throw new ParserException("UserDefined Command " + name + " is missing one or more List parameters");
+        }
         for (Command variable: getChildren().get(VARIABLES_LIST_NODE).getChildren()) {
             if (variable.getClass() == Variable.class) {
                 variables.add((Variable) variable);
             }
             else if (variable.getClass() == ListEndCommand.class){
-
+                break;
             }
             else{
-                // TODO throw new exception, not a variable parameter
+                throw new ParserException("Expected a variable parameter");
             }
-        }
-        if (getChildren().get(VARIABLES_LIST_NODE).getClass() != ListStartCommand.class | getChildren().get(COMMANDS_LIST_NODE).getClass() != ListStartCommand.class){
-            //throw new exception
-            //TODO throw exception if either of the two arent lists
         }
         ImmutableUserDefinedCommand newUserDefinedCommand = new UserDefinedCommand(name, variables, (ListStartCommand) getChildren().get(COMMANDS_LIST_NODE));
         backendController.addNewUserDefinedCommand(name, newUserDefinedCommand);

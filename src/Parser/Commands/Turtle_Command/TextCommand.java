@@ -4,6 +4,9 @@ import Parser.BackendController;
 import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 import Parser.Commands.Variable;
+import Parser.ExecutionException;
+import Parser.SLogoException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +22,7 @@ public class TextCommand extends BasicCommand {
     }
 
     @Override
-    protected void performAction(BackendController backendController) {
+    protected void performAction(BackendController backendController) throws SLogoException {
         Optional<ImmutableUserDefinedCommand> userDefinedCommand =  backendController.getUserDefinedCommand(getText());
         if (userDefinedCommand.isPresent()){
             ImmutableUserDefinedCommand command = userDefinedCommand.get();
@@ -40,7 +43,7 @@ public class TextCommand extends BasicCommand {
             setReturnValue(0);
         }
         else {
-            // throw new TODO create exception, command not defined
+            throw new ExecutionException(getText() + " has not been defined");
         }
     }
 

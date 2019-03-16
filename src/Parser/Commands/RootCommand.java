@@ -13,7 +13,7 @@ public class RootCommand extends BasicCommand{
     }
 
     @Override
-    public void performAction(BackendController backendController){
+    public void performAction(BackendController backendController) {
     }
 
     @Override

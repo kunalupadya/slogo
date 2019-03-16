@@ -4,11 +4,12 @@ import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.Variable;
+import Parser.SLogoException;
 
 public class RepeatCommand extends ControlCommand {
 
-    private final int EXPRESSION_INDEX = 0;
-    private final int COMMANDS_INDEX = 1;
+    private static final int EXPRESSION_INDEX = 0;
+    private static final int COMMANDS_INDEX = 1;
     private ListStartCommand commandListOrig;
 
     public RepeatCommand() {
@@ -16,7 +17,7 @@ public class RepeatCommand extends ControlCommand {
         setNumParameters(2);
     }
 
-    private void setRepCount(BackendController backendController) {
+    private void setRepCount(BackendController backendController) throws SLogoException{
         var makeRepCountVar = new MakeVariableCommand();
         makeRepCountVar.addChildren(new Variable("repcount"));
         makeRepCountVar.addChildren(new ConstantCommand((double) currCount));
@@ -35,7 +36,7 @@ public class RepeatCommand extends ControlCommand {
     }
 
     @Override
-    protected void performAction(BackendController backendController) {
+    protected void performAction(BackendController backendController) throws SLogoException {
         if (currCount <= limit) {
             setRepCount(backendController);
             setListToRun(copyList(commandListOrig));

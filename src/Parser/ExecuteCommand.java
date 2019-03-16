@@ -3,8 +3,6 @@ package Parser;
 import GraphicsBackend.Turtle;
 import Parser.Commands.*;
 import Parser.Commands.Turtle_Command.*;
-import javafx.scene.control.Alert;
-
 import java.util.*;
 
 /**
@@ -15,8 +13,8 @@ import java.util.*;
 
 public class ExecuteCommand {
 
-    private static final String PARAMETERS_MISSING = "Parameters missing";
-    private static final String WRONG_NUMBER_OF_PARAMETERS = "Wrong number of parameters";
+    //TODO ADD EXCEPTIONS FOR ALL COMMANDS THAT CANNOT ACCEPT NEGATIVE NUMBERS
+
     private static final int EXPRESSION_INDEX = 1;
     private static final int COMMAND_INDEX = 0;
     private RootCommand headNode;
@@ -25,24 +23,19 @@ public class ExecuteCommand {
     //determines if commands are run for all turtles or just the current turtle
     private boolean isASubTurtleCommand = false;
 
-    public ExecuteCommand(List<Command> commandsList, BackendController backendController) {
-        ParsingTree parsingTree = new ParsingTree(commandsList, backendController);
-        headNode = (RootCommand) parsingTree.getRoot();
+    public ExecuteCommand(BackendController backendController, ParsingTree tree) {
+        headNode = (RootCommand) tree.getRoot();
         this.backendController = backendController;
         currTurtle = backendController.getMyTurtles().get(0);
     }
 
-    void runCommands() {
+    void runCommands() throws SLogoException{
         boolean outputToConsole = false;
         if (headNode.getChildren().size() == 1 && headNode.getChildren().get(0).getIsOutputCommand()){
             outputToConsole = true;
         }
         //post traversal starting from headNode
-        try {
-            traverse(headNode);
-        } catch (SyntaxError e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
-        }
+        traverse(headNode);
         if (outputToConsole){
             handleConsoleOutput();
         }
@@ -66,7 +59,7 @@ public class ExecuteCommand {
         backendController.outputResultToConsole(output);
     }
 
-    private void traverse(Command node){
+    private void traverse(Command node) throws SLogoException{
         if (node.getIsEvaluated()){
             return;
         }
@@ -109,12 +102,12 @@ public class ExecuteCommand {
         handleAfterGenerationOfChildren(node);
     }
 
-    private void handleTurtleQueries(Command node) {
+    private void handleTurtleQueries(Command node) throws SLogoException{
         TurtleCommand turtleCom = (TurtleCommand) node;
         turtleCom.execute(backendController, currTurtle);
     }
 
-    private void handleTurtleCommand(Command node) {
+    private void handleTurtleCommand(Command node) throws SLogoException{
         List<Turtle> turtleList = new ArrayList<>(backendController.getMyTurtles());
         var prevCurrTurtleIndex = findCurrTurtleIndex(currTurtle);
         for (Turtle t: turtleList){
@@ -131,7 +124,7 @@ public class ExecuteCommand {
         currTurtle = getPrevTurtle(prevCurrTurtleIndex);
     }
 
-    private void handleTellCommand(Command node) {
+    private void handleTellCommand(Command node) throws SLogoException{
         BasicCommand tellComm = (BasicCommand) node;
         traverse(tellComm.getChildren().get(0));
         tellComm.execute(backendController);
@@ -143,12 +136,15 @@ public class ExecuteCommand {
         }
     }
 
-    private void handleAskCommands(Command node) {
+    private void handleAskCommands(Command node) throws SLogoException{
         boolean isAskCommand = (node.getClass() == AskCommand.class);
         var prevCurrTurtleIndex = findCurrTurtleIndex(currTurtle);
         BasicCommand askCom = (BasicCommand) node;
         if (askCom.getChildren().get(0).getClass() != ListStartCommand.class){
-            //TODO throw error
+            String currCommandClass = askCom.getClass().toString();
+            String prefix = "class Parser.Commands.Turtle_Command.";
+            String command = currCommandClass.substring(prefix.length());
+            throw new ExecutionException(command + " is missing its first List parameter");
         }
         if (isAskCommand) {
             boolean prevState = isASubTurtleCommand;
@@ -196,7 +192,7 @@ public class ExecuteCommand {
         return turtleStates;
     }
 
-    private void findNewActiveTurtles(Command command) {
+    private void findNewActiveTurtles(Command command) throws SLogoException{
         boolean prevState = isASubTurtleCommand;
         isASubTurtleCommand = true;
         for (Turtle t: backendController.getMyTurtles()){
@@ -208,9 +204,9 @@ public class ExecuteCommand {
         isASubTurtleCommand = prevState;
     }
 
-    private void handleGroupCommand(Command node) {
+    private void handleGroupCommand(Command node) throws SLogoException{
         if (node.getChildren().get(COMMAND_INDEX).getNumParameters() == 0 && node.getChildren().size() > 2){
-            //TODO throw error for too many parameters
+            throw new ExecutionException("Group command expects no parameters");
         }
         GroupStartCommand groupCom = (GroupStartCommand) node;
         groupCom.setUpGroupMainCom();
@@ -223,7 +219,7 @@ public class ExecuteCommand {
         }
     }
 
-    private void handleControlCommand(Command node) {
+    private void handleControlCommand(Command node) throws SLogoException{
         if (node instanceof IfCommand || node instanceof IfElseCommand) {
             handleIfCommands(node);
             return;
@@ -244,7 +240,7 @@ public class ExecuteCommand {
         }
     }
 
-    private void handleIfCommands(Command node) {
+    private void handleIfCommands(Command node) throws SLogoException{
         List<Turtle> turtleList = new ArrayList<>(backendController.getMyTurtles());
         var prevCurrTurtleIndex = findCurrTurtleIndex(currTurtle);
         for (Turtle t: turtleList){
@@ -269,13 +265,13 @@ public class ExecuteCommand {
         currTurtle = getPrevTurtle(prevCurrTurtleIndex);
     }
 
-    private void handleListStartCommand(Command node) {
+    private void handleListStartCommand(Command node) throws SLogoException{
         traverseChildren(node);
         var childrenList = node.getChildren();
         node.setReturnValue(childrenList.get(childrenList.size() - 2).getReturnValue());
     }
 
-    private void handleAfterGenerationOfChildren(Command node) {
+    private void handleAfterGenerationOfChildren(Command node) throws SLogoException{
         //used for methods that must execute after children have been generated (such as textcommands
         if (node.getClass() == TextCommand.class){
             handleTextCommand(node);
@@ -289,18 +285,15 @@ public class ExecuteCommand {
                 BasicCommand turtleCom = (BasicCommand) node;
                 turtleCom.execute(backendController);
             }
-
         }
-        else if (node.getNumParameters() == (int) Double.POSITIVE_INFINITY){
-            // do nothing, the root command should not throw an error
-        }
-        else{
-            throw new SyntaxError(WRONG_NUMBER_OF_PARAMETERS);//TODO replace with another exception
+        else if (node.getNumParameters() != (int) Double.POSITIVE_INFINITY){
+            // the root command should not throw an error
+            throw new ExecutionException("Not sure how this error would occur");
         }
     }
 
 
-    private void handleTextCommand(Command node) {
+    private void handleTextCommand(Command node) throws SLogoException{
         TextCommand textCom = (TextCommand) node;
         textCom.execute(backendController);
         UserDefinedCommand userCom = (UserDefinedCommand) textCom.getChildren().get(0);
@@ -308,13 +301,13 @@ public class ExecuteCommand {
         textCom.setReturnValue(userCom.getHeadNode().getReturnValue());
     }
 
-    private void traverseChildren(Command node) {
+    private void traverseChildren(Command node) throws SLogoException{
         for (Command child : node.getChildren()) {
             traverse(child);
         }
     }
 
-    private void handleMakeVariableCommand(Command node) {
+    private void handleMakeVariableCommand(Command node) throws SLogoException{
         String name = node.getChildren().get(0).getText();
         Optional<Double> variableValue = backendController.getVariableIfExists(name);
         if (!variableValue.isPresent()) {

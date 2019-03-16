@@ -1,9 +1,7 @@
 package Parser;
 
-import GraphicsBackend.Turtle;
 import Parser.Commands.*;
 import Parser.Commands.Turtle_Command.*;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +16,7 @@ class ParsingTree {
     private Command currCommand;
     private BackendController backendController;
 
-    ParsingTree(List<Command> commandsList, BackendController backendController){
+    ParsingTree(List<Command> commandsList, BackendController backendController) throws SLogoException{
         headNode = new RootCommand();
         this.backendController = backendController;
         headNode = makeTree(commandsList, headNode);
@@ -28,7 +26,7 @@ class ParsingTree {
         return headNode;
     }
 
-    private Command makeTree(List<Command> commandsList, Command parent){
+    private Command makeTree(List<Command> commandsList, Command parent) throws SLogoException{
         while (!commandsList.isEmpty()) {
             currCommand = commandsList.remove(FIRST);
             Command savedCurrentCommand = currCommand;
@@ -57,7 +55,13 @@ class ParsingTree {
                 if (savedCurrentCommand.getNumParameters() == savedCurrentCommand.getCurrentNumParameters()) {
                     parent.addChildren(savedCurrentCommand);
                 }
-                else {
+                else{
+                    if (commandsList.isEmpty()){
+                        String currCommandClass = savedCurrentCommand.getClass().toString();
+                        String prefix = "class Parser.Commands.Turtle_Command.";
+                        String command = currCommandClass.substring(prefix.length());
+                        throw new ParserException(command + " is missing one or more parameters");
+                    }
                     parent.addChildren(makeTree(commandsList, savedCurrentCommand));
                 }
             }
@@ -68,7 +72,7 @@ class ParsingTree {
         return parent;
     }
 
-    private void handleTextCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) {
+    private void handleTextCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) throws SLogoException{
         String text = savedCurrentCommand.getText();
         Optional<ImmutableUserDefinedCommand> userDefinedCommand = backendController.getUserDefinedCommand(text);
         if (userDefinedCommand.isPresent()){
@@ -82,54 +86,54 @@ class ParsingTree {
             }
         }
         else {
-            // throw new TODO create exception, command not defined
+            throw new ParserException(text + " command is not defined");
         }
     }
 
-    private void handleGroupStartCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand){
+    private void handleGroupStartCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) throws SLogoException{
         currCommand = commandsList.remove(FIRST);
         if (currCommand instanceof MakeUserInstructionCommand){
-            //TODO throw error, group command cannot have make userdefined command
+            throw new ParserException("Group commands cannot make User Defined Commands");
         }
         savedCurrentCommand.addChildren(currCommand);
         savedCurrentCommand.addChildren(makeTree(commandsList, savedCurrentCommand));
         parent.addChildren(savedCurrentCommand);
         if (currCommand.getClass() != GroupEndCommand.class){
-            //TODO Add error, list is missing the end parenthesis ")"
+            throw new ParserException("Group is missing end parenthesis");
         }
     }
 
-    private void handleListStartCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) {
+    private void handleListStartCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) throws SLogoException{
         savedCurrentCommand.addChildren(makeTree(commandsList, savedCurrentCommand));
         parent.addChildren(savedCurrentCommand);
         if (currCommand.getClass() != ListEndCommand.class){
-            //TODO Add error, list is missing the end brace "]"
+            throw new ParserException("List is missing end bracket");
         }
     }
 
-    private void handleUserDefinedCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) {
+    private void handleUserDefinedCommand(List<Command> commandsList, Command parent, Command savedCurrentCommand) throws SLogoException{
         currCommand = commandsList.remove(FIRST);
         String name = currCommand.getText();
         if (name == null){
-            //throw new TODO make exception, user defined command name not valid
+            throw new ParserException("Name is not valid for User Defined Command");
         }
         savedCurrentCommand.addChildren(currCommand);
 
         currCommand = commandsList.remove(FIRST);
         List<Variable> listOfVariableList = getVariables(commandsList, savedCurrentCommand);
 
-        //create a placeholder userdefined command so that recursion works
+        //create a placeholder user defined command so that recursion works
         UserDefinedCommand newUserDefinedCommand = new UserDefinedCommand(name, listOfVariableList, null);
         backendController.addNewUserDefinedCommand(name, newUserDefinedCommand);
 
         //generate the command tree
         parent.addChildren(makeTree(commandsList,savedCurrentCommand));
 
-        //create the actual userdefined command including the command tree
+        //create the actual user defined command including the command tree
         ((BasicCommand)savedCurrentCommand).execute(backendController);
     }
 
-    private List<Variable> getVariables(List<Command> commandsList, Command savedCurrentCommand) {
+    private List<Variable> getVariables(List<Command> commandsList, Command savedCurrentCommand) throws SLogoException{
         Command variablesList = handleVariablesList(commandsList, savedCurrentCommand);
         List<Variable> listOfVariableList = new LinkedList<>();
         //create variables list from current children list
@@ -139,21 +143,22 @@ class ParsingTree {
             }
             else if (command.getClass() == ListEndCommand.class){
                 //do nothing, don't throw exception
+                break;
             }
             else{
-                //throw new TODO create exception - variables list containes a non variable command
+                throw new ParserException("Variable List for new UserDefined Command has a non-Variable input");
             }
         }
         return listOfVariableList;
     }
 
-    private Command handleVariablesList(List<Command> commandsList, Command savedCurrentCommand) {
+    private Command handleVariablesList(List<Command> commandsList, Command savedCurrentCommand) throws SLogoException{
         Command variablesList = currCommand;
         if (variablesList.getClass() == ListStartCommand.class){
             handleListStartCommand(commandsList, savedCurrentCommand, variablesList);
         }
         else {
-            //throw new TODO add exception missing variables list
+            throw new ParserException("New UserDefined Command is missing list of Variables");
         }
         return variablesList;
     }

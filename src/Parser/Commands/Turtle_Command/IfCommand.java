@@ -5,8 +5,8 @@ import Parser.Commands.Command;
 
 public class IfCommand extends ControlCommand{
 
-    private final int EXPRESSION_INDEX = 0;
-    private final int COMMANDS_INDEX = 1;
+    private static final int EXPRESSION_INDEX = 0;
+    private static final int COMMANDS_INDEX = 1;
 
 
     public IfCommand(){

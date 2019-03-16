@@ -5,6 +5,8 @@ import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
+import Parser.ExecutionException;
+import Parser.SLogoException;
 import java.util.List;
 
 /**
@@ -18,10 +20,18 @@ public class TellCommand extends BasicCommand {
     }
 
     @Override
-    protected void performAction(BackendController backendController) {
+    protected void performAction(BackendController backendController) throws SLogoException {
         Command listCommand = getChildren().get(0);
         if (!(listCommand instanceof ListStartCommand)) {
-            //TODO "Wrong syntax error"
+            throw new ExecutionException("Tell Command is missing List parameter");
+        }
+        for (Command com: listCommand.getChildren()){
+            if (com.getClass() == ListEndCommand.class){
+                break;
+            }
+            if ((int) com.getReturnValue() < 1){
+                throw new ExecutionException("Turtle Ids less than 1 are invalid");
+            }
         }
         var childrenSize = listCommand.getChildren().size();
         for (Turtle t: backendController.getMyTurtles()){
@@ -30,7 +40,6 @@ public class TellCommand extends BasicCommand {
         for (int a = 0; a < childrenSize - 1; a++) {
             List<Turtle> turtleList= backendController.getMyTurtles();
             int turtleId = (int) listCommand.getChildren().get(a).getReturnValue();
-            //TODO catch error for TELL to turtle 0
             if (turtleId <= turtleList.size()) {
                 turtleList.get(turtleId - 1).setTurtleActive(true);
             }

@@ -4,6 +4,8 @@ import Parser.BackendController;
 import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
+import Parser.ExecutionException;
+import Parser.SLogoException;
 
 /**
  * @author Dhanush Madabusi
@@ -22,7 +24,7 @@ public class GroupStartCommand extends BasicCommand {
     }
 
     @Override
-    protected void performAction(BackendController backendController) {
+    protected void performAction(BackendController backendController) throws SLogoException {
         if (commandToRun != null && groupMainCom.canHaveUnlimitedParameters()){
             ConstantCommand firstParam = new ConstantCommand(commandToRun.getReturnValue());
             commandToRun = groupMainCom.copy();
@@ -35,7 +37,7 @@ public class GroupStartCommand extends BasicCommand {
         while(commandToRun.getCurrentNumParameters() < numParameters){
             Command nextChild = getChildren().get(groupIndex);
             if (nextChild.getClass() == GroupEndCommand.class){
-                //TODO throw error; missing parameters
+                throw new ExecutionException("Group command is missing parameters");
             }
             commandToRun.addChildren(nextChild);
             groupIndex++;

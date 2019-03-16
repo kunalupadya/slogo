@@ -4,11 +4,12 @@ import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.Variable;
+import Parser.SLogoException;
 
 public class DoTimesCommand extends ControlCommand {
 
-    private final int VAR_LIMIT_INDEX = 0;
-    private final int COMMANDS_INDEX = 1;
+    private static final int VAR_LIMIT_INDEX = 0;
+    private static final int COMMANDS_INDEX = 1;
     private ListStartCommand commandListOrig;
     private Variable loopVar;
 
@@ -18,7 +19,7 @@ public class DoTimesCommand extends ControlCommand {
     }
 
     @Override
-    protected void performAction(BackendController backendController) {
+    protected void performAction(BackendController backendController) throws SLogoException {
         updateLoopVar(backendController);
         if (currCount <= limit) {
             setListToRun(copyList(commandListOrig));
@@ -30,7 +31,7 @@ public class DoTimesCommand extends ControlCommand {
         }
     }
 
-    private void updateLoopVar(BackendController backendController) {
+    private void updateLoopVar(BackendController backendController) throws SLogoException{
         var makeLoopVar = new MakeVariableCommand();
         makeLoopVar.addChildren(loopVar);
         makeLoopVar.addChildren(new ConstantCommand((double) currCount));

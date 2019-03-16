@@ -16,29 +16,38 @@ public class ParseCommand {
     public ParseCommand(String consoleInput, String commandLanguage, BackendController backendController){
         if(consoleInput != null && !consoleInput.equals("")) {
             String refinedInput = removeComments(consoleInput);
-            refinedInput = refinedInput.replace("\n", " ");
-            String[] listOfWords = refinedInput.toLowerCase().split("\\s+");
+            String[] listOfWords = refinedInput.toLowerCase().trim().split("\\s+");
             LanguageSetting languageSetting = new LanguageSetting(commandLanguage);
             String[] translatedListOfWords = languageSetting.translateCommand(listOfWords);
             var tokensList = addToTokenList(translatedListOfWords);
             var commandsList = stackCommand(translatedListOfWords, tokensList);
-            ExecuteCommand executeCommand = new ExecuteCommand(commandsList, backendController);
-            executeCommand.runCommands();
+            try {
+                ParsingTree parsingTree = new ParsingTree(commandsList, backendController);
+                ExecuteCommand executeCommand = new ExecuteCommand(backendController, parsingTree);
+                executeCommand.runCommands();
+            }
+            catch (SLogoException e){
+                backendController.showErrorMessage(e.getErrorType() + ": " + e.getMessage());
+            }
         }
     }
 
     private String removeComments(String input){
-        int curIndex = 0;
+        String [] lineSplit = input.split("\n");
         StringBuilder refinedInput = new StringBuilder();
-        while(true){
-            int commentStart = input.indexOf("#", curIndex);
-            if (commentStart == -1){
-                break;
+        for (int i = 0; i < lineSplit.length; i++){
+            if (i != 0){
+                refinedInput.append(" ");
             }
-            refinedInput.append(input.substring(curIndex, commentStart));
-            curIndex = input.indexOf("\n", commentStart) + 1;
+            String s = lineSplit[i];
+            if (!s.contains("#")){
+                refinedInput.append(s);
+                continue;
+            }
+            int commentIndex = s.indexOf("#");
+            refinedInput.append(s.substring(0, commentIndex));
+
         }
-        refinedInput.append(input.substring(curIndex));
         return refinedInput.toString();
     }
 

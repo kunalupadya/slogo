@@ -12,7 +12,8 @@ public class ArcTangentCommand extends BasicCommand {
         isOutputCommand = true;
     }
 
-    public void performAction(BackendController backendController){
+    @Override
+    public void performAction(BackendController backendController) {
         setReturnValue(Math.atan(Math.toRadians(getChildren().get(0).getReturnValue())));
     }
 

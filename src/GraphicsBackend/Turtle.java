@@ -43,7 +43,7 @@ public class Turtle implements ImmutableTurtle{
         turtleImage = new javafx.scene.image.Image(this.getClass().getResourceAsStream(DEFAULT_IMAGE));
     }
 
-    private void updateATurtleImageView(ImageView turtle){
+    private void updateTurtleImageView(ImageView turtle){
         turtle.setImage(turtleImage);
         turtle.setX(xPos-HALF_TURTLE_SIZE);
         turtle.setY(yPos-HALF_TURTLE_SIZE);
@@ -72,7 +72,7 @@ public class Turtle implements ImmutableTurtle{
     public void moveTo(Point point){
         updateUndoBuffers(new LinkedList<>());
         xPos = point.getMyX()+myGrid.getWidth()/ HALF;
-        yPos = myGrid.getHeight()/ HALF-point.getMyY();;
+        yPos = myGrid.getHeight()/ HALF-point.getMyY();
     }
 
     public void undo(){
@@ -153,7 +153,7 @@ public class Turtle implements ImmutableTurtle{
 
     public ImageView getAdjustedTurtleImageView(double xLeftCorner, double yLeftCorner) {
         ImageView returnedTurtle = new ImageView();
-        updateATurtleImageView(returnedTurtle);
+        updateTurtleImageView(returnedTurtle);
         returnedTurtle.setX(returnedTurtle.getX()+xLeftCorner);
         returnedTurtle.setY(returnedTurtle.getY()+yLeftCorner);
         return returnedTurtle;

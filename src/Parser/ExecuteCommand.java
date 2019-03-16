@@ -25,9 +25,8 @@ public class ExecuteCommand {
     //determines if commands are run for all turtles or just the current turtle
     private boolean isASubTurtleCommand = false;
 
-    public ExecuteCommand(List<Command> commandsList, BackendController backendController) {
-        ParsingTree parsingTree = new ParsingTree(commandsList, backendController);
-        headNode = (RootCommand) parsingTree.getRoot();
+    public ExecuteCommand(BackendController backendController, ParsingTree tree) {
+        headNode = (RootCommand) tree.getRoot();
         this.backendController = backendController;
         currTurtle = backendController.getMyTurtles().get(0);
     }

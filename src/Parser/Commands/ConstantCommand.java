@@ -11,7 +11,7 @@ public class ConstantCommand extends BasicCommand {
         setReturnValue(input);
         setIsEvaluated(true);
         setNumParameters(0);
-        isOutputCommand = false;
+        isOutputCommand = true;
     }
 
     @Override

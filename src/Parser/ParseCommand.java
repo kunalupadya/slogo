@@ -21,8 +21,14 @@ public class ParseCommand {
             String[] translatedListOfWords = languageSetting.translateCommand(listOfWords);
             var tokensList = addToTokenList(translatedListOfWords);
             var commandsList = stackCommand(translatedListOfWords, tokensList);
-            ExecuteCommand executeCommand = new ExecuteCommand(commandsList, backendController);
-            executeCommand.runCommands();
+            try {
+                ParsingTree parsingTree = new ParsingTree(commandsList, backendController);
+                ExecuteCommand executeCommand = new ExecuteCommand(backendController, parsingTree);
+                executeCommand.runCommands();
+            }
+            catch (SLogoException e){
+                backendController.showErrorMessage(e.getErrorType() + ": " + e.getMessage());
+            }
         }
     }
 

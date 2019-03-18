@@ -119,6 +119,14 @@ public class Turtle implements ImmutableTurtle{
         return xPos - myGrid.getWidth()/ HALF;
     }
 
+    public double getUserFriendlyXPos(){
+        return xPos - myGrid.getWidth()/ HALF;
+    }
+
+    public double getUserFriendlyYPos(){
+        return myGrid.getHeight()/ HALF-yPos;
+    }
+
     public Point getPos(){
         return new Point(getxPos(),getyPos());
     }

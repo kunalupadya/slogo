@@ -305,8 +305,8 @@ public class FrontendController {
         for (Turtle turtle: turtles) {
             ImmutablePen pen = turtle.getMyPen();
             ids.add(counter);
-            xPositions.add(turtle.getxPos());
-            yPositions.add(turtle.getyPos());
+            xPositions.add(turtle.getUserFriendlyXPos());
+            yPositions.add(turtle.getUserFriendlyYPos());
             angles.add(turtle.getMyAngle());
             penColors.add(pen.getMyPenColor());
             penUp.add(pen.getPenUp());

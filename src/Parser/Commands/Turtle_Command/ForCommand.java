@@ -4,6 +4,7 @@ import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.Variable;
+import Parser.ExecutionException;
 import Parser.SLogoException;
 
 public class ForCommand extends ControlCommand {
@@ -49,12 +50,18 @@ public class ForCommand extends ControlCommand {
     }
 
     @Override
-    public void setUpLoop() {
+    public void setUpLoop() throws ExecutionException {
         ListStartCommand loopParam = (ListStartCommand) getChildren().get(0);
         loopVar = (Variable) loopParam.getChildren().get(0);
         currCount = (int) initialExpressions.get(0).getReturnValue();
         limit = (int) initialExpressions.get(1).getReturnValue();
         increment = (int) initialExpressions.get(2).getReturnValue();
+        if ((currCount < limit && increment < 0) || (currCount > limit && increment > 0)){
+                String currCommandClass = this.getClass().toString();
+                String prefix = "class Parser.Commands.Turtle_Command.";
+                String command = currCommandClass.substring(prefix.length());
+                throw new ExecutionException(command + " will not terminate with current parameters");
+        }
         commandListOrig = (ListStartCommand) getChildren().get(COMMANDS_INDEX);
     }
 

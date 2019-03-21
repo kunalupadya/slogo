@@ -4,6 +4,7 @@ import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
+import Parser.ExecutionException;
 
 public class BackwardCommand extends TurtleCommand {
 
@@ -13,7 +14,13 @@ public class BackwardCommand extends TurtleCommand {
     }
 
     @Override
-    protected void performAction(BackendController backendController, Turtle turtle) {
+    protected void performAction(BackendController backendController, Turtle turtle) throws ExecutionException{
+        if (getChildren().get(0).getReturnValue() < 0){
+            String currCommandClass = this.getClass().toString();
+            String prefix = "class Parser.Commands.Turtle_Command.";
+            String command = currCommandClass.substring(prefix.length());
+            throw new ExecutionException(command + " does not accept negative numbers");
+        }
         turtle.move(-getChildren().get(0).getReturnValue());
         setReturnValue(getChildren().get(0).getReturnValue());
     }

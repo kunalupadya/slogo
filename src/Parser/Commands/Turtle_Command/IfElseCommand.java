@@ -2,6 +2,7 @@ package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
 import Parser.Commands.Command;
+import Parser.ExecutionException;
 
 public class IfElseCommand extends ControlCommand {
 
@@ -20,7 +21,7 @@ public class IfElseCommand extends ControlCommand {
     }
 
     @Override
-    public void setUpLoop() { }
+    public void setUpLoop() throws ExecutionException { }
 
     @Override
     protected void performAction(BackendController backendController) {

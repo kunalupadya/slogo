@@ -4,6 +4,7 @@ import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.Variable;
+import Parser.ExecutionException;
 import Parser.SLogoException;
 
 public class RepeatCommand extends ControlCommand {
@@ -30,8 +31,14 @@ public class RepeatCommand extends ControlCommand {
     }
 
     @Override
-    public void setUpLoop() {
+    public void setUpLoop() throws ExecutionException {
         limit = (int) initialExpressions.get(EXPRESSION_INDEX).getReturnValue();
+        if (limit < 0) {
+            String currCommandClass = this.getClass().toString();
+            String prefix = "class Parser.Commands.Turtle_Command.";
+            String command = currCommandClass.substring(prefix.length());
+            throw new ExecutionException(command + " does not accept negative numbers");
+        }
         commandListOrig = (ListStartCommand) getChildren().get(COMMANDS_INDEX);
     }
 

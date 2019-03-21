@@ -288,7 +288,10 @@ public class ExecuteCommand {
         }
         else if (node.getNumParameters() != (int) Double.POSITIVE_INFINITY){
             // the root command should not throw an error
-            throw new ExecutionException("Not sure how this error would occur");
+            String currCommandClass = node.getClass().toString();
+            String prefix = "class Parser.Commands.Turtle_Command.";
+            String command = currCommandClass.substring(prefix.length());
+            throw new ExecutionException(command + " is missing one or more parameters");
         }
     }
 

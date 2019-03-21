@@ -2,6 +2,8 @@ package Parser.Commands.Turtle_Command;
 
 import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
+import Parser.ExecutionException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +46,7 @@ public abstract class ControlCommand extends BasicCommand {
         return (ListStartCommand) traverse(command);
     }
 
-    public abstract void setUpLoop();
+    public abstract void setUpLoop() throws ExecutionException;
 
     private Command traverse(Command command){
 

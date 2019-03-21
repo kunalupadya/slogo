@@ -1,0 +1,31 @@
+to randomize [ ] [
+  setxy - random 400 200 - random 400 200
+]
+
+to setup [ ] [
+  clearscreen
+  tell [ 1 2 3 4 5 ]
+  ask [ 1 2 3 4 5 ] [ randomize ]
+]
+
+to bounce [ ] [
+  if equal? xcor 400
+    [ setheading minus heading ]
+
+  if equal? xcor 0
+    [ setheading minus heading ]
+
+  if equal? ycor 400
+    [ setheading difference 180 heading ]
+
+  if equal? ycor 0
+      [ setheading difference 180 heading ]
+]
+
+to go [ ] [
+  ask [ 1 2 3 4 5 ] [
+    pendown
+    bounce
+    forward 1
+  ]
+]

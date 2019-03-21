@@ -4,6 +4,7 @@ import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.Variable;
+import Parser.ExecutionException;
 import Parser.SLogoException;
 
 public class DoTimesCommand extends ControlCommand {
@@ -45,10 +46,16 @@ public class DoTimesCommand extends ControlCommand {
     }
 
     @Override
-    public void setUpLoop() {
+    public void setUpLoop() throws ExecutionException {
         ListStartCommand loopParam = (ListStartCommand) getChildren().get(VAR_LIMIT_INDEX);
         loopVar = (Variable) loopParam.getChildren().get(0);
         limit = (int) initialExpressions.get(0).getReturnValue();
+        if (limit < 0) {
+            String currCommandClass = this.getClass().toString();
+            String prefix = "class Parser.Commands.Turtle_Command.";
+            String command = currCommandClass.substring(prefix.length());
+            throw new ExecutionException(command + " does not accept negative numbers");
+        }
         commandListOrig = (ListStartCommand) getChildren().get(COMMANDS_INDEX);
     }
 

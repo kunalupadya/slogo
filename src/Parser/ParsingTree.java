@@ -95,6 +95,17 @@ class ParsingTree {
         if (currCommand instanceof MakeUserInstructionCommand){
             throw new ParserException("Group commands cannot make User Defined Commands");
         }
+        if (currCommand instanceof TextCommand){
+            String text = currCommand.getText();
+            Optional<ImmutableUserDefinedCommand> userDefinedCommand = backendController.getUserDefinedCommand(text);
+            if (userDefinedCommand.isPresent()){
+                ImmutableUserDefinedCommand command = userDefinedCommand.get();
+                currCommand.setNumParameters(command.getVariables().size());
+            }
+            else {
+                throw new ParserException(text + " command is not defined");
+            }
+        }
         savedCurrentCommand.addChildren(currCommand);
         savedCurrentCommand.addChildren(makeTree(commandsList, savedCurrentCommand));
         parent.addChildren(savedCurrentCommand);

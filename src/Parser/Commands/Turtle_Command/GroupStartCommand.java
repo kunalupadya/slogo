@@ -33,7 +33,7 @@ public class GroupStartCommand extends BasicCommand {
         else {
             commandToRun = groupMainCom.copy();
         }
-        int numParameters = commandToRun.getNumParameters();
+        int numParameters = groupMainCom.getNumParameters();
         while(commandToRun.getCurrentNumParameters() < numParameters){
             Command nextChild = getChildren().get(groupIndex);
             if (nextChild.getClass() == GroupEndCommand.class){

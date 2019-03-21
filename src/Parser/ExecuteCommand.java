@@ -13,8 +13,6 @@ import java.util.*;
 
 public class ExecuteCommand {
 
-    //TODO ADD EXCEPTIONS FOR ALL COMMANDS THAT CANNOT ACCEPT NEGATIVE NUMBERS
-
     private static final int EXPRESSION_INDEX = 1;
     private static final int COMMAND_INDEX = 0;
     private RootCommand headNode;

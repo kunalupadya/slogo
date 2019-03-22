@@ -20,7 +20,6 @@ public class ParseCommand {
      * @param backendController: the backendcontroller(parser) itself to parse all turtles
      */
     public ParseCommand(String consoleInput, String commandLanguage, BackendController backendController){
-
         String refinedInput = removeComments(consoleInput);
         String[] listOfWords = refinedInput.toLowerCase().trim().split("\\s+");
         LanguageSetting languageSetting = new LanguageSetting(commandLanguage);
@@ -71,7 +70,13 @@ public class ParseCommand {
             String word = listOfWords[a];
             Token token = tokensList.get(a);
             Command newCommand;
-            if(token == Token.Command) {
+            if(token == Token.Variable) {
+                newCommand = new Variable(word.substring(1));
+            }
+            else if(token == Token.Constant){
+                newCommand = new ConstantCommand(Double.parseDouble(word));
+            }
+            else{
                 try {
                     Class<?> clazz = Class.forName("Parser.Commands.Turtle_Command." + word + "Command");
                     Object object = clazz.getConstructor().newInstance();
@@ -80,24 +85,8 @@ public class ParseCommand {
                     newCommand = new TextCommand(word);
                 }
             }
-            else if(token == Token.Variable) {
-                newCommand = new Variable(word.substring(1));
-            }
-            else if(token == Token.Constant){
-                newCommand = new ConstantCommand(Double.parseDouble(word));
-            }
-            else{
-                try {
-                    Class<?> clazz = Class.forName("Parser.Commands." + token.toString() + "Command");
-                    Object object = clazz.getConstructor().newInstance();
-                    newCommand = (Command) object;
-                    commandArrayList.add(newCommand);
-                } catch (Exception e) {
-                    newCommand = new TextCommand(word);
-                }
-            }
             commandArrayList.add(newCommand);
-            }
+        }
         return commandArrayList;
     }
 

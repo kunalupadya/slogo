@@ -1,7 +1,5 @@
 package Parser.Commands;
 
-import GraphicsBackend.Point;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +17,6 @@ public abstract class Command{
     private int numParameters;
     private int currentNumParameters = 0;
     protected boolean isOutputCommand;
-    //arithmetic commands with two parameters, And, and Or commands can truly have unlimited parameters
     protected boolean unlimitedParameters = false;
 
     public boolean canHaveUnlimitedParameters(){
@@ -67,18 +64,13 @@ public abstract class Command{
         this.text = text;
     }
 
-    public abstract Command copy();
+    public List<Command> getChildren(){
+        return myChildrenList;
+    }
 
     public void addChildren(Command command) {
             myChildrenList.add(command);
             currentNumParameters += 1;
     }
-
-    public List<Command> getChildren(){
-        return myChildrenList;
-    }
-
-    protected double distance(Point point1, Point point2) {
-        return Math.sqrt(Math.pow(point1.getMyX() - point2.getMyX(), 2) + Math.pow(point1.getMyY() - point2.getMyY(), 2));
-    }
+    public abstract Command copy();
 }

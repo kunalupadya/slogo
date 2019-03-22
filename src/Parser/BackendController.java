@@ -104,21 +104,33 @@ public class BackendController {
     }
 
     /**
-     *
+     *gets the names of all available commands
      * @return
      */
     public Set<String> getAllCommands() {
         return userDefinedCommands.keySet();
     }
 
+    /**
+     * gets the names of all available variables
+     * @return
+     */
     public Set<String> getAllVariables() {
         return availableVariables.keySet();
     }
 
+    /**
+     * sets the language of commands to the inputted language
+     * @param language
+     */
     public void setCommandLanguage(String language){
         commandLanguage = language;
     }
 
+    /**
+     * gets an immutable grid
+     * @return
+     */
     public ImmutableGrid getMyGrid() {
         return myGrid;
     }

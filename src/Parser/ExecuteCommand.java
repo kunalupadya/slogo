@@ -352,5 +352,4 @@ public class ExecuteCommand {
     private Turtle getPrevTurtle(int index){
         return backendController.getMyTurtles().get(index);
     }
-
 }

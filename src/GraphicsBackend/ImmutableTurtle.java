@@ -1,19 +1,31 @@
 package GraphicsBackend;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 /**
  * @author kunalupadya
  */
 public interface ImmutableTurtle {
 
+    public void setTurtleImage(Image turtleImage);
+
+    public void setTurtleActive(boolean turtleActive);
+
+    public void setPenColor(Color color);
+
+    public void setPenSize(int pixelSize);
+
+    public void setPenUp(boolean penUp);
+
     public boolean getIsTurtleActive();
 
     public boolean isTurtleVisible();
 
-    public double getyPos();
+    public double getUserFriendlyXPos();
 
-    public double getxPos();
+    public double getUserFriendlyYPos();
 
     public Point getPos();
 

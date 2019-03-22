@@ -94,8 +94,13 @@ public class BackendController {
     }
 
     //meant for frontend access
-    public Collection<Turtle> getImmutableTurtles(){
-        return Collections.unmodifiableCollection(myTurtles);
+    public List<ImmutableTurtle> getImmutableTurtles(){
+        List<ImmutableTurtle> immutableTurtles = new ArrayList<>();
+        for (Turtle turtle:myTurtles){
+            immutableTurtles.add(turtle.getImmutableTurtle());
+        }
+//        return Collections.unmodifiableCollection(myTurtles);
+        return immutableTurtles;
     }
 
     void showErrorMessage(String string){

@@ -29,8 +29,8 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 /**
- * Class will contain the initial layout for the Window
- *
+ * Class will contain the initial layout for the Window and be the only source of communication between the
+ * back-end and front-end
  * @author Januario Carreiro & David Liu
  */
 public class FrontendController {
@@ -94,9 +94,10 @@ public class FrontendController {
     private Boolean checkSimulation = false;
 
     /**
-     * TODO: add JavaDoc
-     *
-     * @param root
+     * Constructor of FrontendController, sets up the entire layout of the GUI and houses all methods that will
+     * be the only source of communication with the backend
+     * Assumes that BorderPane and Stage passed are valid
+     * @param root BorderPane where all the views and controls are housed
      */
     public FrontendController(BorderPane root, Stage stage) {
         this.myStage = stage;
@@ -227,12 +228,22 @@ public class FrontendController {
         }
     }
 
+    /**
+     * Sets the BackendController object to help communicate with the backend with
+     * When the BackendController is set up, the language needs to be adjusted for and the graphics area needs to be
+     * filled with the appropriate objects
+     * @param backendController BackendController object
+     */
     public void setBackendController(BackendController backendController) {
         this.backendController = backendController;
         changeLanguage(defaultLanguage);
         setGraphicsArea();
     }
 
+    /**
+     * Obtain all the grid/pen lines and turtles and pass the turtleImages, the state of whether the turtles are
+     * active or not, and the grid/pen lines and send them to the graphics area for display
+     */
     public void setGraphicsArea(){
         List<Line> lines = backendController.getMyGrid().getAllObjects();
         turtles = new LinkedList<>(backendController.getFrontendImmutableTurtles());
@@ -258,10 +269,18 @@ public class FrontendController {
         graphicsArea.setColor(color);
     }
 
+    /**
+     *
+     * @param commandString
+     */
     public void sendCommandString(String commandString) {
         backendController.parseAndRun(commandString);
     }
 
+    /**
+     *
+     * @param turtleNumber
+     */
     public void switchTurtleActive(int turtleNumber) {
         if (turtles.get(turtleNumber).getIsTurtleActive()) {
             turtles.get(turtleNumber).setTurtleActive(false);
@@ -271,29 +290,50 @@ public class FrontendController {
         }
     }
 
+    /**
+     *
+     * @param commandString
+     */
     public void addToConsole(String commandString) {
         console.addToConsole(commandString);
     }
 
+    /**
+     *
+     * @param errorString
+     */
     public void consoleShowError(String errorString) {
         //errorString is truly coming from BackEnd though
         console.showError(errorString);
     }
 
+    /**
+     *
+     * @param commandOutput
+     */
     public void consoleShowCommandOutput(String commandOutput){
         console.showCommandOutput(commandOutput);
     }
 
+    /**
+     *
+     */
     public void getAvailableVars() {
         Set<String> availableVarsList = backendController.getAllVariables();
         availableVars.setList(availableVarsList);
     }
 
+    /**
+     *
+     */
     public void getUserCommands() {
         Set<String> userCommandsList = backendController.getAllCommands();
         userCommands.setList(userCommandsList);
     }
 
+    /**
+     *
+     */
     public void setCurrentState() {
         turtles = backendController.getFrontendImmutableTurtles();
         int counter = 1;
@@ -318,6 +358,9 @@ public class FrontendController {
         currentState.getTurtleAndPens(ids, xPositions, yPositions, angles, penColors, penUp, penSize);
     }
 
+    /**
+     *
+     */
     public void getPalettes() {
         Color[] paletteIndices = backendController.getColorPalette();
         palettes.setPalettes(paletteIndices);
@@ -393,10 +436,16 @@ public class FrontendController {
         moveTurtle.setResourceBundle(language);
     }
 
+    /**
+     *
+     */
     public void runSimulation() {
         backendController.parseAndRun("go");
     }
 
+    /**
+     *
+     */
     public void step() {
         setGraphicsArea();
         setCurrentState();
@@ -446,6 +495,9 @@ public class FrontendController {
         }
     }
 
+    /**
+     *
+     */
     public void undo(){
         backendController.undo();
     }

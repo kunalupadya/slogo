@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 /**
  * @author kunalupadya
  */
-public interface ImmutableTurtle {
+public interface FrontendImmutableTurtle {
 
     public void setTurtleImage(Image turtleImage);
 

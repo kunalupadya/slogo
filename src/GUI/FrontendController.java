@@ -4,8 +4,7 @@ import GUI.Controls.*;
 import GUI.Modules.*;
 import GraphicsBackend.ImmutablePen;
 import GUI.Modules.Console;
-import GraphicsBackend.ImmutableTurtle;
-import GraphicsBackend.Turtle;
+import GraphicsBackend.FrontendImmutableTurtle;
 import Parser.BackendController;
 import javafx.collections.ObservableList;
 import javafx.scene.Cursor;
@@ -51,7 +50,7 @@ public class FrontendController {
     private TextField backgroundColor, penColor, numTurtles, language, fileName;
     private BackendController backendController;
     private String defaultLanguage = "English";
-    private List<ImmutableTurtle> turtles;
+    private List<FrontendImmutableTurtle> turtles;
     private List<String> moduleList;
     private ResourceBundle myModuleContainer, myModulePosition, myModuleLabels, myPreferences;
     private int editorWidth = 200;
@@ -91,6 +90,7 @@ public class FrontendController {
     private String preferences = "/moduleProperties/UserPreferences";
     private String editorPath = "data/editorFiles/";
     private String preferencesPath = "data/saveStates/";
+    private String filePath = "data/preferences/";
     private Boolean checkSimulation = false;
 
     /**
@@ -207,10 +207,6 @@ public class FrontendController {
         return buttonHandler;
     }
 
-    public BorderPane getContainer() {
-        return myContainer;
-    }
-
     /**
      * TODO: make it possible to set image of any button through reflection
      */
@@ -221,7 +217,7 @@ public class FrontendController {
         if (chosenFile != null) {
             try {
                 setTurtleImage.setImage(chosenFile, setTurtleImage.getButton());
-                for (ImmutableTurtle turtle: backendController.getImmutableTurtles()){
+                for (FrontendImmutableTurtle turtle: backendController.getFrontendImmutableTurtles()){
                     turtle.setTurtleImage(new Image(new FileInputStream(chosenFile.getPath())));
                 }
             } catch (Exception e) {
@@ -239,10 +235,10 @@ public class FrontendController {
 
     public void setGraphicsArea(){
         List<Line> lines = backendController.getMyGrid().getAllObjects();
-        turtles = new LinkedList<>(backendController.getImmutableTurtles());
+        turtles = new LinkedList<>(backendController.getFrontendImmutableTurtles());
         List<ImageView> turtleImages = new ArrayList<>();
         List<Boolean> turtleActives = new ArrayList<>();
-        for (ImmutableTurtle turtle:turtles) {
+        for (FrontendImmutableTurtle turtle:turtles) {
             if (turtle.isTurtleVisible()) {
                 ImageView turtleImage = turtle.getAdjustedTurtleImageView(0,0);
                 Boolean isTurtleActive = turtle.getIsTurtleActive();
@@ -253,6 +249,11 @@ public class FrontendController {
         graphicsArea.setVariables(lines, turtleImages, turtleActives);
     }
 
+    /**
+     * Sets color of the background of the graphics area.
+     *
+     * @param color desired color
+     */
     public void setBackgroundColor(Color color) {
         graphicsArea.setColor(color);
     }
@@ -294,7 +295,7 @@ public class FrontendController {
     }
 
     public void setCurrentState() {
-        turtles = backendController.getImmutableTurtles();
+        turtles = backendController.getFrontendImmutableTurtles();
         int counter = 1;
         List<Integer> ids = new ArrayList<>();
         List<Double> xPositions = new ArrayList<>();
@@ -303,7 +304,7 @@ public class FrontendController {
         List<Double> angles = new ArrayList<>();
         List<Boolean> penUp = new ArrayList<>();
         List<Integer> penSize = new ArrayList<>();
-        for (ImmutableTurtle turtle: turtles) {
+        for (FrontendImmutableTurtle turtle: turtles) {
             ImmutablePen pen = turtle.getMyPen();
             ids.add(counter);
             xPositions.add(turtle.getUserFriendlyXPos());
@@ -322,6 +323,10 @@ public class FrontendController {
         palettes.setPalettes(paletteIndices);
     }
 
+    /**
+     * Saves what is currently in the Editor to a txt file in data/scripts. User gets to decide the file name in the
+     * file saving window.
+     */
     public void saveToFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("data/scripts"));
@@ -347,6 +352,9 @@ public class FrontendController {
         }
     }
 
+    /**
+     * Loads a file from the user's OS's file managing system using a GUI.
+     */
     public void loadFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("data/scripts"));
@@ -354,7 +362,12 @@ public class FrontendController {
         loadEditor(potentialFile);
     }
 
-    public void loadEditor(File file) {
+    /**
+     * Loads whatever txt file the user chose in loadFile() into the editor.
+     *
+     * @param file chosen txt file
+     */
+    private void loadEditor(File file) {
         try
         {
             Scanner s = new Scanner(file);
@@ -370,6 +383,11 @@ public class FrontendController {
         }
     }
 
+    /**
+     * Changes language in conjunction with drop-down language menu.
+     *
+     * @param language
+     */
     public void changeLanguage(String language) {
         backendController.setCommandLanguage(language);
         moveTurtle.setResourceBundle(language);
@@ -391,8 +409,9 @@ public class FrontendController {
     }
 
     /**
+     * Closes a module. Once this action occurs it cannot be undone. Works in conjunction with the close control.
      *
-     * @param clazz
+     * @param clazz name of class of module instance
      */
     public void close(Class<?> clazz) {
         String className = clazz.getSimpleName();
@@ -460,6 +479,11 @@ public class FrontendController {
         }
     }
 
+    /**
+     * Opens the help associated with a certain function in SLogo. Works in conjunction with the help button.
+     *
+     * @param helpPath path of help for function
+     */
     public void showHelp(String helpPath) {
         Group helpGroup = new Group();
 
@@ -497,31 +521,52 @@ public class FrontendController {
         myContainer.getChildren().add(helpGroup);
     }
 
+    /**
+     * This method closes pop-up menus. This includes both the help menu and the save preferences menu.
+     *
+     * @param group group to close.
+     */
     public void closeHelp(Group group) {
         myContainer.getChildren().remove(group);
     }
 
+    /**
+     * Increases the pen thickness by an integer value.
+     *
+     * @param value amount to increase pen thickness by. Can be negative.
+     */
     public void setPenThickness(int value) {
-        turtles = backendController.getImmutableTurtles();
-        for (ImmutableTurtle turtle: turtles) {
+        turtles = backendController.getFrontendImmutableTurtles();
+        for (FrontendImmutableTurtle turtle: turtles) {
             turtle.setPenSize(turtle.getMyPen().getPenSize() + value);
         }
     }
 
+    /**
+     * Sets the pen to whichever state it is currently not in e.g. if pen is up -> pen is now down.
+     */
     public void setPenState() {
-        turtles = backendController.getImmutableTurtles();
-        for (ImmutableTurtle turtle: turtles) {
+        turtles = backendController.getFrontendImmutableTurtles();
+        for (FrontendImmutableTurtle turtle: turtles) {
             turtle.setPenUp(!turtle.getMyPen().getPenUp());
         }
     }
 
+    /**
+     * Sets the pen Color by asking the backend controller to set a new Pen color.
+     * @param color color of pen
+     */
     public void setPenColor(Color color) {
-        turtles = backendController.getImmutableTurtles();
-        for (ImmutableTurtle turtle: turtles) {
+        turtles = backendController.getFrontendImmutableTurtles();
+        for (FrontendImmutableTurtle turtle: turtles) {
             turtle.setPenColor(color);
         }
     }
 
+    /**
+     * Brings up a new screen for user to choose certain preferences he/she wants to save as a preset. Once the user
+     * chooses the preferences, he/she gets an option to give the file a name through the saveFile() method.
+     */
     public void save() {
         Group saveGroup = new Group();
 
@@ -582,6 +627,10 @@ public class FrontendController {
         myContainer.getChildren().add(saveGroup);
     }
 
+    /**
+     * Works in conjunction with save() to save a preferences file that can later be accessed by load. User gets a UI
+     * determined by OS to choose a file name. Throws an exception if file is empty or if name is invalid.
+     */
     public void savePreferencesFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("data/preferences"));
@@ -622,9 +671,13 @@ public class FrontendController {
         }
     }
 
+    /**
+     * Loads new user preferences. User gets a UI determined by their OS. Can only open files in the data/preferences
+     * directory, not res because of how java works :(
+     */
     public void load() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(new File("data/preferences"));
+        fileChooser.setInitialDirectory(new File(filePath));
         File potentialFile = fileChooser.showOpenDialog(myStage);
         int counter = 0;
         try

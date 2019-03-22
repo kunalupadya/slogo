@@ -1,8 +1,16 @@
 package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
+import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
+
+/**
+ * @author kunalupadya
+ * @author Louis Lee
+ * @author Dhanush
+ */
+
 
 public class IsShowingCommand extends TurtleCommand {
 
@@ -12,10 +20,11 @@ public class IsShowingCommand extends TurtleCommand {
     public IsShowingCommand(){
         setNumParameters(0);
         isOutputCommand = true;
+        turtleQuery = true;
     }
 
     @Override
-    protected void turtleAction(Turtle turtle) {
+    protected void performAction(BackendController backendController, Turtle turtle) {
         setReturnValue(turtle.isTurtleVisible() ? SHOWING : HIDDEN);
     }
 

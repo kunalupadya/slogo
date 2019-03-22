@@ -7,19 +7,21 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
- * @author: Louis Lee
+ * @author Louis Lee
  */
 
 public class LanguageSetting {
 
-    private String myLanguage;
-    private ResourceBundle myResources;
     private Map<String, String> translationMap;
 
+    /**
+     * Basic Constructor
+     * @param language: chosen language from the GUI. Default language is English
+     */
     public LanguageSetting(String language){
-        myLanguage = "languageProperties/" + language;
-        myResources = ResourceBundle.getBundle(myLanguage);
-        translationMap = convertResourceBundleToMap(myResources);
+        var myLanguage = "languageProperties/" + language;
+        var bundle = ResourceBundle.getBundle(myLanguage);
+        translationMap = convertResourceBundleToMap(bundle);
     }
 
     private static Map<String, String> convertResourceBundleToMap(ResourceBundle resource) {
@@ -38,6 +40,11 @@ public class LanguageSetting {
         }
         return map;
     }
+
+    /**
+     * @param listOfWords: input words
+     * @return string array of translated commands
+     */
 
     public String[] translateCommand(String[] listOfWords){
         String[] newList = new String[listOfWords.length];

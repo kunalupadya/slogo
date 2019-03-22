@@ -5,16 +5,18 @@ import Parser.BackendController;
 /**
  * @author kunalupadya
  */
-public class ConstantCommand extends Command {
+public class ConstantCommand extends BasicCommand {
 
     public ConstantCommand(Double input){
         setReturnValue(input);
         setIsEvaluated(true);
         setNumParameters(0);
-        isOutputCommand = false;
+        isOutputCommand = true;
     }
 
-    public void performAction(BackendController backendController){
+    @Override
+    protected void performAction(BackendController backendController) {
+
     }
 
     @Override

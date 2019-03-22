@@ -5,15 +5,15 @@ import Parser.BackendController;
 /**
  * @author kunalupadya
  */
-public class RootCommand extends Command{
+public class RootCommand extends BasicCommand{
 
     public RootCommand(){
-        setIsEvaluated(false);
         setNumParameters((int) Double.POSITIVE_INFINITY);
         isOutputCommand = false;
     }
 
-    public void performAction(BackendController backendController){
+    @Override
+    public void performAction(BackendController backendController) {
     }
 
     @Override

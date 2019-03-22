@@ -2,25 +2,24 @@ package Parser.Commands.Turtle_Command;
 
 import Parser.Commands.Command;
 import Parser.Commands.Variable;
-
 import java.util.List;
 
 public interface ImmutableUserDefinedCommand {
-    public boolean getIsOutputCommand();
+    boolean getIsOutputCommand();
 
-    public int getCurrentNumParameters();
+    //int getCurrentNumParameters();
 
-    public boolean getIsEvaluated();
+    //boolean getIsEvaluated();
 
-    public int getNumParameters();
+    //int getNumParameters();
 
-    public double getReturnValue();
+    double getReturnValue();
 
-    public String getText();
+    String getText();
 
-    public List<Variable> getVariables();
+    List<Variable> getVariables();
 
-    public ListStartCommand getHeadNode();
+    ListStartCommand getHeadNode();
 
-    public Command copy();
+    Command copy();
 }

@@ -13,10 +13,10 @@ import java.util.List;
  * @author kunalupadya
  */
 public class Turtle implements ImmutableTurtle{
-    public static final String DEFAULT_IMAGE = "/images/initialTurtle.png";
-    public static final int TURTLE_SIZE = 50;
-    public static final int HALF_TURTLE_SIZE = 25;
-    public static final double HALF = 2.0;
+    private static final String DEFAULT_IMAGE = "/images/initialTurtle.png";
+    private static final int TURTLE_SIZE = 50;
+    private static final int HALF_TURTLE_SIZE = 25;
+    private static final double HALF = 2.0;
 
     private double xPos;
     private double yPos;
@@ -43,7 +43,7 @@ public class Turtle implements ImmutableTurtle{
         turtleImage = new javafx.scene.image.Image(this.getClass().getResourceAsStream(DEFAULT_IMAGE));
     }
 
-    private void updateATurtleImageView(ImageView turtle){
+    private void updateTurtleImageView(ImageView turtle){
         turtle.setImage(turtleImage);
         turtle.setX(xPos-HALF_TURTLE_SIZE);
         turtle.setY(yPos-HALF_TURTLE_SIZE);
@@ -72,7 +72,7 @@ public class Turtle implements ImmutableTurtle{
     public void moveTo(Point point){
         updateUndoBuffers(new LinkedList<>());
         xPos = point.getMyX()+myGrid.getWidth()/ HALF;
-        yPos = myGrid.getHeight()/ HALF-point.getMyY();;
+        yPos = myGrid.getHeight()/ HALF-point.getMyY();
     }
 
     public void undo(){
@@ -119,6 +119,14 @@ public class Turtle implements ImmutableTurtle{
         return xPos - myGrid.getWidth()/ HALF;
     }
 
+    public double getUserFriendlyXPos(){
+        return xPos - myGrid.getWidth()/ HALF;
+    }
+
+    public double getUserFriendlyYPos(){
+        return myGrid.getHeight()/ HALF-yPos;
+    }
+
     public Point getPos(){
         return new Point(getxPos(),getyPos());
     }
@@ -153,7 +161,7 @@ public class Turtle implements ImmutableTurtle{
 
     public ImageView getAdjustedTurtleImageView(double xLeftCorner, double yLeftCorner) {
         ImageView returnedTurtle = new ImageView();
-        updateATurtleImageView(returnedTurtle);
+        updateTurtleImageView(returnedTurtle);
         returnedTurtle.setX(returnedTurtle.getX()+xLeftCorner);
         returnedTurtle.setY(returnedTurtle.getY()+yLeftCorner);
         return returnedTurtle;

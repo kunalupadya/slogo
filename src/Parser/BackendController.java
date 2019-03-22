@@ -15,15 +15,13 @@ import java.util.*;
  */
 public class BackendController {
 
-    private String commmandLanguage;
+    private String commandLanguage;
     private Grid myGrid;
     private List<Turtle> myTurtles = new ArrayList<>();
     private Map<String, ImmutableUserDefinedCommand> userDefinedCommands;
     private Map<String, Variable> availableVariables;
     private List<UserDefinedCommand> userDefinedCommandStack = new LinkedList<>();
     private FrontendController frontendController;
-    private List<Boolean> previousTurtleTell;
-    private List<Turtle> askWithList;
     private Palette myPalette;
 
     public BackendController(){
@@ -32,21 +30,6 @@ public class BackendController {
         availableVariables = new HashMap<>();
         myTurtles.add(new Turtle(myGrid));
         myPalette = new Palette();
-    }
-
-    public void recordTurtleTell(){
-        previousTurtleTell = new LinkedList<>();
-        for (Turtle t: myTurtles){
-            previousTurtleTell.add(t.getIsTurtleActive());
-        }
-    }
-
-    public void loadTurtleTell(){
-        int ctr = 0;
-        for (Boolean b: previousTurtleTell){
-            myTurtles.get(ctr).setTurtleActive(b);
-            ctr++;
-        }
     }
 
     public void addNewUserDefinedCommand(String commandName, ImmutableUserDefinedCommand tree){
@@ -97,12 +80,8 @@ public class BackendController {
         return availableVariables.keySet();
     }
 
-    public String getCommandLanguage(){
-         return commmandLanguage;
-    }
-
     public void setCommandLanguage(String language){
-        commmandLanguage = language;
+        commandLanguage = language;
     }
 
     public ImmutableGrid getMyGrid() {
@@ -119,7 +98,7 @@ public class BackendController {
         return Collections.unmodifiableCollection(myTurtles);
     }
 
-    public void showMessage(String string){
+    void showErrorMessage(String string){
         frontendController.consoleShowError(string);
     }
 
@@ -128,7 +107,7 @@ public class BackendController {
     }
 
     public void parseAndRun(String userInput){
-        ParseCommand parser = new ParseCommand(userInput, myTurtles, commmandLanguage, this);
+        ParseCommand parser = new ParseCommand(userInput, commandLanguage, this);
     }
 
     public int getColorPaletteIndex(Color color){
@@ -159,7 +138,7 @@ public class BackendController {
         }
     }
 
-    public void outputResultToConsole(String commandOutput) {
+    void outputResultToConsole(String commandOutput) {
         frontendController.consoleShowCommandOutput(commandOutput);
     }
 }

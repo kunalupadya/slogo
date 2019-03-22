@@ -1,9 +1,18 @@
 package Parser.Commands.Turtle_Command;
 
-
 import GraphicsBackend.Turtle;
+import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
+import Parser.ExecutionException;
+import Parser.ParserException;
+
+/**
+ * @author kunalupadya
+ * @author Louis Lee
+ * @author Dhanush
+ */
+
 
 public class ForwardCommand extends TurtleCommand {
 
@@ -13,7 +22,13 @@ public class ForwardCommand extends TurtleCommand {
     }
 
     @Override
-    protected void turtleAction(Turtle turtle) {
+    protected void performAction(BackendController backendController, Turtle turtle) throws ExecutionException{
+        if (getChildren().get(0).getReturnValue() < 0){
+            String currCommandClass = this.getClass().toString();
+            String prefix = "class Parser.Commands.Turtle_Command.";
+            String command = currCommandClass.substring(prefix.length());
+            throw new ExecutionException(command + " does not accept negative numbers");
+        }
         turtle.move(getChildren().get(0).getReturnValue());
         setReturnValue(getChildren().get(0).getReturnValue());
     }

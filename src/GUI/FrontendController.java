@@ -294,7 +294,7 @@ public class FrontendController {
 
     public void setCurrentState() {
         turtles = new LinkedList<>(backendController.getImmutableTurtles());
-        int counter = 0;
+        int counter = 1;
         List<Integer> ids = new ArrayList<>();
         List<Double> xPositions = new ArrayList<>();
         List<Double> yPositions = new ArrayList<>();
@@ -305,8 +305,8 @@ public class FrontendController {
         for (Turtle turtle: turtles) {
             ImmutablePen pen = turtle.getMyPen();
             ids.add(counter);
-            xPositions.add(turtle.getxPos());
-            yPositions.add(turtle.getyPos());
+            xPositions.add(turtle.getUserFriendlyXPos());
+            yPositions.add(turtle.getUserFriendlyYPos());
             angles.add(turtle.getMyAngle());
             penColors.add(pen.getMyPenColor());
             penUp.add(pen.getPenUp());

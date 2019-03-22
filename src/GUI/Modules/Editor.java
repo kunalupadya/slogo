@@ -50,10 +50,8 @@ public class Editor extends Module {
     public void run() {
         editorText = editor.getText();
         if (!editorText.trim().isEmpty()) {
-            editorText = editorText.replace("\n", " ");
             context.sendCommandString(editorText);
         }
-        editor.clear();
     }
 
     public ObservableList<CharSequence> getText() {

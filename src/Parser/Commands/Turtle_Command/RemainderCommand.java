@@ -1,17 +1,26 @@
 package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 
-public class RemainderCommand extends Command {
+/**
+ * @author kunalupadya
+ * @author Louis Lee
+ * @author Dhanush
+ */
+
+
+public class RemainderCommand extends BasicCommand {
 
     public RemainderCommand(){
-        setIsEvaluated(false);
         setNumParameters(2);
         isOutputCommand = true;
+        unlimitedParameters = true;
     }
 
-    public void performAction(BackendController backendController){
+    @Override
+    protected void performAction(BackendController backendController) {
         setReturnValue(getChildren().get(0).getReturnValue() % getChildren().get(1).getReturnValue());
     }
 

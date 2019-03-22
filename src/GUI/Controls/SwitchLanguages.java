@@ -8,10 +8,12 @@ import java.util.ResourceBundle;
 
 import GUI.FrontendController;
 
+/**
+ * Button to switch the current language settings
+ */
 public class SwitchLanguages extends MenuButtonControl{
     /**
-     *
-     * @param context
+     * @param context where this button is located
      */
     public SwitchLanguages(FrontendController context) {
         super(new Image(FrontendController.class.getResourceAsStream("/images/language.png")), "/languageProperties/LanguageSettings");
@@ -26,6 +28,11 @@ public class SwitchLanguages extends MenuButtonControl{
         };
     }
 
+    /**
+     * Sets resourceBundle for this menuButton in case the resource bundle needs to be changed.
+     *
+     * @param resourceBundleName name of resourceBundle
+     */
     @Override
     public void setResourceBundle(String resourceBundleName) {
         myResourceBundle = ResourceBundle.getBundle("/languageProperties/" + resourceBundleName);

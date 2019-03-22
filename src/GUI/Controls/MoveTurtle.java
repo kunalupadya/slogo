@@ -8,9 +8,15 @@ import java.util.ResourceBundle;
 
 import GUI.FrontendController;
 
+/**
+ * Opens up a drop-down menu to move the turtle graphically.
+ */
 public class MoveTurtle extends MenuButtonControl{
     private ResourceBundle languageResourceBundle;
 
+    /**
+     * @param context where this button is located
+     */
     public MoveTurtle(FrontendController context) {
         super(new Image(FrontendController.class.getResourceAsStream("/images/moveTurtle.png")), "/buttonProperties/TurtleMovements");
         languageResourceBundle = ResourceBundle.getBundle("/languageProperties/English");

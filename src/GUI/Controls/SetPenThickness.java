@@ -6,14 +6,15 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 
 import GUI.FrontendController;
-
 import java.util.ResourceBundle;
 
+/**
+ * Button to set the pen thickness
+ */
 public class SetPenThickness extends MenuButtonControl {
+
     /**
-     * TODO: finish JavaDoc
-     *
-     * @param context
+     * @param context where this button is located
      */
     public SetPenThickness(FrontendController context) {
         super(new Image(FrontendController.class.getResourceAsStream("/images/penThickness.png")), "/buttonProperties/PenThickness");

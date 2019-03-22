@@ -8,10 +8,12 @@ import java.util.ResourceBundle;
 
 import GUI.FrontendController;
 
+/**
+ * Button to switch the current language settings
+ */
 public class SwitchLanguages extends MenuButtonControl{
     /**
-     *
-     * @param context
+     * @param context where this button is located
      */
     public SwitchLanguages(FrontendController context) {
         super(new Image(FrontendController.class.getResourceAsStream("/images/language.png")), "/languageProperties/LanguageSettings");

@@ -11,9 +11,6 @@ import GUI.FrontendController;
 public class MoveTurtle extends MenuButtonControl{
     private ResourceBundle languageResourceBundle;
 
-    /**
-     * @param context
-     */
     public MoveTurtle(FrontendController context) {
         super(new Image(FrontendController.class.getResourceAsStream("/images/moveTurtle.png")), "/buttonProperties/TurtleMovements");
         languageResourceBundle = ResourceBundle.getBundle("/languageProperties/English");
@@ -30,6 +27,11 @@ public class MoveTurtle extends MenuButtonControl{
         };
     }
 
+    /**
+     * Sets resourceBundle for this menuButton in case the resource bundle needs to be changed.
+     *
+     * @param myLanguage name of resourceBundle
+     */
     public void setResourceBundle(String myLanguage) {
         languageResourceBundle = ResourceBundle.getBundle("/languageProperties/" + myLanguage);
     }

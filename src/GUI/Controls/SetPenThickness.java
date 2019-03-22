@@ -29,6 +29,11 @@ public class SetPenThickness extends MenuButtonControl {
         };
     }
 
+    /**
+     * Sets resourceBundle for this menuButton in case the resource bundle needs to be changed.
+     *
+     * @param resourceBundleName name of resourceBundle
+     */
     @Override
     public void setResourceBundle(String resourceBundleName) {
         myResourceBundle = ResourceBundle.getBundle("/buttonProperties/" + resourceBundleName);

@@ -220,7 +220,7 @@ public class FrontendController {
         if (chosenFile != null) {
             try {
                 setTurtleImage.setImage(chosenFile, setTurtleImage.getButton());
-                for (FrontendImmutableTurtle turtle: backendController.getImmutableTurtles()){
+                for (FrontendImmutableTurtle turtle: backendController.getFrontendImmutableTurtles()){
                     turtle.setTurtleImage(new Image(new FileInputStream(chosenFile.getPath())));
                 }
             } catch (Exception e) {
@@ -238,7 +238,7 @@ public class FrontendController {
 
     public void setGraphicsArea(){
         List<Line> lines = backendController.getMyGrid().getAllObjects();
-        turtles = new LinkedList<>(backendController.getImmutableTurtles());
+        turtles = new LinkedList<>(backendController.getFrontendImmutableTurtles());
         List<ImageView> turtleImages = new ArrayList<>();
         List<Boolean> turtleActives = new ArrayList<>();
         for (FrontendImmutableTurtle turtle:turtles) {
@@ -293,7 +293,7 @@ public class FrontendController {
     }
 
     public void setCurrentState() {
-        turtles = backendController.getImmutableTurtles();
+        turtles = backendController.getFrontendImmutableTurtles();
         int counter = 1;
         List<Integer> ids = new ArrayList<>();
         List<Double> xPositions = new ArrayList<>();
@@ -501,21 +501,21 @@ public class FrontendController {
     }
 
     public void setPenThickness(int value) {
-        turtles = backendController.getImmutableTurtles();
+        turtles = backendController.getFrontendImmutableTurtles();
         for (FrontendImmutableTurtle turtle: turtles) {
             turtle.setPenSize(turtle.getMyPen().getPenSize() + value);
         }
     }
 
     public void setPenState() {
-        turtles = backendController.getImmutableTurtles();
+        turtles = backendController.getFrontendImmutableTurtles();
         for (FrontendImmutableTurtle turtle: turtles) {
             turtle.setPenUp(!turtle.getMyPen().getPenUp());
         }
     }
 
     public void setPenColor(Color color) {
-        turtles = backendController.getImmutableTurtles();
+        turtles = backendController.getFrontendImmutableTurtles();
         for (FrontendImmutableTurtle turtle: turtles) {
             turtle.setPenColor(color);
         }

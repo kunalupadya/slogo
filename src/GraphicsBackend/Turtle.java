@@ -164,7 +164,7 @@ public class Turtle implements FrontendImmutableTurtle {
         return returnedTurtle;
     }
 
-    public FrontendImmutableTurtle getImmutableTurtle(){
+    public FrontendImmutableTurtle getFrontendImmutableTurtle(){
         return this;
     }
 

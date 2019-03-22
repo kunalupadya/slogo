@@ -4,6 +4,12 @@ import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.ExecutionException;
 
+/**
+ * @author kunalupadya
+ * @author Louis Lee
+ * @author Dhanush
+ */
+
 public class IfElseCommand extends ControlCommand {
 
     private static final int EXPRESSION_INDEX = 0;

@@ -7,6 +7,13 @@ import Parser.ExecutionException;
 
 import java.util.Random;
 
+/**
+ * @author kunalupadya
+ * @author Louis Lee
+ * @author Dhanush
+ */
+
+
 public class RandomCommand extends BasicCommand {
 
     public RandomCommand(){

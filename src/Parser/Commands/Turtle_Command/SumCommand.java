@@ -4,6 +4,13 @@ import Parser.BackendController;
 import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 
+/**
+ * @author kunalupadya
+ * @author Louis Lee
+ * @author Dhanush
+ */
+
+
 public class SumCommand extends BasicCommand {
 
     public SumCommand(){

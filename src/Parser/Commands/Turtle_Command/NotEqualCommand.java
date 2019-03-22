@@ -5,7 +5,10 @@ import Parser.Commands.Command;
 
 /**
  * @author kunalupadya
+ * @author Louis Lee
+ * @author Dhanush
  */
+
 public class NotEqualCommand extends BooleanCommand{
 
     public NotEqualCommand(){

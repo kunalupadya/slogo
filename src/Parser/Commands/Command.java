@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Abstract class for all commands. This is the abstract class that all ohter commands must extend
  * @author kunalupadya
+ * @author Louis Lee
  */
 public abstract class Command{
 

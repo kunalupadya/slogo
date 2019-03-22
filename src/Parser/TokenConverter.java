@@ -6,6 +6,11 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+/**
+ * @author Louis Lee
+ * This class divides the input string into tokens which will be used in the parsingtree
+ */
+
 class TokenConverter {
 
     private final static String CONSTANT_REGEX = "Constant";

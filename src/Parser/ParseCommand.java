@@ -13,6 +13,12 @@ import java.util.*;
 
 public class ParseCommand {
 
+    /**
+     *
+     * @param consoleInput: input from the console
+     * @param commandLanguage : chosen language from the GUI
+     * @param backendController: the backendcontroller(parser) itself to parse all turtles
+     */
     public ParseCommand(String consoleInput, String commandLanguage, BackendController backendController){
         if(consoleInput != null && !consoleInput.equals("")) {
             String refinedInput = removeComments(consoleInput);

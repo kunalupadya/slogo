@@ -18,7 +18,6 @@ public class ExecuteCommand {
     private RootCommand headNode;
     private BackendController backendController;
     private Turtle currTurtle;
-    //determines if commands are run for all turtles or just the current turtle
     private boolean isASubTurtleCommand = false;
 
 
@@ -38,7 +37,6 @@ public class ExecuteCommand {
         if (headNode.getChildren().size() == 1 && headNode.getChildren().get(0).getIsOutputCommand()){
             outputToConsole = true;
         }
-        //post traversal starting from headNode
         traverse(headNode);
         if (outputToConsole){
             handleConsoleOutput();
@@ -68,15 +66,10 @@ public class ExecuteCommand {
             return;
         }
         if (node.getClass() == MakeUserInstructionCommand.class || node.getClass() == ListEndCommand.class || node.getClass() == GroupEndCommand.class){
-            //makeuserinstruction is the only command class that is executed as it is parsed
             return;
         }
-        if (node.getClass() == MakeVariableCommand.class){
+        if (node.getClass() == MakeVariableCommand.class) {
             handleMakeVariableCommand(node);
-            return;
-        }
-        if (node instanceof ControlCommand){
-            handleControlCommand(node);
             return;
         }
         if (node.getClass() == GroupStartCommand.class){
@@ -91,6 +84,10 @@ public class ExecuteCommand {
             handleAskCommands(node);
             return;
         }
+        if (node instanceof ControlCommand){
+            handleControlCommand(node);
+            return;
+        }
         if (node instanceof TurtleCommand) {
             if (!isASubTurtleCommand) {
                 handleTurtleCommand(node);
@@ -101,7 +98,6 @@ public class ExecuteCommand {
                 return;
             }
         }
-        // any commands that need to be executed before/while children are generated happen before this point
         traverseChildren(node);
         handleAfterGenerationOfChildren(node);
     }

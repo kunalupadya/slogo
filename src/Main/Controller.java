@@ -86,11 +86,11 @@ public class Controller extends Application {
 
         stage.setResizable(true);
 
-        stage.setMinHeight(430);
-        stage.setMinWidth(400);
+        stage.setMinHeight(1000);
+        stage.setMinWidth(1000);
 
-        stage.setMaxHeight(585);
-        stage.setMaxWidth(800);
+        stage.setMaxHeight(1000);
+        stage.setMaxWidth(1000);
 
         var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(front));
         var animation = new Timeline();

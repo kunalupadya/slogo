@@ -1,9 +1,7 @@
 package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
-import Parser.Commands.BasicCommand;
-import Parser.Commands.Command;
-import Parser.Commands.Variable;
+import Parser.Commands.*;
 import Parser.ParserException;
 import Parser.SLogoException;
 import java.util.ArrayList;

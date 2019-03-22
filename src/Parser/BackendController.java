@@ -105,7 +105,6 @@ public class BackendController {
     public void setFrontendController(FrontendController frontendController) {
         this.frontendController = frontendController;
     }
-
     public void parseAndRun(String userInput){
         ParseCommand parser = new ParseCommand(userInput, commandLanguage, this);
     }

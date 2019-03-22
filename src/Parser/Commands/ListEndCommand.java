@@ -1,8 +1,6 @@
-package Parser.Commands.Turtle_Command;
+package Parser.Commands;
 
 import Parser.BackendController;
-import Parser.Commands.BasicCommand;
-import Parser.Commands.Command;
 
 /**
  * @author kunalupadya

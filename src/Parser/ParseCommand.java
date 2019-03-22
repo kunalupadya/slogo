@@ -20,21 +20,20 @@ public class ParseCommand {
      * @param backendController: the backendcontroller(parser) itself to parse all turtles
      */
     public ParseCommand(String consoleInput, String commandLanguage, BackendController backendController){
-        if(consoleInput != null && !consoleInput.equals("")) {
-            String refinedInput = removeComments(consoleInput);
-            String[] listOfWords = refinedInput.toLowerCase().trim().split("\\s+");
-            LanguageSetting languageSetting = new LanguageSetting(commandLanguage);
-            String[] translatedListOfWords = languageSetting.translateCommand(listOfWords);
-            var tokensList = addToTokenList(translatedListOfWords);
-            var commandsList = stackCommand(translatedListOfWords, tokensList);
-            try {
-                ParsingTree parsingTree = new ParsingTree(commandsList, backendController);
-                ExecuteCommand executeCommand = new ExecuteCommand(backendController, parsingTree);
-                executeCommand.runCommands();
-            }
-            catch (SLogoException e){
-                backendController.showErrorMessage(e.getErrorType() + ": " + e.getMessage());
-            }
+
+        String refinedInput = removeComments(consoleInput);
+        String[] listOfWords = refinedInput.toLowerCase().trim().split("\\s+");
+        LanguageSetting languageSetting = new LanguageSetting(commandLanguage);
+        String[] translatedListOfWords = languageSetting.translateCommand(listOfWords);
+        var tokensList = addToTokenList(translatedListOfWords);
+        var commandsList = stackCommand(translatedListOfWords, tokensList);
+        try {
+            ParsingTree parsingTree = new ParsingTree(commandsList, backendController);
+            ExecuteCommand executeCommand = new ExecuteCommand(backendController, parsingTree);
+            executeCommand.runCommands();
+        }
+        catch (SLogoException e){
+            backendController.showErrorMessage(e.getErrorType() + ": " + e.getMessage());
         }
     }
 
@@ -51,7 +50,7 @@ public class ParseCommand {
                 continue;
             }
             int commentIndex = s.indexOf("#");
-            refinedInput.append(s.substring(0, commentIndex));
+            refinedInput.append(s, 0, commentIndex);
 
         }
         return refinedInput.toString();
@@ -66,47 +65,39 @@ public class ParseCommand {
         return list;
     }
 
-
     private List<Command> stackCommand(String[] listOfWords, List<Token> tokensList) {
         List<Command> commandArrayList = new ArrayList<>();
-
         for (int a=0; a< listOfWords.length; a++){
             String word = listOfWords[a];
             Token token = tokensList.get(a);
-            try {
-                Class<?> clazz = Class.forName("Parser.Commands.Turtle_Command." + word + "Command");
-                Object object = clazz.getConstructor().newInstance();
-                Command newCommand = (Command) object;
-                commandArrayList.add(newCommand);
-
-            } catch (Exception e) {
-                Command newCommand;
-                if (token == Token.LIST_START){
-                    newCommand = new ListStartCommand();
+            Command newCommand;
+            if(token == Token.Command) {
+                try {
+                    Class<?> clazz = Class.forName("Parser.Commands.Turtle_Command." + word + "Command");
+                    Object object = clazz.getConstructor().newInstance();
+                    newCommand = (Command) object;
+                } catch (Exception e) {
+                    newCommand = new TextCommand(word);
                 }
-                else if (token == Token.LIST_END){
-                    newCommand = (new ListEndCommand());
-                }
-                else if (token == Token.GROUP_START){
-                    newCommand = new GroupStartCommand();
-                }
-                else if (token == Token.GROUP_END){
-                    newCommand = new GroupEndCommand();
-                }
-                else if (token == Token.VARIABLE){
-                    newCommand = new Variable(word.substring(1));
-                }
-                else{
-                    try{
-                        newCommand = new ConstantCommand(Double.parseDouble(word));
-                    }
-                    catch (NumberFormatException n){
-                        newCommand = new TextCommand(word);
-                    }
-                }
-                commandArrayList.add(newCommand);
             }
-        }
+            else if(token == Token.Variable) {
+                newCommand = new Variable(word.substring(1));
+            }
+            else if(token == Token.Constant){
+                newCommand = new ConstantCommand(Double.parseDouble(word));
+            }
+            else{
+                try {
+                    Class<?> clazz = Class.forName("Parser.Commands." + token.toString() + "Command");
+                    Object object = clazz.getConstructor().newInstance();
+                    newCommand = (Command) object;
+                    commandArrayList.add(newCommand);
+                } catch (Exception e) {
+                    newCommand = new TextCommand(word);
+                }
+            }
+            commandArrayList.add(newCommand);
+            }
         return commandArrayList;
     }
 

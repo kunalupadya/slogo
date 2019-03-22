@@ -55,27 +55,27 @@ class TokenConverter {
     Token checkTypeOfInput(String input) {
         switch (checkRegex(input)) {
             case COMMENT_REGEX:
-                return Token.COMMENT;
+                return Token.Comment;
             case CONSTANT_REGEX:
-                return Token.CONSTANT;
+                return Token.Constant;
             case VARIABLE_REGEX:
-                return Token.VARIABLE;
+                return Token.Variable;
             case COMMAND_REGEX:
-                return Token.COMMAND;
+                return Token.Command;
             case LIST_START_REGEX:
-                return Token.LIST_START;
+                return Token.ListStart;
             case LIST_END_REGEX:
-                return Token.LIST_END;
+                return Token.ListEnd;
             case GROUP_START_REGEX:
-                return Token.GROUP_START;
+                return Token.GroupStart;
             case GROUP_END_REGEX:
-                return Token.GROUP_END;
+                return Token.GroupEnd;
             case WHITE_SPACE_REGEX:
-                return Token.WHITESPACE;
+                return Token.WhiteSpace;
             case NEWLINE_REGEX:
-                return Token.NEWLINE;
+                return Token.NewLine;
             default:
-                return Token.ERROR;
+                return Token.Error;
         }
     }
 

@@ -14,6 +14,10 @@ public class LanguageSetting {
 
     private Map<String, String> translationMap;
 
+    /**
+     * Basic Constructor
+     * @param language: chosen language from the GUI. Default language is English
+     */
     public LanguageSetting(String language){
         var myLanguage = "languageProperties/" + language;
         var bundle = ResourceBundle.getBundle(myLanguage);
@@ -37,7 +41,12 @@ public class LanguageSetting {
         return map;
     }
 
-    String[] translateCommand(String[] listOfWords){
+    /**
+     * @param listOfWords: input words
+     * @return string array of translated commands
+     */
+
+    public String[] translateCommand(String[] listOfWords){
         String[] newList = new String[listOfWords.length];
 
         for (int i = 0; i < listOfWords.length; i++) {

@@ -7,6 +7,13 @@ import Parser.ExecutionException;
 import Parser.SLogoException;
 import javafx.scene.paint.Color;
 
+/**
+ * @author kunalupadya
+ * @author Louis Lee
+ * @author Dhanush
+ */
+
+
 public class SetBackgroundCommand extends BasicCommand {
 
     public SetBackgroundCommand(){

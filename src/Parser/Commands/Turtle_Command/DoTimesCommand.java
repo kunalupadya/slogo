@@ -7,6 +7,13 @@ import Parser.Commands.Variable;
 import Parser.ExecutionException;
 import Parser.SLogoException;
 
+/**
+ * @author kunalupadya
+ * @author Louis Lee
+ * @author Dhanush
+ */
+
+
 public class DoTimesCommand extends ControlCommand {
 
     private static final int VAR_LIMIT_INDEX = 0;

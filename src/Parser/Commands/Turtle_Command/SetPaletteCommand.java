@@ -5,6 +5,12 @@ import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 import javafx.scene.paint.Color;
 
+/**
+ * @author kunalupadya
+ * @author Louis Lee
+ * @author Dhanush
+ */
+
 public class SetPaletteCommand extends BasicCommand {
 
     private static final int INDEX = 0;

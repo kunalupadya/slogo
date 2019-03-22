@@ -4,8 +4,7 @@ import GUI.Controls.*;
 import GUI.Modules.*;
 import GraphicsBackend.ImmutablePen;
 import GUI.Modules.Console;
-import GraphicsBackend.ImmutableTurtle;
-import GraphicsBackend.Turtle;
+import GraphicsBackend.FrontendImmutableTurtle;
 import Parser.BackendController;
 import javafx.collections.ObservableList;
 import javafx.scene.Cursor;
@@ -51,7 +50,7 @@ public class FrontendController {
     private TextField backgroundColor, penColor, numTurtles, language, fileName;
     private BackendController backendController;
     private String defaultLanguage = "English";
-    private List<ImmutableTurtle> turtles;
+    private List<FrontendImmutableTurtle> turtles;
     private List<String> moduleList;
     private ResourceBundle myModuleContainer, myModulePosition, myModuleLabels, myPreferences;
     private int editorWidth = 200;
@@ -221,7 +220,7 @@ public class FrontendController {
         if (chosenFile != null) {
             try {
                 setTurtleImage.setImage(chosenFile, setTurtleImage.getButton());
-                for (ImmutableTurtle turtle: backendController.getImmutableTurtles()){
+                for (FrontendImmutableTurtle turtle: backendController.getImmutableTurtles()){
                     turtle.setTurtleImage(new Image(new FileInputStream(chosenFile.getPath())));
                 }
             } catch (Exception e) {
@@ -242,7 +241,7 @@ public class FrontendController {
         turtles = new LinkedList<>(backendController.getImmutableTurtles());
         List<ImageView> turtleImages = new ArrayList<>();
         List<Boolean> turtleActives = new ArrayList<>();
-        for (ImmutableTurtle turtle:turtles) {
+        for (FrontendImmutableTurtle turtle:turtles) {
             if (turtle.isTurtleVisible()) {
                 ImageView turtleImage = turtle.getAdjustedTurtleImageView(0,0);
                 Boolean isTurtleActive = turtle.getIsTurtleActive();
@@ -303,7 +302,7 @@ public class FrontendController {
         List<Double> angles = new ArrayList<>();
         List<Boolean> penUp = new ArrayList<>();
         List<Integer> penSize = new ArrayList<>();
-        for (ImmutableTurtle turtle: turtles) {
+        for (FrontendImmutableTurtle turtle: turtles) {
             ImmutablePen pen = turtle.getMyPen();
             ids.add(counter);
             xPositions.add(turtle.getUserFriendlyXPos());
@@ -503,21 +502,21 @@ public class FrontendController {
 
     public void setPenThickness(int value) {
         turtles = backendController.getImmutableTurtles();
-        for (ImmutableTurtle turtle: turtles) {
+        for (FrontendImmutableTurtle turtle: turtles) {
             turtle.setPenSize(turtle.getMyPen().getPenSize() + value);
         }
     }
 
     public void setPenState() {
         turtles = backendController.getImmutableTurtles();
-        for (ImmutableTurtle turtle: turtles) {
+        for (FrontendImmutableTurtle turtle: turtles) {
             turtle.setPenUp(!turtle.getMyPen().getPenUp());
         }
     }
 
     public void setPenColor(Color color) {
         turtles = backendController.getImmutableTurtles();
-        for (ImmutableTurtle turtle: turtles) {
+        for (FrontendImmutableTurtle turtle: turtles) {
             turtle.setPenColor(color);
         }
     }

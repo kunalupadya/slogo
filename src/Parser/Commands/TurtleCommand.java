@@ -4,6 +4,11 @@ import GraphicsBackend.Turtle;
 import Parser.BackendController;
 import Parser.SLogoException;
 
+/**
+ * @author kunalupadya
+ * @author Louis Lee
+ */
+
 public abstract class TurtleCommand extends Command{
 
     protected boolean turtleQuery = false;

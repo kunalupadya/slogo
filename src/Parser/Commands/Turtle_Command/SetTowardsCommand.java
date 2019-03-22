@@ -7,7 +7,10 @@ import Parser.Commands.TurtleCommand;
 
 /**
  * @author kunalupadya
+ * @author Louis Lee
+ * @author Dhanush
  */
+
 public class SetTowardsCommand extends TurtleCommand {
 
     public SetTowardsCommand(){

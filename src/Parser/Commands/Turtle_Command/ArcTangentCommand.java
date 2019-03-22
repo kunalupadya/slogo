@@ -4,6 +4,11 @@ import Parser.BackendController;
 import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 
+/**
+ * @author kunalupadya
+ * @author Louis Lee
+ * @author Dhanush
+ */
 
 public class ArcTangentCommand extends BasicCommand {
 

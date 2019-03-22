@@ -1,5 +1,9 @@
 package Parser;
 
+/**
+ * @author Louis Lee
+ */
+
 public enum Token {
     COMMENT,
     CONSTANT,

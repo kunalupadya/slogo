@@ -3,6 +3,12 @@ package Parser.Commands.Turtle_Command;
 import Parser.BackendController;
 import Parser.Commands.Command;
 
+/**
+ * @author kunalupadya
+ * @author Louis Lee
+ * @author Dhanush
+ */
+
 public class IfCommand extends ControlCommand{
 
     private static final int EXPRESSION_INDEX = 0;

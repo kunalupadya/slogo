@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author kunalupadya
  */
-public class Turtle implements ImmutableTurtle{
+public class Turtle implements FrontendImmutableTurtle {
     private static final String DEFAULT_IMAGE = "/images/initialTurtle.png";
     private static final int TURTLE_SIZE = 50;
     private static final int HALF_TURTLE_SIZE = 25;
@@ -164,7 +164,7 @@ public class Turtle implements ImmutableTurtle{
         return returnedTurtle;
     }
 
-    public ImmutableTurtle getImmutableTurtle(){
+    public FrontendImmutableTurtle getFrontendImmutableTurtle(){
         return this;
     }
 

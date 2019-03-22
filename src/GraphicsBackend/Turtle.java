@@ -111,14 +111,11 @@ public class Turtle implements ImmutableTurtle{
         return isTurtleVisible;
     }
 
-    public double getyPos() {
-        return yPos - myGrid.getHeight()/ HALF;
-    }
-
-    public double getxPos() {
-        return xPos - myGrid.getWidth()/ HALF;
-    }
-
+    /**
+     * gets the xposition
+     * example: if screenwidth is 400, returns a value in the range of -200 to 200, where 200 is the right of the screen
+     * @return
+     */
     public double getUserFriendlyXPos(){
         return xPos - myGrid.getWidth()/ HALF;
     }
@@ -128,7 +125,7 @@ public class Turtle implements ImmutableTurtle{
     }
 
     public Point getPos(){
-        return new Point(getxPos(),getyPos());
+        return new Point(getUserFriendlyXPos(),getUserFriendlyYPos());
     }
 
     public Grid getGrid() {
@@ -165,6 +162,10 @@ public class Turtle implements ImmutableTurtle{
         returnedTurtle.setX(returnedTurtle.getX()+xLeftCorner);
         returnedTurtle.setY(returnedTurtle.getY()+yLeftCorner);
         return returnedTurtle;
+    }
+
+    public ImmutableTurtle getImmutableTurtle(){
+        return this;
     }
 
     public ImmutablePen getMyPen() {

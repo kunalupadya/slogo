@@ -1,5 +1,6 @@
 to randomize [ ] [
   setxy - random 400 200 - random 400 200
+  setheading random 360
 ]
 
 to setup [ ] [
@@ -9,16 +10,16 @@ to setup [ ] [
 ]
 
 to bounce [ ] [
-  if equal? xcor 400
+  if equal? xcor 200
     [ setheading minus heading ]
 
-  if equal? xcor 0
+  if equal? xcor -200
     [ setheading minus heading ]
 
-  if equal? ycor 400
+  if equal? ycor 200
     [ setheading difference 180 heading ]
 
-  if equal? ycor 0
+  if equal? ycor -200
       [ setheading difference 180 heading ]
 ]
 

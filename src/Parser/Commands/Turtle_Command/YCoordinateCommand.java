@@ -15,7 +15,7 @@ public class YCoordinateCommand extends TurtleCommand {
 
     @Override
     protected void performAction(BackendController backendController, Turtle turtle) {
-        setReturnValue(turtle.getyPos());
+        setReturnValue(turtle.getUserFriendlyYPos());
     }
 
     @Override

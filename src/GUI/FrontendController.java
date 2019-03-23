@@ -29,8 +29,8 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 /**
- * Class will contain the initial layout for the Window
- *
+ * Class will contain the initial layout for the Window and be the only source of communication between the
+ * back-end and front-end
  * @author Januario Carreiro & David Liu
  */
 public class FrontendController {
@@ -94,9 +94,10 @@ public class FrontendController {
     private Boolean checkSimulation = false;
 
     /**
-     * TODO: add JavaDoc
-     *
-     * @param root
+     * Constructor of FrontendController, sets up the entire layout of the GUI and houses all methods that will
+     * be the only source of communication with the backend
+     * Assumes that BorderPane and Stage passed are valid
+     * @param root BorderPane where all the views and controls are housed
      */
     public FrontendController(BorderPane root, Stage stage) {
         this.myStage = stage;
@@ -227,12 +228,22 @@ public class FrontendController {
         }
     }
 
+    /**
+     * Sets the BackendController object to help communicate with the backend with
+     * When the BackendController is set up, the language needs to be adjusted for and the graphics area needs to be
+     * filled with the appropriate objects
+     * @param backendController BackendController object
+     */
     public void setBackendController(BackendController backendController) {
         this.backendController = backendController;
         changeLanguage(defaultLanguage);
         setGraphicsArea();
     }
 
+    /**
+     * Obtain all the grid/pen lines and turtles and pass the turtleImages, the state of whether the turtles are
+     * active or not, and the grid/pen lines and send them to the graphics area for display
+     */
     public void setGraphicsArea(){
         List<Line> lines = backendController.getMyGrid().getAllObjects();
         turtles = new LinkedList<>(backendController.getFrontendImmutableTurtles());
@@ -251,17 +262,24 @@ public class FrontendController {
 
     /**
      * Sets color of the background of the graphics area.
-     *
      * @param color desired color
      */
     public void setBackgroundColor(Color color) {
         graphicsArea.setColor(color);
     }
 
+    /**
+     * Try to parse and run the string from console
+     * @param commandString string from console
+     */
     public void sendCommandString(String commandString) {
         backendController.parseAndRun(commandString);
     }
 
+    /**
+     * Switch the turtle with ID turtleNumber to active if not, or inactive if active
+     * @param turtleNumber Turtle ID
+     */
     public void switchTurtleActive(int turtleNumber) {
         if (turtles.get(turtleNumber).getIsTurtleActive()) {
             turtles.get(turtleNumber).setTurtleActive(false);
@@ -271,29 +289,51 @@ public class FrontendController {
         }
     }
 
+    /**
+     * Add the string to the console text field
+     * @param commandString String for console text field
+     */
     public void addToConsole(String commandString) {
         console.addToConsole(commandString);
     }
 
+    /**
+     * Add the error string to the console text area to show the error
+     * @param errorString String for console text area
+     */
     public void consoleShowError(String errorString) {
         //errorString is truly coming from BackEnd though
         console.showError(errorString);
     }
 
+    /**
+     * Add the output string to the console text area to show the error
+     * @param commandOutput String for console text area
+     */
     public void consoleShowCommandOutput(String commandOutput){
         console.showCommandOutput(commandOutput);
     }
 
+    /**
+     * Obtain the set of available variables and send it to the available vars module to display as a list
+     */
     public void getAvailableVars() {
         Set<String> availableVarsList = backendController.getAllVariables();
         availableVars.setList(availableVarsList);
     }
 
+    /**
+     * Obtain the set of user commands and sent it to the user commands module to display as a list
+     */
     public void getUserCommands() {
         Set<String> userCommandsList = backendController.getAllCommands();
         userCommands.setList(userCommandsList);
     }
 
+    /**
+     * Obtain each turtle's ID, x position, y position, heading, pen's color, pen's up/down attribute, pen's size
+     * and send it in to the current list module to be displayed
+     */
     public void setCurrentState() {
         turtles = backendController.getFrontendImmutableTurtles();
         int counter = 1;
@@ -318,6 +358,9 @@ public class FrontendController {
         currentState.getTurtleAndPens(ids, xPositions, yPositions, angles, penColors, penUp, penSize);
     }
 
+    /**
+     * Obtain the color array palettes and send it to the palettes module to be displayed as a list
+     */
     public void getPalettes() {
         Color[] paletteIndices = backendController.getColorPalette();
         palettes.setPalettes(paletteIndices);
@@ -393,10 +436,17 @@ public class FrontendController {
         moveTurtle.setResourceBundle(language);
     }
 
+    /**
+     * Run the simulation based on the go command defined through the simulation
+     */
     public void runSimulation() {
         backendController.parseAndRun("go");
     }
 
+    /**
+     * Update the GraphicsArea, CurrentState, Palettes, AvailableVars, and UserCommands module and also potentially
+     * the runSimulation for every step
+     */
     public void step() {
         setGraphicsArea();
         setCurrentState();
@@ -446,6 +496,9 @@ public class FrontendController {
         }
     }
 
+    /**
+     * Call the undo method in the BackendController
+     */
     public void undo(){
         backendController.undo();
     }

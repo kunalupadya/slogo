@@ -7,12 +7,6 @@ import java.util.List;
 public interface ImmutableUserDefinedCommand {
     boolean getIsOutputCommand();
 
-    //int getCurrentNumParameters();
-
-    //boolean getIsEvaluated();
-
-    //int getNumParameters();
-
     double getReturnValue();
 
     String getText();

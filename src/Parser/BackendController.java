@@ -107,7 +107,7 @@ public class BackendController {
      *gets the names of all available commands
      * @return
      */
-    public Set<String> getAllCommands() {
+    public Set<String> getAllCommandNames() {
         return userDefinedCommands.keySet();
     }
 
@@ -115,7 +115,7 @@ public class BackendController {
      * gets the names of all available variables
      * @return
      */
-    public Set<String> getAllVariables() {
+    public Set<String> getAllVariableNames() {
         return availableVariables.keySet();
     }
 
@@ -135,12 +135,18 @@ public class BackendController {
         return myGrid;
     }
 
-    //meant for backend access
+    /**
+     * a way of getting all turtles meant for backend access
+     * @return
+     */
     public List<Turtle> getMyTurtles() {
         return myTurtles;
     }
 
-    //meant for frontend access
+    /**
+     * a way of getting all turtles meant for frontend access
+     * @return
+     */
     public List<FrontendImmutableTurtle> getFrontendImmutableTurtles(){
         List<FrontendImmutableTurtle> frontendImmutableTurtles = new ArrayList<>();
         for (Turtle turtle:myTurtles){
@@ -149,38 +155,76 @@ public class BackendController {
         return frontendImmutableTurtles;
     }
 
+    /**
+     * sends error messages to the frontend
+     * @param string
+     */
     void showErrorMessage(String string){
         frontendController.consoleShowError(string);
     }
 
+    /**
+     * sets the frontend controller
+     * @param frontendController
+     */
     public void setFrontendController(FrontendController frontendController) {
         this.frontendController = frontendController;
     }
 
+    /**
+     * parses and runs a string that has been sent from the console
+     * @param userInput
+     */
     public void parseAndRun(String userInput){
         ParseCommand parser = new ParseCommand(userInput, commandLanguage, this);
     }
 
+    /**
+     * returns the current color palette index
+     * @param color
+     * @return
+     */
     public int getColorPaletteIndex(Color color){
         return myPalette.getColorIndex(color);
     }
 
+    /**
+     * returns all the colors in the color palette
+     * @return
+     */
     public Color[] getColorPalette(){
         return myPalette.getColorPalette();
     }
 
+    /**
+     * gets the color of the palette
+     * @param index
+     * @return
+     */
     public Color getColor(int index){
         return myPalette.getColor(index);
     }
 
-    public void setMyPalette(int index, Color color){
+    /**
+     * adds a color to the palette
+     * @param index
+     * @param color
+     */
+    public void addColorToPalette(int index, Color color){
         myPalette.setMyColorPalette(index, color);
     }
 
+    /**
+     * sets the background color by a color
+     * @param color
+     */
     public void setBackGroundColor(Color color){
         frontendController.setBackgroundColor(color);
     }
 
+    /**
+     * undoes a command
+     */
     public void undo(){
         for (Turtle turtle: myTurtles){
             if (turtle.getIsTurtleActive()) {
@@ -189,6 +233,10 @@ public class BackendController {
         }
     }
 
+    /**
+     * sends the output to the console
+     * @param commandOutput
+     */
     void outputResultToConsole(String commandOutput) {
         frontendController.consoleShowCommandOutput(commandOutput);
     }

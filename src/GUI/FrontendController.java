@@ -283,12 +283,12 @@ public class FrontendController {
     }
 
     public void getAvailableVars() {
-        Set<String> availableVarsList = backendController.getAllVariables();
+        Set<String> availableVarsList = backendController.getAllVariableNames();
         availableVars.setList(availableVarsList);
     }
 
     public void getUserCommands() {
-        Set<String> userCommandsList = backendController.getAllCommands();
+        Set<String> userCommandsList = backendController.getAllCommandNames();
         userCommands.setList(userCommandsList);
     }
 

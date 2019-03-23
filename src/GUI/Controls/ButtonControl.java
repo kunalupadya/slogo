@@ -7,8 +7,8 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 
 /**
- * Abstract superclass to serve as template for all buttons/controls
- * TODO: finish JavaDoc
+ * Abstract superclass to serve as template for all buttons/controls. This superclass is expands on Control superclass.
+ * Should be used for creating new Button objects.
  *
  * @author Januario Carreiro
  */
@@ -16,8 +16,9 @@ public abstract class ButtonControl extends Control{
     Button myButton;
 
     /**
-     * TODO: finish JavaDoc
-     * @param image
+     * Creates button instance and calls superclass to set graphic.
+     *
+     * @param image graphic for button
      */
     public ButtonControl(Image image, FrontendController context) {
         super(image, context);
@@ -30,6 +31,11 @@ public abstract class ButtonControl extends Control{
     @Override
     protected abstract EventHandler<MouseEvent> action();
 
+    /**
+     * Returns button object
+     *
+     * @return this button
+     */
     public Button getButton() {
         return myButton;
     }

@@ -10,6 +10,12 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Abstract superclass to serve as template for all buttons/controls. This superclass is expands on Control superclass.
+ * Should be used for creating new MenuButton objects.
+ *
+ * @author Januario Carreiro
+ */
 public abstract class MenuButtonControl extends Control {
     ResourceBundle myResourceBundle;
     private MenuButton myButton;
@@ -54,5 +60,10 @@ public abstract class MenuButtonControl extends Control {
         return myButton;
     }
 
+    /**
+     * Sets resourceBundle for this menuButton in case the resource bundle needs to be changed.
+     *
+     * @param resourceBundleName name of resourceBundle
+     */
     public abstract void setResourceBundle(String resourceBundleName);
 }

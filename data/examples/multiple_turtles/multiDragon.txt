@@ -1,0 +1,26 @@
+tell [ 2 ]
+rt 45
+fd 50
+
+tell [ 3 ]
+lt 45 fd 50
+
+tell [ 1 2 3 ]
+repeat 4
+[
+  fd 100
+  rt 90
+  fd 100
+  rt 90
+  fd 50
+  rt 90
+  fd 50
+  rt 90
+  fd 100
+  rt 90
+  fd 25
+  rt 90
+  fd 25
+  rt 90
+  fd 50
+]

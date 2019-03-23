@@ -8,7 +8,13 @@ import javafx.scene.image.Image;
 
 import java.util.ResourceBundle;
 
+/**
+ * Opens the help pop-up to get help for using functions.
+ */
 public class OpenHelp extends MenuButtonControl{
+    /**
+     * @param context where this button is located
+     */
     public OpenHelp(FrontendController context) {
         super(new Image(FrontendController.class.getResourceAsStream("/images/help.png")), context, "/buttonProperties/HelpButtonLinks");
     }
@@ -21,6 +27,11 @@ public class OpenHelp extends MenuButtonControl{
         };
     }
 
+    /**
+     * Sets resourceBundle for this menuButton in case the resource bundle needs to be changed.
+     *
+     * @param resourceBundleName name of resourceBundle
+     */
     @Override
     public void setResourceBundle(String resourceBundleName) {
         myResourceBundle = ResourceBundle.getBundle("/buttonProperties/" + resourceBundleName);

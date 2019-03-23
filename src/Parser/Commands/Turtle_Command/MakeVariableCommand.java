@@ -1,13 +1,16 @@
 package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 import Parser.Commands.Variable;
+import Parser.ExecutionException;
+import Parser.SLogoException;
 
 /**
  * @author kunalupadya
  */
-public class MakeVariableCommand extends Command {
+public class MakeVariableCommand extends BasicCommand {
 
     public MakeVariableCommand(){
         setNumParameters(2);
@@ -15,7 +18,7 @@ public class MakeVariableCommand extends Command {
     }
 
     @Override
-    protected void performAction(BackendController backendController) {
+    protected void performAction(BackendController backendController) throws SLogoException {
         String name = getChildren().get(0).getText();
         Command variable = getChildren().get(0);
         setReturnValue(getChildren().get(1).getReturnValue());
@@ -24,12 +27,8 @@ public class MakeVariableCommand extends Command {
             backendController.addOrReplaceVariable(name, (Variable) getChildren().get(0));
         }
         else{
-            //throw new TODO create an exception here to represent inputting something other than a variable as the first param
+            throw new ExecutionException("First parameter is not a valid variable input");
         }
     }
 
-    @Override
-    public Command copy() {
-        return new MakeVariableCommand();
-    }
 }

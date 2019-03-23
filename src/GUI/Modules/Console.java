@@ -13,10 +13,17 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- *
  * @author David Liu
  */
 
+/**
+ * Console Class that helps create and returns a VBox with two Panes within it, one for the label and one for
+ * the actual content of the view
+ * Depends on having a viable FrontendController class to communicate with it so that the controller can talk to the
+ * backend
+ * Example: Initialize Console with width 200 and height 250, with a moduleName of "Console" and a new FrontendController
+ * object
+ */
 public class Console extends Module  {
     private TextArea consoleInfo;
     private TextField consoleInput;
@@ -28,10 +35,21 @@ public class Console extends Module  {
     private Pane content;
     private int moduleHeight;
     private FrontendController context;
+    private double toolbarHeight;
 
+    /**
+     * Constructor of Console, sets up the two Panes that contains all the necessary content and labels
+     * Assumes that FrontendController class works as implemented - there is a viable FrontendController to communicate
+     * with
+     * @param width the Module width
+     * @param height the Module height
+     * @param moduleName the name of the Module
+     * @param myFrontendController FrontendController object
+     */
     public Console(int width, int height, String moduleName, FrontendController myFrontendController) {
         super(width, height, moduleName, myFrontendController);
         myResourceBundles = getMyResourceBundles();
+        toolbarHeight = getToolbarHeight();
         courier = new Font(myResourceBundles.getString("Font"), 12);
         content = getPane();
         moduleHeight = getModuleHeight();
@@ -98,6 +116,10 @@ public class Console extends Module  {
         }
     }
 
+    /**
+     * Appends error message from backend to the console text area
+     * @param errorString Error message
+     */
     public void showError(String errorString) {
         if (!consoleInfo.getText().equals("")) {
             consoleInfo.appendText("\n" + errorString);
@@ -109,6 +131,10 @@ public class Console extends Module  {
                 myResourceBundles.getString("ConsoleStyleRed"));
     }
 
+    /**
+     * Appends output of a command from backend to the console text area
+     * @param commandOutput output of a command if needed
+     */
     public void showCommandOutput(String commandOutput){
         if (!consoleInfo.getText().equals("")) {
             consoleInfo.appendText("\n" + commandOutput);
@@ -120,6 +146,10 @@ public class Console extends Module  {
                 myResourceBundles.getString("ConsoleStyleBlue"));
     }
 
+    /**
+     * Appends string of command from backend to the console text area
+     * @param commandString command String
+     */
     public void addToConsole(String commandString) {
         consoleInput.clear();
         consoleInput.appendText(commandString);

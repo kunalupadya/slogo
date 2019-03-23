@@ -1,22 +1,27 @@
 package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 
-public class ProductCommand extends Command {
+/**
+ * @author kunalupadya
+ * @author Louis Lee
+ * @author Dhanush
+ */
+
+
+public class ProductCommand extends BasicCommand {
 
     public ProductCommand(){
-        setIsEvaluated(false);
         setNumParameters(2);
         isOutputCommand = true;
-    }
-
-    public void performAction(BackendController backendController){
-        setReturnValue(getChildren().get(0).getReturnValue() * getChildren().get(1).getReturnValue());
+        unlimitedParameters = true;
     }
 
     @Override
-    public Command copy() {
-        return new ProductCommand();
+    protected void performAction(BackendController backendController) {
+        setReturnValue(getChildren().get(0).getReturnValue() * getChildren().get(1).getReturnValue());
     }
+
 }

@@ -1,5 +1,10 @@
 package Parser;
 
+/**
+ * enum token that will be used to decide "Types" of each word in the input
+ * @author Louis Lee
+ */
+
 public enum Token {
     COMMENT,
     CONSTANT,

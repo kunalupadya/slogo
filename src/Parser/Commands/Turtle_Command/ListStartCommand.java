@@ -1,12 +1,13 @@
 package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 
 /**
  * @author kunalupadya
  */
-public class ListStartCommand extends Command {
+public class ListStartCommand extends BasicCommand {
 
     public ListStartCommand(){
         setNumParameters((int) Double.POSITIVE_INFINITY);
@@ -15,14 +16,7 @@ public class ListStartCommand extends Command {
 
     @Override
     protected void performAction(BackendController backendController) {
-//        for (Command c:myChildrenList){
-//            c.execute(backendController);
-//        }
-        setReturnValue(getChildren().size()-1);
+        setReturnValue(getChildren().size() - 1);
     }
 
-    @Override
-    public Command copy() {
-        return new ListStartCommand();
-    }
 }

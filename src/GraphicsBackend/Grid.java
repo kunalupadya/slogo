@@ -77,6 +77,7 @@ public class Grid implements ImmutableGrid{
             }
             else {
                 new Alert(Alert.AlertType.ERROR, "Internal miscalculation - turtle is offscreen").showAndWait();
+                //TODO deal with catching error
                 break;
             }
 

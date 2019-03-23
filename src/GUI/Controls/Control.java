@@ -9,6 +9,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+/**
+ * Abstract superclass for all controls. This class is extended by ButtonControl and MenuButtonControl to work for
+ * buttons and menu buttons.
+ */
 public abstract class Control {
     ImageView myImage;
     FrontendController myContext;
@@ -22,6 +26,15 @@ public abstract class Control {
         myImage.setFitWidth(imageSize);
     }
 
+    /**
+     * Abstract EventHandler method to be flushed out in subclasses. There is no set EventHandler type because MenuButtton
+     * and Button use different kinds of events. Lambdas are recommended.
+     *
+     * Example:
+     * return event -> context.certainAction(parameter);
+     *
+     * @return an EventHandler for when button is clicked.
+     */
     abstract EventHandler<?> action();
 
     /**

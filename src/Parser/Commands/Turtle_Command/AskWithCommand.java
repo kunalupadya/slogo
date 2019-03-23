@@ -1,10 +1,18 @@
 package Parser.Commands.Turtle_Command;
 
-import GraphicsBackend.Turtle;
+import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
-import Parser.Commands.TurtleCommand;
+import Parser.ExecutionException;
+import Parser.SLogoException;
 
-public class AskWithCommand extends TurtleCommand {
+/**
+ * @author Dhanush Madabusi
+ */
+public class AskWithCommand extends BasicCommand {
+
+    private static final int CONDITION_INDEX = 0;
+    private static final int COMMANDS_INDEX = 1;
 
     public AskWithCommand(){
         isOutputCommand = false;
@@ -12,12 +20,14 @@ public class AskWithCommand extends TurtleCommand {
     }
 
     @Override
-    protected void turtleAction(Turtle turtle) {
+    protected void performAction(BackendController backendController) throws SLogoException {
+        if (getChildren().get(COMMANDS_INDEX).getClass() != ListStartCommand.class){
+            throw new ExecutionException("AskWith Command is missing a List of Commands");
+        }
+        if (getChildren().get(CONDITION_INDEX).getChildren().size() > 2){
+            throw new ExecutionException("AskWith Command can only have one condition");
+        }
 
     }
 
-    @Override
-    public Command copy() {
-        return new AskWithCommand();
-    }
 }

@@ -15,17 +15,18 @@ import java.util.*;
  */
 public class BackendController {
 
-    private String commmandLanguage;
+    private String commandLanguage;
     private Grid myGrid;
     private List<Turtle> myTurtles = new ArrayList<>();
     private Map<String, ImmutableUserDefinedCommand> userDefinedCommands;
     private Map<String, Variable> availableVariables;
     private List<UserDefinedCommand> userDefinedCommandStack = new LinkedList<>();
     private FrontendController frontendController;
-    private List<Boolean> previousTurtleTell;
-    private List<Turtle> askWithList;
     private Palette myPalette;
 
+    /**
+     * the backend controller holds all the instances that make up the backend
+     */
     public BackendController(){
         myGrid = new Grid(400,400);
         userDefinedCommands = new HashMap<>();
@@ -34,37 +35,45 @@ public class BackendController {
         myPalette = new Palette();
     }
 
-    public void recordTurtleTell(){
-        previousTurtleTell = new LinkedList<>();
-        for (Turtle t: myTurtles){
-            previousTurtleTell.add(t.getIsTurtleActive());
-        }
-    }
-
-    public void loadTurtleTell(){
-        int ctr = 0;
-        for (Boolean b: previousTurtleTell){
-            myTurtles.get(ctr).setTurtleActive(b);
-            ctr++;
-        }
-    }
-
+    /**
+     * adds a new user defined command to the map, called when a makeuserdefinedcommand is executed in executecommand
+     * @param commandName the string name of the command
+     * @param tree the actual userdefinedcommand
+     */
     public void addNewUserDefinedCommand(String commandName, ImmutableUserDefinedCommand tree){
         userDefinedCommands.put(commandName,tree);
     }
 
+    /**
+     * creates a new variable in the variables map, called when a makevariable command is executed in executecommand
+     * @param variableName the string name of the variable
+     * @param variable the variable
+     */
     public void addOrReplaceVariable(String variableName, Variable variable){
         availableVariables.put(variableName, variable);
     }
 
+    /**
+     * adds a user defined command to the stack of userdefined commands, used when a user defined command is encountered
+     * @param userDefinedCommand
+     */
     public void addUserDefinedCommandToStack(UserDefinedCommand userDefinedCommand){
         userDefinedCommandStack.add(userDefinedCommand);
     }
 
+    /**
+     * removes a user defined command from the stack, used when the command is finished executing
+     * @param userDefinedCommand
+     */
     public void removeUserDefinedCommandFromStack(UserDefinedCommand userDefinedCommand){
         userDefinedCommandStack.remove(userDefinedCommand);
     }
 
+    /**
+     * gets the variable if it exists from the variables or the top of the userdefinedcommand stack
+     * @param variableName
+     * @return variable
+     */
     public Optional<Double> getVariableIfExists(String variableName){
         if (availableVariables.containsKey(variableName)){
             Double returnValue = availableVariables.get(variableName).getReturnValue();
@@ -82,6 +91,11 @@ public class BackendController {
         return Optional.empty();
     }
 
+    /**
+     * gets the userdefined command if it exists
+     * @param commandName
+     * @return
+     */
     public Optional<ImmutableUserDefinedCommand> getUserDefinedCommand(String commandName){
         if (userDefinedCommands.containsKey(commandName)){
             return Optional.of(userDefinedCommands.get(commandName));
@@ -89,6 +103,10 @@ public class BackendController {
         return Optional.empty();
     }
 
+    /**
+     *
+     * @return
+     */
     public Set<String> getAllCommands() {
         return userDefinedCommands.keySet();
     }
@@ -97,12 +115,8 @@ public class BackendController {
         return availableVariables.keySet();
     }
 
-    public String getCommandLanguage(){
-         return commmandLanguage;
-    }
-
     public void setCommandLanguage(String language){
-        commmandLanguage = language;
+        commandLanguage = language;
     }
 
     public ImmutableGrid getMyGrid() {
@@ -115,11 +129,15 @@ public class BackendController {
     }
 
     //meant for frontend access
-    public Collection<Turtle> getImmutableTurtles(){
-        return Collections.unmodifiableCollection(myTurtles);
+    public List<FrontendImmutableTurtle> getFrontendImmutableTurtles(){
+        List<FrontendImmutableTurtle> frontendImmutableTurtles = new ArrayList<>();
+        for (Turtle turtle:myTurtles){
+            frontendImmutableTurtles.add(turtle.getFrontendImmutableTurtle());
+        }
+        return frontendImmutableTurtles;
     }
 
-    public void showMessage(String string){
+    void showErrorMessage(String string){
         frontendController.consoleShowError(string);
     }
 
@@ -128,7 +146,7 @@ public class BackendController {
     }
 
     public void parseAndRun(String userInput){
-        ParseCommand parser = new ParseCommand(userInput, myTurtles, commmandLanguage, this);
+        ParseCommand parser = new ParseCommand(userInput, commandLanguage, this);
     }
 
     public int getColorPaletteIndex(Color color){
@@ -159,7 +177,7 @@ public class BackendController {
         }
     }
 
-    public void outputResultToConsole(String commandOutput) {
+    void outputResultToConsole(String commandOutput) {
         frontendController.consoleShowCommandOutput(commandOutput);
     }
 }

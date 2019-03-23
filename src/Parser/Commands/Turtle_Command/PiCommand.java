@@ -1,22 +1,26 @@
 package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 
-public class PiCommand extends Command {
+/**
+ * @author kunalupadya
+ * @author Louis Lee
+ * @author Dhanush
+ */
+
+
+public class PiCommand extends BasicCommand {
 
     public PiCommand(){
-        setIsEvaluated(false);
         setNumParameters(0);
         isOutputCommand = true;
     }
 
-    public void performAction(BackendController backendController){
+    @Override
+    protected void performAction(BackendController backendController) {
         setReturnValue(Math.PI);
     }
 
-    @Override
-    public Command copy() {
-        return new PiCommand();
-    }
 }

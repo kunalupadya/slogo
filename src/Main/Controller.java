@@ -19,48 +19,34 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
- * TODO: rename this class to Controller???
- * TODO: add step() for animation
- *
- * NOTE: We can take different screens in many different directions. If we want there to be an input to exit any menu
- *      at any time, then we can add a handleKeyInput() method to the scene. If a certain Key is pressed, the
- *      current screen closes and the user is returned to the main screen.
- *
  * Controller class for SLogo.
  *
  * @author Januario Carreiro & David Liu
  */
 public class Controller extends Application {
-    private static final int WINDOW_HEIGHT = 450;
-    private static final int WINDOW_WIDTH = 800;
+    private static final int WINDOW_MAX_HEIGHT = 585;
+    private static final int WINDOW_MIN_HEIGHT = 430;
+    private static final int WINDOW_MIN_WIDTH = 400;
+    private static final int WINDOW_MAX_WIDTH = 800;
     private static final Paint BACKGROUND = Color.ANTIQUEWHITE;
     private static final int FRAMES_PER_SECOND = 4;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private static final String WINDOW_TITLE = "Simple Logo";
-    public static Font Aller_Bd, Aller_Lt, Aller_LtIt;
     private static final KeyCombination keyCombinationCommandN = new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN);
 
     /**
-     * TODO: add JavaDoc
-     * @param args
+     * Start of the application that decides the font and launches the application
+     * @param args args
      */
     public static void main (String[] args) {
-        try {
-            Aller_Bd = Font.loadFont(Controller.class.getResource("/fonts/Aller_Bd.ttf").openStream(), 15);
-            Aller_Lt = Font.loadFont(Controller.class.getResource("/fonts/Aller_Lt.ttf").openStream(), 12);
-            Aller_LtIt = Font.loadFont(Controller.class.getResource("/fonts/Aller_LtIt.ttf").openStream(), 12);
-        }
-        catch (Exception e) {
-            // TODO: change from printStackTrace() to something more useful
-            e.printStackTrace();
-        }
         launch(args);
     }
 
     /**
-     * TODO: add JavaDoc
-     * @param stage
+     * Start the application by setting up the front end and back end through setUpScene, creating the
+     * FrontendController and BackendController
+     * @param stage stage
      */
     public void start (Stage stage) {
         var root = new BorderPane();
@@ -86,11 +72,11 @@ public class Controller extends Application {
 
         stage.setResizable(true);
 
-        stage.setMinHeight(430);
-        stage.setMinWidth(400);
+        stage.setMinHeight(WINDOW_MIN_HEIGHT);
+        stage.setMinWidth(WINDOW_MIN_WIDTH);
 
-        stage.setMaxHeight(585);
-        stage.setMaxWidth(800);
+        stage.setMaxHeight(WINDOW_MAX_HEIGHT);
+        stage.setMaxWidth(WINDOW_MAX_WIDTH);
 
         var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(front));
         var animation = new Timeline();

@@ -5,44 +5,32 @@ import Parser.BackendController;
 import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
-import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author kunalupadya
+ * @author Louis Lee
+ * @author Dhanush
+ */
+
 
 public class IDCommand extends TurtleCommand {
-
-    private int turtleId;
-    private ArrayList<Turtle> aliveTurtles;
 
     public IDCommand(){
         setNumParameters(0);
         isOutputCommand = true;
+        turtleQuery = true;
     }
 
     @Override
-    protected void performAction(BackendController backendController){
-        for (Turtle turtle: backendController.getMyTurtles()) {
-            if (turtle.getIsTurtleActive()) {
-                aliveTurtles.add(turtle);
-                turtleAction(turtle);
-            }
-        }
-        turtleId = aliveTurtles.size() -1;
-
-        for (Turtle turtle: backendController.getMyTurtles()) {
-            if (turtle.getIsTurtleActive()) {
-                turtleAction(turtle);
+    protected void performAction(BackendController backendController, Turtle turtle) {
+        List<Turtle> turtleList = backendController.getMyTurtles();
+        for (int i = 0; i < turtleList.size(); i++){
+            if (turtle.equals(turtleList.get(i))){
+                setReturnValue(i + 1);
+                break;
             }
         }
     }
-
-    @Override
-    protected void turtleAction(Turtle turtle) {
-        setReturnValue(turtleId);
-    }
-
-    @Override
-    public Command copy() {
-        return new IDCommand();
-    }
-
 
 }

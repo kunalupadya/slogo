@@ -5,15 +5,15 @@ import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * Button to close individual modules. Needs an associated method in context.
+ */
 public class Close extends ButtonControl {
     private Module context;
     private Class clazz;
 
     /**
-     * TODO: finish JavaDoc
-     * TODO: MAKE THIS CLASS IN THE MODULE SUPERCLASS
-     *
-     * @param context
+     * @param context where this button is located
      */
     public Close(Module context, Class clazz) {
         super(new Image(Module.class.getResourceAsStream("/images/close.png")), null);

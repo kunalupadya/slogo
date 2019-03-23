@@ -1,23 +1,25 @@
 package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
+import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 
+/**
+ * @author kunalupadya
+ * @author Louis Lee
+ * @author Dhanush
+ */
 
-public class ArcTangentCommand extends Command {
+public class ArcTangentCommand extends BasicCommand {
 
     public ArcTangentCommand(){
-        setIsEvaluated(false);
         setNumParameters(1);
         isOutputCommand = true;
     }
 
-    public void performAction(BackendController backendController){
+    @Override
+    public void performAction(BackendController backendController) {
         setReturnValue(Math.atan(Math.toRadians(getChildren().get(0).getReturnValue())));
     }
 
-    @Override
-    public Command copy() {
-        return new ArcTangentCommand();
-    }
 }

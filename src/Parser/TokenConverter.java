@@ -6,6 +6,11 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+/**
+ * @author Louis Lee
+ * divides the input string into tokens which will be used in the parsingtree
+ */
+
 class TokenConverter {
 
     private final static String CONSTANT_REGEX = "Constant";
@@ -47,6 +52,11 @@ class TokenConverter {
         return "";
     }
 
+    /**
+     * checks the regex of the input and returns the right token
+     * @param input: word
+     * @return relevant token type
+     */
     Token checkTypeOfInput(String input) {
         switch (checkRegex(input)) {
             case COMMENT_REGEX:

@@ -5,10 +5,16 @@ import javafx.scene.paint.Color;
 
 import GUI.FrontendController;
 
+/**
+ * Button to set pen color.
+ */
 public class SetPenColor{
     private final ColorPicker colorPicker;
     FrontendController context;
 
+    /**
+     * @param context where this button is located
+     */
     public SetPenColor(FrontendController context) {
         this.context = context;
         this.colorPicker = new ColorPicker();
@@ -22,6 +28,11 @@ public class SetPenColor{
         context.setPenColor(color);
     }
 
+    /**
+     * Getter method for this object
+     *
+     * @return this colorPicker
+     */
     public ColorPicker getColorPicker() {
         return colorPicker;
     }

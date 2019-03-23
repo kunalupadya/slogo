@@ -24,8 +24,4 @@ public class HideTurtleCommand extends TurtleCommand {
         setReturnValue(0);
     }
 
-    @Override
-    public Command copy() {
-        return new HideTurtleCommand();
-    }
 }

@@ -1,0 +1,11 @@
+to Spiral [ :len ]
+[
+  if less? :len 200
+  [
+    fd :len
+    rt 85
+    Spiral + :len 5
+  ]
+]
+
+Spiral 50

@@ -22,9 +22,4 @@ public class SineCommand extends BasicCommand {
     protected void performAction(BackendController backendController) {
         setReturnValue(Math.sin(Math.toRadians(getChildren().get(0).getReturnValue())));
     }
-
-    @Override
-    public Command copy() {
-        return new SineCommand();
-    }
 }

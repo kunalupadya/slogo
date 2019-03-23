@@ -28,15 +28,10 @@ public class SetTowardsCommand extends TurtleCommand {
             throw new ExecutionException(command + " does not accept negative numbers");
         }
         double oldAngle = turtle.getMyAngle();
-        double xDiff = getChildren().get(0).getReturnValue() - turtle.getxPos();
-        double yDiff = getChildren().get(1).getReturnValue() - turtle.getyPos();
+        double xDiff = getChildren().get(0).getReturnValue() - turtle.getUserFriendlyXPos();
+        double yDiff = getChildren().get(1).getReturnValue() - turtle.getUserFriendlyYPos();
         double degrees = Math.toDegrees(Math.atan2(xDiff, yDiff));
         setReturnValue(Math.abs(degrees - oldAngle));
         turtle.turnTo(degrees);
-    }
-
-    @Override
-    public Command copy() {
-        return new SetTowardsCommand();
     }
 }

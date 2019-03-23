@@ -38,9 +38,4 @@ public class IfElseCommand extends ControlCommand {
         }
         runAgain = false;
     }
-
-    @Override
-    public Command copy() {
-        return new IfElseCommand();
-    }
 }

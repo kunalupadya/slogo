@@ -12,10 +12,17 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- *
  * @author David Liu
  */
 
+/**
+ * GraphicsArea Class that helps create and returns a VBox with two Panes within it, one for the label and one for
+ * the actual content of the view
+ * Depends on having a viable FrontendController class to communicate with it so that the controller can talk to the
+ * backend
+ * Example: Initialize GraphicsArea with width 200 and height 250, with a moduleName of "GraphicsArea" and a new FrontendController
+ * object
+ */
 public class GraphicsArea extends Module {
     private Pane toolbarPane;
     private ButtonControl close;
@@ -23,6 +30,15 @@ public class GraphicsArea extends Module {
     private FrontendController context;
     private Pane content;
 
+    /**
+     * Constructor of GraphicsArea, sets up the two Panes that contains all the necessary content and labels
+     * Assumes that FrontendController class works as implemented - there is a viable FrontendController to communicate
+     * with
+     * @param width the Module width
+     * @param height the Module height
+     * @param moduleName the name of the Module
+     * @param myFrontendController FrontendController object
+     */
     public GraphicsArea(int width, int height, String moduleName, FrontendController myFrontendController) {
         super(width, height, moduleName, myFrontendController);
         toolbarPane = getToolbarPane();
@@ -37,6 +53,13 @@ public class GraphicsArea extends Module {
     protected void setContent() {
     }
 
+    /**
+     * Adds the grid lines (pen lines) and turtle imageviews to the screen at the appropriate location
+     * Allows turtle to be toggled based on the setClick method
+     * @param lines Grid lines
+     * @param turtleImages ImageViews of all turtles
+     * @param turtleActives booleans of whether turtles are active or not
+     */
     public void setVariables(List<Line> lines, List<ImageView> turtleImages, List<Boolean> turtleActives) {
         content.getChildren().clear();
         for (Line n:lines){
@@ -83,6 +106,10 @@ public class GraphicsArea extends Module {
         return hex2;
     }
 
+    /**
+     * Converts the background color to the specified color from the parameter
+     * @param color a specific Paint color
+     */
     public void setColor(Paint color) {
         String hexColor = colorToHex(color);
         content.setStyle("-fx-background-color: #" + hexColor);

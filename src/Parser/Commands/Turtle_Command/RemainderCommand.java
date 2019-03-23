@@ -24,8 +24,4 @@ public class RemainderCommand extends BasicCommand {
         setReturnValue(getChildren().get(0).getReturnValue() % getChildren().get(1).getReturnValue());
     }
 
-    @Override
-    public Command copy() {
-        return new RemainderCommand();
-    }
 }

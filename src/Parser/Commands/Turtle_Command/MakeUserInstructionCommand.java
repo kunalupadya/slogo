@@ -48,9 +48,4 @@ public class MakeUserInstructionCommand extends BasicCommand {
         backendController.addNewUserDefinedCommand(name, newUserDefinedCommand);
         setReturnValue(1);
     }
-
-    @Override
-    public Command copy() {
-        return new MakeUserInstructionCommand();
-    }
 }

@@ -25,8 +25,4 @@ public class SetPenSizeCommand extends TurtleCommand {
         setReturnValue(getChildren().get(0).getReturnValue());
     }
 
-    @Override
-    public Command copy() {
-        return new SetPenSizeCommand();
-    }
 }

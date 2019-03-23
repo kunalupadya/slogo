@@ -23,8 +23,4 @@ public class LessThanCommand extends BooleanCommand {
         setReturnValue(returnValue(getChildren().get(0).getReturnValue() < getChildren().get(1).getReturnValue()));
     }
 
-    @Override
-    public Command copy() {
-        return new LessThanCommand();
-    }
 }

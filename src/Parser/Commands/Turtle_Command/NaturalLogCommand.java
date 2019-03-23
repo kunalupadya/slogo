@@ -23,8 +23,4 @@ public class NaturalLogCommand extends BasicCommand {
         setReturnValue(Math.log(getChildren().get(0).getReturnValue()));
     }
 
-    @Override
-    public Command copy() {
-        return new NaturalLogCommand();
-    }
 }

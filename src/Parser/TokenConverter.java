@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 /**
  * @author Louis Lee
- * This class divides the input string into tokens which will be used in the parsingtree
+ * divides the input string into tokens which will be used in the parsingtree
  */
 
 class TokenConverter {
@@ -52,6 +52,11 @@ class TokenConverter {
         return "";
     }
 
+    /**
+     * checks the regex of the input and returns the right token
+     * @param input: word
+     * @return relevant token type
+     */
     Token checkTypeOfInput(String input) {
         switch (checkRegex(input)) {
             case COMMENT_REGEX:

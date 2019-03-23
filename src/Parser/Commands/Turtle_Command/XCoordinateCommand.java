@@ -22,11 +22,7 @@ public class XCoordinateCommand extends TurtleCommand {
 
     @Override
     protected void performAction(BackendController backendController, Turtle turtle) {
-        setReturnValue(turtle.getxPos());
+        setReturnValue(turtle.getUserFriendlyXPos());
     }
 
-    @Override
-    public Command copy() {
-        return new XCoordinateCommand();
-    }
 }

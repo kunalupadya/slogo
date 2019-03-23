@@ -21,8 +21,4 @@ public class HeadingCommand extends TurtleCommand {
         setReturnValue(turtle.getMyAngle() % 360);
     }
 
-    @Override
-    public Command copy() {
-        return new HeadingCommand();
-    }
 }

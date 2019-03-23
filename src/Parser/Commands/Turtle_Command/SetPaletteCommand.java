@@ -33,8 +33,4 @@ public class SetPaletteCommand extends BasicCommand {
         setReturnValue(index);
     }
 
-    @Override
-    public Command copy() {
-        return new SetPaletteCommand();
-    }
 }

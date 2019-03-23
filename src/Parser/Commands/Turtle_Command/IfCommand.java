@@ -37,9 +37,4 @@ public class IfCommand extends ControlCommand{
         }
         runAgain = false;
     }
-
-    @Override
-    public Command copy() {
-        return new IfCommand();
-    }
 }

@@ -31,8 +31,4 @@ public class MakeVariableCommand extends BasicCommand {
         }
     }
 
-    @Override
-    public Command copy() {
-        return new MakeVariableCommand();
-    }
 }

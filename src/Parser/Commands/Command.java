@@ -1,5 +1,9 @@
 package Parser.Commands;
 
+
+import GraphicsBackend.Point;
+import Parser.Commands.Turtle_Command.GroupEndCommand;
+import Parser.Commands.Turtle_Command.TextCommand;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +22,9 @@ public abstract class Command{
     private int currentNumParameters = 0;
     protected boolean isOutputCommand;
     protected boolean unlimitedParameters = false;
+
+    public Command(){
+    }
 
     public boolean canHaveUnlimitedParameters(){
         return unlimitedParameters;
@@ -64,8 +71,9 @@ public abstract class Command{
         this.text = text;
     }
 
-    public List<Command> getChildren(){
+    public List<Command> getChildren() {
         return myChildrenList;
+
     }
 
     public void addChildren(Command command) {

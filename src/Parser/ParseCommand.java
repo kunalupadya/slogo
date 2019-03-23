@@ -14,7 +14,7 @@ import java.util.*;
 public class ParseCommand {
 
     /**
-     *
+     * refines the consoleInput and will make relevant command classes and executing the commands.
      * @param consoleInput: input from the console
      * @param commandLanguage : chosen language from the GUI
      * @param backendController: the backendcontroller(parser) itself to parse all turtles

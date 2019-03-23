@@ -71,8 +71,4 @@ public class ForCommand extends ControlCommand {
         commandListOrig = (ListStartCommand) getChildren().get(COMMANDS_INDEX);
     }
 
-    @Override
-    public Command copy() {
-        return new ForCommand();
-    }
 }

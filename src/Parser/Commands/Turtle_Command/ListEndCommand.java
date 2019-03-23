@@ -19,8 +19,4 @@ public class ListEndCommand extends BasicCommand {
 
     }
 
-    @Override
-    public Command copy() {
-        return new ListEndCommand();
-    }
 }

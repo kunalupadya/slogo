@@ -25,8 +25,4 @@ public class GetShapeCommand extends TurtleCommand {
         setReturnValue(turtle.getMyShape());
     }
 
-    @Override
-    public Command copy() {
-        return new GetShapeCommand();
-    }
 }

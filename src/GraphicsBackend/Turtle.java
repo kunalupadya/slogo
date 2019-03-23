@@ -74,7 +74,6 @@ public class Turtle implements FrontendImmutableTurtle {
      * @param dist
      */
     public void move(double dist){
-        previousPositions.add(new TurtleState(new Point(xPos,yPos), myAngle));
         VectorMovement newPositionAndLines = myGrid.addMovement(xPos, yPos, myAngle, dist, myPen);
         Point newPosition = newPositionAndLines.getPosition();
         updateUndoBuffers(newPositionAndLines.getLinesAssociatedWithMovement());

@@ -10,7 +10,7 @@ import Parser.Commands.TurtleCommand;
  *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
 
 public class HomeCommand extends TurtleCommand {

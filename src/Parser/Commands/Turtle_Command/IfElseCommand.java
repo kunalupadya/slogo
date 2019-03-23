@@ -7,7 +7,7 @@ import Parser.ExecutionException;
  * If expr is not 0, Command runs the trueCommands given in the first list, otherwise runs the falseCommands given in
  * the second list.
  *
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
 
 public class IfElseCommand extends ControlCommand {

@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * This class constructs a tree of commands for execution from a list of commands.
+ *
  * @author kunalupadya
  */
 class ParsingTree {

@@ -18,7 +18,7 @@ public class RootCommand extends BasicCommand{
     }
 
     /**
-     * RootCommand does not do anything.
+     * RootCommand does not evaluate to anything.
      *
      * @param backendController backendController
      */

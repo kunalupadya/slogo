@@ -1,16 +1,17 @@
 package Parser;
 
-
 import GUI.FrontendController;
 import GraphicsBackend.*;
 import Parser.Commands.Turtle_Command.ImmutableUserDefinedCommand;
 import Parser.Commands.Turtle_Command.UserDefinedCommand;
 import Parser.Commands.Variable;
 import javafx.scene.paint.Color;
-
 import java.util.*;
 
 /**
+ * This class is the main external API for the backend. It communicates with the front end through the frontEndController
+ * and initiates all operations in the backend.
+ *
  * @author kunalupadya
  */
 public class BackendController {

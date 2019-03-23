@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Abstract class for all commands. This is the abstract class that all other commands must extend
+ * This is the abstract class defines all base methods. All commands must extend this class.
  * @author kunalupadya
  * @author Louis Lee
  */

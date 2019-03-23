@@ -10,7 +10,6 @@ import java.util.regex.Pattern;
  * @author Louis Lee
  * divides the input string into tokens which will be used in the parsingtree
  */
-
 class TokenConverter {
 
     private final static String CONSTANT_REGEX = "Constant";
@@ -20,9 +19,6 @@ class TokenConverter {
     private final static String LIST_END_REGEX = "ListEnd";
     private final static String GROUP_START_REGEX = "GroupStart";
     private final static String GROUP_END_REGEX = "GroupEnd";
-    private final static String COMMENT_REGEX = "Comment";
-    private final static String WHITE_SPACE_REGEX = "Whitespace";
-    private final static String NEWLINE_REGEX = "Newline";
     private Map<String, Pattern> myRegexMap;
 
     TokenConverter(){
@@ -59,8 +55,6 @@ class TokenConverter {
      */
     Token checkTypeOfInput(String input) {
         switch (checkRegex(input)) {
-            case COMMENT_REGEX:
-                return Token.COMMENT;
             case CONSTANT_REGEX:
                 return Token.CONSTANT;
             case VARIABLE_REGEX:
@@ -75,10 +69,6 @@ class TokenConverter {
                 return Token.GROUP_START;
             case GROUP_END_REGEX:
                 return Token.GROUP_END;
-            case WHITE_SPACE_REGEX:
-                return Token.WHITESPACE;
-            case NEWLINE_REGEX:
-                return Token.NEWLINE;
             default:
                 return Token.ERROR;
         }

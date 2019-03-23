@@ -1,22 +1,22 @@
 package Parser;
 
-
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
+ * This class translates all commands into English using a translationMap constructed with the Resource Bundles.
+ *
  * @author Louis Lee
  */
-
 public class LanguageSetting {
 
     private Map<String, String> translationMap;
 
     /**
      * Basic Constructor
-     * creates translationmap with the given language
+     * creates translation map with the given language
      * @param language: chosen language from the GUI. Default language is English
      */
     public LanguageSetting(String language){
@@ -48,7 +48,7 @@ public class LanguageSetting {
      * @return string array of translated commands
      */
 
-    public String[] translateCommand(String[] listOfWords){
+    String[] translateCommand(String[] listOfWords){
         String[] newList = new String[listOfWords.length];
         for (int i = 0; i < listOfWords.length; i++) {
             if (translationMap.containsKey(listOfWords[i])) {

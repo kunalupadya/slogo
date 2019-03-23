@@ -6,11 +6,12 @@ import Parser.Commands.Turtle_Command.*;
 import java.util.*;
 
 /**
+ * This class executes all commands by doing a post-order traversal of the ParsingTree.
+ *
  * @author Kunal Upadya
  * @author Louis Lee
  * @author Dhanush Madabusi
  */
-
 public class ExecuteCommand {
 
     private static final int EXPRESSION_INDEX = 1;
@@ -21,11 +22,10 @@ public class ExecuteCommand {
     //determines if commands are run for all turtles or just the current turtle
     private boolean isASubTurtleCommand = false;
 
-
     /**
      * Constructor
-     * @param backendController
-     * @param tree: pasringtree
+     * @param backendController backendController
+     * @param tree parsingTree
      */
     public ExecuteCommand(BackendController backendController, ParsingTree tree) {
         headNode = (RootCommand) tree.getRoot();

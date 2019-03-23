@@ -24,9 +24,6 @@ public abstract class Command{
     //arithmetic commands with two parameters, And, and Or commands can truly have unlimited parameters
     protected boolean unlimitedParameters = false;
 
-    public Command(){
-    }
-
     public boolean canHaveUnlimitedParameters(){
         return unlimitedParameters;
     }
@@ -93,9 +90,5 @@ public abstract class Command{
 
     public List<Command> getChildren(){
         return myChildrenList;
-    }
-
-    protected double distance(Point point1, Point point2) {
-        return Math.sqrt(Math.pow(point1.getMyX() - point2.getMyX(), 2) + Math.pow(point1.getMyY() - point2.getMyY(), 2));
     }
 }

@@ -213,7 +213,7 @@ public class FrontendController {
     }
 
     /**
-     * TODO: make it possible to set image of any button through reflection
+     * Changes the graphic for all of the active turtles to chosen graphic.
      */
     public void handleSetTurtleImage() {
         FileChooser fileChooser = new FileChooser();

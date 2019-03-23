@@ -18,9 +18,6 @@ public abstract class Command{
     protected boolean isOutputCommand;
     protected boolean unlimitedParameters = false;
 
-    public Command(){
-    }
-
     public boolean canHaveUnlimitedParameters(){
         return unlimitedParameters;
     }

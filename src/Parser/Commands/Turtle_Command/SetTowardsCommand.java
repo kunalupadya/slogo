@@ -34,9 +34,4 @@ public class SetTowardsCommand extends TurtleCommand {
         setReturnValue(Math.abs(degrees - oldAngle));
         turtle.turnTo(degrees);
     }
-
-    @Override
-    public Command copy() {
-        return new SetTowardsCommand();
-    }
 }

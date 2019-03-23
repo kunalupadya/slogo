@@ -21,9 +21,4 @@ public class OrCommand extends BooleanCommand {
     protected void performAction(BackendController backendController) {
         setReturnValue(returnValue(getChildren().get(0).getReturnValue() != 0 || getChildren().get(1).getReturnValue() != 0));
     }
-
-    @Override
-    public Command copy() {
-        return new OrCommand();
-    }
 }

@@ -22,8 +22,4 @@ public class CosineCommand extends BasicCommand {
         setReturnValue(Math.cos(Math.toRadians(getChildren().get(0).getReturnValue())));
     }
 
-    @Override
-    public Command copy() {
-        return new CosineCommand();
-    }
 }

@@ -66,8 +66,4 @@ public class DoTimesCommand extends ControlCommand {
         commandListOrig = (ListStartCommand) getChildren().get(COMMANDS_INDEX);
     }
 
-    @Override
-    public Command copy() {
-        return new DoTimesCommand();
-    }
 }

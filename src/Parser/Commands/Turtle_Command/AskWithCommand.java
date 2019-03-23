@@ -30,8 +30,4 @@ public class AskWithCommand extends BasicCommand {
 
     }
 
-    @Override
-    public Command copy() {
-        return new AskWithCommand();
-    }
 }

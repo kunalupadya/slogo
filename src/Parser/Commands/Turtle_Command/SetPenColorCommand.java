@@ -48,9 +48,4 @@ public class SetPenColorCommand extends TurtleCommand {
         }
         return length;
     }
-
-    @Override
-    public Command copy() {
-        return new SetPenColorCommand();
-    }
 }

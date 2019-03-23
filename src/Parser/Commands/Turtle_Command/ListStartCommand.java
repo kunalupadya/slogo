@@ -19,8 +19,4 @@ public class ListStartCommand extends BasicCommand {
         setReturnValue(getChildren().size() - 1);
     }
 
-    @Override
-    public Command copy() {
-        return new ListStartCommand();
-    }
 }

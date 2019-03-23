@@ -32,8 +32,4 @@ public class RandomCommand extends BasicCommand {
         setReturnValue(new Random().nextInt((int)getChildren().get(0).getReturnValue()));
     }
 
-    @Override
-    public Command copy() {
-        return new RandomCommand();
-    }
 }

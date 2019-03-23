@@ -25,11 +25,5 @@ public class GetPenColorCommand extends TurtleCommand {
         setReturnValue(backendController.getColorPaletteIndex(turtle.getMyPen().getMyPenColor()) + 1);
     }
 
-    @Override
-    public Command copy() {
-        return new GetPenColorCommand();
-    }
-
-
 }
 

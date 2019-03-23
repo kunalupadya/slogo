@@ -25,9 +25,4 @@ public class HomeCommand extends TurtleCommand {
         turtle.moveTo(new Point(0, 0));
         turtle.turnTo(0);
     }
-
-    @Override
-    public Command copy() {
-        return new HomeCommand();
-    }
 }

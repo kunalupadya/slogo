@@ -1,6 +1,8 @@
 package Parser.Commands;
 
 import GraphicsBackend.Point;
+import Parser.Commands.Turtle_Command.GroupEndCommand;
+import Parser.Commands.Turtle_Command.TextCommand;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,9 @@ public abstract class Command{
     protected boolean isOutputCommand;
     //arithmetic commands with two parameters, And, and Or commands can truly have unlimited parameters
     protected boolean unlimitedParameters = false;
+
+    public Command(){
+    }
 
     public boolean canHaveUnlimitedParameters(){
         return unlimitedParameters;
@@ -67,7 +72,19 @@ public abstract class Command{
         this.text = text;
     }
 
-    public abstract Command copy();
+    public Command copy(){
+        Command newCommand;
+        try {
+            Class<?> clazz = Class.forName(this.getClass().getName());
+            Object object = clazz.getConstructor().newInstance();
+            newCommand = (Command) object;
+        }
+        catch (Exception e){
+            //Will never reach this part
+            newCommand = new RootCommand();
+        }
+        return newCommand;
+    }
 
     public void addChildren(Command command) {
             myChildrenList.add(command);

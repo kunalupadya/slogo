@@ -22,8 +22,4 @@ public class TurtlesCommand extends BasicCommand {
         setReturnValue(backendController.getMyTurtles().size());
     }
 
-    @Override
-    public Command copy() {
-        return new TurtlesCommand();
-    }
 }

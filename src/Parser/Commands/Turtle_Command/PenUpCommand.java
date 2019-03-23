@@ -25,8 +25,4 @@ public class PenUpCommand extends TurtleCommand {
         setReturnValue(0);
     }
 
-    @Override
-    public Command copy() {
-        return new PenUpCommand();
-    }
 }

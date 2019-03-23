@@ -23,8 +23,4 @@ public class EqualCommand extends BooleanCommand{
 
     }
 
-    @Override
-    public Command copy() {
-        return new EqualCommand();
-    }
 }

@@ -1,9 +1,4 @@
 package Parser.Commands;
-
-
-import GraphicsBackend.Point;
-import Parser.Commands.Turtle_Command.GroupEndCommand;
-import Parser.Commands.Turtle_Command.TextCommand;
 import java.util.ArrayList;
 import java.util.List;
 

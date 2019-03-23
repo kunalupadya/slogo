@@ -29,7 +29,7 @@ public class SetPaletteCommand extends BasicCommand {
         int r = (int) getChildren().get(R_VALUE).getReturnValue();
         int g = (int) getChildren().get(G_VALUE).getReturnValue();
         int b = (int) getChildren().get(B_VALUE).getReturnValue();
-        backendController.setMyPalette(index, Color.rgb(r, g, b));
+        backendController.addColorToPalette(index, Color.rgb(r, g, b));
         setReturnValue(index);
     }
 

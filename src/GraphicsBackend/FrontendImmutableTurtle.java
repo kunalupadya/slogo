@@ -5,37 +5,38 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 /**
+ * the turtle interface used by the frontend
  * @author kunalupadya
  */
 public interface FrontendImmutableTurtle {
 
-    public void setTurtleImage(Image turtleImage);
+    void setTurtleImage(Image turtleImage);
 
-    public void setTurtleActive(boolean turtleActive);
+    void setTurtleActive(boolean turtleActive);
 
-    public void setPenColor(Color color);
+    void setPenColor(Color color);
 
-    public void setPenSize(int pixelSize);
+    void setPenSize(int pixelSize);
 
-    public void setPenUp(boolean penUp);
+    void setPenUp(boolean penUp);
 
-    public boolean getIsTurtleActive();
+    boolean getIsTurtleActive();
 
-    public boolean isTurtleVisible();
+    boolean isTurtleVisible();
 
-    public double getUserFriendlyXPos();
+    double getUserFriendlyXPos();
 
-    public double getUserFriendlyYPos();
+    double getUserFriendlyYPos();
 
-    public Point getPos();
+    Point getPos();
 
-    public Grid getGrid();
+    Grid getGrid();
 
-    public int getMyShape();
+    int getMyShape();
 
-    public double getMyAngle();
+    double getMyAngle();
 
-    public ImageView getAdjustedTurtleImageView(double xLeftCorner, double yLeftCorner);
+    ImageView getAdjustedTurtleImageView(double xLeftCorner, double yLeftCorner);
 
-    public ImmutablePen getMyPen();
+    ImmutablePen getMyPen();
 }

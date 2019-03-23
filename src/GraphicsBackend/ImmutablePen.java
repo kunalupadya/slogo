@@ -3,13 +3,14 @@ package GraphicsBackend;
 import javafx.scene.paint.Color;
 
 /**
+ * an immutable interface for the pen
  * @author kunalupadya
  */
 public interface ImmutablePen {
 
-    public Color getMyPenColor();
+    Color getMyPenColor();
 
-    public boolean getPenUp();
+    boolean getPenUp();
 
-    public int getPenSize();
+    int getPenSize();
 }

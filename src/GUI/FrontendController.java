@@ -318,7 +318,7 @@ public class FrontendController {
      * Obtain the set of available variables and send it to the available vars module to display as a list
      */
     public void getAvailableVars() {
-        Set<String> availableVarsList = backendController.getAllVariables();
+        Set<String> availableVarsList = backendController.getAllVariableNames();
         availableVars.setList(availableVarsList);
     }
 
@@ -326,7 +326,7 @@ public class FrontendController {
      * Obtain the set of user commands and sent it to the user commands module to display as a list
      */
     public void getUserCommands() {
-        Set<String> userCommandsList = backendController.getAllCommands();
+        Set<String> userCommandsList = backendController.getAllCommandNames();
         userCommands.setList(userCommandsList);
     }
 

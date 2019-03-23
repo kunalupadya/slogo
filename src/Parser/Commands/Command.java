@@ -72,5 +72,19 @@ public abstract class Command{
             myChildrenList.add(command);
             currentNumParameters += 1;
     }
-    public abstract Command copy();
+
+    public Command copy(){
+        Command newCommand;
+        try {
+            Class<?> clazz = Class.forName(this.getClass().getName());
+            Object object = clazz.getConstructor().newInstance();
+            newCommand = (Command) object;
+        }
+        catch (Exception e){
+            //Will never reach this part
+            newCommand = new RootCommand();
+        }
+        return newCommand;
+    }
+
 }

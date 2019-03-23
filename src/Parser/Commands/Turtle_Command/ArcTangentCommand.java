@@ -22,8 +22,4 @@ public class ArcTangentCommand extends BasicCommand {
         setReturnValue(Math.atan(Math.toRadians(getChildren().get(0).getReturnValue())));
     }
 
-    @Override
-    public Command copy() {
-        return new ArcTangentCommand();
-    }
 }

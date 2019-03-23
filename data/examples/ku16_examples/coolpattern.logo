@@ -1,0 +1,13 @@
+cs
+setxy 50 -50
+make :number 43
+make :order 3
+make :x / - * 2 :order :number * :number 2
+make :step 5
+
+dotimes [ :k * 360 :number ] [
+  setpc sum random 5 1
+  fd :step
+  rt + :k :x
+]
+setxy 0 0

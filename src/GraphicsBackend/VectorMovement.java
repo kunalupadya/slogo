@@ -15,10 +15,18 @@ public class VectorMovement{
         this.position = position;
     }
 
+    /**
+     * gets lines
+     * @return
+     */
     public List<Line> getLinesAssociatedWithMovement() {
         return linesAssociatedWithMovement;
     }
 
+    /**
+     * gets position
+     * @return
+     */
     public Point getPosition() {
         return position;
     }

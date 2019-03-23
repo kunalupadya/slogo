@@ -24,6 +24,11 @@ public class Grid implements ImmutableGrid{
 //    private LinkedList<List<Line>> lastLinesPlaced = new LinkedList<>();
     private List<Line> newLineMovements;
 
+    /**
+     * constructor for the grid
+     * @param gridHeight
+     * @param gridWidth
+     */
     public Grid(double gridHeight, double gridWidth){
         width = gridWidth;
         height = gridHeight;
@@ -50,6 +55,9 @@ public class Grid implements ImmutableGrid{
         return width;
     }
 
+    /**
+     * clears the grid
+     */
     public void clear(){
         myObjects.clear();
     }
@@ -186,6 +194,10 @@ public class Grid implements ImmutableGrid{
         }
     }
 
+    /**
+     * gets all lines
+     * @return
+     */
     public List<Line> getAllObjects(){
         return myObjects;
     }

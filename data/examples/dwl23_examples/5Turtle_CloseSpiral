@@ -1,0 +1,17 @@
+to angle [ ]
+[
+  fd 50
+  lt 105
+  fd 25
+]
+
+tell [ 1 2 3 4 5 ]
+st
+pd
+rt product id 72
+setpc id
+
+repeat 5
+[
+  angle
+]

@@ -1,0 +1,10 @@
+gaosu [ 1 2 3 ]
+chongfu 5 [
+  qj jia 50 cheng 10 shenfen
+  yz cheng 10 shenfen
+]
+
+chongfu 5 [
+  qj 50
+  yz 30
+]

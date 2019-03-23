@@ -21,6 +21,7 @@ public class DifferenceCommand extends BasicCommand {
 
     @Override
     protected void performAction(BackendController backendController) {
+
         setReturnValue(getChildren().get(0).getReturnValue() - getChildren().get(1).getReturnValue());
     }
 

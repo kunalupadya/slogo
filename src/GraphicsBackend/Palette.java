@@ -2,6 +2,8 @@ package GraphicsBackend;
 
 import javafx.scene.paint.Color;
 
+import java.util.Collection;
+
 public class Palette {
 
     private Color[] myColorPalette;

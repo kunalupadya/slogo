@@ -16,6 +16,7 @@ public class GroupEndCommand extends BasicCommand {
     public GroupEndCommand(){
         setNumParameters(0);
         isOutputCommand = false;
+        setIsEvaluated(true);
     }
 
     @Override

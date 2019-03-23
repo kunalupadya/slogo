@@ -8,29 +8,29 @@ import java.util.*;
 /**
  * This class executes all commands by doing a post-order traversal of the ParsingTree.
  *
+ * @author Dhanush Madabusi
  * @author Kunal Upadya
  * @author Louis Lee
- * @author Dhanush Madabusi
  */
-public class ExecuteCommand {
+class ExecuteCommand {
 
     private static final int EXPRESSION_INDEX = 1;
     private static final int COMMAND_INDEX = 0;
-    private RootCommand headNode;
-    private BackendController backendController;
+    private final RootCommand headNode;
+    private final BackendController backendController;
     private Turtle currTurtle;
     //determines if commands are run for all turtles or just the current turtle
     private boolean isASubTurtleCommand = false;
 
-    /**
-     * Constructor
-     * @param backendController backendController
-     * @param tree parsingTree
-     */
-    public ExecuteCommand(BackendController backendController, ParsingTree tree) {
+    ExecuteCommand(BackendController backendController, ParsingTree tree) {
         headNode = (RootCommand) tree.getRoot();
         this.backendController = backendController;
-        currTurtle = backendController.getMyTurtles().get(0);
+        for (Turtle t: backendController.getMyTurtles()){
+            if (t.getIsTurtleActive()){
+                currTurtle = t;
+                break;
+            }
+        }
     }
 
     void runCommands() throws SLogoException{
@@ -38,7 +38,6 @@ public class ExecuteCommand {
         if (headNode.getChildren().size() == 1 && headNode.getChildren().get(0).getIsOutputCommand()){
             outputToConsole = true;
         }
-        //post traversal starting from headNode
         traverse(headNode);
         if (outputToConsole){
             handleConsoleOutput();
@@ -48,14 +47,8 @@ public class ExecuteCommand {
     private void handleConsoleOutput() {
         Command outputCommand = headNode.getChildren().get(0);
         String output = "Result: ";
-        if (outputCommand instanceof BooleanCommand || outputCommand instanceof IsPenDownCommand ||
-                outputCommand instanceof IsShowingCommand){
-            if (outputCommand.getReturnValue() == 1){
-                output += "TRUE";
-            }
-            else{
-                output += "FALSE";
-            }
+        if (outputCommand instanceof BooleanCommand || outputCommand instanceof IsPenDownCommand || outputCommand instanceof IsShowingCommand){
+            output += outputCommand.getReturnValue() == 1;
         }
         else{
             output += String.valueOf(outputCommand.getReturnValue());
@@ -64,19 +57,11 @@ public class ExecuteCommand {
     }
 
     private void traverse(Command node) throws SLogoException{
-        if (node.getIsEvaluated()){
-            return;
-        }
-        if (node.getClass() == MakeUserInstructionCommand.class || node.getClass() == ListEndCommand.class || node.getClass() == GroupEndCommand.class){
-            //makeuserinstruction is the only command class that is executed as it is parsed
+        if (node.getIsEvaluated() || node.getClass() == MakeUserInstructionCommand.class){ //makeUserInstruction is executed as it is parsed
             return;
         }
         if (node.getClass() == MakeVariableCommand.class){
             handleMakeVariableCommand(node);
-            return;
-        }
-        if (node instanceof ControlCommand){
-            handleControlCommand(node);
             return;
         }
         if (node.getClass() == GroupStartCommand.class){
@@ -91,13 +76,23 @@ public class ExecuteCommand {
             handleAskCommands(node);
             return;
         }
+        if (node instanceof ListStartCommand){
+            handleListStartCommand(node);
+        }
+        if (node instanceof ControlCommand){
+            handleControlCommand(node);
+            return;
+        }
         if (node instanceof TurtleCommand) {
-            if (!isASubTurtleCommand) {
-                handleTurtleCommand(node);
-                return;
+            if (currTurtle == null){
+                throw new ExecutionException("No turtle is currently active");
             }
             if (((TurtleCommand) node).isTurtleQuery()) {
                 handleTurtleQueries(node);
+                return;
+            }
+            if (!isASubTurtleCommand) {
+                handleTurtleCommand(node);
                 return;
             }
         }
@@ -183,8 +178,15 @@ public class ExecuteCommand {
             newActiveTurtleIndices.add((int) com.getReturnValue());
         }
         List<Turtle> turtleList = backendController.getMyTurtles();
+        boolean currTurtleSet = false;
         for (int i = 0; i < turtleList.size(); i++){
-            turtleList.get(i).setTurtleActive(newActiveTurtleIndices.contains(i + 1));
+            if (newActiveTurtleIndices.contains(i + 1)) {
+                turtleList.get(i).setTurtleActive(true);
+                if (!currTurtleSet){
+                    currTurtle = turtleList.get(i);
+                    currTurtleSet = true;
+                }
+            }
         }
     }
 
@@ -338,6 +340,9 @@ public class ExecuteCommand {
     }
 
     private int findCurrTurtleIndex(Turtle currTurtle){
+        if (currTurtle == null){
+            return -1;
+        }
         List<Turtle> turtleList = backendController.getMyTurtles();
         int index = 0;
         for (Turtle t: turtleList){
@@ -350,6 +355,9 @@ public class ExecuteCommand {
     }
 
     private Turtle getPrevTurtle(int index){
+        if (index == -1){
+            return null;
+        }
         return backendController.getMyTurtles().get(index);
     }
 }

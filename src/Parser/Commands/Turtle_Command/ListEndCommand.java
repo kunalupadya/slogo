@@ -16,6 +16,7 @@ public class ListEndCommand extends BasicCommand {
     public ListEndCommand(){
         setNumParameters(0);
         isOutputCommand = false;
+        setIsEvaluated(true);
     }
 
     @Override

@@ -24,8 +24,4 @@ public class YCoordinateCommand extends TurtleCommand {
         setReturnValue(turtle.getUserFriendlyYPos());
     }
 
-    @Override
-    public Command copy() {
-        return new YCoordinateCommand();
-    }
 }

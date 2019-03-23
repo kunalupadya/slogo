@@ -22,8 +22,4 @@ public class NotCommand extends BooleanCommand{
         setReturnValue(returnValue(getChildren().get(0).getReturnValue() == 0));
     }
 
-    @Override
-    public Command copy() {
-        return new NotCommand();
-    }
 }

@@ -23,8 +23,4 @@ public class AndCommand extends BooleanCommand{
                 getChildren().get(1).getReturnValue() != 0));
     }
 
-    @Override
-    public Command copy() {
-        return new AndCommand();
-    }
 }

@@ -22,8 +22,4 @@ public class MinusCommand extends BasicCommand {
         setReturnValue(-getChildren().get(0).getReturnValue());
     }
 
-    @Override
-    public Command copy() {
-        return new MinusCommand();
-    }
 }

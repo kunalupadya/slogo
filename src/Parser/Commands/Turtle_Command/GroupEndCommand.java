@@ -17,8 +17,4 @@ public class GroupEndCommand extends BasicCommand {
     @Override
     protected void performAction(BackendController backendController) { }
 
-    @Override
-    public Command copy() {
-        return new GroupEndCommand();
-    }
 }

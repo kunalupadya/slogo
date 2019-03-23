@@ -23,8 +23,4 @@ public class TangentCommand extends BasicCommand {
         setReturnValue(Math.tan(Math.toRadians(getChildren().get(0).getReturnValue())));
     }
 
-    @Override
-    public Command copy() {
-        return new TangentCommand();
-    }
 }

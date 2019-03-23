@@ -53,10 +53,4 @@ public class TellCommand extends BasicCommand {
         setReturnValue(listCommand.getChildren().get(childrenSize - 2).getReturnValue());
     }
 
-    @Override
-    public Command copy() {
-        return new TellCommand();
-    }
-
-
 }

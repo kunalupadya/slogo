@@ -59,8 +59,4 @@ public class GroupStartCommand extends BasicCommand {
         return moreParametersLeft;
     }
 
-    @Override
-    public Command copy() {
-        return new GroupStartCommand();
-    }
 }

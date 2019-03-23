@@ -48,8 +48,4 @@ public class SetBackgroundCommand extends BasicCommand {
         return length;
     }
 
-    @Override
-    public Command copy() {
-        return new SetBackgroundCommand();
-    }
 }

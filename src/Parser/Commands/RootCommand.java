@@ -16,8 +16,4 @@ public class RootCommand extends BasicCommand{
     public void performAction(BackendController backendController) {
     }
 
-    @Override
-    public Command copy() {
-        return new RootCommand();
-    }
 }

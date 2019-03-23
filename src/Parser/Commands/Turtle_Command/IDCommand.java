@@ -33,10 +33,4 @@ public class IDCommand extends TurtleCommand {
         }
     }
 
-    @Override
-    public Command copy() {
-        return new IDCommand();
-    }
-
-
 }

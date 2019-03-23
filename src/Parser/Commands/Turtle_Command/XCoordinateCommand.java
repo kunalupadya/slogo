@@ -25,8 +25,4 @@ public class XCoordinateCommand extends TurtleCommand {
         setReturnValue(turtle.getUserFriendlyXPos());
     }
 
-    @Override
-    public Command copy() {
-        return new XCoordinateCommand();
-    }
 }

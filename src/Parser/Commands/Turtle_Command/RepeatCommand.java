@@ -62,8 +62,4 @@ public class RepeatCommand extends ControlCommand {
         }
     }
 
-    @Override
-    public Command copy() {
-        return new RepeatCommand();
-    }
 }

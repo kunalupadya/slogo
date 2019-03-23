@@ -23,8 +23,4 @@ public class SetShapeCommand extends TurtleCommand {
         turtle.setMyShape((int) getChildren().get(0).getReturnValue());
     }
 
-    @Override
-    public Command copy() {
-        return new SetShapeCommand();
-    }
 }

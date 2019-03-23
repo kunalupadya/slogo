@@ -12,10 +12,18 @@ public class TurtleState implements ImmutableTurtleState{
         this.pos = pos;
     }
 
+    /**
+     * gets angle
+     * @return
+     */
     public double getAngle() {
         return angle;
     }
 
+    /**
+     * gets position
+     * @return
+     */
     public Point getPos() {
         return pos;
     }

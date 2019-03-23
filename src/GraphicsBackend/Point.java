@@ -12,10 +12,18 @@ public class Point {
         myY = y;
     }
 
+    /**
+     * gets x
+     * @return
+     */
     public double getMyX() {
         return myX;
     }
 
+    /**
+     * gets y
+     * @return
+     */
     public double getMyY() {
         return myY;
     }

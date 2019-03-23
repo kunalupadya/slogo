@@ -35,6 +35,7 @@ public class Console extends Module  {
     private Pane content;
     private int moduleHeight;
     private FrontendController context;
+    private double toolbarHeight;
 
     /**
      * Constructor of Console, sets up the two Panes that contains all the necessary content and labels
@@ -48,6 +49,7 @@ public class Console extends Module  {
     public Console(int width, int height, String moduleName, FrontendController myFrontendController) {
         super(width, height, moduleName, myFrontendController);
         myResourceBundles = getMyResourceBundles();
+        toolbarHeight = getToolbarHeight();
         courier = new Font(myResourceBundles.getString("Font"), 12);
         content = getPane();
         moduleHeight = getModuleHeight();

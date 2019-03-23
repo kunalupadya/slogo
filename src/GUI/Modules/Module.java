@@ -28,8 +28,7 @@ public abstract class Module {
     private int moduleHeight;
     private FrontendController context;
     private ButtonControl close;
-
-    final double toolbarHeight = 20.0;
+    private final double toolbarHeight = 20.0;
 
     /**
      * Constructor of Module, sets up the two Panes that contains all the necessary content and labels
@@ -105,6 +104,8 @@ public abstract class Module {
     }
 
     protected int getModuleHeight() { return moduleHeight; }
+
+    protected double getToolbarHeight() { return toolbarHeight; }
 
     /**
      * Gets the pane with the label only

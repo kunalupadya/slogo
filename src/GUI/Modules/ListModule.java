@@ -67,27 +67,15 @@ public abstract class ListModule extends Module {
 
     protected abstract void setPlaceholder();
 
-    /**
-     * Gets list that will be displayed
-     * @return List of strings
-     */
-    public List<String> getList() {
+    protected List<String> getList() {
         return list;
     }
 
-    /**
-     * Gets listview that will help show the list which will be displayed
-     * @return ListView of Strings
-     */
-    public ListView<String> getListDisplay() {
+    protected ListView<String> getListDisplay() {
         return listDisplay;
     }
 
-    /**
-     * Gets observablelist that will help show the list which will be displayed
-     * @return ObservableList of Strings
-     */
-    public ObservableList<String> getListCollection() {
+    protected ObservableList<String> getListCollection() {
         return listCollection;
     }
 }

@@ -42,7 +42,7 @@ public class Controller extends Application {
     private static final KeyCombination keyCombinationCommandN = new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN);
 
     /**
-     * TODO: add JavaDoc
+     * Start of the application that decides the font and launches the application
      * @param args
      */
     public static void main (String[] args) {
@@ -59,7 +59,8 @@ public class Controller extends Application {
     }
 
     /**
-     * TODO: add JavaDoc
+     * Start the application by setting up the front end and back end through setUpScene, creating the
+     * FrontendController and BackendController
      * @param stage
      */
     public void start (Stage stage) {

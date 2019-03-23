@@ -1,0 +1,12 @@
+to petal [ :angle ]
+[
+  repeat 2
+  [
+    repeat :angle
+    [
+      fd 2
+      rt 1
+    ]
+      rt difference 180 :angle
+  ]
+]

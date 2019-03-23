@@ -2,20 +2,22 @@ package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
 import Parser.Commands.BasicCommand;
-import Parser.Commands.Command;
 import Parser.ExecutionException;
-
 import java.util.Random;
 
 /**
+ * Command returns random non-negative number strictly less than max param.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
 
 public class RandomCommand extends BasicCommand {
 
+    /**
+     * Command Constructor
+     */
     public RandomCommand(){
         setNumParameters(1);
         isOutputCommand = true;

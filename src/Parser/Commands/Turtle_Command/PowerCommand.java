@@ -2,17 +2,20 @@ package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
 import Parser.Commands.BasicCommand;
-import Parser.Commands.Command;
 
 /**
+ * Command returns base param raised to the power of the exponent param.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
 
 public class PowerCommand extends BasicCommand {
 
+    /**
+     * Command Constructor
+     */
     public PowerCommand(){
         setNumParameters(2);
         isOutputCommand = true;

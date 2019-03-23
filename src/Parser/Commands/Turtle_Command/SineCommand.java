@@ -2,17 +2,19 @@ package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
 import Parser.Commands.BasicCommand;
-import Parser.Commands.Command;
 
 /**
+ * Command returns sine of degrees param.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
-
 public class SineCommand extends BasicCommand {
 
+    /**
+     * Command Constructor
+     */
     public SineCommand(){
         setNumParameters(1);
         isOutputCommand = true;

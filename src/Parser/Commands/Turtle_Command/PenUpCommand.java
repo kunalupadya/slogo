@@ -2,18 +2,21 @@ package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
-import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
 /**
+ * Command puts pen up such that when the turtle moves, it does not leave a trail.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
 
 public class PenUpCommand extends TurtleCommand {
 
+    /**
+     * Command Constructor
+     */
     public PenUpCommand(){
         setNumParameters(0);
         isOutputCommand = false;

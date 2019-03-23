@@ -3,19 +3,21 @@ package Parser.Commands.Turtle_Command;
 import GraphicsBackend.Point;
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
-import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 import Parser.ExecutionException;
 
 /**
+ * Command moves turtle to an absolute screen position, where (0, 0) is the center of the screen.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
-
 public class SetPositionCommand extends TurtleCommand {
 
+    /**
+     * Command Constructor
+     */
     public SetPositionCommand(){
         setNumParameters(2);
         isOutputCommand = false;

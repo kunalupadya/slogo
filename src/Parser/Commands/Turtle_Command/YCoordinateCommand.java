@@ -2,17 +2,20 @@ package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
-import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
 /**
+ * Command returns the turtle's Y coordinate from the center of the screen.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
 public class YCoordinateCommand extends TurtleCommand {
 
+    /**
+     * Command Constructor
+     */
     public YCoordinateCommand(){
         setNumParameters(0);
         isOutputCommand = true;

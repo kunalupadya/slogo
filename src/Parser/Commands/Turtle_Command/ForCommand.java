@@ -1,16 +1,15 @@
 package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
-import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.Variable;
 import Parser.ExecutionException;
 import Parser.SLogoException;
 
 /**
- * @author kunalupadya
- * @author Louis Lee
- * @author Dhanush
+ * Command runs command(s) for each value specified in the range, i.e., from (start - end), going by increment.
+ *
+ * @author Dhanush Madabusi
  */
 
 public class ForCommand extends ControlCommand {
@@ -21,6 +20,9 @@ public class ForCommand extends ControlCommand {
     private int increment;
     private Variable loopVar;
 
+    /**
+     * Command Constructor
+     */
     public ForCommand() {
         super();
         setNumParameters(2);
@@ -47,6 +49,9 @@ public class ForCommand extends ControlCommand {
         makeLoopVar.execute(backendController);
     }
 
+    /**
+     * Determines which expressions to evaluate prior to evaluating main command.
+     */
     @Override
     public void setInitialExpressions() {
         ListStartCommand loopParam = (ListStartCommand) getChildren().get(VAR_RANGE_INDEX);
@@ -55,6 +60,11 @@ public class ForCommand extends ControlCommand {
         initialExpressions.add(loopParam.getChildren().get(3));
     }
 
+    /**
+     * Sets up any instance variable prior to evaluating any loop commands.
+     *
+     * @throws ExecutionException if an error occurs while executing
+     */
     @Override
     public void setUpLoop() throws ExecutionException {
         ListStartCommand loopParam = (ListStartCommand) getChildren().get(0);

@@ -3,11 +3,13 @@ package Parser.Commands.Turtle_Command;
 import Parser.Commands.BasicCommand;
 import Parser.Commands.Command;
 import Parser.ExecutionException;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This abstract class defines specific set of methods and instance variables for Control Commands, such as For, DoTimes,
+ * Repeat, If, and IfElse.
+ *
  * @author Dhanush Madabusi
  */
 public abstract class ControlCommand extends BasicCommand {
@@ -24,12 +26,26 @@ public abstract class ControlCommand extends BasicCommand {
         setIsEvaluated(false);
     }
 
+    /**
+     * Returns list of commands to evaluate prior to evaluating main command.
+     *
+     * @return list of commands to evaluate prior to evaluating main command
+     */
     public List<Command> getInitialExpressions(){
         return initialExpressions;
     }
 
+    /**
+     * Abstract methods to be implemented by sub classes. Determines which expressions to evaluate prior to evaluating
+     * main command.
+     */
     public abstract void setInitialExpressions();
 
+    /**
+     * Returns runAgain variable, which determines if command is done running or should be evaluated again.
+     *
+     * @return runAgain instance variable
+     */
     public boolean shouldRunAgain(){
         return runAgain;
     }
@@ -38,6 +54,11 @@ public abstract class ControlCommand extends BasicCommand {
         listToRun = list;
     }
 
+    /**
+     * Returns the list of commands to evaluate.
+     *
+     * @return ListStartCommand listToRun for ExecuteCommand to run
+     */
     public ListStartCommand getListToRun(){
         return listToRun;
     }
@@ -46,10 +67,14 @@ public abstract class ControlCommand extends BasicCommand {
         return (ListStartCommand) traverse(command);
     }
 
+    /**
+     * Abstract methods to be evaluated by sub classes. Sets up any instance variable prior to evaluating any loop commands.
+     *
+     * @throws ExecutionException if an error occurs while executing
+     */
     public abstract void setUpLoop() throws ExecutionException;
 
     private Command traverse(Command command){
-
         Command newHeadNode;
         newHeadNode = command.copy();
         for (Command c: command.getChildren()){

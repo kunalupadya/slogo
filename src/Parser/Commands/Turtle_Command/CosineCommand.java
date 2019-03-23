@@ -2,16 +2,20 @@ package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
 import Parser.Commands.BasicCommand;
-import Parser.Commands.Command;
+
 /**
+ * Commands return cosine of degrees param.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
 
 public class CosineCommand extends BasicCommand {
 
+    /**
+     * Command Constructor
+     */
     public CosineCommand(){
         setNumParameters(1);
         isOutputCommand = true;

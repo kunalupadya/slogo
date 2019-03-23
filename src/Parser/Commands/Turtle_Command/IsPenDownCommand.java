@@ -2,13 +2,14 @@ package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
-import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
 /**
+ * Command returns 1 if turtle's pen is down, 0 if it is up.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
 
 public class IsPenDownCommand extends TurtleCommand {
@@ -17,7 +18,7 @@ public class IsPenDownCommand extends TurtleCommand {
     private static final int PEN_UP = 0;
 
     /**
-     * returns 0 if pen is up and 1 if pen is down
+     * Command Constructor
      */
     public IsPenDownCommand(){
         isOutputCommand = true;

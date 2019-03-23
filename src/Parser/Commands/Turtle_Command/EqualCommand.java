@@ -1,17 +1,20 @@
 package Parser.Commands.Turtle_Command;
 
-
 import Parser.BackendController;
-import Parser.Commands.Command;
 
 /**
+ * Command returns 1 if the value of expr1 param and the value of expr2 param are equal, otherwise 0.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
 
 public class EqualCommand extends BooleanCommand{
 
+    /**
+     * Command Constructor
+     */
     public EqualCommand(){
         super();
         setNumParameters(2);

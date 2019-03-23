@@ -2,17 +2,20 @@ package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
 import Parser.Commands.BasicCommand;
-import Parser.Commands.Command;
 
 /**
+ * Command reports the number Pi.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
 
 public class PiCommand extends BasicCommand {
 
+    /**
+     * Command Constructor
+     */
     public PiCommand(){
         setNumParameters(0);
         isOutputCommand = true;

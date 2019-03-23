@@ -3,18 +3,21 @@ package Parser.Commands.Turtle_Command;
 import GraphicsBackend.Point;
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
-import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
 /**
+ * Command erases turtle's trails and sends it to the home position.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
 
 public class ClearScreenCommand extends TurtleCommand {
 
+    /**
+     * Command Constructor
+     */
     public ClearScreenCommand(){
         setNumParameters(0);
         isOutputCommand = false;

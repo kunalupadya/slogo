@@ -2,20 +2,23 @@ package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
-import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
 import java.util.List;
 
 /**
+ * Command returns current active turtle's ID number.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
 
 public class IDCommand extends TurtleCommand {
 
+    /**
+     * Command Constructor
+     */
     public IDCommand(){
         setNumParameters(0);
         isOutputCommand = true;

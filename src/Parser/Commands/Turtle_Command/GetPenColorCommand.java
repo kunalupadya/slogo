@@ -2,18 +2,21 @@ package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
-import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
 /**
+ * Command returns turtle's current color index.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
 
 public class GetPenColorCommand extends TurtleCommand {
 
+    /**
+     * Command Constructor
+     */
     public GetPenColorCommand(){
         setNumParameters(0);
         isOutputCommand = true;

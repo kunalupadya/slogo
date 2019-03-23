@@ -2,15 +2,15 @@ package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
 import Parser.Commands.BasicCommand;
-import Parser.Commands.Command;
 import javafx.scene.paint.Color;
 
 /**
+ * Command sets color corresponding at given index param to given r g b color param values.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
 public class SetPaletteCommand extends BasicCommand {
 
     private static final int INDEX = 0;
@@ -18,6 +18,9 @@ public class SetPaletteCommand extends BasicCommand {
     private static final int G_VALUE = 2;
     private static final int B_VALUE = 3;
 
+    /**
+     * Command Constructor
+     */
     public SetPaletteCommand(){
         setNumParameters(4);
         isOutputCommand = false;

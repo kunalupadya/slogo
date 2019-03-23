@@ -10,7 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Command assigns command(s) given in the second list to commandName using parameters given in first list as variables.
+ *
  * @author kunalupadya
+ * @author Dhanush Madabusi
  */
 public class MakeUserInstructionCommand extends BasicCommand {
 
@@ -19,11 +22,19 @@ public class MakeUserInstructionCommand extends BasicCommand {
     private static final int COMMANDS_LIST_NODE = 2;
     private List<Variable> variables = new ArrayList<>();
 
+    /**
+     * Command Constructor
+     */
     public MakeUserInstructionCommand(){
         setNumParameters(3);
         isOutputCommand = false;
     }
 
+    /**
+     * Returns list of UserDefinedCommand variables
+     *
+     * @return list of UserDefinedCommand variables
+     */
     public List<Variable> getVariables() {
         return variables;
     }

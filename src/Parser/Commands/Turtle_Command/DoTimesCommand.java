@@ -1,18 +1,16 @@
 package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
-import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.Variable;
 import Parser.ExecutionException;
 import Parser.SLogoException;
 
 /**
- * @author kunalupadya
- * @author Louis Lee
- * @author Dhanush
+ * Command runs command(s) for each value specified in the range, i.e., from (1 - limit) inclusive.
+ *
+ * @author Dhanush Madabusi
  */
-
 
 public class DoTimesCommand extends ControlCommand {
 
@@ -21,6 +19,9 @@ public class DoTimesCommand extends ControlCommand {
     private ListStartCommand commandListOrig;
     private Variable loopVar;
 
+    /**
+     * Command Constructor
+     */
     public DoTimesCommand() {
         super();
         setNumParameters(2);
@@ -46,12 +47,20 @@ public class DoTimesCommand extends ControlCommand {
         makeLoopVar.execute(backendController);
     }
 
+    /**
+     * Determines which expressions to evaluate prior to evaluating main command.
+     */
     @Override
     public void setInitialExpressions() {
         ListStartCommand loopParam = (ListStartCommand) getChildren().get(VAR_LIMIT_INDEX);
         initialExpressions.add(loopParam.getChildren().get(1));
     }
 
+    /**
+     * Sets up any instance variable prior to evaluating any loop commands.
+     *
+     * @throws ExecutionException if an error occurs while executing
+     */
     @Override
     public void setUpLoop() throws ExecutionException {
         ListStartCommand loopParam = (ListStartCommand) getChildren().get(VAR_LIMIT_INDEX);

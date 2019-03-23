@@ -1,16 +1,19 @@
 package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
-import Parser.Commands.Command;
 
 /**
+ * Command returns 1 if param1 and param2 are non-zero, otherwise 0.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
 public class AndCommand extends BooleanCommand{
 
+    /**
+     * Command Constructor
+     */
     public AndCommand(){
         super();
         setNumParameters(2);
@@ -18,7 +21,7 @@ public class AndCommand extends BooleanCommand{
     }
 
     @Override
-    public void performAction(BackendController backendController) {
+    protected void performAction(BackendController backendController) {
         setReturnValue(returnValue(getChildren().get(0).getReturnValue() != 0 &&
                 getChildren().get(1).getReturnValue() != 0));
     }

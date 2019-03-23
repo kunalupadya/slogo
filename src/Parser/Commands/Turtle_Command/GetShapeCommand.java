@@ -2,18 +2,21 @@ package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
-import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
 /**
+ * Command returns turtle's current shape index.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
 
 public class GetShapeCommand extends TurtleCommand {
 
+    /**
+     * Command Constructor
+     */
     public GetShapeCommand(){
         setNumParameters(0);
         isOutputCommand = true;

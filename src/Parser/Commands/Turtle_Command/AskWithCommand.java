@@ -2,11 +2,12 @@ package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
 import Parser.Commands.BasicCommand;
-import Parser.Commands.Command;
 import Parser.ExecutionException;
 import Parser.SLogoException;
 
 /**
+ * This command tells turtles matching given condition to run commands given in the second list.
+ *
  * @author Dhanush Madabusi
  */
 public class AskWithCommand extends BasicCommand {
@@ -14,6 +15,9 @@ public class AskWithCommand extends BasicCommand {
     private static final int CONDITION_INDEX = 0;
     private static final int COMMANDS_INDEX = 1;
 
+    /**
+     * Command Constructor
+     */
     public AskWithCommand(){
         isOutputCommand = false;
         setNumParameters(2);

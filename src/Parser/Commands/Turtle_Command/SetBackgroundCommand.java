@@ -2,20 +2,23 @@ package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
 import Parser.Commands.BasicCommand;
-import Parser.Commands.Command;
 import Parser.ExecutionException;
 import Parser.SLogoException;
 import javafx.scene.paint.Color;
 
 /**
+ * Command sets background color of screen to that represented by index param.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
 
 public class SetBackgroundCommand extends BasicCommand {
 
+    /**
+     * Command Constructor
+     */
     public SetBackgroundCommand(){
         setNumParameters(1);
         isOutputCommand = false;

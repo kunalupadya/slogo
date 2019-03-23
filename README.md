@@ -36,7 +36,7 @@ Hours Spent: 100+ (each)
 
 Januario Carreiro (jjc70@duke.edu) : All Controls within GUI Package, FrontendController, Controller, a little bit in Modules
 
-Kunal Upadya : BackendController, Grid, Turtle, Pen, ParsingTree, ExecuteCommand, Grouping, Recursion, additional commands
+Kunal Upadya (ku16@duke.edu) : BackendController, Grid, Turtle, Pen, ParsingTree, ExecuteCommand, Grouping, Recursion, additional commands
 
 Louis Lee (dl199@duke.edu) : Palette, ParseCommand, Token, TokenConverter, LanguageSetting, Basic Commands, additional commands
 

@@ -2,21 +2,23 @@ package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
-import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 import Parser.ExecutionException;
 import Parser.SLogoException;
 import javafx.scene.paint.Color;
 
 /**
+ * Command sets color of the pen to that represented by index.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
-
 public class SetPenColorCommand extends TurtleCommand {
 
+    /**
+     * Command Constructor
+     */
     public SetPenColorCommand(){
         setNumParameters(1);
         isOutputCommand = false;

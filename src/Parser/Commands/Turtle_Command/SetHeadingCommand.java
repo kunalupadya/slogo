@@ -2,18 +2,22 @@ package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
-import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 import Parser.ExecutionException;
 
 /**
+ * Command turns turtle to an absolute heading.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
 
 public class SetHeadingCommand extends TurtleCommand {
 
+    /**
+     * Command Constructor
+     */
     public SetHeadingCommand(){
         setNumParameters(1);
         isOutputCommand = false;

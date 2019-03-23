@@ -2,16 +2,19 @@ package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
 import Parser.Commands.BasicCommand;
-import Parser.Commands.Command;
 
 /**
+ * Command returns number of turtles created so far.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
 public class TurtlesCommand extends BasicCommand {
 
+    /**
+     * Command Constructor
+     */
     public TurtlesCommand(){
         setNumParameters(0);
         isOutputCommand = true;

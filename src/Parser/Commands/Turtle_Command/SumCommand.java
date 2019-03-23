@@ -2,17 +2,19 @@ package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
 import Parser.Commands.BasicCommand;
-import Parser.Commands.Command;
 
 /**
+ * Command returns sum of the values of expr1 param and expr2 param.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
-
 public class SumCommand extends BasicCommand {
 
+    /**
+     * Command Constructor
+     */
     public SumCommand(){
         setNumParameters(2);
         isOutputCommand = true;

@@ -8,6 +8,8 @@ import Parser.ExecutionException;
 import Parser.SLogoException;
 
 /**
+ * Command allows for unlimited parameters using the Group syntax.
+ *
  * @author Dhanush Madabusi
  */
 public class GroupStartCommand extends BasicCommand {
@@ -18,6 +20,9 @@ public class GroupStartCommand extends BasicCommand {
     private Command commandToRun;
     private boolean moreParametersLeft = true;
 
+    /**
+     * Command Constructor
+     */
     public GroupStartCommand(){
         setNumParameters((int) Double.POSITIVE_INFINITY);
         isOutputCommand = false;

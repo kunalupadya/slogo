@@ -2,18 +2,21 @@ package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
-import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 import Parser.ExecutionException;
 
 /**
+ * Command turns turtle to face the point (x, y), where (0, 0) is the center of the screen.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
 public class SetTowardsCommand extends TurtleCommand {
 
+    /**
+     * Command Constructor
+     */
     public SetTowardsCommand(){
         setNumParameters(2);
         isOutputCommand = false;

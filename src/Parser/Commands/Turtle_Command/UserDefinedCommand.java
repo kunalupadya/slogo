@@ -8,6 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * This command class handles user-defined commands and its list of variables and commands.
+ *
  * @author kunalupadya
  */
 public class UserDefinedCommand extends BasicCommand implements ImmutableUserDefinedCommand{
@@ -15,6 +17,9 @@ public class UserDefinedCommand extends BasicCommand implements ImmutableUserDef
     private List<Variable> variables;
     private ListStartCommand headNode;
 
+    /**
+     * Command Constructor
+     */
     public UserDefinedCommand(String name, List<Variable> variables, ListStartCommand headNode){
         isOutputCommand = false;
         this.name = name;
@@ -46,6 +51,11 @@ public class UserDefinedCommand extends BasicCommand implements ImmutableUserDef
         backendController.removeUserDefinedCommandFromStack(this);
     }
 
+    /**
+     * Returns copy of command
+     *
+     * @return copy of command
+     */
     @Override
     public Command copy() {
         List<Variable> newVariables = new LinkedList<>();

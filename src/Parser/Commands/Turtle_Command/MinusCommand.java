@@ -2,16 +2,20 @@ package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
 import Parser.Commands.BasicCommand;
-import Parser.Commands.Command;
 
 /**
+ * Command returns negative of the values of expr param.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
 
 public class MinusCommand extends BasicCommand {
 
+    /**
+     * Command Constructor
+     */
     public MinusCommand(){
         setNumParameters(1);
         isOutputCommand = true;

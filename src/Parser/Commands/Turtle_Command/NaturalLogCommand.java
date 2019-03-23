@@ -2,17 +2,20 @@ package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
 import Parser.Commands.BasicCommand;
-import Parser.Commands.Command;
 
 /**
+ * Command returns natural log of expr param.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
 
 public class NaturalLogCommand extends BasicCommand {
 
+    /**
+     * Command Constructor
+     */
     public NaturalLogCommand(){
         setNumParameters(1);
         isOutputCommand = true;

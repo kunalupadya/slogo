@@ -1,18 +1,16 @@
 package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
-import Parser.Commands.Command;
 import Parser.Commands.ConstantCommand;
 import Parser.Commands.Variable;
 import Parser.ExecutionException;
 import Parser.SLogoException;
 
 /**
- * @author kunalupadya
- * @author Louis Lee
- * @author Dhanush
+ * Command runs command(s) given in the list the value of expr param number of times.
+ *
+ * @author Dhanush Madabusi
  */
-
 
 public class RepeatCommand extends ControlCommand {
 
@@ -20,6 +18,9 @@ public class RepeatCommand extends ControlCommand {
     private static final int COMMANDS_INDEX = 1;
     private ListStartCommand commandListOrig;
 
+    /**
+     * Command Constructor
+     */
     public RepeatCommand() {
         super();
         setNumParameters(2);
@@ -32,11 +33,19 @@ public class RepeatCommand extends ControlCommand {
         makeRepCountVar.execute(backendController);
     }
 
+    /**
+     * Determines which expressions to evaluate prior to evaluating main command.
+     */
     @Override
     public void setInitialExpressions() {
         initialExpressions.add(getChildren().get(EXPRESSION_INDEX));
     }
 
+    /**
+     * Sets up any instance variable prior to evaluating any loop commands.
+     *
+     * @throws ExecutionException if an error occurs while executing
+     */
     @Override
     public void setUpLoop() throws ExecutionException {
         limit = (int) initialExpressions.get(EXPRESSION_INDEX).getReturnValue();

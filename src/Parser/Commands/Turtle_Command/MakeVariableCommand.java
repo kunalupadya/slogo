@@ -8,10 +8,16 @@ import Parser.ExecutionException;
 import Parser.SLogoException;
 
 /**
+ * Command assigns the value of expr to variable, creating the variable if necessary.
+ *
  * @author kunalupadya
+ * @author Dhanush Madabusi
  */
 public class MakeVariableCommand extends BasicCommand {
 
+    /**
+     * Command Constructor
+     */
     public MakeVariableCommand(){
         setNumParameters(2);
         isOutputCommand = false;

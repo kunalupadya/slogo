@@ -3,11 +3,12 @@ package Parser.Commands.Turtle_Command;
 import Parser.Commands.BasicCommand;
 
 /**
+ * This abstract defines a returnValue() method to facilitate performAction() methods in Boolean Commands.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
 
 public abstract class BooleanCommand extends BasicCommand{
 

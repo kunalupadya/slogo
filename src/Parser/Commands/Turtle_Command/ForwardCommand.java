@@ -2,20 +2,22 @@ package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
-import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 import Parser.ExecutionException;
-import Parser.ParserException;
 
 /**
+ * Command moves turtle forward in its current heading by pixels param distance.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
 
 public class ForwardCommand extends TurtleCommand {
 
+    /**
+     * Command Constructor
+     */
     public ForwardCommand(){
         setNumParameters(1);
         isOutputCommand = false;

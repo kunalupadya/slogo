@@ -2,15 +2,15 @@ package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
-import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 
 /**
+ * Command returns 1 if turtle is showing, 0 if it is hiding.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
 
 public class IsShowingCommand extends TurtleCommand {
 
@@ -18,7 +18,7 @@ public class IsShowingCommand extends TurtleCommand {
     private static final int HIDDEN = 0;
 
     /**
-     * returns 1 if turtle is showing, 0 if it is hiding
+     * Command Constructor
      */
     public IsShowingCommand(){
         setNumParameters(0);

@@ -6,15 +6,20 @@ import Parser.Commands.Command;
 import Parser.Commands.Variable;
 import Parser.ExecutionException;
 import Parser.SLogoException;
-
 import java.util.List;
 import java.util.Optional;
 
 /**
+ * Command handles any alphabet text input that is not recognized in pre-defined set of commands.
+ *
  * @author kunalupadya
+ * @author Dhanush Madabusi
  */
 public class TextCommand extends BasicCommand {
 
+    /**
+     * Command Constructor
+     */
     public TextCommand(String text){
         setNumParameters(0);
         setText(text);
@@ -47,6 +52,11 @@ public class TextCommand extends BasicCommand {
         }
     }
 
+    /**
+     * Returns copy of command
+     *
+     * @return copy of command
+     */
     @Override
     public Command copy() {
         return new TextCommand(getText());

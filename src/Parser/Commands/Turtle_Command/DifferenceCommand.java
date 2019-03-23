@@ -2,17 +2,20 @@ package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
 import Parser.Commands.BasicCommand;
-import Parser.Commands.Command;
 
 /**
+ * Command returns difference of the values of expr1 param and expr2 param.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
 
 public class DifferenceCommand extends BasicCommand {
 
+    /**
+     * Command Constructor
+     */
     public DifferenceCommand(){
         setNumParameters(2);
         isOutputCommand = true;

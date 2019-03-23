@@ -7,6 +7,8 @@ import Parser.ExecutionException;
 import Parser.SLogoException;
 
 /**
+ * For this command, only the turtles given in first list all run commands given in the second list.
+ *
  * @author Dhanush Madabusi
  */
 public class AskCommand extends BasicCommand {
@@ -14,6 +16,9 @@ public class AskCommand extends BasicCommand {
     private static final int TURTLES_INDEX = 0;
     private static final int COMMANDS_INDEX = 1;
 
+    /**
+     * Command Constructor
+     */
     public AskCommand(){
         setNumParameters(2);
         isOutputCommand = false;

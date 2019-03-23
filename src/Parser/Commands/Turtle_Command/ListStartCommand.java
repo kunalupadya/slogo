@@ -2,13 +2,17 @@ package Parser.Commands.Turtle_Command;
 
 import Parser.BackendController;
 import Parser.Commands.BasicCommand;
-import Parser.Commands.Command;
 
 /**
+ * Command represents start of a List.
+ *
  * @author kunalupadya
  */
 public class ListStartCommand extends BasicCommand {
 
+    /**
+     * Command Constructor
+     */
     public ListStartCommand(){
         setNumParameters((int) Double.POSITIVE_INFINITY);
         isOutputCommand = false;

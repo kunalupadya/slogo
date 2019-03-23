@@ -2,19 +2,22 @@ package Parser.Commands.Turtle_Command;
 
 import GraphicsBackend.Turtle;
 import Parser.BackendController;
-import Parser.Commands.Command;
 import Parser.Commands.TurtleCommand;
 import Parser.ExecutionException;
 
 /**
+ * Command turns turtle counterclockwise by degrees param angle.
+ *
  * @author kunalupadya
  * @author Louis Lee
- * @author Dhanush
+ * @author Dhanush Madabusi
  */
-
 
 public class LeftCommand extends TurtleCommand {
 
+    /**
+     * Command Constructor
+     */
     public LeftCommand() {
         setNumParameters(1);
         isOutputCommand = false;

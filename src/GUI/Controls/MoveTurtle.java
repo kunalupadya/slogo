@@ -2,7 +2,6 @@ package GUI.Controls;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
 import javafx.event.ActionEvent;
 import java.util.ResourceBundle;
 
@@ -18,7 +17,7 @@ public class MoveTurtle extends MenuButtonControl{
      * @param context where this button is located
      */
     public MoveTurtle(FrontendController context) {
-        super(new Image(FrontendController.class.getResourceAsStream("/images/moveTurtle.png")), context,"/buttonProperties/TurtleMovements");
+        super("MoveTurtle", context,"/buttonProperties/TurtleMovements");
         languageResourceBundle = ResourceBundle.getBundle("/languageProperties/English");
     }
 

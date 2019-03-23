@@ -4,7 +4,6 @@ import GUI.FrontendController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -20,8 +19,8 @@ public abstract class MenuButtonControl extends Control {
     ResourceBundle myResourceBundle;
     private MenuButton myButton;
 
-    public MenuButtonControl(Image image, FrontendController context,String resourceBundlePath) {
-        super(image, context);
+    public MenuButtonControl(String buttonClassName, FrontendController context,String resourceBundlePath) {
+        super(buttonClassName, context);
         this.myButton = new MenuButton();
         this.myResourceBundle = ResourceBundle.getBundle(resourceBundlePath);
 

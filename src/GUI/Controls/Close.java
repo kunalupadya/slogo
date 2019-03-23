@@ -16,7 +16,7 @@ public class Close extends ButtonControl {
      * @param context where this button is located
      */
     public Close(Module context, Class clazz) {
-        super(new Image(Module.class.getResourceAsStream("/images/close.png")), null);
+        super("Close", null);
         myImage.setFitHeight(10.0);
         myImage.setFitWidth(10.0);
         this.myButton.setGraphic(myImage);

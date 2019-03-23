@@ -13,7 +13,7 @@ public class FileLoad extends ButtonControl{
      * @param context where this button is located
      */
     public FileLoad(FrontendController context) {
-        super(new Image(FrontendController.class.getResourceAsStream("/images/loadFile.png")), context);
+        super("FileLoad", context);
     }
 
     @Override

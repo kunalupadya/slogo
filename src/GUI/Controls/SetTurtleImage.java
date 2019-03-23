@@ -2,7 +2,6 @@ package GUI.Controls;
 
 import GUI.FrontendController;
 import javafx.event.EventHandler;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -15,7 +14,7 @@ public class SetTurtleImage extends ButtonControl {
      * @param context where this button is located
      */
     public SetTurtleImage(FrontendController context) {
-        super(new Image(FrontendController.class.getResourceAsStream("/images/initialTurtle.png")), context);
+        super("SetTurtleImage", context);
         this.context = context;
     }
 

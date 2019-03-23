@@ -2,7 +2,6 @@ package GUI.Controls;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
 import javafx.event.ActionEvent;
 import java.util.ResourceBundle;
 
@@ -16,7 +15,7 @@ public class SwitchLanguages extends MenuButtonControl{
      * @param context where this button is located
      */
     public SwitchLanguages(FrontendController context) {
-        super(new Image(FrontendController.class.getResourceAsStream("/images/language.png")), context,"/languageProperties/LanguageSettings");
+        super("SwitchLanguages", context,"/languageProperties/LanguageSettings");
     }
 
     @Override

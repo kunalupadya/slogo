@@ -3,7 +3,6 @@ package GUI.Controls;
 import GUI.FrontendController;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -18,10 +17,10 @@ public abstract class ButtonControl extends Control{
     /**
      * Creates button instance and calls superclass to set graphic.
      *
-     * @param image graphic for button
+     * @param buttonClassName name of button
      */
-    public ButtonControl(Image image, FrontendController context) {
-        super(image, context);
+    public ButtonControl(String buttonClassName, FrontendController context) {
+        super(buttonClassName, context);
         this.myButton = new Button();
 
         myButton.setGraphic(myImage);

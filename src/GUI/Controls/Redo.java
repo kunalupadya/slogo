@@ -2,7 +2,6 @@ package GUI.Controls;
 
 import GUI.FrontendController;
 import javafx.event.EventHandler;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -14,7 +13,7 @@ public class Redo extends ButtonControl {
      * @param context where this button is located
      */
     public Redo(FrontendController context) {
-        super(new Image(FrontendController.class.getResourceAsStream("/images/redo.png")), context);
+        super("Redo", context);
     }
 
     @Override

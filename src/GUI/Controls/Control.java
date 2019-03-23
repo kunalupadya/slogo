@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ResourceBundle;
 
 /**
  * Abstract superclass for all controls. This class is extended by ButtonControl and MenuButtonControl to work for
@@ -18,8 +19,10 @@ public abstract class Control {
     FrontendController myContext;
     private final double imageSize = 20.0;
 
-    public Control(Image image, FrontendController context) {
-        this.myImage = new ImageView(image);
+    public Control(String buttonClassName, FrontendController context) {
+        final ResourceBundle buttonImages = ResourceBundle.getBundle("/buttonProperties/ButtonImages");
+
+        this.myImage = new ImageView(new Image(FrontendController.class.getResourceAsStream("/images/" + buttonImages.getString(buttonClassName))));
         this.myContext = context;
 
         myImage.setFitHeight(imageSize);

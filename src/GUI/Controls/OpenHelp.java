@@ -4,7 +4,6 @@ import GUI.FrontendController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
 
 import java.util.ResourceBundle;
 
@@ -16,7 +15,7 @@ public class OpenHelp extends MenuButtonControl{
      * @param context where this button is located
      */
     public OpenHelp(FrontendController context) {
-        super(new Image(FrontendController.class.getResourceAsStream("/images/help.png")), context, "/buttonProperties/HelpButtonLinks");
+        super("OpenHelp", context, "/buttonProperties/HelpButtonLinks");
     }
 
     @Override

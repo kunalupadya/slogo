@@ -1,0 +1,13 @@
+to spiral [ :len ]
+[
+  if less? :len 300
+  [
+    setps / :len 20
+    setpc sum random 5 1
+    fd :len
+    lt 89
+    spiral + :len 3
+  ]
+]
+
+spiral 10

@@ -89,6 +89,9 @@ class ExecuteCommand {
     }
 
     private void handleTurtleCommand(Command node) throws SLogoException{
+        if (node.getChildren().size() != node.getNumParameters()){
+            throw new ExecutionException(getCommandClassName(node) + " is missing one or more parameters");
+        }
         List<Turtle> turtleList = new ArrayList<>(backendController.getMyTurtles());
         var prevCurrTurtleIndex = findCurrTurtleIndex(currTurtle);
         for (Turtle t: turtleList){

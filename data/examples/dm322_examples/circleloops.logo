@@ -1,0 +1,7 @@
+ripitere 30 [
+impostapennacolore somma casuale 5 1
+ripitere 360 [
+avanti 1 destra 1
+]
+destra 12
+]

@@ -1,0 +1,12 @@
+to hexagon [ ]
+[ repeat 6 [
+  ( fd 35 25 15 ) rt 60 ]
+]
+tell [ 1 10 ]
+setheading product id 36
+setpc sum random 5 1
+pu fd 50 pd
+repeat 20 [
+hexagon
+rt 18
+]

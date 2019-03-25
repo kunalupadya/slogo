@@ -14,8 +14,6 @@ import java.util.*;
  */
 class ExecuteCommand {
 
-    private static final int EXPRESSION_INDEX = 1;
-    private static final int COMMAND_INDEX = 0;
     private final RootCommand headNode;
     private final BackendController backendController;
     private Turtle currTurtle;
@@ -25,12 +23,7 @@ class ExecuteCommand {
     ExecuteCommand(BackendController backendController, ParsingTree tree) {
         headNode = (RootCommand) tree.getRoot();
         this.backendController = backendController;
-        for (Turtle t: backendController.getMyTurtles()){
-            if (t.getIsTurtleActive()){
-                currTurtle = t;
-                break;
-            }
-        }
+        findFirstActiveTurtle();
     }
 
     void runCommands() throws SLogoException{
@@ -40,20 +33,14 @@ class ExecuteCommand {
         }
         traverse(headNode);
         if (outputToConsole){
-            handleConsoleOutput();
+            Command outputCommand = headNode.getChildren().get(0);
+            if (outputCommand instanceof BooleanCommand || outputCommand instanceof IsPenDownCommand || outputCommand instanceof IsShowingCommand){
+                backendController.outputResultToConsole("Result: " + (outputCommand.getReturnValue() == 1));
+            }
+            else{
+                backendController.outputResultToConsole("Result: " + outputCommand.getReturnValue());
+            }
         }
-    }
-
-    private void handleConsoleOutput() {
-        Command outputCommand = headNode.getChildren().get(0);
-        String output = "Result: ";
-        if (outputCommand instanceof BooleanCommand || outputCommand instanceof IsPenDownCommand || outputCommand instanceof IsShowingCommand){
-            output += outputCommand.getReturnValue() == 1;
-        }
-        else{
-            output += String.valueOf(outputCommand.getReturnValue());
-        }
-        backendController.outputResultToConsole(output);
     }
 
     private void traverse(Command node) throws SLogoException{
@@ -65,22 +52,23 @@ class ExecuteCommand {
             return;
         }
         if (node.getClass() == GroupStartCommand.class){
-            handleGroupCommand(node);
+            handleGroupCommand((GroupStartCommand) node);
             return;
         }
         if (node.getClass() == TellCommand.class){
-            handleTellCommand(node);
+            handleTellCommand((BasicCommand) node);
             return;
         }
         if (node.getClass() == AskCommand.class || node.getClass() == AskWithCommand.class){
-            handleAskCommands(node);
+            handleAskCommands((BasicCommand) node);
             return;
         }
         if (node instanceof ListStartCommand){
             handleListStartCommand(node);
+            return;
         }
         if (node instanceof ControlCommand){
-            handleControlCommand(node);
+            handleControlCommand((ControlCommand) node);
             return;
         }
         if (node instanceof TurtleCommand) {
@@ -88,7 +76,7 @@ class ExecuteCommand {
                 throw new ExecutionException("No turtle is currently active");
             }
             if (((TurtleCommand) node).isTurtleQuery()) {
-                handleTurtleQueries(node);
+                ((TurtleCommand) node).execute(backendController, currTurtle);
                 return;
             }
             if (!isASubTurtleCommand) {
@@ -99,11 +87,6 @@ class ExecuteCommand {
         // any commands that need to be executed before/while children are generated happen before this point
         traverseChildren(node);
         handleAfterGenerationOfChildren(node);
-    }
-
-    private void handleTurtleQueries(Command node) throws SLogoException{
-        TurtleCommand turtleCom = (TurtleCommand) node;
-        turtleCom.execute(backendController, currTurtle);
     }
 
     private void handleTurtleCommand(Command node) throws SLogoException{
@@ -123,27 +106,17 @@ class ExecuteCommand {
         currTurtle = getPrevTurtle(prevCurrTurtleIndex);
     }
 
-    private void handleTellCommand(Command node) throws SLogoException{
-        BasicCommand tellComm = (BasicCommand) node;
-        traverse(tellComm.getChildren().get(0));
-        tellComm.execute(backendController);
-        for (Turtle t: backendController.getMyTurtles()){
-            if (t.getIsTurtleActive()){
-                currTurtle = t;
-                break;
-            }
-        }
+    private void handleTellCommand(BasicCommand tellCom) throws SLogoException{
+        traverse(tellCom.getChildren().get(0));
+        tellCom.execute(backendController);
+        findFirstActiveTurtle();
     }
 
-    private void handleAskCommands(Command node) throws SLogoException{
-        boolean isAskCommand = (node.getClass() == AskCommand.class);
+    private void handleAskCommands(BasicCommand askCom) throws SLogoException{
+        boolean isAskCommand = (askCom.getClass() == AskCommand.class);
         var prevCurrTurtleIndex = findCurrTurtleIndex(currTurtle);
-        BasicCommand askCom = (BasicCommand) node;
         if (askCom.getChildren().get(0).getClass() != ListStartCommand.class){
-            String currCommandClass = askCom.getClass().toString();
-            String prefix = "class Parser.Commands.Turtle_Command.";
-            String command = currCommandClass.substring(prefix.length());
-            throw new ExecutionException(command + " is missing its first List parameter");
+            throw new ExecutionException(getCommandClassName(askCom) + " is missing its first List parameter");
         }
         if (isAskCommand) {
             boolean prevState = isASubTurtleCommand;
@@ -210,11 +183,10 @@ class ExecuteCommand {
         isASubTurtleCommand = prevState;
     }
 
-    private void handleGroupCommand(Command node) throws SLogoException{
-        if (node.getChildren().get(COMMAND_INDEX).getNumParameters() == 0 && node.getChildren().size() > 2){
+    private void handleGroupCommand(GroupStartCommand groupCom) throws SLogoException{
+        if (groupCom.getChildren().get(0).getNumParameters() == 0 && groupCom.getChildren().size() > 2){
             throw new ExecutionException("Group command expects no parameters");
         }
-        GroupStartCommand groupCom = (GroupStartCommand) node;
         groupCom.setUpGroupMainCom();
         while(groupCom.areMoreParametersLeft()){
             groupCom.setIsEvaluated(false);
@@ -225,15 +197,13 @@ class ExecuteCommand {
         }
     }
 
-    private void handleControlCommand(Command node) throws SLogoException{
-        if (node instanceof IfCommand || node instanceof IfElseCommand) {
-            handleIfCommands(node);
+    private void handleControlCommand(ControlCommand controlCom) throws SLogoException{
+        if (controlCom instanceof IfCommand || controlCom instanceof IfElseCommand) {
+            handleIfCommands(controlCom);
             return;
         }
-        ControlCommand controlCom = (ControlCommand) node;
         controlCom.setInitialExpressions();
-        List<Command> initExpr = controlCom.getInitialExpressions();
-        for (Command expr: initExpr) {
+        for (Command expr: controlCom.getInitialExpressions()) {
             traverse(expr);
         }
         controlCom.setUpLoop();
@@ -241,7 +211,7 @@ class ExecuteCommand {
             controlCom.execute(backendController);
             if (controlCom.getListToRun() != null) {
                 handleListStartCommand(controlCom.getListToRun());
-                node.setReturnValue(controlCom.getListToRun().getReturnValue());
+                controlCom.setReturnValue(controlCom.getListToRun().getReturnValue());
             }
         }
     }
@@ -256,8 +226,7 @@ class ExecuteCommand {
                 currTurtle = t;
                 ControlCommand commandCopy = (ControlCommand) copyRecurse(node);
                 commandCopy.setInitialExpressions();
-                List<Command> initExpr = commandCopy.getInitialExpressions();
-                for (Command expr: initExpr) {
+                for (Command expr: commandCopy.getInitialExpressions()) {
                     traverse(expr);
                 }
                 commandCopy.execute(backendController);
@@ -273,37 +242,28 @@ class ExecuteCommand {
 
     private void handleListStartCommand(Command node) throws SLogoException{
         traverseChildren(node);
-        var childrenList = node.getChildren();
-        node.setReturnValue(childrenList.get(childrenList.size() - 2).getReturnValue());
+        node.setReturnValue(node.getChildren().get(node.getChildren().size() - 2).getReturnValue());
     }
 
     private void handleAfterGenerationOfChildren(Command node) throws SLogoException{
-        //used for methods that must execute after children have been generated (such as textcommands
+        //used for methods that must execute after children have been generated
         if (node.getClass() == TextCommand.class){
-            handleTextCommand(node);
+            handleTextCommand((TextCommand) node);
         }
         else if (node.getNumParameters() == node.getChildren().size()){
             if (node instanceof TurtleCommand) {
-                TurtleCommand turtleCom = (TurtleCommand) node;
-                turtleCom.execute(backendController, currTurtle);
+                ((TurtleCommand) node).execute(backendController, currTurtle);
             }
             if (node instanceof BasicCommand) {
-                BasicCommand turtleCom = (BasicCommand) node;
-                turtleCom.execute(backendController);
+                ((BasicCommand) node).execute(backendController);
             }
         }
-        else if (node.getNumParameters() != (int) Double.POSITIVE_INFINITY){
-            // the root command should not throw an error
-            String currCommandClass = node.getClass().toString();
-            String prefix = "class Parser.Commands.Turtle_Command.";
-            String command = currCommandClass.substring(prefix.length());
-            throw new ExecutionException(command + " is missing one or more parameters");
+        else if (node.getNumParameters() != (int) Double.POSITIVE_INFINITY){ // the root command should not throw an error
+            throw new ExecutionException(getCommandClassName(node) + " is missing one or more parameters");
         }
     }
 
-
-    private void handleTextCommand(Command node) throws SLogoException{
-        TextCommand textCom = (TextCommand) node;
+    private void handleTextCommand(TextCommand textCom) throws SLogoException{
         textCom.execute(backendController);
         UserDefinedCommand userCom = (UserDefinedCommand) textCom.getChildren().get(0);
         handleListStartCommand(userCom.getHeadNode());
@@ -325,14 +285,12 @@ class ExecuteCommand {
             initVarCommand.addChildren(new ConstantCommand(0.0));
             initVarCommand.execute(backendController);
         }
-        traverse(node.getChildren().get(EXPRESSION_INDEX));
-        BasicCommand makeVarCom = (BasicCommand) node;
-        makeVarCom.execute(backendController);
+        traverse(node.getChildren().get(1)); //evaluate expression
+        ((BasicCommand) node).execute(backendController);
     }
 
     private Command copyRecurse(Command command){
-        Command newHeadNode;
-        newHeadNode = command.copy();
+        Command newHeadNode = command.copy();
         for (Command c: command.getChildren()){
             newHeadNode.addChildren(copyRecurse(c));
         }
@@ -343,9 +301,8 @@ class ExecuteCommand {
         if (currTurtle == null){
             return -1;
         }
-        List<Turtle> turtleList = backendController.getMyTurtles();
         int index = 0;
-        for (Turtle t: turtleList){
+        for (Turtle t: backendController.getMyTurtles()){
             if (currTurtle.equals(t)){
                 break;
             }
@@ -359,5 +316,20 @@ class ExecuteCommand {
             return null;
         }
         return backendController.getMyTurtles().get(index);
+    }
+
+    private void findFirstActiveTurtle(){
+        for (Turtle t: backendController.getMyTurtles()){
+            if (t.getIsTurtleActive()){
+                currTurtle = t;
+                break;
+            }
+        }
+    }
+
+    private String getCommandClassName(Command node){
+        String currCommandClass = node.getClass().toString();
+        String prefix = "class Parser.Commands.Turtle_Command.";
+        return currCommandClass.substring(prefix.length());
     }
 }

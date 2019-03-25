@@ -8,6 +8,7 @@ import java.util.List;
  * This is the abstract class defines all base methods. All commands must extend this class.
  * @author kunalupadya
  * @author Louis Lee
+ * @author Dhanush Madabusi
  */
 public abstract class Command{
 

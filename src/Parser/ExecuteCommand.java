@@ -83,8 +83,7 @@ class ExecuteCommand {
                 handleTurtleCommand(node);
                 return;
             }
-        }
-        // any commands that need to be executed before/while children are generated happen before this point
+        } // any commands that need to be executed before/while children are generated happen before this point
         traverseChildren(node);
         handleAfterGenerationOfChildren(node);
     }
@@ -128,8 +127,7 @@ class ExecuteCommand {
         List<Boolean> prevTurtleStates = getCurrentTurtleStates();
         if (isAskCommand) {
             setNewTurtleStates(askCom.getChildren().get(0));
-        }
-        else{
+        } else{
             findNewActiveTurtles(askCom.getChildren().get(0));
         }
         handleListStartCommand(askCom.getChildren().get(1));
@@ -249,16 +247,13 @@ class ExecuteCommand {
         //used for methods that must execute after children have been generated
         if (node.getClass() == TextCommand.class){
             handleTextCommand((TextCommand) node);
-        }
-        else if (node.getNumParameters() == node.getChildren().size()){
+        } else if (node.getNumParameters() == node.getChildren().size()){
             if (node instanceof TurtleCommand) {
                 ((TurtleCommand) node).execute(backendController, currTurtle);
-            }
-            if (node instanceof BasicCommand) {
+            } else {
                 ((BasicCommand) node).execute(backendController);
             }
-        }
-        else if (node.getNumParameters() != (int) Double.POSITIVE_INFINITY){ // the root command should not throw an error
+        } else if (node.getNumParameters() != (int) Double.POSITIVE_INFINITY){ // the root command should not throw an error
             throw new ExecutionException(getCommandClassName(node) + " is missing one or more parameters");
         }
     }

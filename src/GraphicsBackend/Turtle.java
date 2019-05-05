@@ -44,6 +44,20 @@ public class Turtle implements FrontendImmutableTurtle {
         turtleImage = new javafx.scene.image.Image(this.getClass().getResourceAsStream(DEFAULT_IMAGE));
     }
 
+    public Turtle(Turtle turtle){
+        xPos = turtle.xPos;
+        yPos = turtle.yPos;
+        myAngle = turtle.myAngle;
+        myPen = turtle.myPen;
+        turtleImage = turtle.turtleImage;
+        myGrid = turtle.myGrid;
+        isTurtleVisible = turtle.isTurtleVisible;
+        isTurtleActive = turtle.isTurtleActive;
+        myShape = turtle.myShape;
+        previousPositions = turtle.previousPositions;
+        lastLinesPlaced = turtle.lastLinesPlaced;
+    }
+
     private void updateTurtleImageView(ImageView turtle){
         turtle.setImage(turtleImage);
         turtle.setX(xPos-HALF_TURTLE_SIZE);

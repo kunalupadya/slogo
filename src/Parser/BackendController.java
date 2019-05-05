@@ -18,6 +18,7 @@ public class BackendController {
     private String commandLanguage;
     private Grid myGrid;
     private List<Turtle> myTurtles = new ArrayList<>();
+    private List<Turtle> myStamps = new ArrayList<>();
     private Map<String, ImmutableUserDefinedCommand> userDefinedCommands;
     private Map<String, Variable> availableVariables;
     private List<UserDefinedCommand> userDefinedCommandStack = new LinkedList<>();
@@ -91,6 +92,14 @@ public class BackendController {
         return Optional.empty();
     }
 
+    public void addToMyStamps(Turtle t) {
+        myStamps.add(t);
+    }
+
+    public void clearStamps(){
+        myStamps.clear();
+    }
+
     /**
      * gets the userdefined command if it exists
      * @param commandName
@@ -150,6 +159,9 @@ public class BackendController {
     public List<FrontendImmutableTurtle> getFrontendImmutableTurtles(){
         List<FrontendImmutableTurtle> frontendImmutableTurtles = new ArrayList<>();
         for (Turtle turtle:myTurtles){
+            frontendImmutableTurtles.add(turtle.getFrontendImmutableTurtle());
+        }
+        for (Turtle turtle:myStamps){
             frontendImmutableTurtles.add(turtle.getFrontendImmutableTurtle());
         }
         return frontendImmutableTurtles;

@@ -1,0 +1,3 @@
+Estimation:
+
+I believe that making all of the changes necessary should take all of 10 minutes. All I should have to do is to create a new command, add a stamp list of turtles to the backend controller, and add that stamp list to the things that get viewed by the frontend. This should be 3-4 additions to classes. To make both commands work I will need to create two command classes and make a modification to the backendcontroller class.
